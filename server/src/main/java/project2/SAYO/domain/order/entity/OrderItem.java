@@ -23,4 +23,8 @@ public class OrderItem {
 
     @Column(nullable = false)
     private Long waybillNumber;
+
+    @ManyToOne
+    @JoinColumn(name="ORDER_ID")
+    private Order order;
 }

@@ -18,4 +18,8 @@ public class ChatRoom extends Auditable {
 
     @Column(nullable = false)
     private String chatRoomName;
+
+//    @ManyToOne
+//    @JoinColumn(name="USER_ID")
+//    private User user; 유저 클래스 병합 후 연결
 }

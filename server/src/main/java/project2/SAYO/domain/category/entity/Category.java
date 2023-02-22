@@ -17,6 +17,6 @@ public class Category extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long categoryId;
 
-    @Column(nullable = false)
-    private String categoryName;
+    @Column(nullable = false, length = 50)
+    private String categoryName; // 카테고리 이름
 }

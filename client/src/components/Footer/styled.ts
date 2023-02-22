@@ -20,8 +20,15 @@ export const FooterContainer = styled.div`
     background-color: #f9bb00;
     color: #fff;
   }
+  ::root {
+  --font-size-lg: 5vw;
+  --font-size-md: 4vw;
+  --font-size-sm: 3vw;
+  }
+
 @media screen and (min-width: ${'80rem'}){
     font-size: 3.125rem;
+    
   }
 
   .logo {

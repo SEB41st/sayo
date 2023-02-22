@@ -19,7 +19,7 @@ public class Order extends Auditable {
     private Long orderPrice;
 
     @Column(nullable = false)
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus = OrderStatus.PAYMENT_COMPLETED;
 
 //    @ManyToOne
 //    @JoinColumn(name="USER_ID")

@@ -16,7 +16,7 @@ public class ShoppingCart extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shoppingCartId;
 
-    @Column(nullable = false)
+    @Column
     private boolean shoppingCartSelected;
 
 //    @ManyToOne

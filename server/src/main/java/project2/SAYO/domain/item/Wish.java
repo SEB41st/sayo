@@ -16,7 +16,7 @@ public class Wish extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wishId;
 
-    @Column(nullable = false)
+    @Column
     private boolean wishSelected;
 
 //    @ManyToOne

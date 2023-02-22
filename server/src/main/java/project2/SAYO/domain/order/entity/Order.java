@@ -16,12 +16,6 @@ public class Order extends Auditable {
     private Long orderId;
 
     @Column(nullable = false)
-    private Long userId;
-
-    @Column(nullable = false)
-    private Long addressId;
-
-    @Column(nullable = false)
     private Long orderPrice;
 
     @Column(nullable = false)

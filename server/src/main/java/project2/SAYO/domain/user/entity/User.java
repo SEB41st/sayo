@@ -30,7 +30,7 @@ public class User extends Auditable {
     private UserStatus userStatus = UserStatus.USER_ACTIVE; // 회원 상태
 
     @Enumerated(value = EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     private ProviderType providerType; // GOOGLE/NAVER/KAKAO
 
     public enum UserStatus {

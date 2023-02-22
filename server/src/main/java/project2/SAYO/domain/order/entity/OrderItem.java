@@ -15,7 +15,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
 
-    @Column(nullable = false)
+    @Column
     private Long waybillNumber;
 
     @ManyToOne

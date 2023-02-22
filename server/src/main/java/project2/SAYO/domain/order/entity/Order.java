@@ -19,7 +19,7 @@ public class Order extends Auditable {
     private Long orderPrice;
 
     @Column(nullable = false)
-    private Enum orderStatus;
+    private OrderStatus orderStatus;
 
 //    @ManyToOne
 //    @JoinColumn(name="USER_ID")

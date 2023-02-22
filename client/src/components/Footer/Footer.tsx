@@ -7,22 +7,18 @@ const Footer = () => {
         <span className="logo">
           SAYO
           <a href="https://github.com/SEB41st/sayo">
-            <img
-              src="/assets/Github.png"
-              alt=""
-              style={{ width: "1rem" }}
-            ></img>
+            <img className="img" src="/assets/Github.png" alt=""></img>
           </a>
         </span>
 
         <div className="creaters">
-          BACKEND : 강신찬, 김희진, 박금비<br/>
+          BACKEND : 강신찬, 김희진, 박금비
+          <br />
           FRONTEND : 강성심, 이영우, 장한나
         </div>
         <div className="copyright">
           <span>COPYRIGHT SAYO.ALL RIGHT RESERVED</span>
         </div>
-
       </S.FooterContainer>
     </S.FooterWrap>
   );

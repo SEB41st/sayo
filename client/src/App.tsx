@@ -12,7 +12,7 @@ const Domain = styled.div`
   min-height: 40rem;
 `;
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <Domain>
       <GlobalStyle />

@@ -19,9 +19,6 @@ public class Wish extends Auditable {
     @Column(nullable = false)
     private boolean wishSelected;
 
-    @Column(nullable = false)
-    private Long userId;
-
 //    @ManyToOne
 //    @JoinColumn(name="USER_ID")
 //    private User user; 유저 클래스 병합 후 연결

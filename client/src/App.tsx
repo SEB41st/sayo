@@ -6,6 +6,8 @@ import styled from "styled-components";
 import Main from "./pages/Main/Main";
 import Write from "./pages/Write/Write";
 import Footer from "./components/Footer/Footer";
+import Mypage from "./pages/Mypage/Mypage";
+import Detail from "./pages/Detail/Detail";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -18,12 +20,13 @@ const App = () => {
       <GlobalStyle />
       {/* <Routes>
         <Route path="/" element={<Main />} 
+        <Route path="/detail" element={<Detail />} 
         <Route path="/write" element={<Write />} 
+        <Route path="/mypage" element={<Mypage/>} 
       </Routes> */}
-        <Write />
-        <Footer />
+      <Footer />
     </Domain>
   );
-}
+};
 
 export default App;

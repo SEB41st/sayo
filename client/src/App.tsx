@@ -8,9 +8,10 @@ import Write from "./pages/Write/Write";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import SideBar from "./pages/SideBar/SideBar";
-import MyPage from "./pages/MyPage/MyPage";
 import MyInfo from "./pages/MyInfo/MyInfo";
 import Map from "./pages/Map/Map";
+import Mypage from "./pages/MyPage/Mypage";
+import Detail from "./pages/Detail/Detail";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -29,13 +30,13 @@ const App = () => {
           <Route path="/" element={<Main />}/> 
           <Route path="/write" element={<Write />}/>
           <Route path="/sidebar" element={<SideBar/>}/> 
-          <Route path="/myPage" element={<MyPage/>}/>
+          <Route path="/myPage" element={<Mypage/>}/>
           <Route path="/myInfo" element={<MyInfo/>}/>
           <Route path="/map" element={<Map/>}/>
         </Routes>
         <Footer />
     </Domain>
   );
-}
+};
 
 export default App;

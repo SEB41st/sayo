@@ -12,8 +12,8 @@ export const HeaderMain = styled.div`
 `
 
 export const LogoImg = styled.img`
-    max-width: 5%;
-    max-height: 5%;
+    max-width: 20%;
+    max-height: 20%;
 `
 
 export const SideBar = styled(NavLink)`

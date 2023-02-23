@@ -4,24 +4,17 @@ export const FooterWrap = styled.div`
   min-width: 360px;
   min-height: 73px;
   background-color: #eeeeee;
-
-  @media screen and (min-width: ${'80rem'}){
-    
-  }
 `;
 
 export const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: .625rem ;
+  padding: .625rem;
   color: #848484;
   font-size: .6875rem;
-  ::selection {
-    background-color: #f9bb00;
-    color: #fff;
-  }
-@media screen and (min-width: ${'80rem'}){
-    font-size: 3.125rem;
+
+  @media screen and (min-width: ${"1280px"}) {
+    font-size: 18px;
   }
 
   .logo {
@@ -29,11 +22,33 @@ export const FooterContainer = styled.div`
     justify-content: space-between;
     color: #575757;
     font-size: 16px;
+
+    @media screen and (min-width: ${"1280px"}) {
+      margin: 10px;
+      font-size: 30px;
+    }
   }
-  a {
+
+  .img {
     width: 1rem;
+
+    @media screen and (min-width: ${"1280px"}) {
+      width: 3rem;
+    }
   }
-  .creaters + .copyright{
+  .creaters {
     margin: .1rem;
+
+    @media screen and (min-width: ${"1280px"}) {
+      margin: .625rem;
+    }
+  }
+
+  .copyright {
+    margin: .1rem;
+
+    @media screen and (min-width: ${"1280px"}) {
+      margin: .625rem;
+    }
   }
 `;

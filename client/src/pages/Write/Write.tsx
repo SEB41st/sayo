@@ -4,7 +4,7 @@ const Write = () => {
   return (
     <S.WriteWrap>
       <S.WriteContainer>
-        <S.Imeage></S.Imeage>
+        <S.ImageDiv></S.ImageDiv>
         <S.SubmitBtn>등록하기</S.SubmitBtn>
         <S.WriteForm>
           <S.InputDiv>
@@ -19,12 +19,12 @@ const Write = () => {
             <S.InputLabel> 배송비</S.InputLabel>
             <S.WriteInput type="text" />
           </S.InputDiv>
-          <S.InputDivs>공구일정</S.InputDivs>
+          <S.InputDiv>공구일정</S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 상세정보</S.InputLabel>
             <S.WriteInput type="text" />
           </S.InputDiv>
-          <S.InputDivs>위치</S.InputDivs>
+          <S.InputDiv>위치</S.InputDiv>
         </S.WriteForm>
       </S.WriteContainer>
     </S.WriteWrap>

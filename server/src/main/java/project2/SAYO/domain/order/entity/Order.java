@@ -44,7 +44,7 @@ public class Order extends Auditable {
 
     }
     public void addUser(User user) {this.user = user;}
-    public void CurOrderStatus(OrderStatus orderStatus) {
+    public void ChangeOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
     public void addOrderId(long orderId) { this.orderId = orderId;}

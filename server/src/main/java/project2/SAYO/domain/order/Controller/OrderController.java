@@ -14,6 +14,7 @@ import project2.SAYO.domain.order.service.OrderService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class OrderController {
     }
 
     // TODO PATCH
-    @PatchMapping("/order-id")
-    public ResponseEntity patchOrder(@PathVariable("order-id") long orderId,
+    @PatchMapping("/{order-id}")
+    public ResponseEntity patchOrder(@Valid @PathVariable("order-id") @Positive long orderId,
                                      @RequestBody OrderDto.OrderRequest orderRequest) {
         Order orderForService = mapper.orderRequestToOrder(orderRequest);
         orderForService.addOrderId(orderId);
@@ -50,7 +51,7 @@ public class OrderController {
 
     // TODO GET ALL
     @GetMapping
-    public ResponseEntity getOrders(@Positive @RequestParam int page,
+    public ResponseEntity getOrders(@Valid @Positive @RequestParam int page,
                                     @Positive @RequestParam int size) {
         Page<Order> orderPage = orderService.getOrders(page -1, size);
         List<Order> orderList = orderPage.getContent();
@@ -59,16 +60,16 @@ public class OrderController {
     }
 
     // TODO GET
-    @GetMapping("/order-id")
-    public ResponseEntity getOrder(@PathVariable("order-id") long orderId) {
+    @GetMapping("/{order-id}")
+    public ResponseEntity getOrder(@Valid @Positive @PathVariable("order-id") long orderId) {
         Order findOrder = orderService.findVerifiedOrder(orderId);
 
         return new ResponseEntity(new SingleResponseDto<>(findOrder),HttpStatus.OK);
     }
 
     // TODO DELETE
-    @DeleteMapping("/order-id")
-    public ResponseEntity deleteOrder(@PathVariable("order-id") long orderId) {
+    @DeleteMapping("/{order-id}")
+    public ResponseEntity deleteOrder(@Valid @Positive @PathVariable("order-id") long orderId) {
         orderService.deleteOrder(orderId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);

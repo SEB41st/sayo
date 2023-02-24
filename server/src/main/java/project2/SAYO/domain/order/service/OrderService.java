@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import project2.SAYO.domain.order.entity.Order;
 import project2.SAYO.domain.order.repository.OrderRepository;
-import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.util.CustomBeanUtils;
 
 import java.util.Optional;
@@ -34,7 +33,7 @@ public class OrderService {
     public Order patchOrder(Order order) {
         Order findOrder = findVerifiedOrder(order.getOrderId());
         Order updateOrder = orderCustomBeanUtils.copyNonNullProperties(order, findOrder);
-        updateOrder.CurOrderStatus(order.getOrderStatus());
+        updateOrder.ChangeOrderStatus(order.getOrderStatus());
         return orderRepository.save(updateOrder);
     }
 

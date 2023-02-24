@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequiredArgsConstructor
-@RequestMapping("/item")
+@RequestMapping("/items")
 public class ItemController {
     /*추후 회원 Security 관련 코드 추가 필요*/
 
@@ -39,7 +39,7 @@ public class ItemController {
 
     // item 수정
     @PatchMapping("/patch/{item-Id}")
-    public ResponseEntity patchItem(@Valid @PathVariable("item-id") @Positive long itemId,
+    public ResponseEntity patchItem(@Valid @PathVariable("item-id") @Positive Long itemId,
                                     @RequestBody ItemDto.ItemPatch patchRequest){
         Item item = mapper.itemPatchDtoToItem(patchRequest);
         item.setItemId(itemId);
@@ -51,7 +51,7 @@ public class ItemController {
 
     // item 1개 조회
     @GetMapping("/get/{item-id}")
-    public ResponseEntity getItem(@Valid @PathVariable("item-id") @Positive long itemId){
+    public ResponseEntity getItem(@Valid @PathVariable("item-id") @Positive Long itemId){
         itemService.findItem(itemId);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -69,7 +69,7 @@ public class ItemController {
 
     // item 1개 삭제
     @DeleteMapping("/delete/{item-id}")
-    public ResponseEntity deleteItem(@Valid @PathVariable("item-id") @Positive long itemId){
+    public ResponseEntity deleteItem(@Valid @PathVariable("item-id") @Positive Long itemId){
         itemService.deleteItem(itemId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

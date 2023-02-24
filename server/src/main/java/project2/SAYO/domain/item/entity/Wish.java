@@ -1,4 +1,4 @@
-package project2.SAYO.domain.item;
+package project2.SAYO.domain.item.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

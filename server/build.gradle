@@ -25,6 +25,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
+	implementation 'com.google.code.gson:gson'
+	implementation 'org.mapstruct:mapstruct:1.5.1.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.mapstruct:mapstruct:1.5.1.Final' // mapper 작성 위해 추가
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'// mapper 작성 위해 추가

@@ -3,6 +3,8 @@ package project2.SAYO.domain.item.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
@@ -16,7 +18,7 @@ public class Item extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long itemId;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String itemName; // 상품 이름
 
     @Column(nullable = false)
@@ -50,6 +52,10 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private ItemStatus itemStatus = ItemStatus.ITEM_PROGRESS; // 공동구매 진행 상황
 
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
+    }
+
     public enum ItemStatus{
         ITEM_PROGRESS("공동구매 진행중"),
         ITEM_TERMINATION("공동 구매 종료");
@@ -62,8 +68,7 @@ public class Item extends Auditable {
         }
     }
 
-   /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;*/
-
+    private User user;
 }

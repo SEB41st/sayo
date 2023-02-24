@@ -1,8 +1,8 @@
 package project2.SAYO.domain.user.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import project2.SAYO.domain.user.entity.User;
 
 import javax.validation.constraints.Email;
@@ -39,6 +39,7 @@ public class UserDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private Long userId;
         private String email;

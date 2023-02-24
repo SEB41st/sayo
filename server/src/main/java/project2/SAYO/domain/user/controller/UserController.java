@@ -11,8 +11,8 @@ import project2.SAYO.domain.user.dto.UserDto;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.mapper.UserMapper;
 import project2.SAYO.domain.user.service.UserService;
-import project2.SAYO.global.response.MultiResponseDto;
-import project2.SAYO.global.response.SingleResponseDto;
+import project2.SAYO.global.Response.MultiResponseDto;
+import project2.SAYO.global.Response.SingleResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;

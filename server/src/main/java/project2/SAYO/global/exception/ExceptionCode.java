@@ -3,7 +3,14 @@ package project2.SAYO.global.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
-    ITEM_NOT_FOUND(404, "Item not found");
+    // User
+    USER_NOT_FOUND(404, "Member not found"),
+    USER_EXISTS(409, "Member exists"),
+    // Item
+    ITEM_NOT_FOUND(404, "Item not found"),
+
+    // File Upload
+    UPLOAD_VOLUME_OVER(404, "File Size가 10MB를 초과하였습니다 !");
 
     @Getter
     private int status;

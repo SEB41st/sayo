@@ -8,6 +8,7 @@ import project2.SAYO.global.audit.Auditable;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,14 +16,14 @@ public class User extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId; // auto-increment
-    @Column(length = 50, nullable = false)
-    private String userName;  // 회원 이름
-    @Column(length = 50, unique = true, nullable = false)
-    private String nickName;  // 회원 닉네임
     @Column(length = 50, unique = true, updatable = false, nullable = false)
     private String email;  // 회원 메일
     @Column(length = 50, nullable = false)
     private String password; // 비밀번호
+    @Column(length = 50, nullable = false)
+    private String userName;  // 회원 이름
+    @Column(length = 50, unique = true, nullable = false)
+    private String nickName;  // 회원 닉네임
     private String userPicture; // 회원 사진
 
     @Enumerated(value = EnumType.STRING)

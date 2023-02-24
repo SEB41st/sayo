@@ -3,6 +3,7 @@ package project2.SAYO.domain.order.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "orders")
 public class Order extends Auditable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
@@ -18,12 +20,14 @@ public class Order extends Auditable {
     @Column(nullable = false)
     private Long orderPrice;
 
-    @Column(nullable = false)
-    private OrderStatus orderStatus = OrderStatus.PAYMENT_COMPLETED;
+    @Column
+    private OrderStatus orderStatus;
 
-//    @ManyToOne
-//    @JoinColumn(name="USER_ID")
-//    private User user; 유저 클래스 병합 후 연결
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    private User user;
+
+
 
     public enum OrderStatus {
         PAYMENT_COMPLETED("결제 완료"),
@@ -39,4 +43,9 @@ public class Order extends Auditable {
         }
 
     }
+    public void addUser(User user) {this.user = user;}
+    public void CurOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+    public void addOrderId(long orderId) { this.orderId = orderId;}
 }

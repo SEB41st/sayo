@@ -3,10 +3,12 @@ package project2.SAYO.domain.user.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import project2.SAYO.domain.user.entity.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 
 public class UserDto {
 
@@ -32,17 +34,23 @@ public class UserDto {
         private String nickName;
         private String password;
         private String userPicture;
+        private User.UserStatus userStatus;
     }
 
     @Getter
     @AllArgsConstructor
-    public static class GetResponse {
+    public static class Response {
         private Long userId;
         private String email;
         private String userName;
         private String nickName;
-        private String password;
         private String userPicture;
+        private User.UserStatus userStatus;
+        public String getUserStatus() {
+            return userStatus.getStatus();
+        }
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
   /*      @Builder
         public GetResponse(Long userId, String email, String userName, String nickName, String password, String userPicture) {
             this.userId = userId;
@@ -53,37 +61,5 @@ public class UserDto {
             this.userPicture = userPicture;
         }*/
 
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public static class PostResponse {
-        private Long userId;
-        private String email;
-        private String userName;
-        private String nickName;
-        private String password;
-        private String userPicture;
-/*        @Builder
-        public PostResponse(Long userId, String email, String userName, String nickName, String password, String userPicture) {
-            this.userId = userId;
-            this.email = email;
-            this.userName = userName;
-            this.nickName = nickName;
-            this.password = password;
-            this.userPicture = userPicture;
-        }*/
-
-    }
-
-
-    @Getter
-    @AllArgsConstructor
-    public static class PatchResponse {
-        private String email;
-        private String userName;
-        private String nickName;
-        private String password;
-        private String userPicture;
     }
 }

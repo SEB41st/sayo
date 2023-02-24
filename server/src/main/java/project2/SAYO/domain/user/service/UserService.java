@@ -67,11 +67,6 @@ public class UserService {
                 new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
     }
 
-    public User findVerifiedUser(String email){
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        return optionalUser.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
-    }
 
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);

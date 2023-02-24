@@ -9,15 +9,12 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    User userPostDtoToUser(UserDto.Post userPostDto);
+    User userPostDtoToUser(UserDto.Post postRequest);
 
-    User userPatchDtoToUser(UserDto.Patch userPatchDto);
+    User userPatchDtoToUser(UserDto.Patch patchRequest);
 
-    UserDto.PostResponse userToPostResponse(User user);
+    UserDto.Response userToUserResponse(User user);
 
-    UserDto.PatchResponse userToPatchResponse(User user);
 
-    UserDto.GetResponse userToGetResponse(User user);
-
-    List<UserDto.GetResponse> userListToUserResponseList(List<User> userList);
+    List<UserDto.Response> userListToUserResponseList(List<User> userList);
 }

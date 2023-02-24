@@ -29,43 +29,44 @@ public class UserController {
 
     // TODO POST
     @PostMapping
-    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto) {
-        User user = userMapper.userPostDtoToUser(userPostDto);
-        User saveUser = userService.createUser(user);
-        UserDto.PostResponse postResponse = userMapper.userToPostResponse(saveUser);
-        return new ResponseEntity<>(new SingleResponseDto<>(postResponse), HttpStatus.CREATED);
+    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post postRequest) {
+        User userForService = userMapper.userPostDtoToUser(postRequest);
+        User userForResponse = userService.createUser(userForService);
+        UserDto.Response response = userMapper.userToUserResponse(userForResponse);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
 
     // TODO PATCH
     @PatchMapping("/{user-id}")
-    public ResponseEntity patchUser(@RequestBody UserDto.Patch userPatchDto,
+    public ResponseEntity patchUser(@RequestBody UserDto.Patch patchRequest,
                                     @PathVariable("user-id") Long userId) {
 
-        User user = userMapper.userPatchDtoToUser(userPatchDto);
-        // user.setUserId(userId);
-        User updateUser = userService.updateUser(user);
-        UserDto.PatchResponse patchResponse = userMapper.userToPatchResponse(updateUser);
-        return new ResponseEntity<>(new SingleResponseDto<>(patchResponse), HttpStatus.OK);
+        User userForService  = userMapper.userPatchDtoToUser(patchRequest);
+        // userForService.setUserId(userId);
+        User userForResponse = userService.updateUser(userForService);
+        UserDto.Response response = userMapper.userToUserResponse(userForResponse);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     // TODO GET ONE
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(@PathVariable("user-id") Long userId) {
-        User verifiedUser = userService.findUser(userId);
-        UserDto.GetResponse getResponse = userMapper.userToGetResponse(verifiedUser);
+        User uerForResponse = userService.findUser(userId);
+        UserDto.Response response = userMapper.userToUserResponse(uerForResponse);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(getResponse), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     // TODO GET ALL
     @GetMapping
-    public ResponseEntity getUserAll(@Positive @RequestParam int page, @Positive @RequestParam int size){
+    public ResponseEntity getUsers(@Positive @RequestParam int page,
+                                   @Positive @RequestParam int size){
         Page<User> userPage = userService.findUsers(page -1, size);
-        List<User> users = userPage.getContent();
+        List<User> userList = userPage.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(
-                userMapper.userListToUserResponseList(users), userPage), HttpStatus.OK);
+                userMapper.userListToUserResponseList(userList), userPage), HttpStatus.OK);
     }
 
     // TODO DELETE ONE

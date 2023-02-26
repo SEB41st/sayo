@@ -51,8 +51,12 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private ItemStatus itemStatus = ItemStatus.ITEM_PROGRESS; // 공동구매 진행 상황
 
-    public void setItemId(Long itemId) {
+    public void addItemId(Long itemId) {
         this.itemId = itemId;
+    }
+
+    public void changeItemStatus(ItemStatus itemStatus){
+        this.itemStatus = itemStatus;
     }
 
     public enum ItemStatus{

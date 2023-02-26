@@ -34,7 +34,8 @@ public class Order extends Auditable {
         PRODUCT_PREPARED("상품 준비 중"),
         DELIVERY_PROGRESS("배송 중"),
         DELIVERY_COMPLETED("배송 완료"),
-        PURCHASE_CONFIRMATION("구매 확정");
+        PURCHASE_CONFIRMATION("구매 확정"),
+        ORDER_CANCELLATION("주문 취소");
 
         @Getter
         private String status;

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import project2.SAYO.domain.order.entity.Order;
 import project2.SAYO.domain.order.repository.OrderRepository;
+import project2.SAYO.global.exception.BusinessLogicException;
+import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.util.CustomBeanUtils;
 
 import java.util.Optional;
@@ -44,14 +46,15 @@ public class OrderService {
 
     // TODO DELETE
     public void deleteOrder(long orderId) {
-        orderRepository.deleteById(orderId);
+        Order findOrder = findVerifiedOrder(orderId);
+        findOrder.ChangeOrderStatus(Order.OrderStatus.ORDER_CANCELLATION);
     }
 
     // TODO FIND VERIFIED
     public Order findVerifiedOrder(long orderId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         Order findOrder = optionalOrder.orElseThrow(
-//                () -> new Busi
+                () -> new BusinessLogicException(ExceptionCode.ORDER_NOT_FOUND)
         );
         return findOrder;
     }

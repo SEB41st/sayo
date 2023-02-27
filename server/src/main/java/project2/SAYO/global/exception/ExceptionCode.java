@@ -5,8 +5,11 @@ import lombok.Getter;
 public enum ExceptionCode {
     // User
     USER_NOT_FOUND(404, "Member not found"),
-     ORDER_NOT_FOUND(404, "Order not found"),
     USER_EXISTS(409, "Member exists"),
+
+    // ORDER
+     ORDER_NOT_FOUND(404, "Order not found"),
+
     // Item
     ITEM_NOT_FOUND(404, "Item not found"),
 

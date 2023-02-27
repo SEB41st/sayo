@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color: #ffffff;
     font-family: "Noto Sans KR";
+    font-size: 62.5%;
+    line-height: 1.285;
   }
   a {
     color: inherit;

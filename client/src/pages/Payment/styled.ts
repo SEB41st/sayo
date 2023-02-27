@@ -11,14 +11,14 @@ export const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: #000000;
-  font-size: 10px;
+  font-size: 13px;
 
   @media screen and (min-width: ${"1280px"}) {
     font-size: 1rem;
   }
 
   .Cart {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 0.625rem;
 
@@ -115,7 +115,7 @@ export const ImageDiv = styled.div`
 
 export const TotalDiv = styled.div`
   margin-top: 5%;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: bold;
 
   @media screen and (min-width: ${"1280px"}) {

@@ -63,10 +63,12 @@ export const ProductInfoDiv2 = styled.div`
   }
 `;
 
-export const CheckboxDiv = styled.div``;
+export const CheckboxDiv = styled.div`
+`;
 
 export const CheckboxInput = styled.input`
   width: 50%;
+  cursor: pointer;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 100%;
@@ -87,6 +89,7 @@ export const ImageDiv = styled.div`
 `;
 
 export const CloseBox = styled.div`
+  cursor: pointer;
   /* margin: 1% 0 0 40%; */
 `;
 

@@ -20,10 +20,10 @@ export const MypageContainer = styled.div`
   border-radius: .625rem;
   margin: 30px;
 
-  /* @media screen and (min-width: ${"1280px"}) {
+  @media screen and (min-width: ${"1280px"}) {
     width: 31.25rem;
     height: 18.75rem;
-  } */
+  }
 `;
 
 export const ImageDiv = styled.div`
@@ -43,7 +43,7 @@ export const ImageDiv = styled.div`
 export const MypageDiv = styled.div`
   .Name {
     font-size: .625rem;
-    margin-right: 7.5rem;
+    margin-right: 3.5rem;
 
     @media screen and (min-width: ${"1280px"}) {
       font-size: 1rem;

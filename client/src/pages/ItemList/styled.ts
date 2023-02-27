@@ -44,7 +44,7 @@ export const Tag = styled.button`
     color: white;
     margin: 10px;
     font-size: 12px;
-    box-shadow:1px;
+    box-shadow: 0px 0px 3px gray;
 `
 
 export const Tags = styled.div`

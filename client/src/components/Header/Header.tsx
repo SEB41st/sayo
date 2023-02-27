@@ -5,10 +5,10 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 const Header = () => {
     return (
     <S.HeaderMain>
-        {/* <Link to ="/"> */}
+        <Link to ="/">
             <S.LogoImg src="/assets/Logo.png" alt ="" ></S.LogoImg>
-        {/* </Link> */}
-        <Link to="/sidebar">next page</Link>
+        </Link>
+        <Link to="/sidebar"><GiHamburgerMenu className="hambergerbar"/></Link>
     </S.HeaderMain>
     )
 }

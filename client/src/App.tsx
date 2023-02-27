@@ -8,6 +8,8 @@ import Write from "./pages/Write/Write";
 import Footer from "./components/Footer/Footer";
 import Mypage from "./pages/Mypage/Mypage";
 import Detail from "./pages/Detail/Detail";
+import Cart from "./pages/Cart/Cart";
+import Payment from "./pages/Payment/Payment";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="/write" element={<Write />} 
         <Route path="/mypage" element={<Mypage/>} 
       </Routes> */}
+      <Payment/>
+      <Cart/>
       <Footer />
     </Domain>
   );

@@ -36,9 +36,9 @@ const Main = () => {
             <S.Title>최근 본 상품</S.Title>
         <S.Menus>
           <S.GoodsList>
-            <Link to = '/detail'><S.Item></S.Item></Link>
-            <Link to = '/detail'><S.Item></S.Item></Link>
-            <Link to = '/detail'><S.Item></S.Item></Link>
+            <Link to = '/detail'><S.Item src="/assets/goods.png"/></Link>
+            <Link to = '/detail'><S.Item src="/assets/goods.png"/></Link>
+            <Link to = '/detail'><S.Item src="/assets/goods.png"/></Link>
           </S.GoodsList>
         </S.Menus>
         <S.Menus>

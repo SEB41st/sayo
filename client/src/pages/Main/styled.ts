@@ -39,6 +39,7 @@ export const Menus = styled.div`
     margin: 20px;
     .font{
         justify-self: end;
+        font-size: 13px;
     }
     .plusIcon{
         margin-left: 5px;
@@ -65,9 +66,9 @@ export const SearchBar = styled.div`
     }
 `
 
-export const Item = styled.div`
-    height: 80px;
-    width: 80px;
+export const Item = styled.img`
+    height: 80%;
+    width: 80%;
     background-color: gainsboro;
     border-radius: 20px;
     margin: 10px;

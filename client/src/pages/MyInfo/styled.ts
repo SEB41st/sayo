@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const MypageWrap = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,16 +12,18 @@ export const MypageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 20.4375rem;
-  min-height: 9.75rem;
+  /* min-width: 20.4375rem;
+  min-height: 9.75rem; */
+  width: 40%;
+  height: 30%;
   background-color: #fef8e3;
   border-radius: .625rem;
   margin: 30px;
 
-  @media screen and (min-width: ${"1280px"}) {
+  /* @media screen and (min-width: ${"1280px"}) {
     width: 31.25rem;
     height: 18.75rem;
-  }
+  } */
 `;
 
 export const ImageDiv = styled.div`

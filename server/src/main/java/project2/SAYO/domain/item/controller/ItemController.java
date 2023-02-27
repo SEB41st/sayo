@@ -1,5 +1,6 @@
 package project2.SAYO.domain.item.controller;
 
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,8 @@ import project2.SAYO.domain.item.dto.ItemDto;
 import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.mapper.ItemMapper;
 import project2.SAYO.domain.item.service.ItemService;
+import project2.SAYO.global.Response.MultiResponseDto;
+import project2.SAYO.global.Response.SingleResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -34,26 +37,26 @@ public class ItemController {
         Item itemResponse = itemService.createItem(item);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     // item 수정
-    @PatchMapping("/patch/{item-Id}")
+    @PatchMapping("/{item-Id}")
     public ResponseEntity patchItem(@Valid @PathVariable("item-id") @Positive Long itemId,
                                     @RequestBody ItemDto.ItemPatch patchRequest){
-        Item item = mapper.itemPatchDtoToItem(patchRequest);
-        item.setItemId(itemId);
-        Item itemResponse = itemService.updateItem(item);
+        Item itemforService = mapper.itemPatchDtoToItem(patchRequest);
+        itemforService.addItemId(itemId);
+        Item itemResponse = itemService.updateItem(itemforService);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     // item 1개 조회
-    @GetMapping("/get/{item-id}")
+    @GetMapping("/{item-id}")
     public ResponseEntity getItem(@Valid @PathVariable("item-id") @Positive Long itemId){
-        itemService.findItem(itemId);
-        return new ResponseEntity(HttpStatus.OK);
+        Item findItem = itemService.findVerifiedItem(itemId);
+        return new ResponseEntity(new SingleResponseDto<>(findItem), HttpStatus.OK);
     }
 
     // item 전체 조회
@@ -64,20 +67,27 @@ public class ItemController {
         List<Item> itemList = itemPage.getContent();
         List<ItemDto.ItemResponse> response = mapper.itemListToItemResponseList(itemList);
 
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity(new MultiResponseDto<>(response, itemPage), HttpStatus.OK);
     }
 
-    // item 1개 삭제
+    // item 1개 게시글 삭제
     @DeleteMapping("/delete/{item-id}")
     public ResponseEntity deleteItem(@Valid @PathVariable("item-id") @Positive Long itemId){
         itemService.deleteItem(itemId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    // item 전체 삭제
+    // item 전체 게시글 삭제
     @DeleteMapping("/delete")
     public ResponseEntity deleteItems(){
         itemService.deleteItems();
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    // item 1개 판매 종료로 상태 변경
+    @DeleteMapping("{item-id}")
+    public ResponseEntity endItem(@Valid @PathVariable("item-id") @Positive Long itemId){
+        itemService.endItem(itemId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

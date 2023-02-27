@@ -13,7 +13,7 @@ import project2.SAYO.global.util.CustomBeanUtils;
 
 import java.util.Optional;
 
-import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_TERMINATION;
+import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_END;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +59,7 @@ public class ItemService {
     // item 1개 공동 구매 종료
     public void endItem(Long itemId){
         Item findItem = findVerifiedItem(itemId);
-        findItem.changeItemStatus(ITEM_TERMINATION); // 공동 구매 종료로 상태 변경
+        findItem.changeItemStatus(ITEM_END); // 공동 구매 종료로 상태 변경
     }
 
     //item 존재 여부 확인 후 없을 경우 Exception, 있을 경우 item 리턴

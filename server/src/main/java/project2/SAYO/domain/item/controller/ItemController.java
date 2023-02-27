@@ -90,5 +90,4 @@ public class ItemController {
         itemService.endItem(itemId);
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

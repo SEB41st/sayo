@@ -61,7 +61,7 @@ public class Item extends Auditable {
 
     public enum ItemStatus{
         ITEM_PROGRESS("공동구매 진행중"),
-        ITEM_TERMINATION("공동 구매 종료");
+        ITEM_END("공동 구매 종료");
 
         @Getter
         private String status;

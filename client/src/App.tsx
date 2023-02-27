@@ -12,6 +12,7 @@ import MyInfo from "./pages/MyInfo/MyInfo";
 import Map from "./pages/Map/Map";
 import Mypage from "./pages/MyPage/Mypage";
 import Detail from "./pages/Detail/Detail";
+import ItemList from "./pages/ItemList/ItemList"
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -33,6 +34,8 @@ const App = () => {
           <Route path="/myPage" element={<Mypage/>}/>
           <Route path="/myInfo" element={<MyInfo/>}/>
           <Route path="/map" element={<Map/>}/>
+          <Route path="/detail" element={<Detail/>}/>
+          <Route path="/itemList" element={<ItemList/>}/>
         </Routes>
         <Footer />
     </Domain>

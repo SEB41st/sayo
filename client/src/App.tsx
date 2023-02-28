@@ -25,6 +25,7 @@ const Domain = styled.div`
 const App = () => {
 
   const location = useLocation();
+  
   return (
     <Domain>
       <GlobalStyle />
@@ -42,7 +43,8 @@ const App = () => {
           <Route path="/payment" element={<Payment/>}/>
           <Route path="/cart" element={<Cart/>}/>
         </Routes>
-        <Footer />
+        {!['/sidebar'].includes(location.pathname) && <Footer />}
+        
     </Domain>
   );
 };

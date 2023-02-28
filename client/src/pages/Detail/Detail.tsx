@@ -14,7 +14,8 @@ const Detail = () => {
           <div className="ProductFee">배송비 : 없음</div>
           <div className="SalesSchedule">판매일정</div>
           <S.ButtonDiv>
-            <S.CartBtn>장바구니</S.CartBtn>
+            <S.CartBtn>
+            <Link to="/cart">장바구니</Link></S.CartBtn>
             <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
             </S.BuyBtn>

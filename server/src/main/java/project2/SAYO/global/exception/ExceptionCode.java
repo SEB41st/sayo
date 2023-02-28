@@ -4,8 +4,13 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     // User
-    USER_NOT_FOUND(404, "Member not found"),
-    USER_EXISTS(409, "Member exists"),
+    USER_NOT_FOUND(404, "User not found"),
+    USER_EXISTS(409, "User exists"),
+    USER_UNAUTHORIZED(401, "User unauthorized"),
+    TOKEN_NOT_ALLOW(404, "Token not allow"),
+    REFRESH_TOKEN_NOT_FOUND(404, "Refresh token not found"),
+    REFRESH_TOKEN_NOT_EQUAL(404, "Refresh token doesn't equal"),
+    REFRESH_TOKEN_NOT_ALLOW(404, "Token not allow"),
 
     // ORDER
      ORDER_NOT_FOUND(404, "Order not found"),

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +27,10 @@ public class User extends Auditable {
     @Column(length = 50, unique = true, nullable = false)
     private String nickName;  // 회원 닉네임
     private String userPicture; // 회원 사진
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
@@ -55,4 +61,21 @@ public class User extends Auditable {
             this.providerType = providerType;
         }
     }
+
+    public void setRoles(List<String> roles){
+        this.roles = roles;
+    }
+
+    public void setUserId(Long userId){
+        this.userId = userId;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
 }

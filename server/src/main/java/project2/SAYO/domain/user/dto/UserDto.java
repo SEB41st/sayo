@@ -8,6 +8,9 @@ import project2.SAYO.domain.user.entity.User;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import lombok.*;
+import project2.SAYO.global.validator.NotSpace;
+
 import java.time.LocalDateTime;
 
 public class UserDto {
@@ -35,6 +38,50 @@ public class UserDto {
         private String password;
         private String userPicture;
         private User.UserStatus userStatus;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    public static class TokenInfo {
+        private String grantType;
+        private String accessToken;
+        private String refreshToken;
+        private Long refreshTokenExpirationTime;
+    }
+
+    @Getter
+    public static class Reissue {
+        @NotBlank(message = "accessToken 을 입력해주세요.")
+        private String accessToken;
+
+        @NotBlank(message = "refreshToken 을 입력해주세요.")
+        private String refreshToken;
+
+        public void setAccessToken(String accessToken) {
+            this.accessToken = accessToken;
+        }
+    }
+
+    @Getter
+    public static class Logout {
+        @NotBlank(message = "잘못된 요청입니다.")
+        private String accessToken;
+
+        @NotBlank(message = "잘못된 요청입니다.")
+        private String refreshToken;
+
+        public void setAccessToken(String accessToken){
+            this.accessToken = accessToken;
+        }
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    public static class PrevModify {
+        @NotSpace(message = "비밀 번호는 공백이 아니어야 합니다")
+        private String password;
     }
 
     @Getter

@@ -13,6 +13,7 @@ import project2.SAYO.domain.user.mapper.UserMapper;
 import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import org.springframework.http.HttpHeaders;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -36,7 +37,6 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
-
     // TODO PATCH
     @PatchMapping("/{user-id}")
     public ResponseEntity patchUser(@RequestBody UserDto.Patch patchRequest,
@@ -47,6 +47,25 @@ public class UserController {
         User userForResponse = userService.updateUser(userForService);
         UserDto.Response response = userMapper.userToUserResponse(userForResponse);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity reissue(@Valid @RequestBody UserDto.Reissue reissue) {
+        // validation check
+        reissue.setAccessToken(reissue.getAccessToken().replace("Bearer ",""));
+        UserDto.TokenInfo tokenInfo = userService.reissue(reissue);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization","Bearer " +tokenInfo.getAccessToken());
+        headers.set("RefreshToken",tokenInfo.getRefreshToken());
+        return new ResponseEntity<>(headers,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@Valid @RequestBody UserDto.Logout logout) {
+        // validation check
+        logout.setAccessToken(logout.getAccessToken().replace("Bearer ",""));
+        userService.logout(logout);
+        return new ResponseEntity<>("/members/login",HttpStatus.OK);
     }
 
     // TODO GET ONE
@@ -71,9 +90,21 @@ public class UserController {
 
     // TODO DELETE ONE
     @DeleteMapping("/{user-id}")
-    public ResponseEntity deleteOneMember(@PathVariable("user-id") Long userId){
+    public ResponseEntity deleteOneUser(@PathVariable("user-id") Long userId){
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);
+    }
+    @PostMapping("/prevModify")
+    public ResponseEntity postPrevModify(@Valid @RequestBody UserDto.PrevModify prevRequest) {
+        log.info("## prevModify = {}", prevRequest);
+        boolean check = userService.prevModify(userService.getCurrentUser().getPassword(), prevRequest.getPassword());
+        if(check){
+            log.info("pw 재확인 완료");
+            return new ResponseEntity(HttpStatus.OK);
+        }else{
+            log.info("pw 재확인 필요");
+            return  new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
     }
 }

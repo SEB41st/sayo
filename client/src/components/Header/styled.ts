@@ -5,19 +5,20 @@ export const HeaderMain = styled.div`
     width: 100%;
     /* border-top: 1px solid #d0d0d0; */
     background: #FEF8E3;
-    height: 3%;
+    max-height: 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 .hambergerbar{
     justify-self: end;
     font-size: 1.5rem;
+    margin-right: 20px;
 }
 `
 
 export const LogoImg = styled.img`
     width: 100%;
-    height: 100%;
+    height: 80%;
 `
 
 export const SideBar = styled(NavLink)`

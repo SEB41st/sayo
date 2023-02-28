@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { ButtonDiv } from "../Detail/styled";
 
 export const CartWrap = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0.625rem 1.25rem;
 `;
 

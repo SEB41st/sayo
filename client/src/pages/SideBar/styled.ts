@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 
 export const Main = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 100%;
     display: grid;
     `
@@ -13,20 +13,22 @@ export const NavFont = styled(NavLink)`
     font-size: 1rem;
     margin: 0 20px;
     height: 80px;
+    display: grid;
+    align-content: center;
     `
 
 export const HeaderMain = styled.div`
     width: 100%;
     /* border-top: 1px solid #d0d0d0; */
     background: #F9BB00;
-    max-height: 5%;
+    max-height: 4rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     `
 
 export const NavBack = styled(NavLink)`
-    margin-left: 60%;
+    margin-right: 10%;
     align-items: center;
     font-size: 1.5rem;
 `
@@ -43,8 +45,8 @@ export const MenuTitle = styled.div`
 `
 
 export const LogoImg = styled.img`
-    max-width: 20%;
-    max-height: 20%;
+    max-width: 30rem;
+    max-height: 30rem;
     `
 
 export const GoodsList = styled.div`

@@ -46,6 +46,7 @@ export const MypageDiv = styled.div`
     font-size: 1.25rem;
     margin-right: 7.5rem;
 
+
     @media screen and (min-width: ${"1280px"}) {
       margin-right: 9.375rem;
     }

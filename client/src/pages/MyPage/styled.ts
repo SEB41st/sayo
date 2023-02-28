@@ -3,23 +3,26 @@ import styled from "styled-components";
 export const MypageWrap = styled.div`
   width: 100%;
   height: 100%;
-  display: grid;
-  align-items: center;
+
+  .Title{
+    font-size: 20px;
+    margin: 20px;
+    margin-left: 40%;
+  }
   `;
 
 export const MypageContainer = styled.div`
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  min-width: 20.4375rem;
-  min-height: 9.75rem;
-  background-color: #fef8e3;
-  border-radius: .625rem;
-  margin: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20.4375rem;
+    height: 3.75rem;
+    border-radius: .625rem;
+    margin: 30px;
+    .Nickname{
+        font-size: 14px;
+    }
   
-  .Title{
-    font-size: 20px;
-  }
   @media screen and (min-width: ${"1280px"}) {
     width: 31.25rem;
     height: 18.75rem;
@@ -27,9 +30,9 @@ export const MypageContainer = styled.div`
 `;
 
 export const ImageDiv = styled.div`
-  width: 4.25rem;
-  height: 4.25rem;
-  background-color: #ffffff;
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: aliceblue;
   border-radius: 100%;
   margin: .625rem;
 
@@ -61,15 +64,24 @@ export const MypageDiv = styled.div`
 
 
 export const Lists = styled.div`
-    width: 100%;
+    width: 90%;
     height: 100%;
-
+    margin: 20px;
+    .Name {
+    font-size: 20px;
+    }
   `
 
-  export const ChoiceList = styled.div`
+export const ChoiceList = styled.div`
     display: flex;
-    width: 30%;
-    height: 70%;
-    background-color: gray;
-
+    width: 90%;
+    height: 90%;
+    margin: 10px;
+    
   `
+export const Line = styled.div`
+    background-color: #D9D9D9;
+    height: 2px;
+    margin: 50px 0 10px 0 ;
+    width: 100%;
+`

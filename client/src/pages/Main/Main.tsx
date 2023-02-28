@@ -5,7 +5,7 @@ import { BsPlusCircle, BsSearch } from 'react-icons/bs';
 const Main = () => {
   return (
     <S.Main>
-      <S.LogoImg src="/assets/neighbors.jpeg" alt ="" ></S.LogoImg>
+      <S.LogoImg src="/assets/Sayo.png" alt ="" ></S.LogoImg>
       <S.MainList>
         <S.Line/>
         <S.Title>강남구 공동구매 상품</S.Title>

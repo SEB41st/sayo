@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="creaters">
           BACKEND : 강신찬, 김희진, 박금비
           <br />
-          FRONTEND : 강성심, 이영우, 장한나
+          FRONTEND : 강성심, 장한나
         </div>
         <div className="copyright">
           <span>COPYRIGHT SAYO.ALL RIGHT RESERVED</span>

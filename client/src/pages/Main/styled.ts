@@ -61,18 +61,23 @@ export const SearchBar = styled.div`
     .Search{
         border: 1px solid #F9BB00;
         border-radius: 10px;
-        width: 80%;
+        width: 90%;
         height: 150%;
     }
 `
 
 export const Item = styled.img`
-    height: 80%;
-    width: 80%;
+    max-height: 80%;
+    max-width: 80%;
     background-color: gainsboro;
-    border-radius: 20px;
+    border-radius: 10px;
     margin: 10px;
-
+    :hover{
+        transform: scale(1.2);
+    }
+    @media screen and (min-width: ${"1280px"}) {
+      
+    }
 `
 
 export const LogoImg =styled.img`

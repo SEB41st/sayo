@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const FooterWrap = styled.div`
-  min-width: 360px;
+  width: 100%;
   min-height: 73px;
   background-color: #eeeeee;
+  // footer 하단 고정
+  position: relative;
+  bottom: 0;
 `;
 
 export const FooterContainer = styled.div`

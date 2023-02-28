@@ -13,6 +13,7 @@ import project2.SAYO.domain.user.mapper.UserMapper;
 import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import org.springframework.http.HttpHeaders;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -71,9 +72,21 @@ public class UserController {
 
     // TODO DELETE ONE
     @DeleteMapping("/{user-id}")
-    public ResponseEntity deleteOneMember(@PathVariable("user-id") Long userId){
+    public ResponseEntity deleteOneUser(@PathVariable("user-id") Long userId){
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);
+    }
+    @PostMapping("/prevModify")
+    public ResponseEntity postPrevModify(@Valid @RequestBody UserDto.PrevModify prevRequest) {
+        log.info("## prevModify = {}", prevRequest);
+        boolean check = userService.prevModify(userService.getCurrentUser().getPassword(), prevRequest.getPassword());
+        if(check){
+            log.info("pw 재확인 완료");
+            return new ResponseEntity(HttpStatus.OK);
+        }else{
+            log.info("pw 재확인 필요");
+            return  new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
     }
 }

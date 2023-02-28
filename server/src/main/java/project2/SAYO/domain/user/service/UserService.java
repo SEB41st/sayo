@@ -25,12 +25,13 @@ public class UserService {
 
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
-        // makeSecretPassword(user);
-        // createRoles(user);
+        String encryptPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptPassword);
 
-        User savedUser = userRepository.save(user);
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
 
-        return savedUser;
+        return userRepository.save(user);
     }
 
     public User updateUser(User user) {

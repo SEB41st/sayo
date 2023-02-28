@@ -33,6 +33,7 @@ export const SubmitBtn = styled.button`
   font-size: .625rem;
   background-color: #f9bb00;
   border-radius: 5px;
+  cursor: pointer;
 
   @media screen and (min-width: ${"80rem"}) {
     width: 6.25rem;
@@ -79,12 +80,3 @@ export const WriteInput = styled.input`
   }
 `;
 
-// export const InputDivs = styled.div`
-//   margin-right: 135px;
-//   margin-bottom: 20px;
-// `;
-
-// export const MapDiv = styled.div`
-//   margin-right: 137px;
-//   margin-bottom: 20px;
-// `;

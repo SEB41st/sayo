@@ -15,6 +15,7 @@ public interface UserMapper {
 
     UserDto.Response userToUserResponse(User user);
 
+    User userPreModifyToUser(UserDto.PrevModify prevModifyRequest);
 
     List<UserDto.Response> userListToUserResponseList(List<User> userList);
 }

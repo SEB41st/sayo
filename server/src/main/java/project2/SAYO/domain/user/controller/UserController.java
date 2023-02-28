@@ -37,7 +37,6 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
-
     // TODO PATCH
     @PatchMapping("/{user-id}")
     public ResponseEntity patchUser(@RequestBody UserDto.Patch patchRequest,
@@ -48,6 +47,25 @@ public class UserController {
         User userForResponse = userService.updateUser(userForService);
         UserDto.Response response = userMapper.userToUserResponse(userForResponse);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity reissue(@Valid @RequestBody UserDto.Reissue reissue) {
+        // validation check
+        reissue.setAccessToken(reissue.getAccessToken().replace("Bearer ",""));
+        UserDto.TokenInfo tokenInfo = userService.reissue(reissue);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization","Bearer " +tokenInfo.getAccessToken());
+        headers.set("RefreshToken",tokenInfo.getRefreshToken());
+        return new ResponseEntity<>(headers,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@Valid @RequestBody UserDto.Logout logout) {
+        // validation check
+        logout.setAccessToken(logout.getAccessToken().replace("Bearer ",""));
+        userService.logout(logout);
+        return new ResponseEntity<>("/members/login",HttpStatus.OK);
     }
 
     // TODO GET ONE

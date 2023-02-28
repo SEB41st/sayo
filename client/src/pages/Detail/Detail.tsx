@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import * as S from "./styled";
 
 const Detail = () => {
@@ -14,7 +15,9 @@ const Detail = () => {
           <div className="SalesSchedule">판매일정</div>
           <S.ButtonDiv>
             <S.CartBtn>장바구니</S.CartBtn>
-            <S.BuyBtn>바로 구매</S.BuyBtn>
+            <S.BuyBtn>
+              <Link to="/payment">바로 구매</Link>
+            </S.BuyBtn>
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>

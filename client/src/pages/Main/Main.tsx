@@ -3,6 +3,11 @@ import * as S from './styled';
 import { BsPlusCircle, BsSearch } from 'react-icons/bs';
 
 const Main = () => {
+  
+  const searchResult = () => {
+    
+  }
+
   return (
     <S.Main>
       <S.LogoImg src="/assets/Sayo.png" alt ="" ></S.LogoImg>
@@ -24,9 +29,10 @@ const Main = () => {
         <S.Menus>
           <S.SearchBar>
           <input
-          className='Search'
-          type="text"
-          placeholder='검색하실 지역을 입력해주세요'
+            className='Search'
+            type="text"
+            placeholder='검색하실 지역을 입력해주세요'
+            onChange={searchResult}
           ></input>
           <Link to = '/map'>
           <BsSearch style={{"marginLeft":"10px"}}/>

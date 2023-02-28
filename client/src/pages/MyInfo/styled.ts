@@ -34,8 +34,8 @@ export const ImageDiv = styled.div`
   margin: .625rem;
 
   @media screen and (min-width: ${"1280px"}) {
-    width: 20%;
-    height: 60%;
+    width: 15%;
+    height: 50%;
 
     margin: 1.875rem;
   }

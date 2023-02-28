@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ButtonDiv, CartBtn } from "../Detail/styled";
 
 export const PaymentWrap = styled.div`
-  width: 100vw;
+  width: 90%;
   height: 100vh;
   margin: 0.625rem 1.25rem;
 `;
@@ -28,14 +28,20 @@ export const PaymentContainer = styled.div`
   }
 `;
 
+export const PaymentDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const ProductDiv = styled.div`
-  /* width: 20rem; */
-  max-width: 90%;
+  width: 90%;
   height: 6.875rem;
   display: flex;
   flex-direction: column;
   border: 1px solid #f9bb00;
   border-radius: 10px;
+  margin-bottom: 1%;
 
   @media screen and (min-width: ${"1280px"}) {
     max-width: 60%;

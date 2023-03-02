@@ -21,19 +21,40 @@ export const Title = styled.div`
 
 export const WriteButton = styled.button`
     background-color: #F9BB00;
-    border-radius: 20px;
+    width: 120px;
+    height: 20px;
+    border-radius: 5px;
     color: white;
-    margin-left: 5%;
+    margin: 10px 0 10px 65%;
+    @media screen and (min-width: ${"700px"}) {
+    margin: 10px 0 10px 85%;
+  }
 `
 
 export const GoodsList = styled.div`
     display: flex;
     flex-wrap: wrap;
+    grid-template-columns: auto;
+    /* justify-content: center; */
     height: 15vh;
     width: 90%;
     height: auto;
     border-radius: 20px;
-    margin: 10px;
+    margin: 5%;
+    gap: 20px;
+`
+export const Item = styled.img`
+    max-height: 10rem;
+    max-width: 10rem;
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    gap: 50px;
+    :hover{
+        transform: scale(1.2);
+    }
+    @media screen and (min-width: ${"1280px"}) {
+      
+    }
 `
 
 export const Tag = styled.button`

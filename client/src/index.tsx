@@ -9,6 +9,11 @@ import {
 } from "@tanstack/react-query";
 import { BrowserRouter as Router } from 'react-router-dom';
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {

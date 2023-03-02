@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+export const SidebarWrap = styled.div`
+    width: 100vw;
+    height: 100%;
+    display: grid;
+    /* @media screen and (min-width: ${"700px"}) {
+    width: 25%;
+    height: 100%;
+  } */
+`
 
 export const Main = styled.div`
     width: 100vw;
@@ -25,6 +34,10 @@ export const HeaderMain = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* @media screen and (min-width: ${"700px"}) {
+    width: 25%;
+    height: 100%;
+  } */
     `
 
 export const NavBack = styled(NavLink)`

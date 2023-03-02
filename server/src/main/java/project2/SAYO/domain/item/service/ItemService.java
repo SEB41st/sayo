@@ -7,6 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.repository.ItemRepository;
+import project2.SAYO.domain.user.entity.User;
+import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.exception.BusinessLogicException;
 import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.util.CustomBeanUtils;
@@ -18,19 +20,30 @@ import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_END;
 @Service
 @RequiredArgsConstructor
 public class ItemService {
-    /*추후 회원 Security 관련 코드 추가 필요*/
     private final ItemRepository itemRepository;
     private final CustomBeanUtils<Item> beanUtils;
+    private final UserService userService;
 
     // 중복 조건(ex. email)이 따로 없어서 바로 저장
     // item 등록
     public Item createItem(Item item){
+
+        //현재 User을 가져와 저장
+        User user = userService.findUser(userService.getCurrentUser().getUserId());
+        item.addUser(user);
+
         return itemRepository.save(item);
     }
 
     // itemId에 해당하는 item 수정
     public Item updateItem(Item item){
         Item findItem = findVerifiedItem(item.getItemId()); // item 존재 여부 확인
+
+        // Item의 User가 현재 User와 동일할 경우 수정 가능
+        User user = userService.findVerifiedUser(findItem.getUser().getUserId());
+        if(userService.getCurrentUser().getUserId() != user.getUserId()){
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
 
         Item updateItem = beanUtils.copyNonNullProperties(item, findItem);
         updateItem.changeItemStatus(item.getItemStatus());
@@ -42,12 +55,19 @@ public class ItemService {
 
     // 전체 item 조회
     public Page<Item> findItems(int page, int size){
-        return itemRepository.findAll(PageRequest.of(page, size, Sort.by("itemId").descending()));
+        return itemRepository.findAll(PageRequest.of(page, size, Sort.by("itemId").ascending()));
     }
 
     // itemId 1개 게시글 삭제
     public void deleteItem(Long itemId){
-        findVerifiedItem(itemId); // item 존재 여부 확인
+        Item findItem = findVerifiedItem(itemId); // item 존재 여부 확인
+
+        // Item의 User가 현재 User와 동일할 경우 삭제 가능
+        User user = userService.findVerifiedUser(findItem.getUser().getUserId());
+        if(userService.getCurrentUser().getUserId() != user.getUserId()){
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
         itemRepository.deleteById(itemId);
     }
 
@@ -59,6 +79,13 @@ public class ItemService {
     // item 1개 공동 구매 종료
     public void endItem(Long itemId){
         Item findItem = findVerifiedItem(itemId);
+
+        // Item의 User가 현재 User와 동일할 경우 삭제 가능
+        User user = userService.findVerifiedUser(findItem.getUser().getUserId());
+        if(userService.getCurrentUser().getUserId() != user.getUserId()){
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
         findItem.changeItemStatus(ITEM_END); // 공동 구매 종료로 상태 변경
     }
 

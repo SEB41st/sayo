@@ -74,4 +74,8 @@ public class Item extends Auditable {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    public void addUser(User user){
+        this.user = user;
+    }
 }

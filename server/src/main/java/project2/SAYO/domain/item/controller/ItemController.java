@@ -33,6 +33,7 @@ public class ItemController {
     // item 등록
     @PostMapping
     public ResponseEntity postItem(@Valid @RequestBody ItemDto.ItemPost postRequest){
+
         Item item = mapper.itemPostDtoToItem(postRequest);
         Item itemResponse = itemService.createItem(item);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
@@ -44,9 +45,9 @@ public class ItemController {
     @PatchMapping("/{item-Id}")
     public ResponseEntity patchItem(@Valid @PathVariable("item-id") @Positive Long itemId,
                                     @RequestBody ItemDto.ItemPatch patchRequest){
-        Item itemforService = mapper.itemPatchDtoToItem(patchRequest);
-        itemforService.addItemId(itemId);
-        Item itemResponse = itemService.updateItem(itemforService);
+        Item itemForService = mapper.itemPatchDtoToItem(patchRequest);
+        itemForService.addItemId(itemId);
+        Item itemResponse = itemService.updateItem(itemForService);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);

@@ -1,4 +1,5 @@
 import * as S from "./styled";
+import MapMain from "../../components/Map/MapMain";
 
 const Write = () => {
   return (
@@ -25,6 +26,7 @@ const Write = () => {
             <S.WriteInput type="text" />
           </S.InputDiv>
           <S.InputDiv>위치</S.InputDiv>
+          <MapMain></MapMain>
         </S.WriteForm>
       </S.WriteContainer>
     </S.WriteWrap>

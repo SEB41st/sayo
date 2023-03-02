@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import GlobalStyle from "./Style/globalStyle";
@@ -24,8 +24,13 @@ const Domain = styled.div`
 
 const App = () => {
 
+  const [searchResult, setSearchResult] = useState("");
   const location = useLocation();
   
+  const getSearchResult = (result:string) => {
+    setSearchResult(result);
+  };
+
   return (
     <Domain>
       <GlobalStyle />

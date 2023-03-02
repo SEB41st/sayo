@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import project2.SAYO.domain.order.entity.Order;
 import project2.SAYO.domain.order.repository.OrderRepository;
+import project2.SAYO.domain.user.entity.User;
+import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.exception.BusinessLogicException;
 import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.util.CustomBeanUtils;
@@ -20,20 +22,25 @@ import java.util.Optional;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final CustomBeanUtils<Order> orderCustomBeanUtils;
+    private final UserService userService;
 
     // TODO POST
     public Order createOrder(Order order) {
-        /*User findUser =
-        order.addUser(findUser);*/
-        //user service에서 현재 유저 찾아서 넣고 저장.
-
+        User currentUser = userService.getCurrentUser();
+        order.addUser(currentUser); // 현재 로그인한 유저를 오더에 넣어줌.
 
         return orderRepository.save(order);
     }
 
     // TODO PATCH
-    public Order patchOrder(Order order) {
+    public Order updateOrder(Order order) {
         Order findOrder = findVerifiedOrder(order.getOrderId());
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(userService.getCurrentUser().getUserId() != findOrder.getUser().getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
         Order updateOrder = orderCustomBeanUtils.copyNonNullProperties(order, findOrder);
         updateOrder.ChangeOrderStatus(order.getOrderStatus());
         return orderRepository.save(updateOrder);
@@ -44,9 +51,25 @@ public class OrderService {
         return orderRepository.findAll(PageRequest.of(page,size, Sort.by("orderId").descending()));
     }
 
+    // TODO GET
+    public Order getOrder(long orderId) {
+        Order findOrder = findVerifiedOrder(orderId);
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(userService.getCurrentUser().getUserId() != findOrder.getUser().getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
+        return findVerifiedOrder(orderId);
+    }
+
     // TODO DELETE
     public void deleteOrder(long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(userService.getCurrentUser().getUserId() != findOrder.getUser().getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
         findOrder.ChangeOrderStatus(Order.OrderStatus.ORDER_CANCELLATION);
     }
 

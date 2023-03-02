@@ -43,7 +43,7 @@ public class OrderController {
                                      @RequestBody OrderDto.OrderRequest orderRequest) {
         Order orderForService = mapper.orderRequestToOrder(orderRequest);
         orderForService.addOrderId(orderId);
-        Order orderForResponse = orderService.patchOrder(orderForService);
+        Order orderForResponse = orderService.updateOrder(orderForService);
         OrderDto.OrderResponse response = mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response),HttpStatus.OK);
@@ -62,7 +62,7 @@ public class OrderController {
     // TODO GET
     @GetMapping("/{order-id}")
     public ResponseEntity getOrder(@Valid @Positive @PathVariable("order-id") long orderId) {
-        Order findOrder = orderService.findVerifiedOrder(orderId);
+        Order findOrder = orderService.getOrder(orderId);
 
         return new ResponseEntity(new SingleResponseDto<>(findOrder),HttpStatus.OK);
     }

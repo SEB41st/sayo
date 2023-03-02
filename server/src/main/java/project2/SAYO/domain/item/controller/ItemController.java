@@ -42,7 +42,7 @@ public class ItemController {
     }
 
     // item 수정
-    @PatchMapping("/{item-Id}")
+    @PatchMapping("/{item-id}")
     public ResponseEntity patchItem(@Valid @PathVariable("item-id") @Positive Long itemId,
                                     @RequestBody ItemDto.ItemPatch patchRequest){
         Item itemForService = mapper.itemPatchDtoToItem(patchRequest);

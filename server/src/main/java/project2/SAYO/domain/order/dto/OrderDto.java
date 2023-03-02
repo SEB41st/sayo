@@ -12,7 +12,7 @@ public class OrderDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public static class OrderRequest {
+    public static class Request {
         @NotBlank(message = "가격은 작성하셔야 합니다.")
         private Long orderPrice;
         private Order.OrderStatus orderStatus;
@@ -22,7 +22,7 @@ public class OrderDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public static class OrderResponse {
+    public static class Response {
         private Long orderId;
         private Long orderPrice;
         private Order.OrderStatus orderStatus;

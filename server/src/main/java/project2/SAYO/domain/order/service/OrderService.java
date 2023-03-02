@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.domain.order.entity.Order;
 import project2.SAYO.domain.order.repository.OrderRepository;
 import project2.SAYO.domain.user.entity.User;
@@ -25,6 +26,7 @@ public class OrderService {
     private final UserService userService;
 
     // TODO POST
+    @Transactional
     public Order createOrder(Order order) {
         User currentUser = userService.getCurrentUser();
         order.addUser(currentUser); // 현재 로그인한 유저를 오더에 넣어줌.
@@ -33,6 +35,7 @@ public class OrderService {
     }
 
     // TODO PATCH
+    @Transactional
     public Order updateOrder(Order order) {
         Order findOrder = findVerifiedOrder(order.getOrderId());
 
@@ -52,6 +55,7 @@ public class OrderService {
     }
 
     // TODO GET
+    @Transactional
     public Order getOrder(long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
 
@@ -64,6 +68,7 @@ public class OrderService {
     }
 
     // TODO DELETE
+    @Transactional
     public void deleteOrder(long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인

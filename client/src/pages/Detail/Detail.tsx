@@ -1,6 +1,11 @@
 import * as S from "./styled";
+import React, { useState } from 'react';
+
 
 const Detail = () => {
+
+  const [value, SetValue] = useState(new Date());
+
   return (
     <S.DetailWrap>
       <S.DetailContainer>
@@ -11,7 +16,8 @@ const Detail = () => {
           <div className="ProductName">아이렌캐리어 네임택</div>
           <div className="ProductPrice">판매가 : 6800원</div>
           <div className="ProductFee">배송비 : 없음</div>
-          <div className="SalesSchedule">판매일정</div>
+          <div className="SalesSchedule">
+              판매일정</div>
           <S.ButtonDiv>
             <S.CartBtn>장바구니</S.CartBtn>
             <S.BuyBtn>바로 구매</S.BuyBtn>

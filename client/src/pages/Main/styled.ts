@@ -69,9 +69,9 @@ export const SearchBar = styled.div`
 export const Item = styled.img`
     max-height: 80%;
     max-width: 80%;
-    background-color: gainsboro;
     border-radius: 10px;
     margin: 10px;
+    gap: 30px;
     :hover{
         transform: scale(1.2);
     }

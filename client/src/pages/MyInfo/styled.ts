@@ -14,7 +14,7 @@ export const MypageContainer = styled.div`
   align-items: center;
   /* min-width: 20.4375rem;
   min-height: 9.75rem; */
-  width: 40%;
+  min-width: 90%;
   height: 30%;
   background-color: #fef8e3;
   border-radius: .625rem;
@@ -22,42 +22,42 @@ export const MypageContainer = styled.div`
 
   @media screen and (min-width: ${"1280px"}) {
     width: 31.25rem;
-    height: 18.75rem;
+    height: 50%;
   }
 `;
 
 export const ImageDiv = styled.div`
-  width: 4.25rem;
-  height: 4.25rem;
+  width: 30%;
+  height: 30%;
   background-color: #ffffff;
   border-radius: 100%;
   margin: .625rem;
 
   @media screen and (min-width: ${"1280px"}) {
-    width: 8.125rem;
-    height: 8.125rem;
+    width: 15%;
+    height: 50%;
+
     margin: 1.875rem;
   }
 `;
 
 export const MypageDiv = styled.div`
   .Name {
-    font-size: .625rem;
-    margin-right: 3.5rem;
+    font-size: 1.25rem;
+    margin-right: 7.5rem;
+
 
     @media screen and (min-width: ${"1280px"}) {
-      font-size: 1rem;
       margin-right: 9.375rem;
     }
   }
   .UserName {
-    font-size: .625rem;
+    font-size: 1.25rem;
 
-    @media screen and (min-width: ${"1280px"}) {
+    /* @media screen and (min-width: ${"1280px"}) {
       font-size: 1rem;
-    }
+    } */
   }
-
 `;
 
 export const ButtonDiv = styled.div`
@@ -69,16 +69,15 @@ export const ButtonDiv = styled.div`
   @media screen and (min-width: ${"1280px"}) {
     width: 31.25rem;
     margin-bottom: 3.125rem;
-    }
+  }
 `;
-
 
 export const LogoutBtn = styled.button`
   width: 4.0625rem;
   height: 1.25rem;
   color: #000000;
-  font-size: 10px;
-  background-color: #FFFFFF;
+  font-size: 13px;
+  background-color: #ffffff;
   border: .0625rem solid #f9bb00;
   border-radius: .3125rem;
   cursor: pointer;

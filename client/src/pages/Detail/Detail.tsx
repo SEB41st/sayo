@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import * as S from "./styled";
 import React, { useState } from 'react';
-
+import { BsHeartFill } from "react-icons/bs";
 
 const Detail = () => {
 
@@ -13,14 +14,21 @@ const Detail = () => {
           <div className="ProductImg"></div>
         </S.ImageDiv>
         <S.ProductInfoDiv>
-          <div className="ProductName">아이렌캐리어 네임택</div>
+          <div className="Product">
+            <div className="ProductName">아이렌캐리어 네임택</div>
+            <BsHeartFill size="20" style={{marginLeft: "10px", color:"#d3d3d3"}}></BsHeartFill>
+          </div>
           <div className="ProductPrice">판매가 : 6800원</div>
           <div className="ProductFee">배송비 : 없음</div>
           <div className="SalesSchedule">
               판매일정</div>
           <S.ButtonDiv>
-            <S.CartBtn>장바구니</S.CartBtn>
-            <S.BuyBtn>바로 구매</S.BuyBtn>
+            <S.CartBtn>
+              <Link to="/cart">장바구니</Link>
+            </S.CartBtn>
+            <S.BuyBtn>
+              <Link to="/payment">바로 구매</Link>
+            </S.BuyBtn>
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>

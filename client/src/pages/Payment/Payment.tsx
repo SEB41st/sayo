@@ -6,6 +6,9 @@ const Cart = () => {
     <S.CartWrap>
       <S.CartContainer>
         <div className="Cart">주문/결제</div>
+        <S.PaymentDiv>
+
+  
         <S.OrderDiv>
           <div>주문자 정보</div>
           <S.OrderInfoDiv>
@@ -50,6 +53,7 @@ const Cart = () => {
         <S.ButtonDiv2>
           <CartBtn>결제하기</CartBtn>
         </S.ButtonDiv2>
+        </S.PaymentDiv>
       </S.CartContainer>
     </S.CartWrap>
   );

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
-import javax.sound.sampled.AudioFileFormat;
 
 @Entity
 @Getter
@@ -19,4 +18,8 @@ public class Category extends Auditable {
 
     @Column(nullable = false, length = 50)
     private String categoryName; // 카테고리 이름
+
+    public void addCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
 }

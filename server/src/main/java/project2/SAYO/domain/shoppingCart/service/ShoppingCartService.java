@@ -83,9 +83,8 @@ public class ShoppingCartService {
     // TODO VERIFIED
     public ShoppingCart findVerifiedShoppingCart(long shoppingCartId) {
         Optional<ShoppingCart> optionalShoppingCart = shoppingCartRepository.findById(shoppingCartId);
-        ShoppingCart findShoppingCart = optionalShoppingCart.orElseThrow(()->new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
 
-        return findShoppingCart;
+        return optionalShoppingCart.orElseThrow(()->new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
     }
 
 }

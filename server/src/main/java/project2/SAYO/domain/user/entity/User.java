@@ -78,4 +78,8 @@ public class User extends Auditable {
         this.password = password;
     }
 
+    public void ChangeUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
+    }
+
 }

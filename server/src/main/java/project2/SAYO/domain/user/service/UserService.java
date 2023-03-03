@@ -114,10 +114,15 @@ public class UserService {
         User findUser = findVerifiedUser(user.getUserId());
 
         // todo getCurrentUser
+        if (getCurrentUser().getUserId() != findUser.getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.USER_NOT_ALLOW);
+        }
 
         User updateUser = beanUtils.copyNonNullProperties(user, findUser);
 
         // todo password encoder update password
+        String encryptPassword = passwordEncoder.encode(updateUser.getPassword());
+        updateUser.setPassword(encryptPassword);
 
         return userRepository.save(updateUser);
     }
@@ -152,7 +157,7 @@ public class UserService {
 
     public void deleteUser(Long userId) {
         User findUser = findVerifiedUser(userId);
-        userRepository.delete(findUser);
+        findUser.ChangeUserStatus(User.UserStatus.USER_QUIT);
     }
 
     public User getCurrentUser() {

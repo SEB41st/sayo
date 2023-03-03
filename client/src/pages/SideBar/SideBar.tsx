@@ -51,7 +51,7 @@ const SideBar = () => {
                 {MypageToggleMenu ? (
                 <S.GoodsList>
                     <S.NavFont to="/myPage">마이페이지</S.NavFont>
-                    <S.NavFont to="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%84%A4%EC%9D%B4%EB%B2%84+%EB%B0%B0%EC%86%A1%EC%A1%B0%ED%9A%8C">배송 조회</S.NavFont>
+                    <S.NavFont to="http://st.sweettracker.co.kr/#/">배송 조회</S.NavFont>
                     <S.NavFont to="/cart">장바구니</S.NavFont>
                 </S.GoodsList>
                 ):(

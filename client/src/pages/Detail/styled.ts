@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DetailWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,8 +118,8 @@ export const BuyBtn = styled(CartBtn)`
 `;
 
 export const DetailDiv = styled.div`
-  width: 360px;
-  height: 285px;
+  width: 100%;
+  height: 100%;
   font-size: 13px;
 
   @media screen and (min-width: ${"1280px"}) {
@@ -148,3 +148,9 @@ export const DetailDiv = styled.div`
     margin: 20px;
   }
 `;
+
+export const StaticMap = styled.div`
+  width:100%;
+  height:100%;
+  border-radius: 10px;
+`

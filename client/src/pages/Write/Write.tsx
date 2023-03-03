@@ -35,7 +35,7 @@ const Write = () => {
               closeOnScroll={true}    // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               placeholderText="공동구매 시작일 선택"    // placeholder
               selected={startDate}    // value  // 날짜를 선택하였을 때 실행될 함수
-              onChange={(date: Date) => setEndDate(date)}
+              onChange={(date: Date) => setStartDate(date)}
               />
             </S.Day>
             </S.InputDiv>
@@ -49,7 +49,7 @@ const Write = () => {
               closeOnScroll={true}    // 스크롤을 움직였을 때 자동으로 닫히도록 설정 기본값 false
               placeholderText="공동구매 종료일 선택"    // placeholder
               selected={endDate}    // value  // 날짜를 선택하였을 때 실행될 함수
-              onChange={(date: Date) => setStartDate(date)}
+              onChange={(date: Date) => setEndDate(date)}
               />
             </S.Day>
              </S.InputDiv>

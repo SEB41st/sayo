@@ -33,17 +33,10 @@ const root = ReactDOM.createRoot(
   );
   root.render(
     <QueryClientProvider client={queryClient}>
-      <React.StrictMode>
+      {/* <React.StrictMode> */}
         <Router>
           <App />
         </Router>
-      </React.StrictMode>
+      {/* </React.StrictMode> */}
     </QueryClientProvider>
   );
-// root.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
-
-// reportWebVitals();

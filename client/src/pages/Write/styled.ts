@@ -33,6 +33,7 @@ export const SubmitBtn = styled.button`
   font-size: .625rem;
   background-color: #f9bb00;
   border-radius: 5px;
+  cursor: pointer;
 
   @media screen and (min-width: ${"80rem"}) {
     width: 6.25rem;
@@ -80,6 +81,7 @@ export const WriteInput = styled.input`
     min-width: 300px;
   }
 `;
+
 
 // export const InputDivs = styled.div`
 //   margin-right: 135px;

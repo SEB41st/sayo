@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ButtonDiv } from "../Detail/styled";
 
 export const CartWrap = styled.div`
-  width: 100%;
+  width: 90%;
   height: 100%;
   margin: 0.625rem 1.25rem;
 `;
@@ -27,9 +27,13 @@ export const CartContainer = styled.div`
     }
   }
 `;
-
+export const PaymentDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export const OrderDiv = styled.div`
-  max-width: 90%;
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -56,7 +60,7 @@ export const OrderInfoDiv = styled.div`
 
 export const ProductDiv = styled.div`
   /* width: 20rem; */
-  max-width: 90%;
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;

@@ -57,6 +57,10 @@ export const ProductInfoDiv = styled.div`
     font-size: 16px;
   }
 
+  .Product{
+    display: flex;
+  }
+
   .ProductName {
     font-size: 14px;
     margin-bottom: 10px;

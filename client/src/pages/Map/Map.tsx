@@ -3,7 +3,9 @@ import * as S from "./styled";
 import { BsSearch } from 'react-icons/bs';
 
 const MapContainer = () => {
-  const [value, setValue] = useState("")
+
+  const [value, setValue] = useState<string>("")
+  const [searchvalue, setSearchValue] = useState<string>("")
 
     useEffect(() => {
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -13,7 +15,7 @@ const MapContainer = () => {
     // console.log(container)
     let options = { //지도를 생성할 때 필요한 기본 옵션
         center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-        level: 2 //지도의 레벨(확대, 축소 정도)
+        level: 4 //지도의 레벨(확대, 축소 정도)
     };
     // 이미 만들어진 청사진 (kakao.maps.Map)을 가지고 새로운 객체를 만든 것이(new)map임
     // class의 파라미터가 container, options을 가지고 있음
@@ -21,9 +23,11 @@ const MapContainer = () => {
     // console.log(map)
 
         if (!map) return console.log("fine")
+        if (searchvalue === "") return console.log("값이 없음")
 
         const ps = new kakao.maps.services.Places()
-        ps.keywordSearch("영등포 맛집", (data : any, status: any, _pagination: any) => {
+        console.log(ps)
+        ps.keywordSearch(searchvalue, (data : any, status: any, _pagination: any) => {
             if (status === kakao.maps.services.Status.OK) {
               // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
               // LatLngBounds 객체에 좌표를 추가합니다
@@ -56,24 +60,33 @@ const MapContainer = () => {
             infowindow.open(map, marker);
         });
     }
-    }, [])
+    }, [searchvalue])
     const searchResult = (e:any) => {
-     setValue(e.target.value)
+      // console.log(e.target.value)
+      setValue(e.target.value)
+    }
 
+    const onKeyPressEnter = (e:any) => {
+      if(e.key === "Enter") {
+        search();
+        setValue('')
+      }
+      
     }
     const search = () => {
-      console.log(value)
-
+      console.log(typeof(searchvalue))
+      setSearchValue(value)
     }
     return (
       <div>
-        <div id="map" style={{ width: "90%", height: "80vh" }} />
+        <S.Map id="map" />
         <S.SearchBar>
           <input
           className='Search'
           type="text"
-          placeholder='검색하실 지역을 입력해주세요'
+          placeholder='원하는 제품을 입력해주세요'
           onChange={searchResult}
+          onKeyPress={onKeyPressEnter}
           ></input>
           <BsSearch
             style={{"marginLeft":"10px"}}

@@ -56,16 +56,6 @@ export const GoodsList = styled.div`
     margin-top: 10px;
 `
 
-export const SearchBar = styled.div`
-    margin-bottom: 20px;
-    .Search{
-        border: 1px solid #F9BB00;
-        border-radius: 10px;
-        width: 90%;
-        height: 150%;
-    }
-`
-
 export const Item = styled.img`
     max-height: 80%;
     max-width: 80%;

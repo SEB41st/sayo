@@ -21,15 +21,10 @@ const Domain = styled.div`
   min-width: 22.5rem;
   min-height: 40rem;
 `;
-
 const App = () => {
 
-  const [searchResult, setSearchResult] = useState("");
   const location = useLocation();
   
-  const getSearchResult = (result:string) => {
-    setSearchResult(result);
-  };
 
   return (
     <Domain>
@@ -37,7 +32,7 @@ const App = () => {
       {/* sidebar 일 때 header 없애기 */}
         {!['/sidebar'].includes(location.pathname) && <Header/> }
         <Routes>
-          <Route path="/" element={<Main />}/> 
+          <Route path="/" element={<Main/>}/> 
           <Route path="/write" element={<Write />}/>
           <Route path="/sidebar" element={<SideBar/>}/> 
           <Route path="/myPage" element={<Mypage/>}/>

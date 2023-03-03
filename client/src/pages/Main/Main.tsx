@@ -1,11 +1,30 @@
 import { Link } from 'react-router-dom';
 import * as S from './styled';
 import { BsPlusCircle, BsSearch } from 'react-icons/bs';
+import { useState } from 'react';
 
-const Main = () => {
+
+const Main = (props:any) => {
+  const [value, setValue] = useState<string>("")
+  const [searchValue, setSearchValue] = useState<string>("")
+
+  const searchResult = (e:any) => {
+    setValue(e.target.value)
+    // console.log(value)
   
-  const searchResult = () => {
-    
+  }
+
+  const onKeyPressEnter = (e:any) => {
+    if(e.key === "Enter"){
+      searchResultEnter()
+      // setValue('')
+    }
+
+  }
+  const searchResultEnter = () => {
+    setSearchValue(value)
+    console.log(searchValue)
+    props.SearchResult(searchValue)
   }
 
   return (
@@ -25,20 +44,10 @@ const Main = () => {
               
             </S.GoodsList>
           </S.Menus>
-        <S.Title>지역 공동구매 상품 찾기</S.Title>
-        <S.Menus>
-          <S.SearchBar>
-          <input
-            className='Search'
-            type="text"
-            placeholder='검색하실 지역을 입력해주세요'
-            onChange={searchResult}
-          ></input>
+        <S.Title>다른 지역 공동구매 상품 찾기
           <Link to = '/map'>
-          <BsSearch style={{"marginLeft":"10px"}}/>
-          </Link>
-          </S.SearchBar>
-        </S.Menus>
+            <S.WriteButton>지도로 검색하기</S.WriteButton>
+          </Link></S.Title><br/><br/>
             <S.Title>최근 본 상품</S.Title>
         <S.Menus>
           <S.GoodsList>

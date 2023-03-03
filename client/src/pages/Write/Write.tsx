@@ -1,7 +1,9 @@
 import * as S from "./styled";
+import MapMain from "../../components/Map/MapMain";
 import DatePicker from 'react-datepicker'
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import MapLocation from "../../components/Map/MapLocation";
 
 const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -58,6 +60,8 @@ const Write = () => {
             <S.WriteInput type="text" />
           </S.InputDiv>
           <S.InputDiv>위치</S.InputDiv>
+          <MapMain></MapMain> {/*처음에 지도를 랜더링 해줌*/}
+          <MapLocation></MapLocation> {/*내 위치로 마커가 변경되고 그 상태에서 마커를 찍을 수 있음*/}
         </S.WriteForm>
       </S.WriteContainer>
     </S.WriteWrap>

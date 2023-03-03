@@ -14,6 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;  // auto-increment
@@ -30,4 +31,12 @@ public class Address extends Auditable {
     @JoinColumn(name = "USER_ID")
     @Setter
     private User user;
+
+    public void addUser(User user) {
+        this.user = user;
+    }
+    public void addAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
+
 }

@@ -56,7 +56,7 @@ export const GoodsList = styled.div`
     margin-top: 10px;
 `
 
-export const Item = styled.img`
+export const Item = styled.div`
     max-height: 80%;
     max-width: 80%;
     border-radius: 10px;

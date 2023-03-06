@@ -1,32 +1,48 @@
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import * as S from "./styled";
 import React, { useEffect, useState } from 'react';
 import { BsHeartFill } from "react-icons/bs";
+import Error from "../../components/Error/Error";
+import { useCustomQuery } from "../../components/util/useCustomQuery";
+import Loading from "../../components/Loading/Loading";
 
 const Detail = () => {
 
-  const [value, SetValue] = useState(new Date());
-  useEffect(() => {
+  // const [value, SetValue] = useState(new Date());
 
-    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+  const {id} = useParams(); 
+
+  // useEffect(() => {
+
+  //   let markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
     
-    // 이미지 지도에 표시할 마커입니다
-    // 이미지 지도에 표시할 마커는 Object 형태입니다
-    var marker = {
-      position: markerPosition
-    };
+  //   // 이미지 지도에 표시할 마커입니다
+  //   // 이미지 지도에 표시할 마커는 Object 형태입니다
+  //   let marker = {
+  //     position: markerPosition
+  //   };
     
-    var staticMapContainer  = document.getElementById('staticMap') as HTMLElement, // 이미지 지도를 표시할 div  
-    staticMapOption = { 
-      center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
-      level: 3, // 이미지 지도의 확대 레벨
-      marker: marker // 이미지 지도에 표시할 마커 
-    };    
+  //   let staticMapContainer  = document.getElementById('staticMap') as HTMLElement, // 이미지 지도를 표시할 div  
+  //   staticMapOption = { 
+  //     center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
+  //     level: 3, // 이미지 지도의 확대 레벨
+  //     marker: marker // 이미지 지도에 표시할 마커 
+  //   };    
     
-    // 이미지 지도를 생성합니다
-    var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+  //   // 이미지 지도를 생성합니다
+  //   let staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
     
-  },[])
+  // },[])
+
+  const { data, isLoading, error } = useCustomQuery(`/items`,`items=${id}`);
+
+  if (error) return <Error />;
+  if (isLoading) return <Loading />;
+
+  const items = data;
+  console.log(items)
+
+
   return (
     <S.DetailWrap>
       <S.DetailContainer>
@@ -35,11 +51,11 @@ const Detail = () => {
         </S.ImageDiv>
         <S.ProductInfoDiv>
           <div className="Product">
-            <div className="ProductName">아이렌캐리어 네임택</div>
+            <div className="ProductName">{items.title}</div>
             <BsHeartFill size="20" style={{marginLeft: "10px", color:"#d3d3d3"}}></BsHeartFill>
           </div>
-          <div className="ProductPrice">판매가 : 6800원</div>
-          <div className="ProductFee">배송비 : 없음</div>
+          <div className="ProductPrice">판매가 : {items.itmePrice}원</div>
+          <div className="ProductFee">배송비 : {items.deliveryFee}</div>
           <div className="SalesSchedule">
               판매일정</div>
           <S.ButtonDiv>
@@ -59,7 +75,7 @@ const Detail = () => {
           아이렌 형태의 러기지 네임텍 입니다!
         </div>
         <div className="DetailLocation">위치</div>
-        <S.StaticMap id='staticMap'/>
+        {/* <S.StaticMap id='staticMap'/> */}
       </S.DetailDiv>
     </S.DetailWrap>
   );

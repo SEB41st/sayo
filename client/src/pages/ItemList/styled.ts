@@ -43,7 +43,7 @@ export const GoodsList = styled.div`
     margin: 5%;
     gap: 20px;
 `
-export const Item = styled.img`
+export const Item = styled.div`
     max-height: 10rem;
     max-width: 10rem;
     border-radius: 10px;

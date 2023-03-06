@@ -1,31 +1,46 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as S from './styled';
 import { BsPlusCircle, BsSearch } from 'react-icons/bs';
 import { useState } from 'react';
+import { useCustomQuery } from '../../components/util/useCustomQuery';
+import Error from '../../components/Error/Error';
+import Loading from '../../components/Loading/Loading';
+import Detail from '../Detail/Detail';
 
 
 const Main = (props:any) => {
   const [value, setValue] = useState<string>("")
   const [searchValue, setSearchValue] = useState<string>("")
 
-  const searchResult = (e:any) => {
-    setValue(e.target.value)
-    // console.log(value)
+  const {id} = useParams(); 
+
+  const { data, isLoading, error } = useCustomQuery(`/items`,`items=${id}`);
+
+  if (error) return <Error />;
+  if (isLoading) return <Loading />;
+
+
+  const items = data;
+  console.log(items)
+
+  // const searchResult = (e:any) => {
+  //   setValue(e.target.value)
+  //   // console.log(value)
   
-  }
+  // }
 
-  const onKeyPressEnter = (e:any) => {
-    if(e.key === "Enter"){
-      searchResultEnter()
-      // setValue('')
-    }
+  // const onKeyPressEnter = (e:any) => {
+  //   if(e.key === "Enter"){
+  //     searchResultEnter()
+  //     // setValue('')
+  //   }
 
-  }
-  const searchResultEnter = () => {
-    setSearchValue(value)
-    console.log(searchValue)
-    props.SearchResult(searchValue)
-  }
+  // }
+  // const searchResultEnter = () => {
+  //   setSearchValue(value)
+  //   console.log(searchValue)
+  //   props.SearchResult(searchValue)
+  // }
 
   return (
     <S.Main>
@@ -37,12 +52,21 @@ const Main = (props:any) => {
             <h4 className='font'>전체보기
               <Link to='/itemList' ><BsPlusCircle className='plusIcon'/></Link>
             </h4>
-            <S.GoodsList>
-              <Link to = '/detail'><S.Item></S.Item></Link>
-              <Link to = '/detail'><S.Item></S.Item></Link>
-              <Link to = '/detail'><S.Item></S.Item></Link>
-              
-            </S.GoodsList>
+              <S.GoodsList>
+            {items && items.map ((item:any) => {
+              console.log(item)
+              return (
+                <Link to = {`/items/${item.id}`} key={item.id}>
+                  <S.Item>
+                    <img
+                    src={item.itemPicture}
+                    alt="상품 이미지"
+                    className='itempicture'
+                    >
+                    <Detail title={item.title} itemPicture={item.itemPicture} itmePrice={item.itmePrice} deliveryFee={item.deliveryFee}/>
+                  </img></S.Item></Link>
+            )})}
+              </S.GoodsList>
           </S.Menus>
         <S.Title>다른 지역 공동구매 상품 찾기
           <Link to = '/map'>
@@ -50,11 +74,20 @@ const Main = (props:any) => {
           </Link></S.Title><br/><br/>
             <S.Title>최근 본 상품</S.Title>
         <S.Menus>
-          <S.GoodsList>
-            <Link to = '/detail'><S.Item src="/assets/goods.png"/></Link>
-            <Link to = '/detail'><S.Item src="/assets/goods.png"/></Link>
-            <Link to = '/detail'><S.Item src="/assets/goods.png"/></Link>
-          </S.GoodsList>
+              <S.GoodsList>
+              {items && items.map ((item:any) => {
+              return (
+                <Link to = {`/items/${item.id}`}>
+                  <S.Item >
+                    <img
+                      src={item.itemPicture}
+                      alt="상품 이미지"
+                      className='itempicture'
+                    ></img>
+                  </S.Item>
+                </Link>
+                )})}
+              </S.GoodsList>
         </S.Menus>
         <S.Menus>
           <S.Title style={{margin:0}}>

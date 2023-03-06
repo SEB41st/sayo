@@ -56,7 +56,7 @@ export const GoodsList = styled.div`
     margin-top: 10px;
 `
 
-export const Item = styled.img`
+export const Item = styled.div`
     max-height: 80%;
     max-width: 80%;
     border-radius: 10px;
@@ -64,6 +64,10 @@ export const Item = styled.img`
     gap: 30px;
     :hover{
         transform: scale(1.2);
+    }
+    .itempicture{
+        max-height: 80%;
+        max-width: 80%;
     }
     @media screen and (min-width: ${"1280px"}) {
       

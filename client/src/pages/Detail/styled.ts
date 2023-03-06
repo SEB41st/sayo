@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DetailWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,13 +12,13 @@ export const DetailContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 330px;
+  min-height: 300px;
   margin-top: 20px;
   border-bottom: 1px solid #f9bb00;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 100%;
-    height: 500px;
+    height: 100%;
   }
 `;
 
@@ -122,11 +122,11 @@ export const DetailDiv = styled.div`
   height: 100%;
   font-size: 13px;
 
-  @media screen and (min-width: ${"1280px"}) {
+  /* @media screen and (min-width: ${"1280px"}) {
     width: 1000px;
     height: 500px;
     font-size: 20px;
-  }
+  } */
 
   .DetailInfo {
     margin: 20px;
@@ -153,4 +153,5 @@ export const StaticMap = styled.div`
   width:100%;
   height:100%;
   border-radius: 10px;
+  margin-bottom:10px;
 `

@@ -20,49 +20,49 @@ const ItemList = () => {
         </S.Tags>
             <S.GoodsList>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>
                 </S.Font>
               </Link>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>
                 </S.Font>
               </Link>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>
                 </S.Font>
               </Link>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>
                 </S.Font>
               </Link>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>
                 </S.Font>
               </Link>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>
                 </S.Font>
               </Link>
               <Link to = '/detail'>
-              <S.Item src="/assets/goods.png"/>
+              {/* <S.Item src="/assets/goods.png"/> */}
                 <S.Font>
                   <div>목포 쫀드기</div>
                   <div>9,900원</div>

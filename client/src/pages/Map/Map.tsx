@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import * as S from "./styled";
 import { BsSearch } from 'react-icons/bs';
+import MapLocation from '../../components/Map/MapLocation';
 
 const MapContainer = () => {
 
   const [value, setValue] = useState<string>("")
   const [searchvalue, setSearchValue] = useState<string>("")
+
+   // 현재 나의 위치
+   const [location, setLocation] = useState<
+   { latitude: number; longitude: number } | string
+ >("");
 
     useEffect(() => {
     // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -71,7 +77,6 @@ const MapContainer = () => {
         search();
         setValue('')
       }
-      
     }
     const search = () => {
       console.log(typeof(searchvalue))
@@ -93,6 +98,7 @@ const MapContainer = () => {
             onClick={search}
             />
         </S.SearchBar>
+        <MapLocation></MapLocation>
       </div>
     );
 }

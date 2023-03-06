@@ -40,10 +40,10 @@ public class UserController {
     // TODO PATCH
     @PatchMapping("/{user-id}")
     public ResponseEntity patchUser(@RequestBody UserDto.Patch patchRequest,
-                                    @PathVariable("user-id") Long userId) {
+                                    @Positive @PathVariable("user-id") Long userId) {
 
         User userForService  = userMapper.userPatchDtoToUser(patchRequest);
-        // userForService.setUserId(userId);
+        userForService.setUserId(userId);
         User userForResponse = userService.updateUser(userForService);
         UserDto.Response response = userMapper.userToUserResponse(userForResponse);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
@@ -70,7 +70,7 @@ public class UserController {
 
     // TODO GET ONE
     @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@PathVariable("user-id") Long userId) {
+    public ResponseEntity getUser(@Positive @PathVariable("user-id") Long userId) {
         User uerForResponse = userService.findUser(userId);
         UserDto.Response response = userMapper.userToUserResponse(uerForResponse);
 
@@ -90,7 +90,7 @@ public class UserController {
 
     // TODO DELETE ONE
     @DeleteMapping("/{user-id}")
-    public ResponseEntity deleteOneUser(@PathVariable("user-id") Long userId){
+    public ResponseEntity deleteUser(@Positive @PathVariable("user-id") Long userId){
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);

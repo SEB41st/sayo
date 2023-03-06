@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 public class WishDto {
     @AllArgsConstructor
@@ -40,6 +41,8 @@ public class WishDto {
         private long userId;
         private long wishId;
         private boolean wishSelected;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
 
     }
 }

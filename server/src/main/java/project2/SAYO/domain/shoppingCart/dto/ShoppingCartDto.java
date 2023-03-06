@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 public class ShoppingCartDto {
 
@@ -41,6 +42,8 @@ public class ShoppingCartDto {
         private long userId;
         private long shoppingCartId;
         private boolean shoppingCartSelected;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
 
     }
 

@@ -15,6 +15,12 @@ public enum ExceptionCode {
     // ORDER
      ORDER_NOT_FOUND(404, "Order not found"),
 
+    // ShoppingCart
+    SHOPPINGCART_NOT_FOUND(404, "ShoppingChart not found"),
+
+    // Wish
+    WISH_NOT_FOUND(404, "Wish not found"),
+
     // Item
     ITEM_NOT_FOUND(404, "Item not found"),
 

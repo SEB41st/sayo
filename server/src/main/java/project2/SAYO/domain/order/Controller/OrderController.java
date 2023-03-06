@@ -29,10 +29,10 @@ public class OrderController {
 
     // TODO POST
     @PostMapping
-    public ResponseEntity postOrder(@RequestBody OrderDto.OrderRequest orderRequest) {
-        Order orderForService = mapper.orderRequestToOrder(orderRequest);
+    public ResponseEntity postOrder(@RequestBody OrderDto.Request request) {
+        Order orderForService = mapper.orderRequestToOrder(request);
         Order orderForResponse = orderService.createOrder(orderForService);
-        OrderDto.OrderResponse response= mapper.orderToOrderResponse(orderForResponse);
+        OrderDto.Response response= mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -40,11 +40,11 @@ public class OrderController {
     // TODO PATCH
     @PatchMapping("/{order-id}")
     public ResponseEntity patchOrder(@Valid @PathVariable("order-id") @Positive long orderId,
-                                     @RequestBody OrderDto.OrderRequest orderRequest) {
-        Order orderForService = mapper.orderRequestToOrder(orderRequest);
+                                     @RequestBody OrderDto.Request request) {
+        Order orderForService = mapper.orderRequestToOrder(request);
         orderForService.addOrderId(orderId);
-        Order orderForResponse = orderService.patchOrder(orderForService);
-        OrderDto.OrderResponse response = mapper.orderToOrderResponse(orderForResponse);
+        Order orderForResponse = orderService.updateOrder(orderForService);
+        OrderDto.Response response = mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response),HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class OrderController {
     // TODO GET
     @GetMapping("/{order-id}")
     public ResponseEntity getOrder(@Valid @Positive @PathVariable("order-id") long orderId) {
-        Order findOrder = orderService.findVerifiedOrder(orderId);
+        Order findOrder = orderService.getOrder(orderId);
 
         return new ResponseEntity(new SingleResponseDto<>(findOrder),HttpStatus.OK);
     }

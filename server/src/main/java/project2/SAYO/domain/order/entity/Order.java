@@ -23,6 +23,9 @@ public class Order extends Auditable {
     @Column
     private OrderStatus orderStatus;
 
+    @Column
+    private Long waybillNumber;
+
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;

@@ -1,4 +1,4 @@
-package project2.SAYO.domain.wish.entity;
+package project2.SAYO.domain.shoppingCart.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +13,13 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Wish extends Auditable {
+public class ShoppingCart extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wishId;
+    private Long shoppingCartId;
 
     @Column
-    private boolean wishSelected;
+    private boolean shoppingCartSelected;
 
     @ManyToOne
     @JoinColumn(name="USER_ID")
@@ -37,7 +37,7 @@ public class Wish extends Auditable {
         this.item = item;
     }
 
-    public void ChangeWishSelected(boolean wishSelected) {
-        this.wishSelected = wishSelected;
+    public void ChangeShoppingCartSelected(boolean shoppingCartSelected) {
+        this.shoppingCartSelected = shoppingCartSelected;
     }
 }

@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 
-export const useCustomQuery = (url:string, queryKey:any) => {
+export const useCustomQuery = (url: string, queryKey: string) => {
   const { data, isLoading, error, status, refetch } = useQuery(
     [queryKey],
     () =>
-      fetch(`http://localhost:3001${url}`, {
+    axios(`http://localhost:4000${url}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // "AutHorization": localStorage.getItem("accessToken"),
+          "AutHorization": localStorage.getItem("accessToken"),
         },
       }).then((res) => {
-        return res.json();
+        return res.data;
       }),
     { keepPreviousData: false }
   );

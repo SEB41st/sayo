@@ -18,7 +18,7 @@ const MapLocation = () => {
 
   // 현재 마커 저장할 state
   // const [marked, setMarked] = useState<{ latitude: number; longitude: number } | Array<any> >([]);
-  const [marked, setMarked] = useState<Position[]>([]);
+  const [marked, setMarked] = useState<string>("")
 
   // 현재 나의 위치
   const [location, setLocation] = useState<
@@ -85,13 +85,16 @@ const MapLocation = () => {
         // 마커 위치를 클릭한 위치로 옮깁니다
         marker.setPosition(latlng);
 
-        // 현재 위치 저장 // 값이 변하지 않음
-        setMarked(latlng);
+     
 
         // 현재 위치 값을 담고 있는 변수
         const Mylocation = latlng;
+           // 현재 위치 저장 // 값이 변하지 않음
+           setMarked(Mylocation);
                
         console.log("marked", marked); // 변화가 없음
+        console.log("latlng", latlng.La); // 변화가 없음
+        console.log(typeof(latlng)); // 변화가 없음
         console.log("Mylocation", Mylocation); // 변화가 없음
 
   

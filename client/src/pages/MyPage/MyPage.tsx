@@ -15,16 +15,16 @@ const Mypage = () => {
             <div className="Name">내가 찜한 상품</div>
             <S.ChoiceList>
                 <Link to = '/detail'>
-                    <Item src="/assets/goods.png"/>
+                    {/* <Item src="/assets/goods.png"/> */}
                     <div>목포 쫀드기</div>
                     <div>9,900원</div>
                 </Link>
                 <Link to = '/detail'>
-                    <Item src="/assets/goods.png"/>
+                    {/* <Item src="/assets/goods.png"/> */}
                     <div>목포 쫀드기</div>
                     <div>9,900원</div></Link>
                 <Link to = '/detail'>
-                    <Item src="/assets/goods.png"/>
+                    {/* <Item src="/assets/goods.png"/> */}
                     <div>목포 쫀드기</div>
                     <div>9,900원</div></Link>
             </S.ChoiceList>
@@ -34,16 +34,16 @@ const Mypage = () => {
             <div className="Name">참여 중인 공동구매</div>
             <S.ChoiceList>
             <Link to = '/detail'>
-                    <Item src="/assets/goods.png"/>
+                    {/* <Item src="/assets/goods.png"/> */}
                     <div>목포 쫀드기</div>
                     <div>9,900원</div>
                 </Link>
                 <Link to = '/detail'>
-                    <Item src="/assets/goods.png"/>
+                    {/* <Item src="/assets/goods.png"/> */}
                     <div>목포 쫀드기</div>
                     <div>9,900원</div></Link>
                 <Link to = '/detail'>
-                    <Item src="/assets/goods.png"/>
+                    {/* <Item src="/assets/goods.png"/> */}
                     <div>목포 쫀드기</div>
                     <div>9,900원</div></Link>
             </S.ChoiceList>

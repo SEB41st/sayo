@@ -65,6 +65,10 @@ export const Item = styled.div`
     :hover{
         transform: scale(1.2);
     }
+    .itempicture{
+        max-height: 80%;
+        max-width: 80%;
+    }
     @media screen and (min-width: ${"1280px"}) {
       
     }

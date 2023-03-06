@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import * as S from "./styled";
 import React, { useEffect, useState } from "react";
 import { BsHeartFill } from "react-icons/bs";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
-import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import MapMain from "../../components/Map/MapMain";
@@ -82,10 +81,6 @@ const Detail = () => {
         <div className="DetailInfoTxt">{Items.itemDatail}</div>
         <div className="DetailLocation">위치</div>
         <MapMain></MapMain>
-        {/* <MapSalesLoaction  setSalesLocation={setSalesLocation} /> */}
-         
-        {/* </MapSalesLoaction> */}
-        <MapLocation></MapLocation>
         {/* <S.StaticMap id="staticMap" /> */}
       </S.DetailDiv>
     </S.DetailWrap>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 /* 404 Error Page */
-export const ErrorDiv = styled.div`
+export const Error = styled.div`
     /* background: #4BA6B2; */
     position: fixed;
     left: 0px;

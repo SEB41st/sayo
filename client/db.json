@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "title": "곽티슈",
+      "title": "부드러운 러그",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
       "itmePrice" : "13,900원",
       "deliveryFee" : "0원",
@@ -24,14 +24,14 @@
     },
     {
       "id": 3,
-      "title": "두루마리 휴지",
+      "title": "강아지 장난감",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
       "itmePrice" : "900원",
       "deliveryFee" : "1,000원",
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.86032871869874, "Ma" : 37.38447837251356 }
+      "itemDatail" : "깜찍한 아이렌 캐릭터 러기지 네임텍 입니다 설레는 여행을 함께 할 귀여운 아이렌 형태의 러기지 네임텍 입니다!",
+      "location" : "{La: 126.86032871869874, Ma: 37.38447837251356}"
     },
     {
       "id": 4,
@@ -46,7 +46,7 @@
     },
     {
       "id": 5,
-      "title": "두루마리 휴지",
+      "title": "아이렌캐리어 네임택",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
       "itmePrice" : "7,900원",
       "deliveryFee" : "0원",
@@ -68,7 +68,7 @@
     },
     {
       "id": 7,
-      "title": "두루마리 휴지",
+      "title": "편안한 침대",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
       "itmePrice" : "123,900원",
       "deliveryFee" : "0원",
@@ -90,7 +90,7 @@
     },
     {
       "id": 9,
-      "title": "두루마리 휴지",
+      "title": "머그 컵",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
       "itmePrice" : "1,900원",
       "deliveryFee" : "3,000원",
@@ -101,7 +101,7 @@
     },
     {
       "id": 10,
-      "title": "두루마리 휴지",
+      "title": "컴퓨터용 책상",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
       "itmePrice" : "99,900원",
       "deliveryFee" : "0원",

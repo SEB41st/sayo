@@ -75,23 +75,8 @@ const Main = (props: any) => {
                       <img src={item.itemPicture} alt="goods"></img>
                     </Link>
                   </S.Item>
-                  // item id로 페이지 라우팅
-                //    <S.Item>
-                //    <Link to={`/detail/${item.id}`} key={item.id}>
-                //      <img src={item.itemPicture} alt="goods"></img>
-                //    </Link>
-                //  </S.Item>
                 );
               })}
-            {/* <Link to="/detail">
-              <S.Item></S.Item>
-            </Link>
-            <Link to="/detail">
-              <S.Item></S.Item>
-            </Link>
-            <Link to="/detail">
-              <S.Item></S.Item>
-            </Link> */}
           </S.GoodsList>
         </S.Menus>
         <S.Title>
@@ -104,17 +89,20 @@ const Main = (props: any) => {
         <br />
         <S.Title>최근 본 상품</S.Title>
         <S.Menus>
-          <S.GoodsList>
-            <Link to="/detail">
-              <S.Item></S.Item>
-            </Link>
-            <Link to="/detail">
-              <S.Item></S.Item>
-            </Link>
-            <Link to="/detail">
-              <S.Item></S.Item>
-            </Link>
-          </S.GoodsList>
+              <S.GoodsList>
+              {Items && Items.map ((item:any) => {
+              return (
+                <Link to={`/detail/${item.id}`} key={item.id}>
+                  <S.Item >
+                    <img
+                      src={item.itemPicture}
+                      alt="상품 이미지"
+                      className='itempicture'
+                    ></img>
+                  </S.Item>
+                </Link>
+                )})}
+              </S.GoodsList>
         </S.Menus>
         <S.Menus>
           <S.Title style={{ margin: 0 }}>

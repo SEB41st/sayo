@@ -9,6 +9,7 @@ const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
+  console.log(startDate, endDate)
   return (
     <S.WriteWrap>
       <S.WriteContainer>
@@ -59,7 +60,9 @@ const Write = () => {
             <S.InputLabel> 상세정보</S.InputLabel>
             <S.WriteInput type="text" />
           </S.InputDiv>
-          <S.InputDiv>위치</S.InputDiv>
+          <S.InputDiv>
+            <S.InputLabel>위치</S.InputLabel>
+          </S.InputDiv>
           <MapMain></MapMain> {/*처음에 지도를 랜더링 해줌*/}
           <MapLocation></MapLocation> {/*내 위치로 마커가 변경되고 그 상태에서 마커를 찍을 수 있음*/}
         </S.WriteForm>

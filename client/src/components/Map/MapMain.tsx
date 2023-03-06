@@ -1,3 +1,5 @@
+import * as S from "./styled";
+
 import { useEffect, useState } from "react"
 // kakao 글로벌로 선언
 declare global {
@@ -51,13 +53,13 @@ const MapMain = () => {
 
   return (
     <>
-      <div id="map" style={{ width: "550px", height: "400px" }}>
+      <S.Map id="map" >
         {/* <Map center={{ lat: position.lat, lng: position.lng }}>
       {markers.map((marker, index) => (
         <MapMarker key={index} position={{ lat: marker.lat, lng: marker.lng }} />
         ))}
       </Map> */}
-      </div>
+      </S.Map>
     </>
   );
 };

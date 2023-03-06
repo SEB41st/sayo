@@ -56,7 +56,7 @@ export const WriteForm = styled.form`
 
 export const InputDiv = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin: 0 0 20px 20px;
   .input-datepicker{
     margin-left: 18px;
   }
@@ -67,6 +67,7 @@ export const InputDiv = styled.div`
 
 export const InputLabel = styled.div`
   width: 70px;
+  margin-left: 20px;
   
   @media screen and (min-width: ${"80rem"}) {
     width: 120px;

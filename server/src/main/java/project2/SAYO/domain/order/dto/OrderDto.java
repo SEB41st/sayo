@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project2.SAYO.domain.order.entity.Order;
+import reactor.util.annotation.Nullable;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
@@ -16,6 +18,8 @@ public class OrderDto {
         @NotBlank(message = "가격은 작성하셔야 합니다.")
         private Long orderPrice;
         private Order.OrderStatus orderStatus;
+        @Nullable
+        private Long waybillNumber;
 
     }
 
@@ -26,6 +30,8 @@ public class OrderDto {
         private Long orderId;
         private Long orderPrice;
         private Order.OrderStatus orderStatus;
+        @Nullable
+        private Long waybillNumber;
         private Long userId;
         private Long itemId;
         private LocalDateTime createdAt;

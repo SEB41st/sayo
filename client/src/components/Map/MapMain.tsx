@@ -39,16 +39,16 @@ const MapMain = () => {
     // 지도에 마커를 표시합니다
     marker.setMap(map);
 
-    kakao.maps.event.addListener(map, "click", function (mouseEvent: any) {
-      // 클릭한 위도, 경도 정보를 가져옵니다
-      let latlng = mouseEvent.latLng;
-      console.log(latlng);
-      // 현재 위치 저장
-      setPosition(latlng);
+    // kakao.maps.event.addListener(map, "click", function (mouseEvent: any) {
+    //   // 클릭한 위도, 경도 정보를 가져옵니다
+    //   let latlng = mouseEvent.latLng;
+    //   console.log(latlng);
+    //   // 현재 위치 저장
+    //   setPosition(latlng);
 
-      // 마커 위치를 클릭한 위치로 옮깁니다
-      marker.setPosition(latlng);
-    });
+    //   // 마커 위치를 클릭한 위치로 옮깁니다
+    //   marker.setPosition(latlng);
+    // });
   };
 
   return (

@@ -8,6 +8,7 @@ import Error from "../../components/Error/Error";
 import MapMain from "../../components/Map/MapMain";
 import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
 import MapLocation from "../../components/Map/MapLocation";
+import Modal from "../../components/Modal/Modal";
 
 export interface LatLng {
   latitude: any;
@@ -17,9 +18,8 @@ export interface LatLng {
 const Detail = () => {
   // const [SalesLocation], setSalesLocation] = useState<LatLng[]>( latitude:"", longitude:"" );
 
-  const [SalesLocation, setSalesLocation] = useState< Array<any> >([]);
-
-  const [value, SetValue] = useState(new Date());
+  // const [SalesLocation, setSalesLocation] = useState< Array<any> >([]);
+  const [modalOpen, SetModalOpen] = useState<boolean>(false);
 
   const { itemId } = useParams();
 
@@ -34,20 +34,17 @@ const Detail = () => {
 
   const Items = data;
 
-  console.log(Items.location);
-
-  
-  // console.log(Items.location.Ma);
-
-
-
-  const location: any = Items.location;
+  // const location: any = Items.location;
 
   // setSalesLocation(location)
-
-  // setSalesLocation(location);
-  // console.log(SalesLocation)
   // const longitude: any = Items.location.Ma;
+
+  const openModal = () => {
+    SetModalOpen(true)
+  }
+  const closeModal = () => {
+    SetModalOpen(false)
+  }
 
   return (
     <S.DetailWrap>
@@ -67,15 +64,15 @@ const Detail = () => {
           <div className="ProductFee">배송비 : {Items.deliveryFee}</div>
           <div className="SalesSchedule">판매일정</div>
           <S.ButtonDiv>
-            <S.CartBtn>
-              <Link to="/cart">장바구니</Link>
-            </S.CartBtn>
+            <S.CartBtn onClick={openModal}>장바구니</S.CartBtn>
             <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
             </S.BuyBtn>
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>
+      <Modal open= {modalOpen} close={closeModal} header="장바구니에 상품이 성공적으로 담겼습니다.">
+        <div>장바구니로 이동하시겠습니까?</div></Modal>
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemDatail}</div>

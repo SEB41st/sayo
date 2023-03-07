@@ -63,7 +63,7 @@ const Main = (props:any) => {
                     alt="상품 이미지"
                     className='itempicture'
                     >
-                    <Detail title={item.title} itemPicture={item.itemPicture} itmePrice={item.itmePrice} deliveryFee={item.deliveryFee}/>
+                    <Detail/>
                   </img></S.Item></Link>
             )})}
               </S.GoodsList>

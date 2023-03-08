@@ -1,57 +1,13 @@
 import { Link } from "react-router-dom";
 import * as S from "./styled";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
-import { useState } from "react";
-import { useCustomQuery } from "../../components/util/useCustomQuery";
-import Loading from "../../components/Loading/Loading";
-import Error from "../../components/Error/Error";
+import ItemsSlider  from "../../components/ItemsSlider/ItemsSlider";
 
 // Type {
 //   Items: Array;
 // }
 
 const Main = (props: any) => {
-  const [value, setValue] = useState<string>("");
-  const [searchValue, setSearchValue] = useState<string>("");
-
-  
-
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items`, `items`);
-
-  // if (typeof data === "undefined") return refetch();
-
-
-  // console.log(typeof(data));
-  // console.log(data);
- 
-
-  // || typeof data === "object"|| "undefined"
-
-  if (isLoading ) return <Loading></Loading>;
-  if (error) return <Error></Error>;
-
-
-  const Items = data;
-
-  console.log(Items);
-  console.log(typeof(Items));
-  
-  // const searchResult = (e: any) => {
-  //   setValue(e.target.value);
-  //   // console.log(value)
-  // };
-
-  // const onKeyPressEnter = (e: any) => {
-  //   if (e.key === "Enter") {
-  //     searchResultEnter();
-  //     // setValue('')
-  //   }
-  // };
-  // const searchResultEnter = () => {
-  //   setSearchValue(value);
-  //   console.log(searchValue);
-  //   props.SearchResult(searchValue);
-  // };
 
   return (
     <S.Main>
@@ -67,16 +23,7 @@ const Main = (props: any) => {
             </Link>
           </h4>
           <S.GoodsList>
-            {Items &&
-              Items.map((item: any) => {
-                return (
-                  <S.Item>
-                    <Link to={`/detail/${item.id}`} key={item.id}>
-                      <img src={item.itemPicture} alt="goods"></img>
-                    </Link>
-                  </S.Item>
-                );
-              })}
+            <ItemsSlider/>
           </S.GoodsList>
         </S.Menus>
         <S.Title>
@@ -90,18 +37,7 @@ const Main = (props: any) => {
         <S.Title>최근 본 상품</S.Title>
         <S.Menus>
               <S.GoodsList>
-              {Items && Items.map ((item:any) => {
-              return (
-                <Link to={`/detail/${item.id}`} key={item.id}>
-                  <S.Item >
-                    <img
-                      src={item.itemPicture}
-                      alt="상품 이미지"
-                      className='itempicture'
-                    ></img>
-                  </S.Item>
-                </Link>
-                )})}
+                <ItemsSlider/>
               </S.GoodsList>
         </S.Menus>
         <S.Menus>

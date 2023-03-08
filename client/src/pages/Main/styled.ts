@@ -49,7 +49,7 @@ export const Menus = styled.div`
 
 export const GoodsList = styled.div`
     display: flex;
-    height: 15vh;
+    height: 20vh;
     width: 100%;
     background-color: #FEF8E3;
     border-radius: 20px;

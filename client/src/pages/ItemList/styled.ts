@@ -66,6 +66,7 @@ export const Tag = styled.button`
     margin: 10px;
     font-size: 12px;
     box-shadow: 0px 0px 3px gray;
+    cursor: pointer;
 `
 
 export const Tags = styled.div`

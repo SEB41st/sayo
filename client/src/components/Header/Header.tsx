@@ -8,6 +8,7 @@ const Header = () => {
         <Link to ="/">
             <S.LogoImg src="/assets/Logo.png" alt ="" ></S.LogoImg>
         </Link>
+        <Link to='/Login'>로그인</Link>
         <Link to="/sidebar"><GiHamburgerMenu className="hambergerbar"/></Link>
     </S.HeaderMain>
     )

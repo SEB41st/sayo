@@ -15,7 +15,8 @@ import Detail from "./pages/Detail/Detail";
 import ItemList from "./pages/ItemList/ItemList"
 import Cart from "./pages/Cart/Cart";
 import Payment from "./pages/Payment/Payment";
-
+import KakaoSignUp from "./components/Login/KakaoLogin/KakaoLogin"
+import Login from "./components/Login/Naver/Login";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -42,6 +43,8 @@ const App = () => {
           <Route path="/itemList" element={<ItemList/>}/>
           <Route path="/payment" element={<Payment/>}/>
           <Route path="/cart" element={<Cart/>}/>
+          <Route path="/kakaoLogin" element={<KakaoSignUp/>}/>
+          <Route path="/login" element={<Login/>}/>
         </Routes>
         {!['/sidebar'].includes(location.pathname) && <Footer />}
         

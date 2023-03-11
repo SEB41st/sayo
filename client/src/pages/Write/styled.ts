@@ -75,7 +75,7 @@ export const InputLabel = styled.div`
 `;
 
 export const WriteInput = styled.input`
-  width: 120px;
+  min-width: 120px;
   border-bottom: .0625rem solid #999999;
 
   @media screen and (min-width: ${"80rem"}) {

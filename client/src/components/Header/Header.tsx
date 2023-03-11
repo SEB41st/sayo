@@ -9,6 +9,7 @@ const Header = () => {
             <S.LogoImg src="/assets/Logo.png" alt ="" ></S.LogoImg>
         </Link>
         <Link to="/sidebar"><GiHamburgerMenu className="hambergerbar"/></Link>
+        <Link to="/googlelogin">로그인</Link>
     </S.HeaderMain>
     )
 }

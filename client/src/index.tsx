@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 declare global {
   interface Window {
@@ -29,12 +30,18 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+
 root.render(
   <QueryClientProvider client={queryClient}>
     <RecoilRoot>
       {/* <React.StrictMode> */}
       <Router>
-        <App />
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+        onScriptLoadError={() => console.log("실패")}
+        onScriptLoadSuccess={() => console.log("성공")}>
+          <App />
+        </GoogleOAuthProvider>
       </Router>
       {/* </React.StrictMode> */}
     </RecoilRoot>

@@ -6,11 +6,6 @@ import { GoogleLogin } from "@react-oauth/google";
 const GoogleAuthLogin = () => {
 
 
-  const responseGoogle = (res: any) => {
-    console.log(res);
-  };
-
-
   // 백엔드 서버 배포시 적용할 코드
 const googleLogin = useGoogleLogin({
   flow: 'auth-code',

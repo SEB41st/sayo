@@ -1,6 +1,9 @@
 import { useEffect, useState,useRef } from "react";
 import { Maps } from "./styled";
 import { MapMarker } from 'react-kakao-maps-sdk';
+import { useRecoilState } from "recoil";
+import { salesLocation } from "../../recoil/atom";
+
 
 // kakao 글로벌로 선언
 declare global {
@@ -9,7 +12,7 @@ declare global {
   }
 }
 
-type Position  = {
+export type Position  = {
   latitude: any; 
   longitude: any;
 }
@@ -17,10 +20,11 @@ type Position  = {
 
 const MapLocation = () => {
 
-  // 마커
-  const [marked, setMarked] = useState<Position| null >()
+  
   // 현재 나의 위치
   const [location, setLocation]  = useState<Position| null >()
+  // 판매위치 
+  const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
 
 
   //getMyGps를 찍어줌
@@ -50,7 +54,8 @@ const MapLocation = () => {
     }
   };
 
-  console.log("marked" , marked);
+  
+  console.log("clickPoint", markLocation)
 
   return (
     <>
@@ -59,13 +64,12 @@ const MapLocation = () => {
                   center={{ lat: location.latitude, lng: location.longitude }} 
                   style={{ width: '800px', height: '600px' }} 
                   level={3}
-                  onClick={(_t: any, mouseEvent: any) => setMarked({
+                  onClick={(_t: any, mouseEvent: any) => setMarkLocation({
                     latitude: mouseEvent.latLng.getLat(),
                     longitude: mouseEvent.latLng.getLng(),
                   })}
                 >
-				{ marked && <MapMarker position={{ lat: marked.latitude, lng: marked.longitude }}
-
+				{ markLocation && <MapMarker position={{ lat: markLocation.latitude, lng: markLocation.longitude }}
         />}
 				</Maps>
 			)}
@@ -75,4 +79,6 @@ const MapLocation = () => {
 
   );
 };
+
 export default MapLocation;
+

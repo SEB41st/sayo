@@ -15,6 +15,7 @@ import Detail from "./pages/Detail/Detail";
 import ItemList from "./pages/ItemList/ItemList"
 import Cart from "./pages/Cart/Cart";
 import Payment from "./pages/Payment/Payment";
+import GoogleAuthLogin from "./components/Login/GoogleAuthLogin"; 
 
 
 const Domain = styled.div`
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/itemList" element={<ItemList/>}/>
           <Route path="/payment" element={<Payment/>}/>
           <Route path="/cart" element={<Cart/>}/>
+          <Route path="/googlelogin" element={<GoogleAuthLogin/>}/>
         </Routes>
         {!['/sidebar'].includes(location.pathname) && <Footer />}
         

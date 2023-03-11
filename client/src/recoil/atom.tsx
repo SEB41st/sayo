@@ -1,22 +1,24 @@
 import { atom } from "recoil";
 
-// 현재 위치에 대한 정보
-export const MarkLocation = atom({
-  key: 'MarkLocation',
+type Location = {
+  latitude: any;
+  longitude: any;
+};
+
+// 판매위치 
+export const salesLocation = atom<Location>({
+  key: "MarkLocation",
   default: {
-    lat: 37.5668872688006,
-    lng: 126.97863243245928
+    latitude: "",
+    longitude: "",
   },
-})
+});
 
-// 현재 위치에 대한 정보
+
+// 검색어
 export const searchValue = atom({
-  key: 'searchValue',
-  default: '',
-})
+  key: "searchValue",
+  default: "",
+});
 
-//
-export const placesAll = atom({
-  key: 'placesAll',
-  default: [],
-})
+

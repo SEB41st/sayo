@@ -1,4 +1,4 @@
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as S from "./styled";
 import React, { useEffect, useState } from "react";
 import { BsHeartFill } from "react-icons/bs";
@@ -9,6 +9,8 @@ import MapMain from "../../components/Map/MapMain";
 import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
 import MapLocation from "../../components/Map/MapLocation";
 import Modal from "../../components/Modal/Modal";
+import { Maps } from "../../components/Map/styled";
+import { MapMarker } from "react-kakao-maps-sdk";
 
 export interface LatLng {
   latitude: any;
@@ -28,23 +30,25 @@ const Detail = () => {
     `items=${itemId}`
   );
 
-
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
   const Items = data;
 
-  // const location: any = Items.location;
+  console.log(Items);
+
+  const location: any = Items.location;
+  console.log(location);
 
   // setSalesLocation(location)
   // const longitude: any = Items.location.Ma;
 
   const openModal = () => {
-    SetModalOpen(true)
-  }
+    SetModalOpen(true);
+  };
   const closeModal = () => {
-    SetModalOpen(false)
-  }
+    SetModalOpen(false);
+  };
 
   return (
     <S.DetailWrap>
@@ -71,14 +75,28 @@ const Detail = () => {
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>
-      <Modal open= {modalOpen} close={closeModal} header="장바구니에 상품이 성공적으로 담겼습니다.">
-        <div>장바구니로 이동하시겠습니까?</div></Modal>
+      <Modal
+        open={modalOpen}
+        close={closeModal}
+        header="장바구니에 상품이 성공적으로 담겼습니다."
+      >
+        <div>장바구니로 이동하시겠습니까?</div>
+      </Modal>
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemDatail}</div>
         <div className="DetailLocation">위치</div>
-        <MapMain></MapMain>
-        {/* <S.StaticMap id="staticMap" /> */}
+        <Maps
+          center={{
+            lat: location.Ma,
+            lng: location.La,
+          }}
+          isPanto={true}
+        >
+          {location && (
+            <MapMarker position={{ lat: location.Ma, lng: location.La }} />
+          )}
+        </Maps>
       </S.DetailDiv>
     </S.DetailWrap>
   );

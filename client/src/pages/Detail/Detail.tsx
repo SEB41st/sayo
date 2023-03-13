@@ -9,6 +9,7 @@ import MapMain from "../../components/Map/MapMain";
 import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
 import MapLocation from "../../components/Map/MapLocation";
 import Modal from "../../components/Modal/Modal";
+import Calendar from "../../components/Calendar/Calendar";
 
 export interface LatLng {
   latitude: any;
@@ -62,7 +63,9 @@ const Detail = () => {
           </div>
           <div className="ProductPrice">판매가 : {Items.itmePrice}</div>
           <div className="ProductFee">배송비 : {Items.deliveryFee}</div>
-          <div className="SalesSchedule">판매일정</div>
+          <div className="SalesSchedule">판매일정
+            <Calendar/>
+          </div>
           <S.ButtonDiv>
             <S.CartBtn onClick={openModal}>장바구니</S.CartBtn>
             <S.BuyBtn>

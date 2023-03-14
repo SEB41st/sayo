@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AddressMapper {
-    Address addressPostToAddress(AddressDto.Request postRequest);
+    Address addressPostToAddress(AddressDto.Post postRequest);
 
-    Address addressPatchToAddress(AddressDto.Request patchRequest);
+    Address addressPatchToAddress(AddressDto.Patch patchRequest);
 
     AddressDto.Response addressToAddressResponse(Address address);
 

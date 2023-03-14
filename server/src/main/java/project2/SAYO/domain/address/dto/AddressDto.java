@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class AddressDto {
     @Getter
     @AllArgsConstructor
-    public static class Request {
+    public static class Post {
         @NotBlank(message = "주소명칭은 공백이 없어야 합니다.")
         private String addressName;
         @NotBlank(message = "회원 이름은 공백이 없어야 합니다.")
@@ -25,9 +25,19 @@ public class AddressDto {
     }
     @Getter
     @AllArgsConstructor
+    public static class Patch {
+        private String addressName;
+        private String addressUserName;
+        private String phoneNumber;
+        private String detailAddress;
+
+    }
+    @Getter
+    @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {
         private Long addressId;
+        private Long userId;
         private String addressName;
         private String addressUserName;
         private String phoneNumber;

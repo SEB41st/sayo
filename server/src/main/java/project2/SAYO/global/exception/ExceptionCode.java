@@ -4,6 +4,8 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     // User
+    USER_IS_NOT_SAME(400, "User is not the same"),
+    USER_ROLE_DOES_NOT_HAVE(403, "The role doesn't have."),
     USER_NOT_FOUND(404, "User not found"),
     USER_NOT_ALLOW(405, "User doesn't have authority"),
     USER_EXISTS(409, "User exists"),
@@ -29,7 +31,12 @@ public enum ExceptionCode {
     ADDRESS_NOT_FOUND(404, "Address not found"),
 
     // File Upload
-    UPLOAD_VOLUME_OVER(404, "File Size가 10MB를 초과하였습니다 !");
+    UPLOAD_FAILED(404, "File Upload Failed !"),
+    UPLOAD_VOLUME_OVER(404, "File Size가 10MB를 초과하였습니다 !"),
+
+    // AES128Cofig
+    ENCRYPTION_FAIED(400, "Item not found"),
+    DECRYPTION_FAIED(400, "Item not found");
 
     @Getter
     private int status;

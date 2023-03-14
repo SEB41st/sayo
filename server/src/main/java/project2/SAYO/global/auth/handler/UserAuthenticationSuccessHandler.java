@@ -22,7 +22,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
         Gson gson = new Gson();
         User user = (User) authentication.getPrincipal();
 
-        Principal principal = new Principal(user.getEmail(), user.getUserId());
+        Principal principal = new Principal(user.getEmail(), user.getId());
         String s = gson.toJson(principal);
 
         response.setContentType("application/json");

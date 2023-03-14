@@ -13,6 +13,7 @@ import project2.SAYO.domain.address.mapper.AddressMapper;
 import project2.SAYO.domain.address.service.AddressService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -30,9 +31,10 @@ public class AddressController {
 
     // TODO POST
     @PostMapping
-    public ResponseEntity postAddress(@Valid @RequestBody AddressDto.Request postRequest) {
+    public ResponseEntity postAddress(@LoginUserId Long userId,
+                                      @Valid @RequestBody AddressDto.Post postRequest) {
         Address addressForService = addressMapper.addressPostToAddress(postRequest);
-        Address addressForResponse = addressService.createAddress(addressForService);
+        Address addressForResponse = addressService.createAddress(addressForService, userId);
         AddressDto.Response response = addressMapper.addressToAddressResponse(addressForResponse);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -40,11 +42,11 @@ public class AddressController {
 
     // TODO PATCH
     @PatchMapping("/{address-id}")
-    public ResponseEntity patchAddress(@Valid @RequestBody AddressDto.Request patchRequest,
-                                       @Positive @PathVariable("address-id") Long addressId) {
+    public ResponseEntity patchAddress(@Positive @PathVariable("address-id") Long addressId,
+                                       @LoginUserId Long userId,
+                                       @Valid @RequestBody AddressDto.Patch patchRequest) {
         Address addressForService = addressMapper.addressPatchToAddress(patchRequest);
-        addressForService.addAddressId(addressId);
-        Address addressForResponse = addressService.updateAddress(addressForService);
+        Address addressForResponse = addressService.updateAddress(addressForService,addressId,userId);
         AddressDto.Response response = addressMapper.addressToAddressResponse(addressForResponse);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
@@ -72,8 +74,8 @@ public class AddressController {
 
     // TODO DELETE ONE
     @DeleteMapping("/{address-id}")
-    public ResponseEntity deleteAddress(@Positive @PathVariable("address-id") Long addressId) {
-        addressService.deleteAddress(addressId);
+    public ResponseEntity deleteAddress(@Positive @PathVariable("address-id") Long addressId, @LoginUserId Long userId) {
+        addressService.deleteAddress(userId, addressId);
 
         return new ResponseEntity<>(("주소삭제가 완료되었습니다"), HttpStatus.NO_CONTENT);
     }

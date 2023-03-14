@@ -6,7 +6,8 @@ import org.mapstruct.ReportingPolicy;
 import project2.SAYO.domain.user.dto.UserDto;
 import project2.SAYO.domain.user.entity.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
     @Mapping(source = "nickname", target = "profile.nickname")
@@ -36,7 +37,7 @@ public interface UserMapper {
     @Mapping(source = "roles", target = "role")
     UserDto.GetResponse userToGetResponse(User user);
 
-    User userPreModifyToUser(UserDto.PrevModify prevModifyRequest);
+    //User userPreModifyToUser(UserDto.PrevModify prevModifyRequest);
 
-    List<UserDto.Response> userListToUserResponseList(List<User> userList);
+    //List<UserDto.Response> userListToUserResponseList(List<User> userList);
 }

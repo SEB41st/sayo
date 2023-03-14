@@ -147,7 +147,19 @@ public class UserService {
         Long expiration = jwtTokenizer.getExpiration(logout.getAccessToken());
         redisTemplate.opsForValue()
                 .set(logout.getAccessToken(), "logout", expiration, TimeUnit.MILLISECONDS);
+    }*/
+
+    public void logout(HttpServletRequest request){
+        String secretRefreshToken = tokenProvider.resolveRefreshToken(request);
+        validatedRefreshToken(secretRefreshToken);
+        String refreshToken = aes128Config.decryptAes(secretRefreshToken);
+        String redisAccessToken = redisDao.getValues(refreshToken);
+        if(redisDao.validateValue(redisAccessToken)){
+            redisDao.deleteValues(refreshToken);
+        }
+        deleteValuesCheck(refreshToken);
     }
+
 
 /*    public boolean prevModify(String memberPw, String prePw) {
 

@@ -4,8 +4,6 @@ import project2.SAYO.domain.user.entity.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import project2.SAYO.domain.user.entity.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -96,7 +94,7 @@ public class UserDto {
     }
 */
 
-    @Getter
+/*    @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {
@@ -112,7 +110,7 @@ public class UserDto {
 //        }
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-  /*      @Builder
+  *//*      @Builder
         public GetResponse(Long userId, String email, String userName, String nickName, String password, String userPicture) {
             this.userId = userId;
             this.email = email;
@@ -120,7 +118,7 @@ public class UserDto {
             this.nickName = nickName;
             this.password = password;
             this.userPicture = userPicture;
-        }*/
+        }*//*
 
     }*/
 

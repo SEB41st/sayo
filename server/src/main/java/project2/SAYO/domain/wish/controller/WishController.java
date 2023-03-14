@@ -12,6 +12,7 @@ import project2.SAYO.domain.wish.mapper.WishMapper;
 import project2.SAYO.domain.wish.service.WishService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -28,9 +29,10 @@ public class WishController {
     // TODO POST
     @PostMapping("/{item-id}")
     public ResponseEntity postWish(@Valid @PathVariable("item-id") @Positive long itemId,
-                                           @RequestBody WishDto.Post wishPost) {
+                                   @RequestBody WishDto.Post wishPost,
+                                   @LoginUserId Long userId) {
         wishPost.addItemId(itemId);
-        Wish wishForResponse = wishService.createWish(wishPost);
+        Wish wishForResponse = wishService.createWish(userId, wishPost);
         WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(wishResponse), HttpStatus.CREATED);
@@ -39,8 +41,9 @@ public class WishController {
     // TODO PATCH
     @PatchMapping("/{wish-id}")
     public ResponseEntity patchWish(@Valid @PathVariable("wish-id") @Positive long wishId,
-                                            @RequestBody WishDto.Patch wishPatch) {
-        Wish wishForResponse = wishService.updateWish(wishId,wishPatch);
+                                            @RequestBody WishDto.Patch wishPatch,
+                                    @LoginUserId Long userId) {
+        Wish wishForResponse = wishService.updateWish(userId, wishId,wishPatch);
 
         WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);
 
@@ -49,8 +52,9 @@ public class WishController {
 
     // TODO GET ONE
     @GetMapping("/{wish-id}")
-    public ResponseEntity getWish(@Valid @PathVariable("wish-id") @Positive long wishId) {
-        Wish wishForResponse = wishService.findWish(wishId);
+    public ResponseEntity getWish(@Valid @PathVariable("wish-id") @Positive long wishId,
+                                  @LoginUserId Long userId) {
+        Wish wishForResponse = wishService.findWish(userId, wishId);
         WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(wishResponse), HttpStatus.OK);
@@ -68,8 +72,9 @@ public class WishController {
 
     // TODO DELETE ONE
     @DeleteMapping("/{wish-id}")
-    public ResponseEntity deleteWish(@Valid @PathVariable("wish-id") @Positive long wishId){
-        wishService.deleteWish(wishId);
+    public ResponseEntity deleteWish(@Valid @PathVariable("wish-id") @Positive long wishId,
+                                     @LoginUserId Long userId){
+        wishService.deleteWish(userId, wishId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

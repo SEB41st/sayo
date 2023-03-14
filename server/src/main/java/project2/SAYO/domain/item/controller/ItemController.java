@@ -14,6 +14,7 @@ import project2.SAYO.domain.item.mapper.ItemMapper;
 import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -32,10 +33,11 @@ public class ItemController {
 
     // item 등록
     @PostMapping
-    public ResponseEntity postItem(@Valid @RequestBody ItemDto.ItemPost postRequest){
+    public ResponseEntity postItem(@Valid @RequestBody ItemDto.ItemPost postRequest,
+                                   @LoginUserId Long userId){
 
         Item item = mapper.itemPostDtoToItem(postRequest);
-        Item itemResponse = itemService.createItem(item);
+        Item itemResponse = itemService.createItem(userId, item);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -44,10 +46,11 @@ public class ItemController {
     // item 수정
     @PatchMapping("/{item-id}")
     public ResponseEntity patchItem(@Valid @PathVariable("item-id") @Positive Long itemId,
+                                    @LoginUserId Long userId,
                                     @RequestBody ItemDto.ItemPatch patchRequest){
         Item itemForService = mapper.itemPatchDtoToItem(patchRequest);
         itemForService.addItemId(itemId);
-        Item itemResponse = itemService.updateItem(itemForService);
+        Item itemResponse = itemService.updateItem(userId, itemForService);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
@@ -73,8 +76,9 @@ public class ItemController {
 
     // item 1개 게시글 삭제
     @DeleteMapping("/delete/{item-id}")
-    public ResponseEntity deleteItem(@Valid @PathVariable("item-id") @Positive Long itemId){
-        itemService.deleteItem(itemId);
+    public ResponseEntity deleteItem(@Valid @PathVariable("item-id") @Positive Long itemId,
+                                     @LoginUserId Long userId){
+        itemService.deleteItem(userId, itemId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -87,8 +91,9 @@ public class ItemController {
 
     // item 1개 판매 종료로 상태 변경
     @DeleteMapping("{item-id}")
-    public ResponseEntity endItem(@Valid @PathVariable("item-id") @Positive Long itemId){
-        itemService.endItem(itemId);
+    public ResponseEntity endItem(@Valid @PathVariable("item-id") @Positive Long itemId,
+                                  @LoginUserId Long userId){
+        itemService.endItem(userId, itemId);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

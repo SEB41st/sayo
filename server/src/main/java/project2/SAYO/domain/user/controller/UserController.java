@@ -84,7 +84,7 @@ public class UserController {
     }
 
 
-    // TODO GET ALL
+    /*// TODO GET ALL
     @GetMapping
     public ResponseEntity getUsers(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size){
@@ -93,7 +93,7 @@ public class UserController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(
                 userMapper.userListToUserResponseList(userList), userPage), HttpStatus.OK);
-    }
+    }*/
 
     // TODO DELETE ONE
     @DeleteMapping("/{user-id}")
@@ -139,5 +139,5 @@ public class UserController {
             log.info("pw 재확인 필요");
             return  new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
-    }
+    }*/
 }

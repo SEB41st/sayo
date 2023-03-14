@@ -29,9 +29,9 @@ public class WishService {
 
     // TODO POST
     @Transactional
-    public Wish createWish(WishDto.Post wishPost) {
+    public Wish createWish(Long userId, WishDto.Post wishPost) {
         Wish createWish = new Wish();
-        User findUser = userService.findUser(userService.getCurrentUser().getUserId());
+        User findUser = userService.findVerifiedUser(userId);
         createWish.addUser(findUser);
         Item findItem = itemService.findVerifiedItem(wishPost.getItemId());
         createWish.addItem(findItem);
@@ -42,10 +42,10 @@ public class WishService {
 
     // TODO PATCH
     @Transactional
-    public Wish updateWish(long wishId, WishDto.Patch wishPatch) {
+    public Wish updateWish(Long userId, long wishId, WishDto.Patch wishPatch) {
         Wish findWish = findVerifiedWish(wishId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findWish.getUser().getUserId()) {
+        if(!findWish.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
         findWish.ChangeWishSelected(wishPatch.isWishSelected());
@@ -55,10 +55,10 @@ public class WishService {
 
     // TODO GET
     @Transactional
-    public Wish findWish(long wishId) {
+    public Wish findWish(Long userId, long wishId) {
         Wish findWish = findVerifiedWish(wishId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findWish.getUser().getUserId()) {
+        if(!findWish.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
@@ -73,10 +73,10 @@ public class WishService {
 
     // TODO DELETE ONE
     @Transactional
-    public void deleteWish(long wishId) {
+    public void deleteWish(Long userId, long wishId) {
         Wish findWish = findVerifiedWish(wishId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findWish.getUser().getUserId()) {
+        if(!findWish.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
         wishRepository.delete(findWish);

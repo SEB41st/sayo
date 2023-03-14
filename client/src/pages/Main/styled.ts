@@ -49,8 +49,8 @@ export const Menus = styled.div`
 
 export const GoodsList = styled.div`
     display: flex;
-    height: 20vh;
-    width: 100%;
+    height: 30vh;
+    width: 95%;
     background-color: #FEF8E3;
     border-radius: 20px;
     margin-top: 10px;

@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const ItemList = () => {
 
-  const [state, setState] = useState("")
+  const [state, setState] = useState("전체")
   const { data, isLoading, error, refetch } = useCustomQuery(`/items`, `items`);
 
   if (isLoading) return <Loading></Loading>;
@@ -54,26 +54,26 @@ const ItemList = () => {
             Items.map((item: any) => {
               return (
                 state === "전체" ? (
-                  <Link to={`/detail/${item.id}`} key={item.id}>
-                <S.Item>
-                  <img src={item.itemPicture} alt="goods"></img>
-                </S.Item>
-                <S.Font>
-                  <div>{item.title}</div>
-                  <div>{item.itmePrice}</div>
-                </S.Font>
-              </Link>
+                <Link to={`/detail/${item.id}`} key={item.id}>
+                  <S.Item>
+                    <img src={item.itemPicture} alt="goods"></img>
+                  </S.Item>
+                  <S.Font>
+                    <div>{item.title}</div>
+                    <div>{item.itmePrice}</div>
+                  </S.Font>
+                </Link>
                 ):(
                 item.state === state ? (
                 <Link to={`/detail/${item.id}`} key={item.id}>
-                <S.Item>
-                  <img src={item.itemPicture} alt="goods"></img>
-                </S.Item>
-                <S.Font>
-                  <div>{item.title}</div>
-                  <div>{item.itmePrice}</div>
-                </S.Font>
-              </Link>
+                  <S.Item>
+                    <img src={item.itemPicture} alt="goods"></img>
+                  </S.Item>
+                  <S.Font>
+                    <div>{item.title}</div>
+                    <div>{item.itmePrice}</div>
+                  </S.Font>
+                </Link>
               ):(
                 null
               )));

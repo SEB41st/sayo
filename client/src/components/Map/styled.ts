@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Map } from "react-kakao-maps-sdk";
 
 export const MapWrap = styled.div`
   width: 90%;
@@ -12,8 +13,8 @@ export const MapContainer = styled.div`
   margin: 0.625rem 1.25rem;
 `;
 
-export const Map = styled.div`
-  width: 90vw;
+export const Maps = styled(Map)`
+  width: 90%;
   height: 50vh;
   margin: 20px;
   border-radius: 10px;

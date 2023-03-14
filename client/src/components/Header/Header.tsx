@@ -10,6 +10,7 @@ const Header = () => {
         </Link>
         <Link to='/Login'>로그인</Link>
         <Link to="/sidebar"><GiHamburgerMenu className="hambergerbar"/></Link>
+        <Link to="/googlelogin">로그인</Link>
     </S.HeaderMain>
     )
 }

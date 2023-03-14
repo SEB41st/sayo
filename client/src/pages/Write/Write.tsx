@@ -62,9 +62,9 @@ const Write = () => {
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel>위치</S.InputLabel>
+            <S.WriteInput type="text" placeholder="판매 위치를 아래 지도의 마커로 표시해주세요" readOnly/>
           </S.InputDiv>
-          <MapMain></MapMain> {/*처음에 지도를 랜더링 해줌*/}
-          <MapLocation></MapLocation> {/*내 위치로 마커가 변경되고 그 상태에서 마커를 찍을 수 있음*/}
+           <MapLocation></MapLocation> 
         </S.WriteForm>
       </S.WriteContainer>
     </S.WriteWrap>

@@ -1,52 +1,41 @@
-import { useEffect, useState, } from "react";
-
-// interface Props {
-//   SalesLocation: React.Dispatch<React.SetStateAction<Array<>>>;
-// }
+import { useEffect, useState } from "react";
+import { Maps } from "./styled";
+import { useRecoilState } from "recoil";
+import { salesLocation } from "../../recoil/atom";
+import { MapMarker } from "react-kakao-maps-sdk";
 
 const MapSalesLoaction = () => {
-
   // const location = SalesLocation;
-  
+
   // console.log(SalesLocation)
 
-useEffect(() => {
+  // 현재 마커 저장할 state
+  const [position, setPosition] = useState();
+  // 판매위치
+  const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
 
-  
-
-  // const Map = () => {                          
-
-    let markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-
-    // 이미지 지도에 표시할 마커입니다
-    // 이미지 지도에 표시할 마커는 Object 형태입니다
-    let marker = {
-      position: markerPosition,
-    };
-
-    let staticMapContainer = document.getElementById(
-        "staticMap"
-      ) as HTMLElement, // 이미지 지도를 표시할 div
-      staticMapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 이미지 지도의 중심좌표
-        level: 3, // 이미지 지도의 확대 레벨
-        marker: marker, // 이미지 지도에 표시할 마커
-      };
-
-    // 이미지 지도를 생성합니다
-    let staticMap = new kakao.maps.StaticMap(
-      staticMapContainer,
-      staticMapOption
-    );
-    }, []);
-  // };
+  console.log("markLocation", markLocation);
 
   return (
     <>
-      <div id="staticMap" style={{ width: "0px", height: "0px" }}></div>
+      <Maps
+        center={{
+          lat: markLocation.latitude,
+          lng: markLocation.longitude,
+        }}
+        isPanto={true}
+      >
+        {markLocation && (
+          <MapMarker
+            position={{
+              lat: markLocation.latitude,
+              lng: markLocation.longitude,
+            }}
+          />
+        )}
+      </Maps>
     </>
-  )
-
+  );
 };
 
 export default MapSalesLoaction;

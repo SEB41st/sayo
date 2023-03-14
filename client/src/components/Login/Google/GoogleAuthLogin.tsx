@@ -1,4 +1,3 @@
-import * as S from "./styled";
 import { useGoogleLogin } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 
@@ -17,7 +16,7 @@ const googleLogin = useGoogleLogin({
 
   return (
     <>
-      <S.googleLoginBtn onClick={() => googleLogin()}>
+      <button onClick={() => googleLogin()}>
         <div className="social_login_image_box" style={{ width: "300px" }}>
           <img
             src="/assets/btn_google_signin_light_normal_web@2x.png"
@@ -27,7 +26,7 @@ const googleLogin = useGoogleLogin({
         <div className="social_login_blank_box"> </div>
         {/* <img src="/assets/btn_google_light_normal_ios.svg" style={{"width":"30px"}}/>
             <span>Continue with Google</span> */}
-      </S.googleLoginBtn>
+      </button>
 
       <GoogleLogin
         onSuccess={(res: any) => {

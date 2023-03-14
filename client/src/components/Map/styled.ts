@@ -14,7 +14,7 @@ export const MapContainer = styled.div`
 `;
 
 export const Maps = styled(Map)`
-  width: 90vw;
+  width: 90%;
   height: 50vh;
   margin: 20px;
   border-radius: 10px;

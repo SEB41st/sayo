@@ -7,13 +7,17 @@ export const HeaderMain = styled.div`
     background: #FEF8E3;
     max-height: 5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 .hambergerbar{
-    justify-self: end;
+    justify-content: flex-end;
     font-size: 1.5rem;
-    margin-right: 20px;
+    margin-right: 0px;
 }
+`
+
+export const HeaderLogo = styled.div`
+    
 `
 
 export const LogoImg = styled.img`
@@ -21,6 +25,7 @@ export const LogoImg = styled.img`
     height: 80%;
 `
 
-export const SideBar = styled(NavLink)`
+export const Login = styled(NavLink)`
     font-size: small;
+    margin-right: 10px;
 `

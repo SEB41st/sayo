@@ -5,10 +5,11 @@ import { BsHeartFill } from "react-icons/bs";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-import MapMain from "../../components/Map/MapMain";
-import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
-import MapLocation from "../../components/Map/MapLocation";
+// import MapMain from "../../components/Map/MapMain";
+// import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
+// import MapLocation from "../../components/Map/MapLocation";
 import Modal from "../../components/Modal/Modal";
+import Calendar from "../../components/Calendar/Calendar";
 import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
 
@@ -66,7 +67,9 @@ const Detail = () => {
           </div>
           <div className="ProductPrice">판매가 : {Items.itmePrice}</div>
           <div className="ProductFee">배송비 : {Items.deliveryFee}</div>
-          <div className="SalesSchedule">판매일정</div>
+          <div className="SalesSchedule">판매일정
+            <Calendar/>
+          </div>
           <S.ButtonDiv>
             <S.CartBtn onClick={openModal}>장바구니</S.CartBtn>
             <S.BuyBtn>

@@ -1,5 +1,6 @@
 package project2.SAYO.domain.user.service;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.config.AES128Config;
 import project2.SAYO.domain.user.entity.User;
+import project2.SAYO.domain.user.enums.ProfileImage;
 import project2.SAYO.domain.user.repository.UserRepository;
 import project2.SAYO.global.auth.dto.TokenDto;
 import project2.SAYO.global.auth.jwt.TokenProvider;
@@ -19,6 +21,10 @@ import project2.SAYO.global.redis.RedisDao;
 import project2.SAYO.global.util.CustomAuthorityUtils;
 import project2.SAYO.global.util.CustomBeanUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,8 +40,10 @@ public class UserService {
     private final CustomBeanUtils<User> beanUtils;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-    private final JwtTokenizer jwtTokenizer;
-    private final RedisTemplate redisTemplate;
+    private final TokenProvider tokenProvider;
+    private final RedisDao redisDao;
+    private final ApplicationEventPublisher publisher;
+    private final AES128Config aes128Config;
 
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
@@ -177,6 +185,12 @@ public class UserService {
                 new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
     }
 
+    public User findVerifiedUser(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return optionalUser.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+    }
+
 
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
@@ -194,7 +208,21 @@ public class UserService {
         log.info("# 현재 사용자 ={}",user.getId());
 
         return user;
+    }*/
+
+    public void validatedRefreshToken(String refreshToken){
+        if(refreshToken == null){
+            throw new BusinessLogicException(ExceptionCode.HEADER_REFRESH_TOKEN_NOT_FOUND);
+        }
     }
+
+    public void deleteValuesCheck(String refreshToken){
+        String redisAccessToken = redisDao.getValues(refreshToken);
+        if(redisAccessToken != null){
+            throw new BusinessLogicException(ExceptionCode.TOKEN_DELETE_FAIL);
+        }
+    }
+
 
     private void createRoles(User user){
         List<String> roles = authorityUtils.createRoles(user.getRoles().get(0));

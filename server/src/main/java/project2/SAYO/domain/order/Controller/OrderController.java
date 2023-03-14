@@ -13,6 +13,7 @@ import project2.SAYO.domain.order.mapper.OrderMapper;
 import project2.SAYO.domain.order.service.OrderService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -29,9 +30,10 @@ public class OrderController {
 
     // TODO POST
     @PostMapping
-    public ResponseEntity postOrder(@RequestBody OrderDto.Request request) {
+    public ResponseEntity postOrder(@RequestBody OrderDto.Request request,
+                                    @LoginUserId Long userId) {
         Order orderForService = mapper.orderRequestToOrder(request);
-        Order orderForResponse = orderService.createOrder(orderForService);
+        Order orderForResponse = orderService.createOrder(userId,orderForService);
         OrderDto.Response response= mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -40,10 +42,11 @@ public class OrderController {
     // TODO PATCH
     @PatchMapping("/{order-id}")
     public ResponseEntity patchOrder(@Valid @PathVariable("order-id") @Positive long orderId,
+                                     @LoginUserId Long userId,
                                      @RequestBody OrderDto.Request request) {
         Order orderForService = mapper.orderRequestToOrder(request);
         orderForService.addOrderId(orderId);
-        Order orderForResponse = orderService.updateOrder(orderForService);
+        Order orderForResponse = orderService.updateOrder(userId, orderForService);
         OrderDto.Response response = mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response),HttpStatus.OK);
@@ -61,16 +64,18 @@ public class OrderController {
 
     // TODO GET
     @GetMapping("/{order-id}")
-    public ResponseEntity getOrder(@Valid @Positive @PathVariable("order-id") long orderId) {
-        Order findOrder = orderService.getOrder(orderId);
+    public ResponseEntity getOrder(@Valid @Positive @PathVariable("order-id") long orderId,
+                                   @LoginUserId Long userId) {
+        Order findOrder = orderService.getOrder(userId, orderId);
 
         return new ResponseEntity(new SingleResponseDto<>(findOrder),HttpStatus.OK);
     }
 
     // TODO DELETE
     @DeleteMapping("/{order-id}")
-    public ResponseEntity deleteOrder(@Valid @Positive @PathVariable("order-id") long orderId) {
-        orderService.deleteOrder(orderId);
+    public ResponseEntity deleteOrder(@Valid @Positive @PathVariable("order-id") long orderId,
+                                      @LoginUserId Long userId) {
+        orderService.deleteOrder(userId, orderId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

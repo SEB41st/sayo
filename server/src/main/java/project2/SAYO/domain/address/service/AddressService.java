@@ -46,8 +46,14 @@ public class AddressService {
 
     }
 
-    public Address findAddress(Long addressId) {
-        return findVerifiedAddress(addressId);
+    public Address findAddress(long userId, Long addressId) {
+        Address findAddress = findVerifiedAddress(addressId);
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findAddress.getUser().getId().equals(userId)) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);}
+
+        return findAddress;
     }
 
     public Page<Address> findAddresses(int page, int size) {

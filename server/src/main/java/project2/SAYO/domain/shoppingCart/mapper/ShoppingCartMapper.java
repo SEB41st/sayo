@@ -12,7 +12,7 @@ public interface ShoppingCartMapper {
     default ShoppingCartDto.Response shoppingCartToShoppingCartResponse(ShoppingCart shoppingCart) {
         ShoppingCartDto.Response shoppingCartResponse = ShoppingCartDto.Response.builder()
                 .itemId(shoppingCart.getItem().getItemId())
-                .userId(shoppingCart.getUser().getUserId())
+                .userId(shoppingCart.getUser().getId())
                 .shoppingCartId(shoppingCart.getShoppingCartId())
                 .shoppingCartSelected(shoppingCart.isShoppingCartSelected())
                 .build();

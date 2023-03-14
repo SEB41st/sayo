@@ -27,9 +27,9 @@ public class ShoppingCartService {
 
     // TODO POST
     @Transactional
-    public ShoppingCart createShoppingCart(ShoppingCartDto.Post shoppingCartPost) {
+    public ShoppingCart createShoppingCart(long userId, ShoppingCartDto.Post shoppingCartPost) {
         ShoppingCart createShoppingCart = new ShoppingCart();
-        User findUser = userService.findUser(userService.getCurrentUser().getUserId());
+        User findUser = userService.findVerifiedUser(userId);
         createShoppingCart.addUser(findUser);
         Item findItem = itemService.findVerifiedItem(shoppingCartPost.getItemId());
         createShoppingCart.addItem(findItem);
@@ -40,10 +40,10 @@ public class ShoppingCartService {
 
     // TODO PATCH
     @Transactional
-    public ShoppingCart updateShoppingCart(long shoppingCartId, ShoppingCartDto.Patch shoppingCartPatch) {
+    public ShoppingCart updateShoppingCart(long userId, long shoppingCartId, ShoppingCartDto.Patch shoppingCartPatch) {
         ShoppingCart findShoppingCart = findVerifiedShoppingCart(shoppingCartId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findShoppingCart.getUser().getUserId()) {
+        if(!findShoppingCart.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
         findShoppingCart.ChangeShoppingCartSelected(shoppingCartPatch.isShoppingCartSelected());
@@ -53,10 +53,10 @@ public class ShoppingCartService {
 
     // TODO GET
     @Transactional
-    public ShoppingCart findShoppingCart(long shoppingCartId) {
+    public ShoppingCart findShoppingCart(long userId, long shoppingCartId) {
         ShoppingCart findShoppingCart = findVerifiedShoppingCart(shoppingCartId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findShoppingCart.getUser().getUserId()) {
+        if(!findShoppingCart.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
@@ -71,10 +71,10 @@ public class ShoppingCartService {
 
     // TODO DELETE ONE
     @Transactional
-    public void deleteShoppingCart(long shoppingCartId) {
+    public void deleteShoppingCart(long userId, long shoppingCartId) {
         ShoppingCart findShoppingCart = findVerifiedShoppingCart(shoppingCartId);
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findShoppingCart.getUser().getUserId()) {
+        if(!findShoppingCart.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
         shoppingCartRepository.delete(findShoppingCart);
@@ -84,7 +84,7 @@ public class ShoppingCartService {
     public ShoppingCart findVerifiedShoppingCart(long shoppingCartId) {
         Optional<ShoppingCart> optionalShoppingCart = shoppingCartRepository.findById(shoppingCartId);
 
-        return optionalShoppingCart.orElseThrow(()->new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
+        return optionalShoppingCart.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
     }
 
 }

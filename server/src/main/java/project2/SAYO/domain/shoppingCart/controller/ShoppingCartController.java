@@ -12,6 +12,7 @@ import project2.SAYO.domain.shoppingCart.mapper.ShoppingCartMapper;
 import project2.SAYO.domain.shoppingCart.service.ShoppingCartService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
+import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -28,9 +29,10 @@ public class ShoppingCartController {
     // TODO POST
     @PostMapping("/{item-id}")
     public ResponseEntity postShoppingCart(@Valid @PathVariable("item-id") @Positive long itemId,
+                                           @LoginUserId Long userId,
                                            @RequestBody ShoppingCartDto.Post shoppingCartPost) {
         shoppingCartPost.addItemId(itemId);
-        ShoppingCart shoppingCartForResponse = shoppingCartService.createShoppingCart(shoppingCartPost);
+        ShoppingCart shoppingCartForResponse = shoppingCartService.createShoppingCart(userId, shoppingCartPost);
         ShoppingCartDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
@@ -39,8 +41,9 @@ public class ShoppingCartController {
     // TODO PATCH
     @PatchMapping("/{shoppingCart-id}")
     public ResponseEntity patchShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
+                                            @LoginUserId Long userId,
                                             @RequestBody ShoppingCartDto.Patch shoppingCartPatch) {
-        ShoppingCart shoppingCartForResponse = shoppingCartService.updateShoppingCart(shoppingCartId,shoppingCartPatch);
+        ShoppingCart shoppingCartForResponse = shoppingCartService.updateShoppingCart(userId, shoppingCartId,shoppingCartPatch);
 
         ShoppingCartDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartForResponse);
 
@@ -49,8 +52,9 @@ public class ShoppingCartController {
 
     // TODO GET ONE
     @GetMapping("/{shoppingCart-id}")
-    public ResponseEntity getShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId) {
-        ShoppingCart shoppingCartForResponse = shoppingCartService.findShoppingCart(shoppingCartId);
+    public ResponseEntity getShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
+                                          @LoginUserId Long userId) {
+        ShoppingCart shoppingCartForResponse = shoppingCartService.findShoppingCart(userId, shoppingCartId);
         ShoppingCartDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.OK);
@@ -68,8 +72,9 @@ public class ShoppingCartController {
 
     // TODO DELETE ONE
     @DeleteMapping("/{shoppingCart-id}")
-    public ResponseEntity deleteShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId){
-        shoppingCartService.deleteShoppingCart(shoppingCartId);
+    public ResponseEntity deleteShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
+                                             @LoginUserId Long userId){
+        shoppingCartService.deleteShoppingCart(userId, shoppingCartId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

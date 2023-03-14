@@ -54,8 +54,9 @@ public class AddressController {
 
     // TODO GET ONE
     @GetMapping("/{address-id}")
-    public ResponseEntity getAddress(@Positive @PathVariable("address-id") Long addressId) {
-        Address addressForResponse = addressService.findAddress(addressId);
+    public ResponseEntity getAddress(@Positive @PathVariable("address-id") Long addressId,
+                                     @LoginUserId Long userId) {
+        Address addressForResponse = addressService.findAddress(userId, addressId);
         AddressDto.Response response = addressMapper.addressToAddressResponse(addressForResponse);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);

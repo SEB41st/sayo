@@ -8,7 +8,7 @@ export const Container = styled.div`
         margin: 20px;
         flex-direction: column;
         width: 100vh;
-        height: 100vw;
+        height: 10vw;
     }
     .dots_custom {
     display: flex;

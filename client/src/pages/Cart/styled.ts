@@ -115,7 +115,7 @@ export const ProductInfoDiv3 = styled.div`
     justify-content: center;
     align-items: center;
     min-width: 10%;
-    height: 120%;
+    height: 90%;
     border: 1px solid #f9bb00;
   }
 `;

@@ -8,7 +8,6 @@ import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 
 const Payment = () => {
-
   const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);
 
   if (isLoading) return <Loading></Loading>;
@@ -32,10 +31,12 @@ const Payment = () => {
                     <S.CheckboxDiv>
                       <S.CheckboxInput type="checkbox"></S.CheckboxInput>
                     </S.CheckboxDiv>
-                    <S.ImageDiv></S.ImageDiv>
+                    <S.ImageDiv>
+                      <img src={item.itemPicture}></img>
+                    </S.ImageDiv>
                     <S.ProductInfoDiv2>
                       <div className="Name">{item.title}</div>
-                      <div className="ProductFee">{item.deliveryFee}</div>
+                      <div className="ProductFee">배송비 {item.deliveryFee}</div>
                     </S.ProductInfoDiv2>
                     <S.CloseBox>X</S.CloseBox>
                   </S.ProductInfoDiv>

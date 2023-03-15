@@ -36,7 +36,7 @@ const ItemList = () => {
 
   return (
     <S.Main>
-      <LogoImg src="/assets/neighbors.jpeg" alt=""></LogoImg>
+      <LogoImg src="/assets/event.png" alt=""></LogoImg>
       <S.MainList>
         <Line />
 

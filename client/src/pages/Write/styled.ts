@@ -12,7 +12,7 @@ export const WriteContainer = styled.div`
 `;
 
 export const ImageDiv = styled.div`
-  min-width: 175px;
+  min-width: 50%;
   min-height: 100px;
   background-color: #fffdfd;
   border: .1008px solid #d2cdcd;
@@ -48,6 +48,7 @@ export const WriteForm = styled.form`
   flex-direction: column;
   align-items: flex-start;
   font-size: .75rem;
+  width: 100%;
 
   @media screen and (min-width: ${"80rem"}) {
     font-size: 1.0625rem;
@@ -66,7 +67,7 @@ export const InputDiv = styled.div`
 `;
 
 export const InputLabel = styled.div`
-  width: 70px;
+  min-width: 90px;
   margin-left: 20px;
   
   @media screen and (min-width: ${"80rem"}) {
@@ -75,24 +76,13 @@ export const InputLabel = styled.div`
 `;
 
 export const WriteInput = styled.input`
-  min-width: 120px;
+  min-width: 80%;
   border-bottom: .0625rem solid #999999;
 
-  @media screen and (min-width: ${"80rem"}) {
-    min-width: 300px;
+  @media screen and (min-width: ${"700px"}) {
+    min-width: 100%;
   }
 `;
-
-
-// export const InputDivs = styled.div`
-//   margin-right: 135px;
-//   margin-bottom: 20px;
-// `;
-
-// export const MapDiv = styled.div`
-//   margin-right: 137px;
-//   margin-bottom: 20px;
-// `;
 
 export const Day = styled.div`
   width: 50%;

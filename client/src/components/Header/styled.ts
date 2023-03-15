@@ -27,5 +27,6 @@ export const LogoImg = styled.img`
 
 export const Login = styled(NavLink)`
     font-size: small;
+    font-weight: 600;
     margin-right: 10px;
 `

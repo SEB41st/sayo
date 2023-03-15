@@ -46,11 +46,14 @@ export const GoodsList = styled.div`
 export const Item = styled.div`
     max-height: 10rem;
     max-width: 10rem;
-    border-radius: 10px;
     margin: 0px 0px 10px 0px;
     gap: 50px;
+    
     :hover{
-        transform: scale(1.2);
+        transform: scale(1.1);
+    }
+    img{
+        border-radius: 30px;
     }
     @media screen and (min-width: ${"1280px"}) {
       
@@ -77,4 +80,5 @@ export const Tags = styled.div`
 export const Font = styled.div`
     display: grid;
     margin-left: 15px;
+    font-size: 13px;
 `

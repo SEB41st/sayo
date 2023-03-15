@@ -4,12 +4,14 @@ export const Main = styled.div`
     background: white;  
     width: 100%;
     height: 100%;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 `
 
 export const MainList = styled.div`
-    display: grid;
+    display: flex;
+    flex-direction: column;
     margin: 20px 0;
 `
 
@@ -17,6 +19,7 @@ export const Title = styled.div`
     font-size: 2em;
     font-weight: 800;
     margin: 0 20px;
+    
 `
 
 export const WriteButton = styled.button`
@@ -24,7 +27,7 @@ export const WriteButton = styled.button`
     border-radius: 20px;
     color: white;
     margin-left: 5%;
-
+    cursor: pointer;
 `
 
 export const Line = styled.div`
@@ -75,8 +78,8 @@ export const Item = styled.div`
 `
 
 export const LogoImg =styled.img`
-    width: 100%;
-    height: 20vh;
+    /* width: 100%;
+    height: 20vh; */
     border-radius: 0 0 20px 20px;
     justify-content: center;
     

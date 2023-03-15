@@ -29,8 +29,6 @@ class KakaoSignUp extends Component<any, State> {
         return (
             <>
                 <div>
-                    <h1>카카오톡 간편 로그인</h1>
-                    <h4>로그인 후 더 많은 혜택을 누리세요!</h4>
                     {/* <StKaKaoLogin>
                         <img src={img} alt="a" onClick={this.loginWithKakao} />
                     </StKaKaoLogin> */}

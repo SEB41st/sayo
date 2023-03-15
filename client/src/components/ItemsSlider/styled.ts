@@ -7,17 +7,16 @@ export const Container = styled.div`
     .item{
         margin: 20px;
         flex-direction: column;
-        width: 100vh;
-        height: 100vw;
+        width: 80vw;
+        height: 10vh;
     }
     .dots_custom {
     display: flex;
-    justify-content: center;
-    
+    margin-left: 20%;
   }
   
   .dots_custom li {
-    /* list-style: none; */
+    list-style: none;
     cursor: pointer;
     display: inline-block;
     margin: 0 6px;
@@ -41,18 +40,26 @@ export const Container = styled.div`
   }
 `
 export const Item = styled.div`
-    height: 50px;
+    height: 6rem;
     max-width: 50%;
     border-radius: 10px;
     margin: 10px;
     gap: 30px;
+    margin-bottom: 30px;
+    img{
+      border-radius: 20px;
+    }
+    /* div{
+      margin-left: 25px;
+    } */
     :hover{
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
     .itempicture{
-        max-height: 80%;
-        max-width: 80%;
+        max-height: 100%;
+        max-width: 100%;
         margin: 20px;
+        
         :hover{
         transform: scale(1.2);
     }

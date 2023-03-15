@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as S from "./styled";
 import { useGoogleLogin } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
+import KakaoLogin from "../KakaoLogin/KakaoLogin";
 
 const Login = () => {
       
@@ -96,6 +97,8 @@ const Login = () => {
                 <span className='subtitle'>로그인 후 다양한 상품들을 구매해보세요 !</span>
             </S.LoginTitle>
             <div>
+                {/* 네이버로그인 */}
+
                 {/* <S.NaverBtn id="naverIdLogin"/> */}
                 <S.NaverIdLogin 
                     id="naverIdLogin"
@@ -105,17 +108,8 @@ const Login = () => {
                     <S.NaverIcon/>
                     <S.NaverLoginTitle>네이버로 로그인하기</S.NaverLoginTitle>
                 </S.NaverLoginBtn>
-                <S.KaKaoBtn
-                    token={`${process.env.REACT_APP_KAKAO_API_KEY}`}
-                    onSuccess={console.log}
-                    onFail={console.error}
-                    onLogout={console.info}
-                    />
-                <S.KakaoLoginBtn>
-                    <S.KakaoIcon/>
-                    {/* <a href={KAKAO_AUTH_URL}>카카오로 로그인하기</a> */}
-                    {/* <S.NaverLoginTitle>카카오로 로그인하기</S.NaverLoginTitle> */}
-                </S.KakaoLoginBtn>
+                {/* 카카오로그인 */}
+                <KakaoLogin/>
                 <button onClick={() => googleLogin()}>
                     <div className="social_login_image_box" style={{ width: "300px" }}>
                     <img

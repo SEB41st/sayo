@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.service.ItemService;
-import project2.SAYO.domain.shoppingCart.dto.ShoppingCartDto;
-import project2.SAYO.domain.shoppingCart.entity.ShoppingCart;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.domain.wish.dto.WishDto;

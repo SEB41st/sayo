@@ -1,8 +1,6 @@
 package project2.SAYO.domain.item.controller;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

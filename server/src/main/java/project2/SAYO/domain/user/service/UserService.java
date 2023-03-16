@@ -48,8 +48,14 @@ public class UserService {
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
         makeSecretPassword(user);
+        user.setRoles(List.of("GUEST"));
         createRoles(user);
-        return userRepository.save(user);
+        user.setOAuthStatus(NORMAL);
+
+        User saveUser = userRepository.save(user);
+        // 회원가입 시 이메일 발송(계정 경로에 한글이 있는 경우 사용 불가능)
+        publisher.publishEvent(new UserRegistrationApplicationEvent(this, saveUser));
+        return saveUser;
     }
 
     // OAuth2 인증 완료후 회원가입 및 업데이트
@@ -237,7 +243,11 @@ public class UserService {
 
 
     private void createRoles(User user){
+        log.info("## 1111 user.getRoles().get(0) = {}", user.getRoles().get(0));
+
         List<String> roles = authorityUtils.createRoles(user.getRoles().get(0));
+
+        log.info("## roles = {}", Arrays.asList(roles));
         if(roles == null){
             throw new BusinessLogicException(ExceptionCode.USER_ROLE_DOES_NOT_HAVE);
         }

@@ -83,18 +83,6 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(getResponse), HttpStatus.OK);
     }
 
-
-    /*// TODO GET ALL
-    @GetMapping
-    public ResponseEntity getUsers(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size){
-        Page<User> userPage = userService.findUsers(page -1, size);
-        List<User> userList = userPage.getContent();
-
-        return new ResponseEntity<>(new MultiResponseDto<>(
-                userMapper.userListToUserResponseList(userList), userPage), HttpStatus.OK);
-    }*/
-
     // TODO DELETE ONE
     @DeleteMapping("/{user-id}")
     public ResponseEntity deleteUser(@Positive @PathVariable("user-id") Long userId,
@@ -127,17 +115,4 @@ public class UserController {
         UserDto.PostResponse response = userMapper.userToPostResponse(user);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
-
-    /*@PostMapping("/prevModify")
-    public ResponseEntity postPrevModify(@Valid @RequestBody UserDto.PrevModify prevRequest) {
-        log.info("## prevModify = {}", prevRequest);
-        boolean check = userService.prevModify(userService.getCurrentUser().getPassword(), prevRequest.getPassword());
-        if(check){
-            log.info("pw 재확인 완료");
-            return new ResponseEntity(HttpStatus.OK);
-        }else{
-            log.info("pw 재확인 필요");
-            return  new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
-        }
-    }*/
 }

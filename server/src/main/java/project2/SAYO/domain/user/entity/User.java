@@ -18,7 +18,7 @@ public class User extends Auditable {
     private Long id; // auto-increment
     @Column(length = 50, unique = true, updatable = false, nullable = false)
     private String email;  // 회원 메일
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password; // 비밀번호
 
     @Embedded
@@ -29,7 +29,7 @@ public class User extends Auditable {
     private List<String> roles = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     private UserStatus userStatus = UserStatus.USER_ACTIVE; // 회원 상태
 
 //    @Enumerated(value = EnumType.STRING)

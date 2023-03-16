@@ -40,6 +40,7 @@ public class UserController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(postResponse), HttpStatus.CREATED);
     }
+
     @PostMapping("/{user-id}/uploads")
     public ResponseEntity uploadProfileImage(@RequestParam MultipartFile file,
                                              @Positive @PathVariable("user-id") Long userId,

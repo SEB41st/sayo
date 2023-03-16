@@ -22,9 +22,6 @@ public class UserDto {
         @Pattern(message = "비밀번호는 8글자이상 20글자 이하로 영어,숫자,특수문자가 1개이상 들어가야 합니다, 특수문자는!@#$%^&*만 허용", regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d~!@#$%^&*()+|=]{8,20}$")
         private String password;
         private String nickname;
-//        private String userPicture;
-
-        @NotBlank(message = "권한은 공백이 아니어야 합니다.")
         private String role;
     }
 

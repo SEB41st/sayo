@@ -14,7 +14,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Bean
+/*    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
                 //.allowCredentials(true); 와일드카드로 했을때 에러가 난다 실행조차 안됨
             }
         };
-    }
+    }*/
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new LoginUserIdResolver());

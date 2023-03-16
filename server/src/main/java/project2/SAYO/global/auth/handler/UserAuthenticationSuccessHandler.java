@@ -17,16 +17,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        // 인증 성공 후, 로그를 기록하거나 사용자 정보를 response로 전송하는 등의 추가 작업을 할 수 있다.
-        log.info("# Authenticated successfully!");
-        Gson gson = new Gson();
-        User user = (User) authentication.getPrincipal();
-
-        Principal principal = new Principal(user.getEmail(), user.getId());
-        String s = gson.toJson(principal);
-
-        response.setContentType("application/json");
-        response.getWriter().write(s);  //프론트에서 리스폰스 값 전달 원할 경우 필요
+        log.info("# Authenticated successfully !");
 
     }
 }

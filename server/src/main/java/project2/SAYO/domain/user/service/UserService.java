@@ -14,6 +14,7 @@ import project2.SAYO.domain.user.repository.UserRepository;
 import project2.SAYO.global.auth.dto.TokenDto;
 import project2.SAYO.global.auth.jwt.TokenProvider;
 import project2.SAYO.global.auth.userDetails.AuthUser;
+import project2.SAYO.global.email.event.UserRegistrationApplicationEvent;
 import project2.SAYO.global.exception.BusinessLogicException;
 import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.oauth.OAuthUserProfile;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static project2.SAYO.domain.user.entity.User.OAuthStatus.NORMAL;
 import static project2.SAYO.domain.user.entity.User.OAuthStatus.OAUTH;
 
 @Service

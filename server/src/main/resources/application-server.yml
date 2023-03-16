@@ -8,9 +8,12 @@ spring:
     password: ${MYSQL_SECRET}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
+    defer-datasource-initialization: true  # 추가 해준 부분 2
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # 추가 해준 부분
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+    show-sql: true
     properties:
       hibernate:
         format_sql: true

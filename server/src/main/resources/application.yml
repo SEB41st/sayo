@@ -69,7 +69,24 @@ jwt:
   key: ${JWT_SECRET_KEY}       # 민감한 정보는 시스템 환경 변수에서 로드한다.
   access-token-expiration-minutes: 420
   refresh-token-expiration-minutes: 420
+aes:
+  secret-key: 970d8c1e726c39839da31a52a4968cf6 #dusqhdtkacjsdhqoraksqkewk3500
 mail:
+  smtp:
+    host: smtp.gmail.com
+    port: 587
+    username: sayoproject2023@gmail.com
+    password: msxbvigqkpyphigg
+    auth: true
+    starttls:
+      enable: true
+  subject:
+    user:
+      registration: 공동구매플랫폼 SAYO서비스에 성공적으로 가입하셨습니다.
+  template:
+    name:
+      user:
+        join: email-registration-user
   address:
     admin: admin@gmail.com, test@gmail.com
 

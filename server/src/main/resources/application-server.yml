@@ -39,10 +39,8 @@ spring:
               - profile_image
             clientName: Naver
           kakao:
-            clientId: b59c7d76059de1cb660fbbb767659254
-            clientSecret: GkVauCHtjTPgwlluuUqk3pbNw148yo1t
-            #clientId: ${K_CLIENT_ID}
-            #clientSecret: ${K_CLIENT_SECRET}
+            clientId: ${K_CLIENT_ID}
+            clientSecret: ${K_CLIENT_SECRET}
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
             redirectUri: http://sayo.n-e.kr:8080/login/oauth2/code/kakao

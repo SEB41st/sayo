@@ -36,7 +36,7 @@ const ItemList = () => {
 
   return (
     <S.Main>
-      <LogoImg src="/assets/neighbors.jpeg" alt=""></LogoImg>
+      <LogoImg src="/assets/event.png" alt=""></LogoImg>
       <S.MainList>
         <Line />
 
@@ -55,24 +55,28 @@ const ItemList = () => {
               return (
                 state === "전체" ? (
                 <Link to={`/detail/${item.id}`} key={item.id}>
-                  <S.Item>
-                    <img src={item.itemPicture} alt="goods"></img>
-                  </S.Item>
-                  <S.Font>
-                    <div>{item.title}</div>
-                    <div>{item.itmePrice}</div>
-                  </S.Font>
+                  <S.EachItem>
+                    <S.Item>
+                      <img src={item.itemPicture} alt="goods"></img>
+                    </S.Item>
+                    <S.Font>
+                      <div>{item.title}</div>
+                      <div>{item.itmePrice}</div>
+                    </S.Font>
+                  </S.EachItem>
                 </Link>
                 ):(
                 item.state === state ? (
                 <Link to={`/detail/${item.id}`} key={item.id}>
-                  <S.Item>
-                    <img src={item.itemPicture} alt="goods"></img>
-                  </S.Item>
-                  <S.Font>
-                    <div>{item.title}</div>
-                    <div>{item.itmePrice}</div>
-                  </S.Font>
+                  <S.EachItem>
+                    <S.Item>
+                      <img src={item.itemPicture} alt="goods"></img>
+                    </S.Item>
+                    <S.Font>
+                      <div>{item.title}</div>
+                      <div>{item.itmePrice}</div>
+                    </S.Font>
+                  </S.EachItem>
                 </Link>
               ):(
                 null

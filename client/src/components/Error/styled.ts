@@ -24,7 +24,7 @@ export const ErrorText = styled.div`
         img {
             margin: 85px auto 20px;
             height: 342px;
-            @media only screen and (max-width: ${"350px"}) {
+            @media only screen and (max-width: ${"500px"}) {
             height: 200px;
             }
         }
@@ -33,19 +33,23 @@ export const ErrorText = styled.div`
             font-size: 3.3em;
             font-weight: 900;
             margin-bottom: 50px;
-            @media only screen and (max-width: ${"350px"}) {
-            font-size: 2.2em;
+            @media only screen and (max-width: ${"500px"}) {
+            font-size: 1.5em;
+            font-weight: 800;
             }
         }
         p {
             &.p-a {
                 font-size: 25px;
                 margin: 30px 0 15px 0;
+                @media only screen and (max-width: ${"500px"}) {
+                    font-size: 13px;
+                }   
             }  
             &.p-b {
                 font-size: 20px;
-                @media only screen and (max-width: ${"350px"}) {
-                font-size: 13px;
+                @media only screen and (max-width: ${"500px"}) {
+                    font-size: 10px;
                 }   
             }  
         }

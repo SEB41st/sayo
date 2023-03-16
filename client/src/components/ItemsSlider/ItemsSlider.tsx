@@ -47,11 +47,11 @@ const ItemsSlider = () => {
           className="item"
           slidesToShow={
             windowSize >= 1440 
-            ? 5 : ( windowSize >= 1320
-              ? 4 : ( windowSize >= 1000
-                ? 3 : ( windowSize >= 720
-                  ? 2 : ( windowSize >= 300
-                    ? 1 : null))))
+            ? 6 : ( windowSize >= 1320
+              ? 5 : ( windowSize >= 1000
+                ? 4 : ( windowSize >= 720
+                  ? 3 : ( windowSize >= 300
+                    ? 2 : null))))
           }
 
           slidesToScroll={
@@ -74,6 +74,7 @@ const ItemsSlider = () => {
                       alt="상품 이미지"
                       className='itempicture'
                     ></img>
+                    {/* <div>{item.title}</div> */}
                   </S.Item>
                 </Link>
                 )})}

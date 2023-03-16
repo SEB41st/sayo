@@ -2,22 +2,32 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    position: relative;
+    /* position: relative; */
+    justify-content: center;
+    
     width: 90%;
     .item{
         margin: 20px;
         flex-direction: column;
-        width: 100vh;
-        height: 10vw;
+        width: 80vw;
+        height: 10vh;
     }
     .dots_custom {
+    /* display: grid; */
+    margin-left: 15%;
+    @media screen and (min-width: ${"600px"}) {
+      margin-left: 45%;
+    }
+    .dots_custom ul {
     display: flex;
-    justify-content: center;
-    
+    margin: 0 6px;
+    padding: 0;
+  }
   }
   
+
   .dots_custom li {
-    /* list-style: none; */
+    list-style: none;
     cursor: pointer;
     display: inline-block;
     margin: 0 6px;
@@ -28,8 +38,9 @@ export const Container = styled.div`
     border: none;
     background: #d1d1d1;
     color: transparent;
+    display: grid;
+    justify-content: center;
     cursor: pointer;
-    display: block;
     height: 8px;
     width: 8px;
     border-radius: 100%;
@@ -41,25 +52,26 @@ export const Container = styled.div`
   }
 `
 export const Item = styled.div`
-    height: 50px;
+    height: 4rem;
     max-width: 50%;
     border-radius: 10px;
-    margin: 10px;
+    margin: -10px 10px 10px 10px;
     gap: 30px;
+    /* margin-bottom: 30px; */
+    img{
+      border-radius: 20px;
+    }
     :hover{
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
     .itempicture{
-        max-height: 80%;
-        max-width: 80%;
+        max-height: 100%;
+        max-width: 100%;
         margin: 20px;
-        :hover{
-        transform: scale(1.2);
-    }
-
     }
     @media screen and (min-width: ${"1280px"}) {
-      
+      height: 6rem;
+      margin-bottom: 30px;
     }
 
 

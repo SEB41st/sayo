@@ -26,35 +26,45 @@ public class AddressService {
     private final CustomBeanUtils<Address> beanUtils;
     private final UserService userService;
 
-    public Address createAddress(Address address) {
-        User user = userService.findUser(userService.getCurrentUser().getUserId());
-        address.addUser(user);
+    public Address createAddress(Address address, Long userId) {
+        User currentUser = userService.findVerifiedUser(userId);
+        address.addUser(currentUser);
+
         return addressRepository.save(address);
     }
 
-    public Address updateAddress(Address address) {
-        Address findAddress = findVerifiedAddress(address.getAddressId());
-        User user = userService.findUser(userService.getCurrentUser().getUserId());
-        if (userService.getCurrentUser().getUserId() != user.getUserId()) {
+    public Address updateAddress(Address address, Long addressId, Long userId) {
+        Address findAddress = findVerifiedAddress(addressId);
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findAddress.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
-        Address updateAddress = beanUtils.copyNonNullProperties(address, findAddress);
 
+        Address updateAddress = beanUtils.copyNonNullProperties(address, findAddress);
         return addressRepository.save(updateAddress);
+
     }
 
-    public Address findAddress(Long addressId) {
-        return findVerifiedAddress(addressId);
+    public Address findAddress(long userId, Long addressId) {
+        Address findAddress = findVerifiedAddress(addressId);
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findAddress.getUser().getId().equals(userId)) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);}
+
+        return findAddress;
     }
 
     public Page<Address> findAddresses(int page, int size) {
         return addressRepository.findAll(PageRequest.of(page, size, Sort.by("addressId").descending()));
     }
 
-    public void deleteAddress(Long addressId) {
+    public void deleteAddress(Long userId, Long addressId) {
         Address findAddress = findVerifiedAddress(addressId);
-        User user = userService.findVerifiedUser(findAddress.getUser().getUserId());
-        if (userService.getCurrentUser().getUserId() != user.getUserId()) {
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findAddress.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
         addressRepository.deleteById(addressId);

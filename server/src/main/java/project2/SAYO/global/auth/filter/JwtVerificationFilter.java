@@ -1,17 +1,16 @@
 package project2.SAYO.global.auth.filter;
 
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.security.SignatureException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import project2.SAYO.global.auth.authority.CustomAuthorityUtils;
-import project2.SAYO.global.auth.jwt.JwtTokenizer;
+import project2.SAYO.global.auth.jwt.TokenProvider;
+import project2.SAYO.global.exception.BusinessLogicException;
+import project2.SAYO.global.exception.ErrorResponse;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,57 +18,61 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-
 @Slf4j
 @RequiredArgsConstructor
 public class JwtVerificationFilter extends OncePerRequestFilter {
-    private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
+    private final TokenProvider tokenProvider;
+
+    // 인증에서 제외할 url
+    private static final List<String> EXCLUDE_URL =
+            List.of("/",
+                    "/h2",
+                    "/users/signup",
+                    "/users/login",
+                    "/users/reissue",
+                    "/oauth2/authorization/google",
+                    "/oauth2/authorization/kakao",
+                    "/oauth2/authorization/naver");
+
+    /* 실제 필터링 로직은 doFilterInternal 에서 수행
+     * JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할
+     * 가입/로그인/재발급을 제외한 Request 요청은 모두 이 필터를 거치게 됨
+     */
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // System.out.println("# JwtVerificationFilter");
-
         try {
-            Map<String, Object> claims = verifyJws(request);
-            setAuthenticationToContext(claims);
-        } catch (SignatureException se) {
-            request.setAttribute("exception", se);
-        } catch (ExpiredJwtException ee) {
-            request.setAttribute("exception", ee);
-        } catch (Exception e) {
-            request.setAttribute("exception", e);
-        }
+            // 헤더에서 AccessToken 토큰 꺼내오기
+            String jwt = tokenProvider.resolveAccessToken(request);
 
-        filterChain.doFilter(request, response);
+            // 토큰 검증을 통과하면 다음 필터 진행
+            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt,response)) {
+                // 토큰으로부터 Authentication 객체를 만듬
+                Authentication authentication = tokenProvider.getAuthentication(jwt);
+
+                log.info("# Token verification success !");
+
+                // SecurityContext 에 Authentication 객체를 저장
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(request, response);
+        } catch (RuntimeException e) {
+
+            if (e instanceof BusinessLogicException) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                String json = objectMapper.writeValueAsString(ErrorResponse.of(((BusinessLogicException)e).getExceptionCode()));
+                response.getWriter().write(json);
+                response.setStatus(((BusinessLogicException)e).getExceptionCode().getStatus());
+            }
+        }
     }
 
+    // OncePerRequestFilter의 shouldNotFilter(); 오버라이딩함
+    // EXCLUDE_URL과 동일한 요청이들어 왔을 경우, 현재 필터를 진행하지 않고 다음 필터를 진행
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String authorization = request.getHeader("Authorization");
-
-        return authorization == null || !authorization.startsWith("Bearer");
-    }
-
-    private Map<String, Object> verifyJws(HttpServletRequest request) {
-        String jws = request.getHeader("Authorization").replace("Bearer ", "");
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-
-        return claims;
-    }
-
-    private void setAuthenticationToContext(Map<String, Object> claims) {
-        String username = (String) claims.get("email");
-        //Long userId = Long.valueOf((Integer) claims.get("userId"));
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-
-        authorities.stream()
-                .forEach(a -> log.info("# authorities checking = {} ", a.getAuthority()));
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username , null, authorities);
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(new Principal(email, userId) , null, authorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        boolean result = EXCLUDE_URL.stream().anyMatch(exclude -> exclude.equalsIgnoreCase(request.getServletPath()));
+        log.info("# Exclude url check = {}, result check = {}",request.getServletPath(),result);
+        return result;
     }
 }

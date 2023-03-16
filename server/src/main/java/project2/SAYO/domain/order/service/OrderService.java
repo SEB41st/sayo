@@ -27,8 +27,8 @@ public class OrderService {
 
     // TODO POST
     @Transactional
-    public Order createOrder(Order order) {
-        User currentUser = userService.getCurrentUser();
+    public Order createOrder(long userId, Order order) {
+        User currentUser = userService.findVerifiedUser(userId);
         order.addUser(currentUser); // 현재 로그인한 유저를 오더에 넣어줌.
 
         return orderRepository.save(order);
@@ -36,11 +36,11 @@ public class OrderService {
 
     // TODO PATCH
     @Transactional
-    public Order updateOrder(Order order) {
+    public Order updateOrder(long userId, Order order) {
         Order findOrder = findVerifiedOrder(order.getOrderId());
 
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findOrder.getUser().getUserId()) {
+        if(!findOrder.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
@@ -56,11 +56,11 @@ public class OrderService {
 
     // TODO GET
     @Transactional
-    public Order getOrder(long orderId) {
+    public Order getOrder(long userId, long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
 
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findOrder.getUser().getUserId()) {
+        if(!findOrder.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
@@ -69,10 +69,11 @@ public class OrderService {
 
     // TODO DELETE
     @Transactional
-    public void deleteOrder(long orderId) {
+    public void deleteOrder(long userId, long orderId) {
         Order findOrder = findVerifiedOrder(orderId);
+
         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(userService.getCurrentUser().getUserId() != findOrder.getUser().getUserId()) {
+        if(!findOrder.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
         findOrder.ChangeOrderStatus(Order.OrderStatus.ORDER_CANCELLATION);

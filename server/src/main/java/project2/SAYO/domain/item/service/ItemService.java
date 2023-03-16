@@ -26,22 +26,22 @@ public class ItemService {
 
     // 중복 조건(ex. email)이 따로 없어서 바로 저장
     // item 등록
-    public Item createItem(Item item){
+    public Item createItem(Long userId, Item item){
 
         //현재 User을 가져와 저장
-        User user = userService.findUser(userService.getCurrentUser().getUserId());
+        User user = userService.findVerifiedUser(userId);
         item.addUser(user);
 
         return itemRepository.save(item);
     }
 
     // itemId에 해당하는 item 수정
-    public Item updateItem(Item item){
+    public Item updateItem(Long userId, Item item){
         Item findItem = findVerifiedItem(item.getItemId()); // item 존재 여부 확인
 
         // Item의 User가 현재 User와 동일할 경우 수정 가능
-        User user = userService.findVerifiedUser(findItem.getUser().getUserId());
-        if(userService.getCurrentUser().getUserId() != user.getUserId()){
+        //User user = userService.findVerifiedUser(findItem.getUser().getId());
+        if(!findItem.getUser().getId().equals(userId)){
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
@@ -59,12 +59,12 @@ public class ItemService {
     }
 
     // itemId 1개 게시글 삭제
-    public void deleteItem(Long itemId){
+    public void deleteItem(Long userId, Long itemId){
         Item findItem = findVerifiedItem(itemId); // item 존재 여부 확인
 
         // Item의 User가 현재 User와 동일할 경우 삭제 가능
-        User user = userService.findVerifiedUser(findItem.getUser().getUserId());
-        if(userService.getCurrentUser().getUserId() != user.getUserId()){
+        //User user = userService.findVerifiedUser(findItem.getUser().getId());
+        if(!findItem.getUser().getId().equals(userId)){
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
@@ -77,12 +77,12 @@ public class ItemService {
     }
 
     // item 1개 공동 구매 종료
-    public void endItem(Long itemId){
+    public void endItem(Long userId, Long itemId){
         Item findItem = findVerifiedItem(itemId);
 
         // Item의 User가 현재 User와 동일할 경우 삭제 가능
-        User user = userService.findVerifiedUser(findItem.getUser().getUserId());
-        if(userService.getCurrentUser().getUserId() != user.getUserId()){
+        //User user = userService.findVerifiedUser(findItem.getUser().getId());
+        if(!findItem.getUser().getId().equals(userId)){
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 

@@ -1,10 +1,7 @@
 package project2.SAYO.global.auth.handler;
 
-
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import project2.SAYO.global.util.Responder;

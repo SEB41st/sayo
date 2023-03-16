@@ -13,27 +13,23 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # 추가 해준 부분
     hibernate:
       ddl-auto: create
-    show-sql: true
     properties:
       hibernate:
         format_sql: true
+    show-sql: true
   security:
     oauth2:
       client:
         registration:
           google:
-            clientId: 825192285646-l2lgiu4ao2epb4igom55rp3puiuthont.apps.googleusercontent.com
-            clientSecret: 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
-#            clientId: ${G_CLIENT_ID}
-#            clientSecret: ${G_CLIENT_SECRET}
+            clientId: ${G_CLIENT_ID}
+            clientSecret: ${G_CLIENT_SECRET}
             scope:
               - email
               - profile
           naver:
-            clientId: Kk3cnANrPyL8axgOzGJc
-            clientSecret: MI1kih3MPS
-#            clientId: ${N_CLIENT_ID}
-#            clientSecret: ${N_CLIENT_SECRET}
+            clientId: ${N_CLIENT_ID}
+            clientSecret: ${N_CLIENT_SECRET}
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
             redirectUri: http://sayo.n-e.kr:8080/login/oauth2/code/naver
@@ -43,10 +39,8 @@ spring:
               - profile_image
             clientName: Naver
           kakao:
-            clientId: b59c7d76059de1cb660fbbb767659254
-            clientSecret: GkVauCHtjTPgwlluuUqk3pbNw148yo1t
-            #clientId: ${K_CLIENT_ID}
-            #clientSecret: ${K_CLIENT_SECRET}
+            clientId: ${K_CLIENT_ID}
+            clientSecret: ${K_CLIENT_SECRET}
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
             redirectUri: http://sayo.n-e.kr:8080/login/oauth2/code/kakao

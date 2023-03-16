@@ -19,10 +19,10 @@ import project2.SAYO.global.email.EmailService;
 @RequiredArgsConstructor
 public class UserRegistrationEventListener {
 
-    @Value("${mail.subject.member.registration}")
+    @Value("${mail.subject.user.registration}")
     private String subject;
 
-    @Value("${mail.template.name.member.join}")
+    @Value("${mail.template.name.user.join}")
     private String templateName;
 
     private final EmailService emailService;
@@ -39,7 +39,6 @@ public class UserRegistrationEventListener {
             emailService.sendEmail(to, subject, message, templateName);
 
         } catch (MailSendException e) {
-
             log.error("이메일 보내기에 실패하였습니다.");
             userService.emailVerifyFailed(event.getUser().getId());
         }

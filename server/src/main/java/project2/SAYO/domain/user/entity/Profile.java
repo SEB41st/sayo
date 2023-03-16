@@ -15,13 +15,13 @@ import javax.persistence.Embeddable;
 @AllArgsConstructor
 public class Profile {
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50/*, nullable = false*/)
     private String nickname;
 
     @Column(length = 100)
     private String address;
 
-    @Column(nullable = false)
+    @Column//(nullable = false)
     private String image;
 
     @Column(columnDefinition = "TEXT")

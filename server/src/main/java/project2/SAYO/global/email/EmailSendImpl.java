@@ -34,7 +34,6 @@ public class EmailSendImpl implements EmailSend {
 
             javaMailSender.send(mimeMessage);
             log.info("템플릿을 사용하여 이메일을 보냈습니다.");
-
         } catch (MessagingException e) {
             log.error("이메일 보내기에 실패했습니다.", e);
         }

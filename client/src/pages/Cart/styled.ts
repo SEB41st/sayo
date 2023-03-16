@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ButtonDiv, CartBtn } from "../Detail/styled";
+import { ButtonDiv, CartBtn } from "../../pages/Detail/styled";
 
 export const PaymentWrap = styled.div`
   width: 90%;
@@ -56,21 +56,20 @@ export const ProductInfoDiv = styled.div`
 
   @media screen and (min-width: ${"1280px"}) {
     /* max-width: 60%; */
-    height: 180%;
+    /* height: 1%; */
     margin: 20px;
   }
 `;
 export const ProductInfoDiv2 = styled.div`
+  margin-left: 10px;
   width: 60%;
-  /* margin: 10px; */
 
   @media screen and (min-width: ${"1280px"}) {
     width: 60%;
   }
 `;
 
-export const CheckboxDiv = styled.div`
-`;
+export const CheckboxDiv = styled.div``;
 
 export const CheckboxInput = styled.input`
   width: 50%;
@@ -83,14 +82,23 @@ export const CheckboxInput = styled.input`
 
 export const ImageDiv = styled.div`
   min-width: 30%;
-  max-height: 100%;
+  max-width: 50%;
+  height: 100%;
   background-color: #fffdfd;
   border: 1px solid #d2cdcd;
   /* margin: 0 10px; */
+  .itemPicture {
+    height: 100%;
+
+    @media screen and (min-width: ${"1280px"}) {
+      width: 100%;
+      height: 350%;
+    }
+  }
 
   @media screen and (min-width: ${"1280px"}) {
-    /* width: 30%;
-    height: 90%; */
+    width: 30%;
+    height: 30%;
   }
 `;
 
@@ -108,6 +116,8 @@ export const ProductInfoDiv3 = styled.div`
   cursor: pointer;
 
   @media screen and (min-width: ${"1280px"}) {
+    width: 85%;
+    height: auto;
   }
 
   .Sum {

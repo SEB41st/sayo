@@ -26,12 +26,17 @@ export const NaverIdLogin = styled.div`
 export const NaverLoginBtn = styled.button`
 	display: flex;
 	align-items: center;
-	width: 23vw;
-	height: 7vh;
+	width: 300px;
+	height: 6vh;
 	background-color: #03c75a;
 	border-radius: 6px;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 10px;
+    @media only screen and (max-width: ${"700px"}) {
+        width: 160px;
+	    height: 6vh;
+        margin-left: 10px;
+    }
 `
 
 // 로그인 버튼 사용가이드 링크를 들어가면 이미지를 받아 이렇게 적용이 가능하다 ! 
@@ -41,23 +46,30 @@ export const NaverIcon = styled.div`
 	margin-left: 10px;
 	background: url("/assets/NaverIcon.png") no-repeat center;
 	background-size: 30px;
+    background-position: -5px;
 `
 
 export const NaverLoginTitle = styled.span`
-	margin-left: 4px;
+	margin-left: 14%;
 	color: ${({ theme }) => theme.White};
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 24px;
+    @media only screen and (max-width: ${"700px"}) {
+        font-size: 11px;
+        margin-left: 10%;
+    }
 `
 
 export const LoginTitle = styled.div`
     margin: 20px;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     .title{
         margin: 10px;
         font-size: 30px;
+        justify-content: center;
         @media only screen and (max-width: ${"400px"}) {
             margin: 10px;
             font-size: 15px;
@@ -74,7 +86,14 @@ export const LoginTitle = styled.div`
 `
 export const Login = styled.div`
     margin: 20%;
+    width: 60%;
     padding: 5%;
-    background-color: aliceblue;
+    background-color: #f9fafb;
     border-radius: 10px;
+    display: grid;
+    .buttons{
+        display: grid;
+        justify-content: center;
+    }
+
 `

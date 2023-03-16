@@ -12,21 +12,27 @@ export const Main = styled.div`
 export const MainList = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: 20px 0;
 `
 
 export const Title = styled.div`
+    font-size: 1.5em;
+    font-weight: 800;
+    margin: 0 30px;
+    display: flex;
+    @media screen and (min-width: ${"700px"}) {
     font-size: 2em;
     font-weight: 800;
-    margin: 0 20px;
-    
+    }
 `
 
 export const WriteButton = styled.button`
     background-color: #F9BB00;
     border-radius: 20px;
     color: white;
-    margin-left: 5%;
+    width: 120px;
+    margin-left: 25%;
     cursor: pointer;
 `
 
@@ -39,7 +45,8 @@ export const Line = styled.div`
 
 export const Menus = styled.div`
     display: grid;
-    margin: 20px;
+    margin: 20px 0 ;
+    width: 90%;
     .font{
         justify-self: end;
         font-size: 13px;
@@ -48,15 +55,20 @@ export const Menus = styled.div`
         margin-left: 5px;
         color: #F9BB00;
     }
+    @media screen and (min-width: ${"700px"}) {
+      display: grid;
+      
+    }
 `
 
 export const GoodsList = styled.div`
     display: flex;
-    height: 30vh;
-    width: 95%;
+    height: 20vh;
+    width: 90%;
     background-color: #FEF8E3;
     border-radius: 20px;
-    margin-top: 10px;
+    margin: 10px 0 0 30px ;
+    justify-content: center;
 `
 
 export const Item = styled.div`

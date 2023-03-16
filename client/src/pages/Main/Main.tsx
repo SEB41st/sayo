@@ -27,7 +27,7 @@ const Main = (props: any) => {
           </S.GoodsList>
         </S.Menus>
         <S.Title>
-          다른 지역 공동구매 상품 찾기
+          <div>다른 지역 공동구매 상품 찾기</div>
           <Link to="/map">
             <S.WriteButton>지도로 검색하기</S.WriteButton>
           </Link>
@@ -40,14 +40,12 @@ const Main = (props: any) => {
                 <ItemsSlider/>
               </S.GoodsList>
         </S.Menus>
-        <S.Menus>
-          <S.Title style={{ margin: 0 }}>
+          <S.Title style={{ marginLeft: 30 }}>
             찾으시는 제품이 없다면?
             <Link to="/write">
               <S.WriteButton>공동구매 제안하기</S.WriteButton>
             </Link>
           </S.Title>
-        </S.Menus>
       </S.MainList>
     </S.Main>
   );

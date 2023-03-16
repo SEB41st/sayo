@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    position: relative;
+    /* position: relative; */
+    justify-content: center;
+    
     width: 90%;
     .item{
         margin: 20px;
@@ -11,10 +13,19 @@ export const Container = styled.div`
         height: 10vh;
     }
     .dots_custom {
+    /* display: grid; */
+    margin-left: 15%;
+    @media screen and (min-width: ${"600px"}) {
+      margin-left: 45%;
+    }
+    .dots_custom ul {
     display: flex;
-    margin-left: 20%;
+    margin: 0 6px;
+    padding: 0;
+  }
   }
   
+
   .dots_custom li {
     list-style: none;
     cursor: pointer;
@@ -27,8 +38,9 @@ export const Container = styled.div`
     border: none;
     background: #d1d1d1;
     color: transparent;
+    display: grid;
+    justify-content: center;
     cursor: pointer;
-    display: block;
     height: 8px;
     width: 8px;
     border-radius: 100%;
@@ -40,18 +52,15 @@ export const Container = styled.div`
   }
 `
 export const Item = styled.div`
-    height: 6rem;
+    height: 4rem;
     max-width: 50%;
     border-radius: 10px;
-    margin: 10px;
+    margin: -10px 10px 10px 10px;
     gap: 30px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     img{
       border-radius: 20px;
     }
-    /* div{
-      margin-left: 25px;
-    } */
     :hover{
         transform: scale(1.1);
     }
@@ -59,14 +68,10 @@ export const Item = styled.div`
         max-height: 100%;
         max-width: 100%;
         margin: 20px;
-        
-        :hover{
-        transform: scale(1.2);
-    }
-
     }
     @media screen and (min-width: ${"1280px"}) {
-      
+      height: 6rem;
+      margin-bottom: 30px;
     }
 
 

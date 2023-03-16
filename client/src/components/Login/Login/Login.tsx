@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as S from "./styled";
-import { useGoogleLogin } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
 import KakaoLogin from "../KakaoLogin/KakaoLogin";
+import GoogleAuthLogin from '../Google/GoogleAuthLogin';
 
 const Login = () => {
       
@@ -80,14 +79,6 @@ const Login = () => {
     //     // console.log(REST_API_KEY)
     // const REDIRECT_URI = "http://localhost:3000/Login"
     // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-	
-    const googleLogin = useGoogleLogin({
-        flow: 'auth-code',
-        onSuccess: (TokenResponse) => {
-            console.log(TokenResponse);
-        },
-        onError: errorResponse => console.log(errorResponse),
-      });
     
     
     return (
@@ -96,7 +87,8 @@ const Login = () => {
 			    <span className='title'>로그인</span>
                 <span className='subtitle'>로그인 후 다양한 상품들을 구매해보세요 !</span>
             </S.LoginTitle>
-            <div>
+            <div className='buttons'>
+                <GoogleAuthLogin/>
                 {/* 네이버로그인 */}
 
                 {/* <S.NaverBtn id="naverIdLogin"/> */}
@@ -108,30 +100,9 @@ const Login = () => {
                     <S.NaverIcon/>
                     <S.NaverLoginTitle>네이버로 로그인하기</S.NaverLoginTitle>
                 </S.NaverLoginBtn>
+                
                 {/* 카카오로그인 */}
                 <KakaoLogin/>
-                <button onClick={() => googleLogin()}>
-                    <div className="social_login_image_box" style={{ width: "300px" }}>
-                    <img
-                        src="/assets/btn_google_signin_light_normal_web@2x.png"
-                        alt="google_login"
-                    />
-                    </div>
-                    <div className="social_login_blank_box"> </div>
-                    {/* <img src="/assets/btn_google_light_normal_ios.svg" style={{"width":"30px"}}/>
-                        <span>Continue with Google</span> */}
-                </button>
-
-                <GoogleLogin
-                    onSuccess={(res: any) => {
-                    console.log(res);
-                    }}
-                    onError={() => {
-                    console.log("Login 실패");
-                    }}
-                    width={"300px"}
-                    useOneTap
-                />
             </div>
 		</S.Login>
 	)

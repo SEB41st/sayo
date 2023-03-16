@@ -9,15 +9,23 @@ export const HeaderMain = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-.hambergerbar{
-    justify-content: flex-end;
-    font-size: 1.5rem;
-    margin-right: 0px;
-}
 `
 
 export const HeaderLogo = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-right: 10px;
     
+    .hambergerbar{
+    font-size: 1.7rem;
+    margin-right: 0px;
+}
+.personIcon{
+    justify-content: flex-end;
+    font-size: 1.7rem;
+    margin-right: 0px;
+}
 `
 
 export const LogoImg = styled.img`
@@ -29,4 +37,7 @@ export const Login = styled(NavLink)`
     font-size: small;
     font-weight: 600;
     margin-right: 10px;
+    img{
+        width: 100px;
+    }
 `

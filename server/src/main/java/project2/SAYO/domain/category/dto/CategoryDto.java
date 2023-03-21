@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import project2.SAYO.domain.category.entity.Category;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-
+import javax.validation.constraints.Size;
+import java.util.List;
 public class CategoryDto {
     @Getter
     @Builder

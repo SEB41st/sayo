@@ -1,25 +1,48 @@
 package project2.SAYO.domain.category.entity;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project2.SAYO.global.audit.Auditable;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import project2.SAYO.domain.item.entity.Item;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Category extends Auditable {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long categoryId;
+    @Column
+    private Long categoryId;
 
-    @Column(nullable = false, length = 50)
-    private String categoryName; // 카테고리 이름
+    @Column(length = 30, nullable = false)
+    private String categoryName;
 
-    public void addCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "parent")
+    private List<Category> children = new ArrayList<>();
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category parent;
+
+    @OneToMany(mappedBy = "itemId")
+    private List<Item> itemList = new ArrayList<>();
+
+    public Category(String categoryName, Category parent) {
+        this.categoryName = categoryName;
+        this.parent = parent;
     }
+
+
 }

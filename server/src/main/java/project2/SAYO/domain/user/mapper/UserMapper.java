@@ -11,7 +11,6 @@ import project2.SAYO.domain.user.entity.User;
 public interface UserMapper {
 
     @Mapping(source = "nickname", target = "profile.nickname")
-    @Mapping(source = "role", target = "roles")
     User userPostDtoToUser(UserDto.Post postRequest);
 
     @Mapping(source = "nickname", target = "profile.nickname")

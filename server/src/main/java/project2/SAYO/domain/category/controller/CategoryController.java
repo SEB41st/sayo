@@ -1,7 +1,6 @@
 package project2.SAYO.domain.category.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +19,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequiredArgsConstructor
-@RequestMapping("/categorys")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper mapper;

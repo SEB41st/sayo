@@ -14,7 +14,7 @@ public class CustomAuthorityUtils {
 
     private final List<String> GUEST_ROLES_STRING = List.of("GUEST");
     private final List<String> USER_ROLES_STRING = List.of("USER");
-    private final List<String> PERFORMER_ROLES_STRING = List.of("PERFORMER", "USER");
+    private final List<String> SELLER_ROLES_STRING = List.of("SELLER", "USER");
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN", "USER");
 
 
@@ -29,8 +29,8 @@ public class CustomAuthorityUtils {
     public List<String> createRoles(String role) {
         if (role.equals(Roles.ADMIN.toString())) {
             return ADMIN_ROLES_STRING;
-        } else if(role.equals(Roles.PERFORMER.toString())){
-            return PERFORMER_ROLES_STRING;
+        } else if(role.equals(Roles.SELLER.toString())){
+            return SELLER_ROLES_STRING;
         } else if(role.equals(Roles.USER.toString())){
             return USER_ROLES_STRING;
         } else if(role.equals(Roles.GUEST.toString())){

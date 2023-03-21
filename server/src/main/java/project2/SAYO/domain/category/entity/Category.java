@@ -9,17 +9,32 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Category extends Auditable {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long categoryId;
+    @Column
+    private Long categoryId;
 
-    @Column(nullable = false, length = 50)
-    private String categoryName; // 카테고리 이름
+    @Column(length = 30, nullable = false)
+    private String categoryName;
 
-    public void addCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "parent")
+    private List<Category> children = new ArrayList<>();
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category parent;
+
+    @OneToMany(mappedBy = "itemId")
+    private List<Item> itemList = new ArrayList<>();
+
+    public Category(String categoryName, Category parent) {
+        this.categoryName = categoryName;
+        this.parent = parent;
     }
 }

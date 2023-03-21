@@ -35,7 +35,7 @@ public class UserRegistrationEventListener {
         try {
 
             String[] to = new String[]{event.getUser().getEmail()};
-            String message = event.getUser().getProfile().getNickname() + "님, 회원가입이 성공적으로 완료되었습니다.";
+            String message = event.getUser().getProfile().getNickname() + "님, 이메일 주소 확인이 완료되어, 회원가입이 성공적으로 완료되었습니다.";
             emailService.sendEmail(to, subject, message, templateName);
 
         } catch (MailSendException e) {

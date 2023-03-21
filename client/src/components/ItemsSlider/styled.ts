@@ -60,6 +60,8 @@ export const Item = styled.div`
     /* margin-bottom: 30px; */
     img{
       border-radius: 20px;
+      width: 100%;
+      height: 100%;
     }
     :hover{
         transform: scale(1.1);

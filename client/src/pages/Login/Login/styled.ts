@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const NaverBtn = styled.div`
@@ -46,7 +47,7 @@ export const NaverIcon = styled.div`
 	margin-left: 10px;
 	background: url("/assets/NaverIcon.png") no-repeat center;
 	background-size: 30px;
-    background-position: -5px;
+    background-position: -7px;
 `
 
 export const NaverLoginTitle = styled.span`

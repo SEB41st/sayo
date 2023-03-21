@@ -14,7 +14,9 @@ public class CategoryDto {
     @AllArgsConstructor
     public static class CategoryRequest {
         @NotBlank(message="카테고리 이름을 입력해주세요.")
+        @Size(min = 2, max = 15, message = "길이 제한은 2~15자 이내입니다.")
         private String categoryName; // 카테고리 명
+        private Long parentId;
     }
 
 

@@ -44,6 +44,9 @@ public enum ExceptionCode {
     // Address
     ADDRESS_NOT_FOUND(404, "Address not found"),
 
+    //Category
+    CATEGORY_NOT_FOUND(404, "Category not found"),
+
     // File Upload
     UPLOAD_FAILED(404, "File Upload Failed !"),
     UPLOAD_VOLUME_OVER(404, "File Size가 10MB를 초과하였습니다 !"),

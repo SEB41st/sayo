@@ -50,9 +50,17 @@ public class UserService {
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
         makeSecretPassword(user);
-        user.setRoles(List.of("GUEST"));
-        createRoles(user);
+
+        //관리자 이메일일 경우 권한 부여, 이외에는 USER 권한 부여
+        if(user.getEmail().equals("admin@gmail.com")) {
+            user.setRoles(List.of("ADMIN"));
+        }else {
+            user.setRoles(List.of("USER"));
+        }
+        // 회원상태 활동중 부여
+        user.changeUserStatus(User.UserStatus.USER_ACTIVE);
         user.setOAuthStatus(NORMAL);
+        createRoles(user);
 
         User saveUser = userRepository.save(user);
         // 회원가입 시 이메일 발송(계정 경로에 한글이 있는 경우 사용 불가능)
@@ -135,27 +143,6 @@ public class UserService {
             throw new BusinessLogicException(ExceptionCode.TOKEN_IS_NOT_SAME);
         }
     }
-    /*public void logout(UserDto.Logout logout) {
-        // 1. Access Token 검증
-        log.info("## logout.getAccessToken = {}",logout.getAccessToken());
-
-        if (!jwtTokenizer.validateToken(logout.getAccessToken())) {
-            throw new BusinessLogicException(ExceptionCode.TOKEN_NOT_ALLOW);
-        }
-        // 2. Access Token 에서 User email 을 가져옵니다.
-        Authentication authentication = jwtTokenizer.getAuthentication(logout.getAccessToken());
-
-        // 3. Redis 에서 해당 User email 로 저장된 Refresh Token 이 있는지 여부를 확인 후 있을 경우 삭제합니다.
-        if (redisTemplate.opsForValue().get(authentication.getName()) != null) {
-            // Refresh Token 삭제
-            redisTemplate.delete(authentication.getName());
-        }
-
-        // 4. 해당 Access Token 유효시간 가지고 와서 BlackList 로 저장하기
-        Long expiration = jwtTokenizer.getExpiration(logout.getAccessToken());
-        redisTemplate.opsForValue()
-                .set(logout.getAccessToken(), "logout", expiration, TimeUnit.MILLISECONDS);
-    }*/
 
     public void logout(HttpServletRequest request){
         String secretRefreshToken = tokenProvider.resolveRefreshToken(request);
@@ -168,28 +155,11 @@ public class UserService {
         deleteValuesCheck(refreshToken);
     }
 
-
-/*    public boolean prevModify(String memberPw, String prePw) {
-
-        if(passwordEncoder.matches(prePw, memberPw)) {
-            log.info("pw 재확인 완료.. !!!!");
-            return true;
-        }
-        else {
-            return false;
-        }
-    }*/
-
-
-/*
-    public User findUser(Long userId) {
-        return findVerifiedUser(userId);
+    public List<User> findUsers() {
+        return userRepository.findAll();
     }
 
-    public Page<User> findUsers(int page, int size) {
-        return userRepository.findAll(PageRequest.of(page, size, Sort.by("userId").descending()));
-    }
-*/
+
 
 
     public void verifiedUserId(Long userId, Long loginUserId){
@@ -217,18 +187,6 @@ public class UserService {
         if (user.isPresent()) throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
 
-/*
-    public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
-            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
-        Optional<User> optionalUser = userRepository.findByEmail(authentication.getName());
-        User user = optionalUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
-
-        log.info("# 현재 사용자 ={}",user.getId());
-
-        return user;
-    }*/
 
     public void validatedRefreshToken(String refreshToken){
         if(refreshToken == null){

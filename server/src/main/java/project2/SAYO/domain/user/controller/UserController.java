@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -50,6 +51,22 @@ public class UserController {
         String url = awsS3Service.StoreImage(file, AwsS3Path.PROFILEIMAGE);
 
         return new ResponseEntity<>(new SingleResponseDto<>(url), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/reissue")
+    public ResponseEntity reissue(HttpServletRequest request,
+                                  HttpServletResponse response) {
+        // @CookieValue(value = "refreshToken", required = false) String refreshToken // 쿠키사용
+
+        userService.reissueAccessToken(request,response);
+        return new ResponseEntity<>(new SingleResponseDto<>("Access Token 재발급 완료!"),HttpStatus.CREATED);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        // @CookieValue(value = "refreshToken", required = false) String refreshToken // 쿠키사용
+        userService.logout(request);
+        return new ResponseEntity<>(new SingleResponseDto<>("로그아웃에 성공하였습니다."), HttpStatus.NO_CONTENT);
     }
 
     // TODO PATCH
@@ -84,6 +101,21 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(getResponse), HttpStatus.OK);
     }
 
+    @GetMapping("/token")
+    public ResponseEntity giveMemberInfo(@LoginUserId Long userId) {
+        User user = userService.findVerifiedUser(userId);
+        UserDto.PostResponse response = userMapper.userToPostResponse(user);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
+    // TODO GET ALL
+    @GetMapping
+    public ResponseEntity getUsers() {
+        List<User> userList = userService.findUsers();
+
+        return new ResponseEntity<>(new SingleResponseDto<>(userList),HttpStatus.OK);
+    }
+
     // TODO DELETE ONE
     @DeleteMapping("/{user-id}")
     public ResponseEntity deleteUser(@Positive @PathVariable("user-id") Long userId,
@@ -94,26 +126,7 @@ public class UserController {
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/reissue")
-    public ResponseEntity reissue(HttpServletRequest request,
-                                  HttpServletResponse response) {
-        // @CookieValue(value = "refreshToken", required = false) String refreshToken // 쿠키사용
 
-        userService.reissueAccessToken(request,response);
-        return new ResponseEntity<>(new SingleResponseDto<>("Access Token 재발급 완료!"),HttpStatus.CREATED);
-    }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        // @CookieValue(value = "refreshToken", required = false) String refreshToken // 쿠키사용
-        userService.logout(request);
-        return new ResponseEntity<>(new SingleResponseDto<>("로그아웃에 성공하였습니다."), HttpStatus.NO_CONTENT);
-    }
 
-    @GetMapping("/token")
-    public ResponseEntity giveMemberInfo(@LoginUserId Long userId) {
-        User user = userService.findVerifiedUser(userId);
-        UserDto.PostResponse response = userMapper.userToPostResponse(user);
-        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
-    }
 }

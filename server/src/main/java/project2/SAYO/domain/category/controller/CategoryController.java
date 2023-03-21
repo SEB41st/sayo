@@ -9,7 +9,6 @@ import project2.SAYO.domain.category.dto.CategoryDto;
 import project2.SAYO.domain.category.entity.Category;
 import project2.SAYO.domain.category.mapper.CategoryMapper;
 import project2.SAYO.domain.category.service.CategoryService;
-import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
 
 import javax.validation.Valid;

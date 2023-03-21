@@ -8,6 +8,7 @@ import project2.SAYO.domain.category.repository.CategoryRepository;
 import project2.SAYO.global.exception.BusinessLogicException;
 import project2.SAYO.global.exception.ExceptionCode;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service

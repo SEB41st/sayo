@@ -5,9 +5,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project2.SAYO.global.audit.Auditable;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import project2.SAYO.domain.item.entity.Item;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,4 +43,6 @@ public class Category {
         this.categoryName = categoryName;
         this.parent = parent;
     }
+
+
 }

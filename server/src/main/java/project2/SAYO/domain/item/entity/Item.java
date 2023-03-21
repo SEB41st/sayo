@@ -3,6 +3,7 @@ package project2.SAYO.domain.item.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project2.SAYO.domain.category.entity.Category;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
@@ -38,8 +39,8 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private String itemDate; // 참여 일정
 
-    @Column(length = 50)
-    private String itemTag; // 상품 태그 (카테고리랑 연관관계 매핑)
+   /* @Column(length = 50)
+    private String itemTag; // 상품 태그 (카테고리랑 연관관계 매핑)*/
 
     @Column(nullable = false)
     private double itemPlace_X; // 경도
@@ -74,6 +75,10 @@ public class Item extends Auditable {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
 
     public void addUser(User user){
         this.user = user;

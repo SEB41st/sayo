@@ -26,8 +26,8 @@ public class ItemDto {
         private String itemBody; // 상품 설명
         @NotBlank(message="참여 일정을 입력해주세요.")
         private String itemDate; // 참여 일정
-        @NotBlank(message="상품 태그를 선택해주세요.")
-        private String itemTag; // 상품 태그
+        /*@NotBlank(message="상품 태그를 선택해주세요.")
+        private String itemTag; // 상품 태그*/
 
         /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
         private double itemPlace_X; // 경도
@@ -52,8 +52,8 @@ public class ItemDto {
         private String itemBody; // 상품 설명
         @NotBlank(message="참여 일정을 입력해주세요.")
         private String itemDate; // 참여 일정
-        @NotBlank(message="상품 태그를 선택해주세요.")
-        private String itemTag; // 상품 태그
+        /*@NotBlank(message="상품 태그를 선택해주세요.")
+        private String itemTag; // 상품 태그*/
         private Item.ItemStatus itemStatus; // 상품 진행 상태
 
         /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
@@ -74,7 +74,7 @@ public class ItemDto {
         private int itemPrice; // 상품 가격
         private String itemBody; // 상품 설명
         private String itemDate; // 참여 일정
-        private String itemTag; // 상품 태그
+        //private String itemTag; // 상품 태그
 
         /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
         private double itemPlace_X; // 경도

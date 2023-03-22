@@ -12,6 +12,10 @@ export type Location  = {
 }
 
 const MapContainer = () => {
+
+  // 해야할 것
+  //지도 받아오는 api && 키워드 검색 api (백엔드 데이터베이스에서 검색 가능하도록) -> 카카오 지도 사용하지 말고 ..
+
   const [value, setValue] = useState<string>("");
   const [searchvalue, setSearchValue] = useState<string>("");
 

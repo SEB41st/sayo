@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ButtonDiv, CartBtn } from "../../pages/Detail/styled";
+import { ButtonDiv } from "../../pages/MyInfo/styled"; 
 
 export const PaymentWrap = styled.div`
   width: 90%;

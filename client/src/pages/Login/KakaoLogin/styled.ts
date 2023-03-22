@@ -32,7 +32,7 @@ export const KaKaoBtn = styled(NavLink)`
             /* margin: 10px; */
             font-size: 11px;
             margin-left: 50px;
-            line-height: 43px;
+            /* line-height: 43px; */
         }
     }
 

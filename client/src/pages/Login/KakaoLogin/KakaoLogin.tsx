@@ -1,7 +1,7 @@
 import * as S from "./styled";
 
 const KakaoSignUp =() => {
-    const kakaoClientId = `${process.env.REACT_APP_KAKAO_API_KEY}`// 발급 받은 Client ID 입력 
+    const kakaoClientId = `${process.env.REACT_APP_KAKAO_LOGIN_API_KEY}`// 발급 받은 Client ID 입력 
 	const kakaoRedirectURL = `${process.env.REACT_APP_KAKAO_API_URL}`
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientId}&redirect_uri=${kakaoRedirectURL}&response_type=code&prompt=login`;
 

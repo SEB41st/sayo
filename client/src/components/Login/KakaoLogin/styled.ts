@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 
 
@@ -34,7 +35,7 @@ export const StKaKaoLogin = styled.div`
     }
     }
 `;
-export const KaKaoBtn = styled.button`
+export const KaKaoBtn = styled(Link)`
     border: 1px solid transparent;
     width: 160px;
     height: 40px;

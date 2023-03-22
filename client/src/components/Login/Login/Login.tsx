@@ -14,8 +14,7 @@ const Login = () => {
 	const initializeNaverLogin = () => {
 		const naverLogin = new naver.LoginWithNaverId({
             clientId: NAVER_CLIENT_ID,
-			callbackUrl: NAVER_CALLBACK_URL,
-          // 팝업창으로 로그인을 진행할 것인지?           
+			callbackUrl:`http://sayo.n-e.kr:8080/login/oauth2/code/naver`,
 			isPopup: false,
           // 버튼 타입 ( 색상, 타입, 크기 변경 가능 )
 			loginButton: { color: 'green', type: 3, height: 10 },

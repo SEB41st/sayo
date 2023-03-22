@@ -15,9 +15,7 @@ import Detail from "./pages/Detail/Detail";
 import ItemList from "./pages/ItemList/ItemList"
 import Cart from "./pages/Cart/Cart";
 import Payment from "./pages/Payment/Payment";
-import KakaoSignUp from "./components/Login/KakaoLogin/KakaoLogin"
-import Login from "./components/Login/Login/Login";
-import GoogleAuthLogin from "./components/Login/Google/GoogleAuthLogin"; 
+import Login from "./pages/Login/Login/Login";
 
 
 const Domain = styled.div`

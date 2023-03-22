@@ -11,7 +11,9 @@ const GoogleAuthLogin = () => {
   // 4. 인가 코드 이용하여 구글 서버에 사용자의 정보 요청
   // 5. 올바른 인가 코드를 받은 구글 서버는 해당 사용자의 정보를 제공
 
-  const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:3000/googlelogin&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid`;
+  const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}&response_type=token&redirect_uri=http://sayo.n-e.kr:8080/oauth2/authorization/google`;
+  // const googleLoginUrl = "http://sayo.n-e.kr:8080/oauth2/authorization/google"
+  // <a href="http://sayo.n-e.kr:8080/oauth2/authorization/google%22%3EGoogle로 로그인</a>
 
   // 백엔드 서버 배포시 적용할 코드
   const googleLogin = useGoogleLogin({

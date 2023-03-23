@@ -74,7 +74,6 @@ public class UserController {
     public ResponseEntity patchUser(@RequestBody UserDto.Patch patchRequest,
                                     @Positive @PathVariable("user-id") Long userId,
                                     @LoginUserId Long loginUserId){
-
         userService.verifiedUserId(userId, loginUserId);
         User userForService  = userMapper.userPatchDtoToUser(patchRequest);
         User userForResponse = userService.updateUser(userForService, userId);
@@ -103,6 +102,8 @@ public class UserController {
 
     @GetMapping("/token")
     public ResponseEntity giveMemberInfo(@LoginUserId Long userId) {
+
+        log.info("token -------");
         User user = userService.findVerifiedUser(userId);
         UserDto.PostResponse response = userMapper.userToPostResponse(user);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
@@ -125,8 +126,5 @@ public class UserController {
 
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);
     }
-
-
-
 
 }

@@ -52,6 +52,8 @@ public class UserDto {
             this.profile = List.of(profile);
 /*            this.latitude = latitude;
             this.longitude = longitude;*/
+            this.createdAt = createdAt;
+            this.modifiedAt = modifiedAt;
         }
     }
 

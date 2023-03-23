@@ -51,7 +51,7 @@ public class UserService {
         verifyExistsEmail(user.getEmail());
         makeSecretPassword(user);
 
-        //관리자 이메일일 경우 권한 부여, 이외에는 USER 권한 부여
+        // 관리자 이메일일 경우 권한 부여, 이외에는 USER 권한 부여
         if(user.getEmail().equals("admin@gmail.com")) {
             user.setRoles(List.of("ADMIN"));
         }else {

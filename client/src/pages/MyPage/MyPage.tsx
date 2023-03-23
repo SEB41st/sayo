@@ -1,70 +1,159 @@
 import * as S from "./styled";
-import { LogoImg, Line, Item } from "../Main/styled";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useCustomQuery } from "../../components/util/useCustomQuery";
+import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
+import Modal from "../../components/Modal/Modal";
+import { useState } from "react";
+import { useCustomMutation } from "../../components/util/useMutate";
 
 const Mypage = () => {
+  const [modalOpen, SetModalOpen] = useState<boolean>(false);
+
+  // const {itemId} = useParams()
+  const { data, isLoading, error, refetch } = useCustomQuery(
+    `/items`,
+    `items`
+  )
+  if (isLoading) return <Loading/>;
+  if (error) return <Error/>;
+
+  const Items = data;
+console.log(Items)
+
+const openModal = () => {
+  SetModalOpen(true);
+};
+const closeModal = () => {
+  SetModalOpen(false);
+};
+
+// let {mutate} = useCustomMutation(
+//   `items`,
+//   `items`,
+//   "DELETE"
+// )
+
+const deleteGoods = () => {
+//   mutate()
+//   refetch()
+}
+
   return (
     <S.MypageWrap>
       <div className="Title">마이페이지</div>
       <S.MypageContainer>
-        <S.ImageDiv></S.ImageDiv>
+        <S.ImageDiv src="/assets/Github.png"></S.ImageDiv>
         <div className="Nickname">NICKNAME</div>
       </S.MypageContainer>
-      <S.Line></S.Line>
+      <S.Line/>
       <S.Lists>
         <div className="Name">내가 찜한 상품</div>
         <S.ChoiceList>
         <Link to="/detail">
-            <Item>
+            <S.ItemImg>
               <img src="/assets/goods.png" alt="goods"></img>
-            </Item>
-            <div>목포 쫀드기</div>
-            <div>9,900원</div>
+            </S.ItemImg>
+            <S.ItemName>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
+            </S.ItemName>
           </Link>
           <Link to="/detail">
-            <Item>
+            <S.ItemImg>
               <img src="/assets/goods.png" alt="goods"></img>
-            </Item>
-            <div>목포 쫀드기</div>
-            <div>9,900원</div>
+            </S.ItemImg>
+            <S.ItemName>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
+            </S.ItemName>
           </Link>
           <Link to="/detail">
-            <Item>
+            <S.ItemImg>
               <img src="/assets/goods.png" alt="goods"></img>
-            </Item>
-            <div>목포 쫀드기</div>
-            <div>9,900원</div>
+            </S.ItemImg>
+            <S.ItemName>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
+            </S.ItemName>
           </Link>
         </S.ChoiceList>
       </S.Lists>
-      <S.Line></S.Line>
+      <S.Line/>
       <S.Lists>
         <div className="Name">참여 중인 공동구매</div>
         <S.ChoiceList>
         <Link to="/detail">
-            <Item>
+
+        
+          <S.ItemImg>
               <img src="/assets/goods.png" alt="goods"></img>
-            </Item>
-            <div>목포 쫀드기</div>
-            <div>9,900원</div>
-          </Link>
+            </S.ItemImg>
+            <S.ItemName>
+               <div>상품명 : 목포 쫀드기</div>
+               <div>구매일 : 2023.02.03</div>
+               <div>송장번호 : 3827498379238</div>                      
+            </S.ItemName>
+            {/* <Modal
+                open={openModal}
+                close={closeModal} 
+            >
+            <S.ItemName>
+               <div>상품명 : 목포 쫀드기</div>
+               <div>구매일 : 2023.02.03</div>
+               <div>송장번호 : 3827498379238</div>                      
+            </S.ItemName>
+            </Modal> */}
+            </Link>
           <Link to="/detail">
-            <Item>
+            <S.ItemImg>
               <img src="/assets/goods.png" alt="goods"></img>
-            </Item>
-            <div>목포 쫀드기</div>
-            <div>9,900원</div>
-          </Link>
-          <Link to="/detail">
-            <Item>
-              <img src="/assets/goods.png" alt="goods"></img>
-            </Item>
-            <div>목포 쫀드기</div>
-            <div>9,900원</div>
+            </S.ItemImg>
+            <S.ItemName>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
+            </S.ItemName>
           </Link>
         </S.ChoiceList>
       </S.Lists>
-      <S.Line></S.Line>
+      <S.Line/>
+      <S.Lists>
+        <div className="Name">내가 작성한 공동구매</div>
+        <S.ChoiceList>
+        <Link to="/detail">
+          <S.ItemImg>
+              <img src="/assets/goods.png" alt="goods"/>
+            </S.ItemImg>
+            <S.ItemImg>    
+              <S.ItemName>
+                <div>목포 쫀드기</div>
+                <div>9,900</div>
+                <div>구매인원 : 10명</div>                  
+              </S.ItemName>
+              <button onClick={() => deleteGoods()}>x</button>
+            </S.ItemImg>
+            {/* <Modal
+                open={openModal}
+                close={closeModal} 
+            >
+            <S.ItemName>
+               <div>상품명 : 목포 쫀드기</div>
+               <div>구매일 : 2023.02.03</div>
+               <div>송장번호 : 3827498379238</div>                      
+            </S.ItemName>
+            </Modal> */}
+            </Link>
+          <Link to="/detail">
+            <S.Item>
+              <img src="/assets/goods.png" alt="goods"></img>
+            </S.Item>
+            <S.ItemName>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
+            </S.ItemName>
+          </Link>
+        </S.ChoiceList>
+      </S.Lists>
     </S.MypageWrap>
   );
 };

@@ -74,7 +74,6 @@ public class UserController {
     public ResponseEntity patchUser(@RequestBody UserDto.Patch patchRequest,
                                     @Positive @PathVariable("user-id") Long userId,
                                     @LoginUserId Long loginUserId){
-
         userService.verifiedUserId(userId, loginUserId);
         User userForService  = userMapper.userPatchDtoToUser(patchRequest);
         User userForResponse = userService.updateUser(userForService, userId);
@@ -103,17 +102,25 @@ public class UserController {
 
     @GetMapping("/token")
     public ResponseEntity giveMemberInfo(@LoginUserId Long userId) {
+
+        log.info("token -------");
         User user = userService.findVerifiedUser(userId);
         UserDto.PostResponse response = userMapper.userToPostResponse(user);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     // TODO GET ALL
+//    @PostMapping("/usersAll")
+//    @GetMapping("/usersAll")
     @GetMapping
-    public ResponseEntity getUsers() {
+    public ResponseEntity getUsersAll() {
+        System.out.println("1111111111111111111111111111111111111111111111111111111");
+        log.info("1111111111111111111111");
         List<User> userList = userService.findUsers();
-
-        return new ResponseEntity<>(new SingleResponseDto<>(userList),HttpStatus.OK);
+        log.info("2222222222222222222222222222222");
+        List<UserDto.GetResponse> responseList = userMapper.userListToUserResponseList(userList);
+        log.info("## responseList = {}", responseList);
+         return new ResponseEntity<>(new SingleResponseDto<>(responseList),HttpStatus.OK);
     }
 
     // TODO DELETE ONE
@@ -125,8 +132,5 @@ public class UserController {
 
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);
     }
-
-
-
 
 }

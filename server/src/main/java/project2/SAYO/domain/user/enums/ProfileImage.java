@@ -3,13 +3,13 @@ package project2.SAYO.domain.user.enums;
 import lombok.Getter;
 
 public enum ProfileImage {
-    BASIC_IMAGE_ONE(1,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/0916395d-1e05-42d2-b50b-2fa5d58aa45e.jpg"),
-    BASIC_IMAGE_TWO(2,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/67c070c0-93ac-4f04-9dbe-0118197b00f0.jpg"),
-    BASIC_IMAGE_THREE(3,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/84777d2b-8b69-48c2-911c-c0c5b2f90fad.jpg"),
-    BASIC_IMAGE_FOUR(4,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/e4d3d3d8-ac6b-4dfa-a581-58d8b99af46b.jpg"),
-    BASIC_IMAGE_FIVE(5,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/e5768574-948e-48a7-b015-a0d9ea4cfe83.jpg"),
-    BASIC_IMAGE_SIX(6,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/ef23514a-6f29-4583-a6e6-6fb9ce29c8dc.jpg"),
-    BASIC_IMAGE_SEVEN(7,"https://indiego-fileupload.s3.ap-northeast-2.amazonaws.com/profileimage/basic/fa13ae0a-f8a5-48a1-8fd1-3ab34dff896a.jpg");
+    BASIC_IMAGE_ONE(1,"https://cdn-icons-png.flaticon.com/512/560/560216.png"),
+    BASIC_IMAGE_TWO(2,"https://cdn-icons-png.flaticon.com/512/506/506185.png"),
+    BASIC_IMAGE_THREE(3,"https://cdn-icons-png.flaticon.com/512/2922/2922561.png"),
+    BASIC_IMAGE_FOUR(4,"https://cdn-icons-png.flaticon.com/512/2922/2922510.png"),
+    BASIC_IMAGE_FIVE(5,"https://cdn-icons-png.flaticon.com/512/7452/7452962.png"),
+    BASIC_IMAGE_SIX(6,"https://cdn-icons-png.flaticon.com/512/10169/10169731.png"),
+    BASIC_IMAGE_SEVEN(7,"https://cdn-icons-png.flaticon.com/512/10132/10132151.png");
 
     @Getter
     int index;

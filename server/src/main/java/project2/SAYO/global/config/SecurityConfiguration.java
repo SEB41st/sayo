@@ -79,12 +79,11 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000",
-                "http://indiego.site.s3-website.ap-northeast-2.amazonaws.com",
-                "http://indiego.site",
+                "http://sayo.n-e.kr",
+                "http://sayo.n-e.kr:8080",
                 "http://localhost", // 로컬환경 OAuth2 테스트용
                 "http://localhost:8080",
-//				"http://13.125.98.211:80",
-                "http://indiego.kro.kr:80"));
+                "http://sayo.n-e.kr:80"));
         configuration.setAllowCredentials(true);
         configuration.addExposedHeader("Authorization");
         configuration.addExposedHeader("Refresh");

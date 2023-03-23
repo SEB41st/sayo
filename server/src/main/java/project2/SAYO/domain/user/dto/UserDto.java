@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserDto {
@@ -40,11 +41,13 @@ public class UserDto {
         private String email;
         private String role;
         private List<Profile> profile;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
       /*  private Double latitude;
         private Double longitude;
 */
         @Builder
-        public GetResponse(Long id, String email, List<String> role, Profile profile/*,
+        public GetResponse(Long id, String email, List<String> role, Profile profile, LocalDateTime createdAt, LocalDateTime modifiedAt/*,
                            Double latitude, Double longitude*/){
             this.id = id;
             this.email = email;
@@ -52,6 +55,8 @@ public class UserDto {
             this.profile = List.of(profile);
 /*            this.latitude = latitude;
             this.longitude = longitude;*/
+            this.createdAt = createdAt;
+            this.modifiedAt = modifiedAt;
         }
     }
 
@@ -62,13 +67,17 @@ public class UserDto {
         private String email;
         private String nickname;
         private String role;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
 
         @Builder
-        public PostResponse(Long id, String email, String nickname, List<String> role){
+        public PostResponse(Long id, String email, String nickname, List<String> role, LocalDateTime createdAt, LocalDateTime modifiedAt){
             this.id = id;
             this.email = email;
             this.nickname = nickname;
             this.role = role.get(0);
+            this.createdAt = createdAt;
+            this.modifiedAt = modifiedAt;
         }
     }
 
@@ -79,10 +88,11 @@ public class UserDto {
         private String address;
         private String image;
         private String introduction;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
        /* private Double latitude;
         private Double longitude;*/
     }
-
 
     @Getter
     @Builder
@@ -92,5 +102,7 @@ public class UserDto {
         private String email;
         private String nickname;
         private String role;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
     }
 }

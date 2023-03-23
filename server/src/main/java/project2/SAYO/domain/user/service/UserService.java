@@ -36,7 +36,7 @@ import static project2.SAYO.domain.user.entity.User.OAuthStatus.OAUTH;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
+//@Transactional
 public class UserService {
     private final UserRepository userRepository;
     private final CustomBeanUtils<User> beanUtils;
@@ -51,7 +51,7 @@ public class UserService {
         verifyExistsEmail(user.getEmail());
         makeSecretPassword(user);
 
-        //관리자 이메일일 경우 권한 부여, 이외에는 USER 권한 부여
+        // 관리자 이메일일 경우 권한 부여, 이외에는 USER 권한 부여
         if(user.getEmail().equals("admin@gmail.com")) {
             user.setRoles(List.of("ADMIN"));
         }else {
@@ -156,6 +156,7 @@ public class UserService {
     }
 
     public List<User> findUsers() {
+        log.info("2.5555555555555555555555");
         return userRepository.findAll();
     }
 

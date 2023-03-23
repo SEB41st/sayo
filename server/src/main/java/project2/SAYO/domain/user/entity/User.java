@@ -32,10 +32,6 @@ public class User extends Auditable {
     @Column(length = 20)
     private UserStatus userStatus = UserStatus.USER_ACTIVE; // 회원 상태
 
-//    @Enumerated(value = EnumType.STRING)
-//    @Column(length = 20)
-//    private ProviderType providerType; // GOOGLE/NAVER/KAKAO
-//
     @Setter
     @Enumerated(value = EnumType.STRING)
     private OAuthStatus oAuthStatus;
@@ -63,34 +59,6 @@ public class User extends Auditable {
         }
     }
 
-
-//    public enum ProviderType {
-//        GOOGLE("구글"),
-//        NAVER("네이버"),
-//        KAKAO("카카오");
-//
-//        @Getter
-//        private String providerType;
-//        ProviderType(String providerType) {
-//            this.providerType = providerType;
-//        }
-//    }
-
-//    public void setRoles(List<String> roles){
-//        this.roles = roles;
-//    }
-
-//    public void setUserId(Long userId){
-//        this.userId = userId;
-//    }
-//
-//    public void setEmail(String email){
-//        this.email = email;
-//    }
-
-//    public void setPassword(String password){
-//        this.password = password;
-//    }
 
     public void changeUserStatus(UserStatus userStatus){
         this.userStatus = userStatus;

@@ -15,7 +15,7 @@ import Detail from "./pages/Detail/Detail";
 import ItemList from "./pages/ItemList/ItemList"
 import Cart from "./pages/Cart/Cart";
 import Payment from "./pages/Payment/Payment";
-import Login from "./pages/Login/Login/Login";
+import Login from "./pages/Login/Login";
 
 
 const Domain = styled.div`

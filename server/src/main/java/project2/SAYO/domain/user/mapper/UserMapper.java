@@ -6,6 +6,9 @@ import org.mapstruct.ReportingPolicy;
 import project2.SAYO.domain.user.dto.UserDto;
 import project2.SAYO.domain.user.entity.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
@@ -38,5 +41,11 @@ public interface UserMapper {
 
     //User userPreModifyToUser(UserDto.PrevModify prevModifyRequest);
 
-    //List<UserDto.Response> userListToUserResponseList(List<User> userList);
+    default List<UserDto.GetResponse> userListToUserResponseList(List<User> userList){
+
+        return userList.stream()
+                .map(this::userToGetResponse).collect(Collectors.toList());
+    }
+
+
 }

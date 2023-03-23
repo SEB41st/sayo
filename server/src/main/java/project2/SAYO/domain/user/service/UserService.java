@@ -156,6 +156,7 @@ public class UserService {
     }
 
     public List<User> findUsers() {
+        log.info("2.5555555555555555555555");
         return userRepository.findAll();
     }
 

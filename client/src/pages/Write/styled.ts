@@ -81,6 +81,7 @@ export const WriteInput = styled.input`
 
   @media screen and (min-width: ${"700px"}) {
     min-width: 100%;
+    font-size: 10px;
   }
 `;
 
@@ -89,4 +90,7 @@ export const Day = styled.div`
   border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
+  /* @media screen and (min-width: ${"700px"}) {
+    position: absolute;
+  } */
 `

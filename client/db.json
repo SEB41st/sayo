@@ -9,6 +9,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : true,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294}
     },
@@ -21,6 +22,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : true,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La": 126.86017118904984, "Ma" : 37.38418084873742 }
     },
@@ -33,6 +35,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "깜찍한 아이렌 캐릭터 러기지 네임텍 입니다 설레는 여행을 함께 할 귀여운 아이렌 형태의 러기지 네임텍 입니다!",
       "location" : "{La: 126.86032871869874, Ma: 37.38447837251356}"
     },
@@ -45,6 +48,7 @@
       "startDate" : "Wed Feb 01 2023",
       "endDate" : "Fri Feb 10 2023",
       "state": "판매 종료",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294 }
     },
@@ -57,6 +61,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.85892286939267, "Ma" : 37.38450373446363 }
     },
@@ -69,6 +74,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.85849592353962, "Ma" : 37.38336793522194 }
     },
@@ -81,6 +87,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294 }
     },
@@ -93,6 +100,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.85791277642875, "Ma" : 37.384236723363216 }
     },
@@ -105,6 +113,7 @@
       "startDate" : "Fri Feb 01 2023",
       "endDate" : "Fri Feb 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.85819993814742, "Ma": 37.384647033523464 }
     },
@@ -117,6 +126,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.86188568922874, "Ma" : 37.385169483752094 }
     }
@@ -132,6 +142,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294}
     },
@@ -144,6 +155,7 @@
       "startDate" : "Fri Mar 03 2023",
       "endDate" : "Fri Mar 10 2023",
       "state": "판매 중",
+      "like" : false,
       "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location" : { "La": 126.86017118904984, "Ma" : 37.38418084873742 }
     }

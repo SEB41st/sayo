@@ -12,6 +12,7 @@ import Modal from "../../components/Modal/Modal";
 import Calendar from "../../components/Calendar/Calendar";
 import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
+import { likeState } from "../../recoil/atom";
 
 export interface LatLng {
   latitude: any;
@@ -60,15 +61,18 @@ const Detail = () => {
         <S.ProductInfoDiv>
           <div className="Product">
             <div className="ProductName">{Items.title}</div>
-            <BsHeartFill
+            {likeState ? <BsHeartFill
               size="20"
               style={{ marginLeft: "10px", color: "#d3d3d3" }}
-            ></BsHeartFill>
+            />:<BsHeartFill
+            size="20"
+            style={{ marginLeft: "10px", color: "#eb1717" }}
+          />}
           </div>
           <div className="ProductPrice">판매가 : {Items.itmePrice}</div>
           <div className="ProductFee">배송비 : {Items.deliveryFee}</div>
-          <div className="SalesSchedule">판매일정
-            <Calendar/>
+          <div className="SalesSchedule">판매일정 : {Items.startDate} ~ {Items.endDate}
+            {/* <Calendar/> */}
           </div>
           <S.ButtonDiv>
             <S.CartBtn onClick={openModal}>장바구니</S.CartBtn>

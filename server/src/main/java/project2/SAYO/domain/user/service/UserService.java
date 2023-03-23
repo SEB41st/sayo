@@ -36,7 +36,7 @@ import static project2.SAYO.domain.user.entity.User.OAuthStatus.OAUTH;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
+//@Transactional
 public class UserService {
     private final UserRepository userRepository;
     private final CustomBeanUtils<User> beanUtils;

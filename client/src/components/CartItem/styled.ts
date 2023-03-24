@@ -124,7 +124,7 @@ export const ProductInfoDiv3 = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 10%;
+    min-width: 20%;
     height: 90%;
     border: 1px solid #f9bb00;
   }

@@ -5,9 +5,10 @@ import { useCustomQuery } from "../util/useCustomQuery";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { countState, countSelector, totalPriceState } from "../../recoil/atom";
+import { CartItemList, countState, countSelector, totalPriceState } from "../../recoil/atom";
 import { ItemType } from "../../pages/Cart/Cart";
 import axios from "axios";
+import { useCustomMutation } from "../util/useMutation";
 
 type ItemProps = {
   item: ItemType; // 부모컴포넌트에서 import 해온 타입을 재사용 해 줍시다.
@@ -16,18 +17,28 @@ type ItemProps = {
 const CartItem = () => {
   //{ item }:ItemProps
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useRecoilState(CartItemList);
+  const [count, setCount] = useRecoilState(countSelector);
+
 
 
   useEffect(() => { 
-    axios(`http://localhost:4000/cart`)
+    axios.get(`http://localhost:4000/cart`)
     .then(res => {
       setProducts(res.data)
-      console.log(res.data)
     })
   },[])
 
   console.log(products)
+
+
+  const { mutate } = useCustomMutation(
+    `/cart`,
+    `/cart`,
+    "POST"
+  );
+
+  // console.log(products[0].itmePrice)
   // const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);
 
   // if (isLoading) return <Loading></Loading>;
@@ -83,7 +94,7 @@ const CartItem = () => {
                   onClick={() => { handleAddCount(item.id)}}
                 ></TfiPlus>
               </S.CountDiv>
-              <div className="Price">{item.itmePrice}</div>
+              <div className="Price">{item.amount * item.itemPrice}</div>
             </S.ProductInfoDiv3>
           </S.ProductDiv>
           )

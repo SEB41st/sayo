@@ -191,7 +191,6 @@ public class UserService {
         if (user.isPresent()) throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
 
-
     public void validatedRefreshToken(String refreshToken){
         if(refreshToken == null){
             throw new BusinessLogicException(ExceptionCode.HEADER_REFRESH_TOKEN_NOT_FOUND);
@@ -205,7 +204,6 @@ public class UserService {
         }
     }
 
-
     private void createRoles(User user){
         log.info("## 1111 user.getRoles().get(0) = {}", user.getRoles().get(0));
 
@@ -218,6 +216,7 @@ public class UserService {
         user.setRoles(roles);
         createProfileImage(user);
     }
+
     public void makeSecretPassword(User user) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);

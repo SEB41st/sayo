@@ -110,14 +110,9 @@ public class UserController {
     }
 
     // TODO GET ALL
-//    @PostMapping("/usersAll")
-//    @GetMapping("/usersAll")
     @GetMapping
     public ResponseEntity getUsersAll() {
-        System.out.println("1111111111111111111111111111111111111111111111111111111");
-        log.info("1111111111111111111111");
         List<User> userList = userService.findUsers();
-        log.info("2222222222222222222222222222222");
         List<UserDto.GetResponse> responseList = userMapper.userListToUserResponseList(userList);
         log.info("## responseList = {}", responseList);
          return new ResponseEntity<>(new SingleResponseDto<>(responseList),HttpStatus.OK);

@@ -121,8 +121,11 @@ public class UserService {
         String secretRefreshToken = tokenProvider.resolveRefreshToken(request);
         validatedRefreshToken(secretRefreshToken);
         String accessToken = tokenProvider.resolveAccessToken(request);
+        log.info("accessToken ={}",accessToken);
         String refreshToken = aes128Config.decryptAes(secretRefreshToken);
+        log.info("refreshToken = {}",refreshToken);
         String redisAccessToken = redisDao.getValues(refreshToken);
+        log.info("redisAccessToken = {}", redisAccessToken);
 
         // Refresh Token이 Redis에 존재할 경우 Access Token 생성
         if(redisDao.validateValue(redisAccessToken) && accessToken.equals(redisAccessToken)){
@@ -153,10 +156,10 @@ public class UserService {
             redisDao.deleteValues(refreshToken);
         }
         deleteValuesCheck(refreshToken);
+        log.info("로그아웃 서비스로직 수행 완료!");
     }
 
     public List<User> findUsers() {
-        log.info("2.5555555555555555555555");
         return userRepository.findAll();
     }
 

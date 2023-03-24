@@ -75,11 +75,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         AuthUser authUser = (AuthUser) authResult.getPrincipal();
         TokenDto tokenDto = tokenProvider.generateTokenDto(authUser);
         String accessToken = tokenDto.getAccessToken(); // accessToken 만들기
+
         String refreshToken = tokenDto.getRefreshToken(); // refreshToken 만들기
-//        String secretRefreshToken = aes128Config.encryptAes(refreshToken); // refreshToken 암호화
+        String secretRefreshToken = aes128Config.encryptAes(refreshToken); // refreshToken 암호화
 
         tokenProvider.accessTokenSetHeader(accessToken, response);
-        tokenProvider.refreshTokenSetHeader(refreshToken, response);
+        tokenProvider.refreshTokenSetHeader(secretRefreshToken, response);
 //      tokenProvider.refreshTokenSetCookie(refreshToken,response); // RefreshToken Cookie로 설정
 
         User findUser = userService.findVerifiedUser(authUser.getId());

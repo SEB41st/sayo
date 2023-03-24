@@ -1,5 +1,6 @@
 package project2.SAYO.global.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@Slf4j
 public class RedisDao {
 
     private final RedisTemplate<String, Object> redisTemplate;
@@ -25,11 +27,19 @@ public class RedisDao {
 
     public void setValues(String key, String data, Duration duration) {
         ValueOperations<String, Object> values = redisTemplate.opsForValue();
-        values.set(key, data, duration);
+        values.set(key, data);
+        redisTemplate.expire(key,duration);
     }
 
     public String getValues(String key) {
         ValueOperations<String, Object> values = redisTemplate.opsForValue();
+        if(values.get(key) == null) return null;
+        return (String) values.get(key);
+    }
+
+    public String getValues(Object key) {
+        ValueOperations<String, Object> values = redisTemplate.opsForValue();
+        if(values.get(key) == null) return "false";
         return (String) values.get(key);
     }
 

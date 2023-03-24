@@ -79,7 +79,6 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         // 받은 정보를 토대로 AccessToken, Refresh Token을 만듬
         // Token을 토대로 URI를 만들어서 String으로 변환
         String uri = createURI(request, accessToken, refreshToken).toString();
-
         tokenProvider.accessTokenSetHeader(accessToken, response); // Access Token 헤더에 전송
         tokenProvider.refreshTokenSetCookie(refreshToken,response); // Refresh Token 쿠키에 전송
         int refreshTokenExpirationMinutes = tokenProvider.getRefreshTokenExpirationMinutes();

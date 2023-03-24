@@ -4,29 +4,66 @@ import DatePicker from 'react-datepicker'
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import MapLocation from "../../components/Map/MapLocation";
+import { useCustomMutation } from "../../components/util/useMutate";
+import { useRecoilState } from "recoil";
+import { salesLocation } from "../../recoil/atom";
 
 const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
+  const [goodsName, setGoodsName] = useState<string>("")
+  const [goodsPrice, setGoodsPrice] = useState<number>(0)
+  const [deliveryCharge, setDeliveryCharge] = useState<number>(0)
+  const [goodsDetail, setGoodsDetail] = useState<string>("")
+  const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
 
+
+  const {mutate} = useCustomMutation(
+    `/items`,
+    `items`,
+    "POST"
+  )
+
+  const submitKeyPress  =() => {
+    mutate({
+      title:goodsName,
+      itemPrice:goodsPrice, 
+      deliveryFee: deliveryCharge,
+      startDate:startDate,
+      endDate:endDate,
+      itemDatail:goodsDetail,
+      location:markLocation
+    })
+  }
+
+  // console.log(goodsName)
   console.log(startDate, endDate)
   return (
     <S.WriteWrap>
       <S.WriteContainer>
         <S.ImageDiv></S.ImageDiv>
-        <S.SubmitBtn>등록하기</S.SubmitBtn>
+        <S.SubmitBtn onClick={submitKeyPress}>등록하기</S.SubmitBtn>
         <S.WriteForm>
           <S.InputDiv>
             <S.InputLabel> 상품명</S.InputLabel>
-            <S.WriteInput type="text" />
+            <S.WriteInput 
+              type="text"
+              onChange={(e) => {setGoodsName(e.target.value)}}
+              />
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 가격</S.InputLabel>
-            <S.WriteInput type="text" />
+            <S.WriteInput 
+              type="text"
+              onChange={(e)=> {setGoodsPrice(Number(e.target.value))}}
+            />
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 배송비</S.InputLabel>
-            <S.WriteInput type="text" />
+            <S.WriteInput 
+              type="text"
+              onChange={(e) => {setDeliveryCharge(Number(e.target.value))}}
+            />
           </S.InputDiv>
           <S.InputDiv> 
             <S.InputLabel>공구시작</S.InputLabel>
@@ -58,11 +95,13 @@ const Write = () => {
              </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 상세정보</S.InputLabel>
-            <S.WriteInput type="text" />
+            <S.WriteInput 
+              type="text"
+              onChange={(e) => {setGoodsDetail(e.target.value)}} />
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel>위치</S.InputLabel>
-            <S.WriteInput type="text" placeholder="판매 위치를 아래 지도의 마커로 표시해주세요" readOnly/>
+            판매 위치를 아래 지도의 마커로 표시해주세요
           </S.InputDiv>
            <MapLocation></MapLocation> 
         </S.WriteForm>

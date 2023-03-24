@@ -5,15 +5,15 @@ import styled from "styled-components";
 //   }
   
   export const CalenderContainer = styled.div`
-    width: 30%;
+    width: 20%;
     height: 20%;
     margin: auto;
     padding: 20px 20px;
     border: 1px solid rgba(128, 128, 128, 0.267);
     position: absolute; 
     left: 60%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+    top: 30%;
+    transform: translate(-20%, -20%);
     .title {
      display: flex;
     }

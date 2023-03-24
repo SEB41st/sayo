@@ -12,6 +12,8 @@ import Modal from "../../components/Modal/Modal";
 import Calendar from "../../components/Calendar/Calendar";
 import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
+import { likeState } from "../../recoil/atom";
+import { useRecoilState } from "recoil";
 
 export interface LatLng {
   latitude: any;
@@ -23,6 +25,7 @@ const Detail = () => {
 
   // const [SalesLocation, setSalesLocation] = useState< Array<any> >([]);
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
+  const [like, setLike] = useRecoilState(likeState)
 
   const { itemId } = useParams();
 
@@ -36,10 +39,10 @@ const Detail = () => {
 
   const Items = data;
 
-  console.log(Items);
+  // console.log(Items);
 
   const location: any = Items.location;
-  console.log(location);
+  // console.log(location);
 
   // setSalesLocation(location)
   // const longitude: any = Items.location.Ma;
@@ -51,6 +54,11 @@ const Detail = () => {
     SetModalOpen(false);
   };
 
+  const handleLikeBtn = () => {
+    setLike(!like)
+    console.log(like)
+  }
+
   return (
     <S.DetailWrap>
       <S.DetailContainer>
@@ -60,15 +68,20 @@ const Detail = () => {
         <S.ProductInfoDiv>
           <div className="Product">
             <div className="ProductName">{Items.title}</div>
-            <BsHeartFill
+            {like ? <BsHeartFill
+              onClick={handleLikeBtn}
               size="20"
               style={{ marginLeft: "10px", color: "#d3d3d3" }}
-            ></BsHeartFill>
+            />:<BsHeartFill
+            size="20"
+            onClick={handleLikeBtn}
+            style={{ marginLeft: "10px", color: "#eb1717" }}
+          />}
           </div>
           <div className="ProductPrice">판매가 : {Items.itmePrice}</div>
           <div className="ProductFee">배송비 : {Items.deliveryFee}</div>
-          <div className="SalesSchedule">판매일정
-            <Calendar/>
+          <div className="SalesSchedule">판매일정 : {Items.startDate} ~ {Items.endDate}
+            {/* <Calendar/> */}
           </div>
           <S.ButtonDiv>
             <S.CartBtn onClick={openModal}>장바구니</S.CartBtn>
@@ -91,13 +104,15 @@ const Detail = () => {
         <div className="DetailLocation">위치</div>
         <Maps
           center={{
-            lat: location.Ma,
-            lng: location.La,
+            lat: location.latitude,
+            lng: location.longitude,
           }}
           isPanto={true}
         >
           {location && (
-            <MapMarker position={{ lat: location.Ma, lng: location.La }} />
+            <MapMarker
+             position={{ lat: location.latitude, lng: location.longitude }} 
+            />
           )}
         </Maps>
       </S.DetailDiv>

@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const NaverBtn = styled.div`
@@ -147,21 +146,21 @@ export const StKaKaoLogin = styled.div`
     }
     
 `;
-export const KaKaoBtn = styled(NavLink)`
+export const KaKaoBtn = styled.button`
     cursor: pointer;    
     display:flex;
     justify-content: center;
     align-self: center;
     div{
-        margin-left: 2px;
+        margin-left: 80px;
         font-size: 16px;
         font-weight: bold;
         line-height: 55px;
         @media only screen and (max-width: ${"700px"}) {
             /* margin: 10px; */
             font-size: 11px;
-            margin-left: 50px;
-            /* line-height: 43px; */
+            margin-left: 55px;
+            line-height: 43px;
         }
     }
 

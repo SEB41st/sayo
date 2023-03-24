@@ -2,9 +2,9 @@ import { Link } from "react-router-dom"
 import * as S from "./styled";
 
 const Modal = (props:any) => {
-
     const {open, close, header} = props;
-     return (
+    
+    return (
     <div className={open ? 'openModal modal' : 'modal'}>
     {open ? (
      <S.ModalWrap>
@@ -17,13 +17,14 @@ const Modal = (props:any) => {
         </header>
         <main>{props.children}</main>
         <S.Footer>
+          <Link to="/cart">
+                장바구니로 이동
+          </Link>
+          
             <button className="CloseButton" onClick={close}>
                 close
             </button>
-            <Link to="/cart" className="CloseButton">
-                장바구니로 이동
-            </Link>
-          
+            
         </S.Footer>
       </S.ModalSection>
   </S.ModalWrap>

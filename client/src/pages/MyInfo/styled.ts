@@ -15,49 +15,56 @@ export const MypageContainer = styled.div`
   /* min-width: 20.4375rem;
   min-height: 9.75rem; */
   min-width: 90%;
-  height: 30%;
+  height: 40%;
   background-color: #fef8e3;
   border-radius: .625rem;
   margin: 30px;
 
-  @media screen and (min-width: ${"1280px"}) {
+  @media screen and (min-width: ${"700px"}) {
     width: 31.25rem;
-    height: 50%;
+    height: 55%;
   }
 `;
 
-export const ImageDiv = styled.div`
+export const ImageDiv = styled.img`
   width: 30%;
   height: 30%;
   background-color: #ffffff;
   border-radius: 100%;
   margin: .625rem;
 
-  @media screen and (min-width: ${"1280px"}) {
+  @media screen and (min-width: ${"700px"}) {
     width: 15%;
     height: 50%;
-
     margin: 1.875rem;
   }
 `;
 
 export const MypageDiv = styled.div`
+  margin: 15px;
+  display: flex;
+  width: 80%;
   .Name {
     font-size: 1.25rem;
-    margin-right: 7.5rem;
-
-
-    @media screen and (min-width: ${"1280px"}) {
+    width: 30%;
+    /* @media screen and (min-width: ${"1280px"}) {
       margin-right: 9.375rem;
-    }
+    } */
   }
   .UserName {
-    font-size: 1.25rem;
+    font-size: 1rem;
 
     /* @media screen and (min-width: ${"1280px"}) {
       font-size: 1rem;
     } */
   }
+  .address{
+    font-size: 10px;
+    @media screen and (min-width: ${"1280px"}) {
+      font-size: 1rem;
+    }
+  }
+  
 `;
 
 export const ButtonDiv = styled.div`

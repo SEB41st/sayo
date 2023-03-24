@@ -9,7 +9,7 @@ const Header = () => {
             <S.LogoImg src="/assets/Logo.png" alt ="" ></S.LogoImg>
         </Link>
         <S.HeaderLogo>
-            <S.Login to='/Login'>
+            <S.Login to='/login'>
                 <RxPerson className="personIcon"/>
             </S.Login>
             <Link to="/sidebar">

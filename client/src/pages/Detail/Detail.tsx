@@ -91,13 +91,13 @@ const Detail = () => {
         <div className="DetailLocation">위치</div>
         <Maps
           center={{
-            lat: location.Ma,
-            lng: location.La,
+            lat: location.latitude,
+            lng: location.longitude,
           }}
           isPanto={true}
         >
           {location && (
-            <MapMarker position={{ lat: location.Ma, lng: location.La }} />
+            <MapMarker position={{ lat: location.latitude, lng: location.longitude }} />
           )}
         </Maps>
       </S.DetailDiv>

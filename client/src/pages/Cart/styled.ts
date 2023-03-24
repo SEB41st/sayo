@@ -3,7 +3,7 @@ import { ButtonDiv, CartBtn } from "../../pages/Detail/styled";
 
 export const PaymentWrap = styled.div`
   width: 90%;
-  height: 100vh;
+  height: 100%;
   margin: 0.625rem 1.25rem;
 `;
 
@@ -29,6 +29,7 @@ export const PaymentContainer = styled.div`
 `;
 
 export const PaymentDiv = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

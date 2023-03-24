@@ -51,9 +51,9 @@ public enum ExceptionCode {
     UPLOAD_FAILED(404, "File Upload Failed !"),
     UPLOAD_VOLUME_OVER(404, "File Size가 10MB를 초과하였습니다 !"),
 
-    // AES128Cofig
-    ENCRYPTION_FAIED(400, "Item not found"),
-    DECRYPTION_FAIED(400, "Item not found");
+    // AES
+    ENCRYPTION_FAIED(404, "암호화에 실패하였습니다."),
+    DECRYPTION_FAIED(404, "복호화에 실패하였습니다.");
 
     @Getter
     private int status;

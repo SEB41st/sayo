@@ -57,13 +57,24 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (RuntimeException e) {
+             ObjectMapper objectMapper = new ObjectMapper();
+                        String json = objectMapper.writeValueAsString(e.getMessage());
+                        response.getWriter().write(json);
+                        response.setStatus(500);
 
-            if (e instanceof BusinessLogicException) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                String json = objectMapper.writeValueAsString(ErrorResponse.of(((BusinessLogicException)e).getExceptionCode()));
-                response.getWriter().write(json);
-                response.setStatus(((BusinessLogicException)e).getExceptionCode().getStatus());
-            }
+//            if (e instanceof BusinessLogicException) {
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                String json = objectMapper.writeValueAsString(ErrorResponse.of(((BusinessLogicException)e).getExceptionCode()));
+//                response.getWriter().write(json);
+//                response.setStatus(((BusinessLogicException)e).getExceptionCode().getStatus());
+//            }
+//            if (e instanceof BusinessLogicException) {
+//                System.out.println("여긴가?33");
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                String json = objectMapper.writeValueAsString(ErrorResponse.of(((BusinessLogicException)e).getExceptionCode()));
+//                response.getWriter().write(json);
+//                response.setStatus(500);
+//            }
         }
     }
 

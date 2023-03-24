@@ -4,148 +4,201 @@
       "id": 1,
       "title": "두루마리 휴지",
       "itemPicture": "https://ifh.cc/g/ykmoW9.png",
-      "itmePrice" : "3,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 3900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294}
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.83839100037889,
+        "latitude": 37.380999509623294
+      }
     },
     {
       "id": 2,
       "title": "부드러운 러그",
       "itemPicture": "https://ifh.cc/g/6tR46G.png",
-      "itmePrice" : "13,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 13900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La": 126.86017118904984, "Ma" : 37.38418084873742 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.86017118904984,
+        "latitude": 37.38418084873742
+      }
     },
     {
       "id": 3,
       "title": "강아지 장난감",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "900원",
-      "deliveryFee" : "1,000원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 900,
+      "deliveryFee": "1,000원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "깜찍한 아이렌 캐릭터 러기지 네임텍 입니다 설레는 여행을 함께 할 귀여운 아이렌 형태의 러기지 네임텍 입니다!",
-      "location" : "{La: 126.86032871869874, Ma: 37.38447837251356}"
+      "itemDatail": "깜찍한 아이렌 캐릭터 러기지 네임텍 입니다 설레는 여행을 함께 할 귀여운 아이렌 형태의 러기지 네임텍 입니다!",
+      "location": "{La: 126.86032871869874, Ma: 37.38447837251356}"
     },
     {
       "id": 4,
       "title": "두루마리 휴지",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "1,800원",
-      "deliveryFee" : "0원",
-      "startDate" : "Wed Feb 01 2023",
-      "endDate" : "Fri Feb 10 2023",
+      "itmePrice": 1800,
+      "deliveryFee": "0원",
+      "startDate": "Wed Feb 01 2023",
+      "endDate": "Fri Feb 10 2023",
       "state": "판매 종료",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.83839100037889,
+        "latitude": 37.380999509623294
+      }
     },
     {
       "id": 5,
       "title": "아이렌캐리어 네임택",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "7,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 7900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.85892286939267, "Ma" : 37.38450373446363 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.85892286939267,
+        "latitude": 37.38450373446363
+      }
     },
     {
       "id": 6,
       "title": "두루마리 휴지",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "44,300원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 44300,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.85849592353962, "Ma" : 37.38336793522194 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.85849592353962,
+        "latitude": 37.38336793522194
+      }
     },
     {
       "id": 7,
       "title": "편안한 침대",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "123,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 123900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.83839100037889,
+        "latitude": 37.380999509623294
+      }
     },
     {
       "id": 8,
       "title": "두루마리 휴지",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "3,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 3900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.85791277642875, "Ma" : 37.384236723363216 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.85791277642875,
+        "latitude": 37.384236723363216
+      }
     },
     {
       "id": 9,
       "title": "머그 컵",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "1,900원",
-      "deliveryFee" : "3,000원",
-      "startDate" : "Fri Feb 01 2023",
-      "endDate" : "Fri Feb 10 2023",
+      "itmePrice": 1900,
+      "deliveryFee": "3,000원",
+      "startDate": "Fri Feb 01 2023",
+      "endDate": "Fri Feb 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.85819993814742, "Ma": 37.384647033523464 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.85819993814742,
+        "latitude": 37.384647033523464
+      }
     },
     {
       "id": 10,
       "title": "컴퓨터용 책상",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "99,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itmePrice": 99900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.86188568922874, "Ma" : 37.385169483752094 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.86188568922874,
+        "latitude": 37.385169483752094
+      }
     }
-  ]
-  ,
-  "cart" : [
+  ],
+  "cart": [
     {
       "id": 1,
       "title": "두루마리 휴지",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "3,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itemPrice": 3900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La" : 126.83839100037889, "Ma" : 37.380999509623294}
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.83839100037889,
+        "latitude": 37.380999509623294
+      },
+      "amount": 1,
+      "isChecked": true
     },
     {
       "id": 2,
       "title": "곽티슈",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itmePrice" : "13,900원",
-      "deliveryFee" : "0원",
-      "startDate" : "Fri Mar 03 2023",
-      "endDate" : "Fri Mar 10 2023",
+      "itemPrice": 13900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
-      "itemDatail" : "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
-      "location" : { "La": 126.86017118904984, "Ma" : 37.38418084873742 }
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.86017118904984,
+        "latitude": 37.38418084873742
+      },
+      "amount": 2,
+      "isChecked": true
+    },
+    {
+      "id": 10,
+      "title": "컴퓨터용 책상",
+      "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
+      "itemPrice": 99900,
+      "deliveryFee": "0원",
+      "startDate": "Fri Mar 03 2023",
+      "endDate": "Fri Mar 10 2023",
+      "state": "판매 중",
+      "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
+      "location": {
+        "longitude": 126.86188568922874,
+        "latitude": 37.385169483752094
+      },
+      "amount": 1,
+      "isChecked": true
     }
   ]
 }

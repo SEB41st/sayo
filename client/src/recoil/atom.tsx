@@ -21,8 +21,8 @@ export const searchValue = atom({
 });
 
 // 장바구니 목록
-export const CartItem = atom({
-  key: "CartItem",
+export const CartItemList = atom({
+  key: "CartItemList",
   default: [],
 });
 
@@ -33,7 +33,7 @@ export const selectOption = atom({
 
 // 상품 개수
 export const countState = atom({
-  key: "CartItemAmount",
+  key: "countState",
   default: 1,
 });
 
@@ -52,7 +52,7 @@ export const countSelector = selector<number>({
 export const totalPriceState = selector({
   key: "totalPrice",
   get: ({ get }) =>
-    get(CartItem)
+    get(CartItemList)
       .map(({ totalPrice }) => totalPrice)
       .reduce((prev: number, current: number) => prev + current, 0),
 });

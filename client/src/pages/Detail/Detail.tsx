@@ -110,9 +110,7 @@ const Detail = () => {
           isPanto={true}
         >
           {location && (
-            <MapMarker
-             position={{ lat: location.latitude, lng: location.longitude }} 
-            />
+            <MapMarker position={{ lat: location.latitude, lng: location.longitude }} />
           )}
         </Maps>
       </S.DetailDiv>

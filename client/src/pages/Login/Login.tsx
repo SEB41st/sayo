@@ -1,6 +1,5 @@
 import * as S from "./styled";
 
-
 const Login = () => {
 
   const handleNaverOauthLogin = () => {
@@ -11,7 +10,7 @@ const Login = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/google`;
   };
 
-  const KAKAO_AUTH_URL = () => {
+  const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
   } 
 
@@ -24,7 +23,6 @@ const Login = () => {
         </span>
       </S.LoginTitle>
       <div className="buttons">
-
         {/* 구글로그인 */}
         <S.GoogleLoginWrapper onClick={() => handleGoogleOauthLogin()}>
           <div className="social_login_image_box">
@@ -41,11 +39,9 @@ const Login = () => {
         </S.NaverLoginBtn>
 
         {/* 카카오로그인 */}
-        <S.StKaKaoLogin>
-                <S.KaKaoBtn onClick={KAKAO_AUTH_URL}>
-                    <div>카카오로 로그인하기</div>
-                </S.KaKaoBtn>
-            </S.StKaKaoLogin>
+        <S.StKaKaoLogin onClick={handleKakaoOauthLogin}>
+          <div className="kakaoTitle">카카오로 로그인하기</div>
+        </S.StKaKaoLogin>
       </div>
     </S.Login>
   );

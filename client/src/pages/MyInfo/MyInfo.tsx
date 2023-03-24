@@ -28,6 +28,10 @@ const MyInfo = () => {
             <span className="UserName">장한나</span>
           </S.MypageDiv>
           <S.MypageDiv>
+            <span className="Name">핸드폰 번호</span>
+            <span className="address">010-2345-1234 </span>
+          </S.MypageDiv>
+          <S.MypageDiv>
             <span className="Name">주소</span>
             <span className="address">서울특별시 영등포구 0000로 00길 0000아파트 101동 101호 </span>
           </S.MypageDiv>

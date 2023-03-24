@@ -102,6 +102,7 @@ public class UserService {
     public void deleteUser(Long userId) {
         User findUser = findVerifiedUser(userId);
         findUser.changeUserStatus(User.UserStatus.USER_QUIT);
+        userRepository.save(findUser);
     }
 
     public ProfileImage createProfileImage(User user){

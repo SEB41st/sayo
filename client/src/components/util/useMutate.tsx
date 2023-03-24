@@ -4,7 +4,7 @@ export const useCustomMutation = (url:any, queryKey:any, method:any) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
     (suggest:any) => {
-      return fetch(`http://localhost:3001${url}`, {
+      return fetch(`http://localhost:4000${url}`, {
         body: JSON.stringify(suggest),
         headers: {
           "Content-Type": "application/json",

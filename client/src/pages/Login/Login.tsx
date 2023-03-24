@@ -1,18 +1,19 @@
-import { useEffect, useRef } from "react";
 import * as S from "./styled";
 
 const Login = () => {
+
   const handleNaverOauthLogin = () => {
-    window.location.href = `${process.env.REACT_APP_LOGIN_URL}/oauth2/authorization/naver`;
+    window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`;
   };
 
   const handleGoogleOauthLogin = () => {
-    window.location.href = `${process.env.REACT_APP_LOGIN_URL}/oauth2/authorization/google`;
+    window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/google`;
   };
 
   const handleKakaoOauthLogin = () => {
-    window.location.href = `${process.env.REACT_APP_LOGIN_URL}/oauth2/authorization/kakao`;
-  }
+    window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
+  } 
+
   return (
     <S.Login>
       <S.LoginTitle>
@@ -24,7 +25,6 @@ const Login = () => {
       <div className="buttons">
         {/* 구글로그인 */}
         <S.GoogleLoginWrapper onClick={() => handleGoogleOauthLogin()}>
-          {/* <button className="lin-google" onClick={() => googleLoginHandler()}> */}
           <div className="social_login_image_box">
             <img className="logo" src="/assets/google.png" alt="google_login" />
           </div>

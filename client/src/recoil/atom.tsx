@@ -56,3 +56,9 @@ export const totalPriceState = selector({
       .map(({ totalPrice }) => totalPrice)
       .reduce((prev: number, current: number) => prev + current, 0),
 });
+
+//찜하기 상태
+export const likeState = atom({
+  key:"like",
+  default:false,
+});

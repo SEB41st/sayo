@@ -9,10 +9,11 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": true,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.83839100037889,
-        "latitude": 37.380999509623294
+        "latitude": 39.380999509623294
       }
     },
     {
@@ -24,10 +25,11 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": true,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.86017118904984,
-        "latitude": 37.38418084873742
+        "latitude": 33.38418084873742
       }
     },
     {
@@ -39,8 +41,12 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "깜찍한 아이렌 캐릭터 러기지 네임텍 입니다 설레는 여행을 함께 할 귀여운 아이렌 형태의 러기지 네임텍 입니다!",
-      "location": "{La: 126.86032871869874, Ma: 37.38447837251356}"
+      "location": { 
+        "longitude": 126.86032871869874, 
+        "latitude": 37.38447837251356
+      }
     },
     {
       "id": 4,
@@ -51,6 +57,7 @@
       "startDate": "Wed Feb 01 2023",
       "endDate": "Fri Feb 10 2023",
       "state": "판매 종료",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.83839100037889,
@@ -66,6 +73,7 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.85892286939267,
@@ -81,6 +89,7 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.85849592353962,
@@ -96,6 +105,7 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.83839100037889,
@@ -111,6 +121,7 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.85791277642875,
@@ -126,10 +137,11 @@
       "startDate": "Fri Feb 01 2023",
       "endDate": "Fri Feb 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.85819993814742,
-        "latitude": 37.384647033523464
+        "latitude": 37.386647033523464
       }
     },
     {
@@ -141,11 +153,38 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.86188568922874,
-        "latitude": 37.385169483752094
+        "latitude": 37.485169483752094
       }
+    },
+    {
+      "title": "테스트상품명",
+      "itemPrice": 2200,
+      "deliveryFee": 200,
+      "startDate": "2023-03-29T06:52:23.000Z",
+      "endDate": "2023-04-06T06:52:23.000Z",
+      "itemDatail": "테스트상품",
+      "location": {
+        "latitude": 37.38405285984531,
+        "longitude": 126.86861884315298
+      },
+      "id": 12
+    },
+    {
+      "title": "ㅇㅇㅇ",
+      "itemPrice": 342,
+      "deliveryFee": 234,
+      "startDate": "2023-03-24T07:59:30.000Z",
+      "endDate": "2023-03-31T07:59:30.000Z",
+      "itemDatail": "ㄴㅇㄹㄴㅇㄹ",
+      "location": {
+        "latitude": 37.38425971629389,
+        "longitude": 126.8583022914373
+      },
+      "id": 13
     }
   ],
   "cart": [
@@ -158,6 +197,7 @@
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",
       "state": "판매 중",
+      "like": false,
       "itemDatail": "코스트코 두루마리 휴지를 공동구매 하려고 합니다 ! 자취생 여러분들 많은 참여 바랍니다 :)",
       "location": {
         "longitude": 126.83839100037889,
@@ -170,7 +210,7 @@
       "id": 2,
       "title": "곽티슈",
       "itemPicture": "https://i.ibb.co/t3vdVB0/goods.png",
-      "itemPrice": 13900,
+      "itemPrice": "13,900원",
       "deliveryFee": "0원",
       "startDate": "Fri Mar 03 2023",
       "endDate": "Fri Mar 10 2023",

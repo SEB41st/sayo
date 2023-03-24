@@ -29,7 +29,7 @@ export const MypageContainer = styled.div`
   }
 `;
 
-export const ImageDiv = styled.div`
+export const ImageDiv = styled.img`
   width: 2.25rem;
   height: 2.25rem;
   background-color: aliceblue;
@@ -70,6 +70,7 @@ export const Lists = styled.div`
     .Name {
     font-size: 20px;
     }
+    
   `
 
 export const ChoiceList = styled.div`
@@ -84,4 +85,25 @@ export const Line = styled.div`
     height: 2px;
     margin: 50px 0 10px 0 ;
     width: 100%;
+`
+
+export const ItemImg = styled.div`
+    margin: 20px 10px 10px 10px ;
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+`
+
+export const ItemName = styled.div`
+  display: grid;
+  /* justify-content: center; */
+  div{
+      justify-content: center;
+    }
+`
+
+export const Item = styled.div`
+  display: grid;
 `

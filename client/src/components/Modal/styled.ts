@@ -26,24 +26,26 @@ export const ModalSection = styled.div`
   transform: translate(-50%, -50%);
   .header{
       margin: 10px;
+      font-size: 20px;
+      display: flex;
+      justify-content: space-between;
+  }
+  main{
+    margin: 20px 20px 0 20px;
   }
   
 `;
 
 export const Footer=styled.div`
     margin: 10px;
+    float: right;
+      width: 160px;
+      height: 40px;
+      margin: 30px 10px 10px 20px;
+      font-size: 10px;
+      cursor: pointer;
     .CloseButton{
-        float: right;
-        width: 70px;
-        height: 40px;
-        margin: 10px;
-        font-size: 10px;
-    
-        cursor: pointer;
-        i {
-            color: #5d5d5d;
-            font-size: 30px;
-    }
+      margin: 0 0px 0px 20px;
     }
 `;
 export const CloseButton = styled.div`
@@ -52,8 +54,4 @@ export const CloseButton = styled.div`
   height: 40px;
   margin: 20px;
   cursor: pointer;
-  i {
-    color: #5d5d5d;
-    font-size: 30px;
-  }
 `;

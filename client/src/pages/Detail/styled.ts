@@ -76,7 +76,7 @@ export const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-around;
   min-width: 196px;
-  margin-bottom: 1.875rem;
+  margin-top: 10rem;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 500px;
@@ -130,6 +130,8 @@ export const DetailDiv = styled.div`
 
   .DetailInfo {
     margin: 20px;
+    font-weight: 800;
+    font-size: 15px;
 
     @media screen and (min-width: ${"1280px"}) {
     }
@@ -146,6 +148,8 @@ export const DetailDiv = styled.div`
 
   .DetailLocation {
     margin: 20px;
+    font-weight: 800;
+    font-size: 15px;
   }
 `;
 

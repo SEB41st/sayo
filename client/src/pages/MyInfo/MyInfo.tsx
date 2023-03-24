@@ -1,6 +1,24 @@
+import { useParams } from "react-router";
+import Error from "../../components/Error/Error";
+import Loading from "../../components/Loading/Loading";
+import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
 
 const MyInfo = () => {
+
+  // const {userId} = useParams()
+  
+  // const {data, isLoading, error} = useCustomQuery(
+  //   `/users/${userId}`,
+  //   `users=${userId}`
+  // )
+
+  // if (isLoading) return <Loading/>;
+  // if (error) return <Error/>;
+
+  // const users = data;
+  // console.log(users)
+
     return (
         <S.MypageWrap>
         <S.MypageContainer>

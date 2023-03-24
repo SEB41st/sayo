@@ -1,15 +1,17 @@
 import * as S from "./styled";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import Modal from "../../components/Modal/Modal";
 import { useState } from "react";
 import { useCustomMutation } from "../../components/util/useMutate";
+import axios from "axios";
 
 const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
 
+  const params = useLocation()
   // const {itemId} = useParams()
   const { data, isLoading, error, refetch } = useCustomQuery(
     `/items`,
@@ -28,6 +30,7 @@ const closeModal = () => {
   SetModalOpen(false);
 };
 
+
 // let {mutate} = useCustomMutation(
 //   `items`,
 //   `items`,
@@ -35,9 +38,28 @@ const closeModal = () => {
 // )
 
 const deleteGoods = () => {
-//   mutate()
+//   mutate(Items)
 //   refetch()
 }
+
+// const deleteGoods = async (dataId) => {
+//     await axios
+//       .delete(
+//         `http://localhost:4000${params.pathname}/${dataId}`,
+//         {
+//           headers: {
+//             Authorization: localStorage.getItem("accessToken"),
+//           },
+//         }
+//       )
+//       .then((res) => {
+//         refetch()
+//         // window.location.reload();
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
 
   return (
     <S.MypageWrap>

@@ -11,9 +11,36 @@ import java.util.List;
 public interface AddressMapper {
     Address addressPostToAddress(AddressDto.Post postRequest);
 
-    Address addressPatchToAddress(AddressDto.Patch patchRequest);
+    default Address addressPatchToAddress(AddressDto.Patch patchRequest){
+        Address address = Address.builder()
+                .addressName(patchRequest.getAddressName())
+                .addressUserName(patchRequest.getAddressUserName())
+                .phoneNumber(patchRequest.getPhoneNumber())
+                .postcode(patchRequest.getPostcode())
+                .roadAddress(patchRequest.getRoadAddress())
+                .detailAddress(patchRequest.getDetailAddress())
+                .build();
 
-    AddressDto.Response addressToAddressResponse(Address address);
+        return address;
+    }
+
+    default AddressDto.Response addressToAddressResponse(Address address){
+        AddressDto.Response addressResponse = AddressDto.Response.builder()
+                .addressId(address.getAddressId())
+                .userId(address.getUser().getId())
+                .addressName(address.getAddressName())
+                .addressUserName(address.getAddressUserName())
+                .phoneNumber(address.getPhoneNumber())
+                .postcode(address.getPostcode())
+                .roadAddress(address.getRoadAddress())
+                .detailAddress(address.getDetailAddress())
+                .createdAt(address.getCreatedAt())
+                .modifiedAt(address.getModifiedAt())
+                .build();
+
+        return addressResponse;
+    }
+
 
     List<AddressDto.Response> addressListToResponseList(List<Address> addressList);
 }

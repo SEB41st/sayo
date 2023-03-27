@@ -17,7 +17,7 @@ public class Address extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;  // auto-increment
+    private Long addressId;  //  auto-increment
     @Column(length = 100, nullable = false)
     private String addressName;  // 주소명칭 (ex. 집)
     @Column(length = 50, nullable = false)

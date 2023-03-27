@@ -72,7 +72,7 @@ public class UserService {
     public User createOauth2User(OAuthUserProfile userProfile, List<String> roles) {
         Optional<User> user = userRepository.findByEmail(userProfile.getEmail());
         if(user.isPresent()) {
-            if(user.get().getUserStatus().equals(OAUTH)) {
+            if(user.get().getOAuthStatus().equals(OAUTH)) {
                 return user
                         .map(u -> u.oauthUpdate(userProfile.getName(), userProfile.getEmail(), userProfile.getImage(), roles,OAUTH))
                         .orElse(null);

@@ -9,7 +9,19 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AddressMapper {
-    Address addressPostToAddress(AddressDto.Post postRequest);
+
+    default Address addressPostToAddress(AddressDto.Post postRequest){
+        Address address = Address.builder()
+                .addressName(postRequest.getAddressName())
+                .addressUserName(postRequest.getAddressUserName())
+                .phoneNumber(postRequest.getPhoneNumber())
+                .postcode(postRequest.getPostcode())
+                .roadAddress(postRequest.getRoadAddress())
+                .detailAddress(postRequest.getDetailAddress())
+                .build();
+
+        return address;
+    }
 
     default Address addressPatchToAddress(AddressDto.Patch patchRequest){
         Address address = Address.builder()

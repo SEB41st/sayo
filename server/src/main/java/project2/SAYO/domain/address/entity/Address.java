@@ -23,6 +23,10 @@ public class Address extends Auditable {
     private String addressUserName; // 회원 이름
     @Column(length = 15, unique = true, nullable = false)
     private String phoneNumber; // 휴대폰
+    @Column(length = 5, nullable = false)
+    private Long postcode; // 우편번호
+    @Column(length = 50, nullable = false)
+    private String roadAddress; // 도로명 주소
     @Column(length = 200, nullable = false)
     private String detailAddress; // 상세 주소
 

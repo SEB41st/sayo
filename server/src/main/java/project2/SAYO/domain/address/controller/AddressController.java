@@ -28,7 +28,6 @@ public class AddressController {
     private final AddressService addressService;
     private final AddressMapper addressMapper;
 
-
     // TODO POST
     @PostMapping
     public ResponseEntity postAddress(@LoginUserId Long userId,

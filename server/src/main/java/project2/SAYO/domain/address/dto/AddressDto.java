@@ -1,8 +1,6 @@
 package project2.SAYO.domain.address.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +31,7 @@ public class AddressDto {
 
     }
     @Getter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {

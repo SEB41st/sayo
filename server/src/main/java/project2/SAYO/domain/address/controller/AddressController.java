@@ -32,7 +32,7 @@ public class AddressController {
     // TODO POST
     @PostMapping
     public ResponseEntity postAddress(@LoginUserId Long userId,
-                                      @Valid @RequestBody AddressDto.Post postRequest) {
+                                      @RequestBody AddressDto.Post postRequest) {
         Address addressForService = addressMapper.addressPostToAddress(postRequest);
         Address addressForResponse = addressService.createAddress(addressForService, userId);
         AddressDto.Response response = addressMapper.addressToAddressResponse(addressForResponse);

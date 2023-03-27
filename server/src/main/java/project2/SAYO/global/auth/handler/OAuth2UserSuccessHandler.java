@@ -100,6 +100,16 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
+                //.host(serverName)
+                .host("localhost")
+                .port(3000) // 기본 포트가 80이기 때문에 괜찮다
+                .path("/oauth2/redirect/")
+                .queryParams(queryParams)
+                .build()
+                .toUri();
+    }        /*return UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
                 .host(serverName)
                 //.host("localhost")
                 .port(8080) // 기본 포트가 80이기 때문에 괜찮다
@@ -107,5 +117,5 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 .queryParams(queryParams)
                 .build()
                 .toUri();
-    }
+    }*/
 }

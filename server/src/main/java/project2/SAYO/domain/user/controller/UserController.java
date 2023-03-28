@@ -81,14 +81,6 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(patchResponse), HttpStatus.OK);
     }
 
-    // TODO OUTH2 KAKAO
-    @GetMapping("/kakao")
-    public ResponseEntity kakaoCallback(@RequestParam String code){
-        String response = "성공적으로 카카오 로그인 API 코드를 불러왔습니다.";
-        log.info("login API code = {}",code);
-        return  new ResponseEntity(response,HttpStatus.OK);
-    }
-
     // TODO GET ONE
     @GetMapping("/{user-id}")
     public ResponseEntity getUser(@Positive @PathVariable("user-id") Long userId) {

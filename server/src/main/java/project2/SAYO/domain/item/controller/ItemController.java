@@ -1,6 +1,7 @@
 package project2.SAYO.domain.item.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
+@Slf4j
 @Validated
 @RequiredArgsConstructor
 @RequestMapping("/items")
@@ -34,6 +36,7 @@ public class ItemController {
     public ResponseEntity postItem(@Valid @RequestBody ItemDto.ItemPost postRequest,
                                    @LoginUserId Long userId){
 
+        log.info("## 컨트롤러에 들어옵니다.");
         Item item = mapper.itemPostDtoToItem(postRequest);
         Item itemResponse = itemService.createItem(userId, item);
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);

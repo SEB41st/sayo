@@ -51,7 +51,7 @@ public class Item extends Auditable {
     private double itemPlace_Y; // 위도
 
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
+    @Column(length = 20)
     private ItemStatus itemStatus = ItemStatus.ITEM_PROGRESS; // 공동구매 진행 상황
 
     public void addItemId(Long itemId) {

@@ -94,6 +94,10 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         // 리다이렉트시 JWT를 URI로 보내는 방법
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("access_token", accessToken);
+//        queryParams.add("code", request.getQueryString().substring(5));
+//        log.info("RequestURI1 = {}", request.getQueryString()); // code
+
+        //queryParams.add("code", code)
         //queryParams.add("refresh_token", refreshToken);
 
         String serverName = request.getServerName();
@@ -103,9 +107,9 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 .newInstance()
                 .scheme("http")
                 //.host(serverName)
-                .host("localhost")
-                .port(3000) // 기본 포트가 80이기 때문에 괜찮다
-                .path("/oauth2/redirect/")
+                .host("sayo.n-e.kr")
+                .port(8080) // 기본 포트가 80이기 때문에 괜찮다
+                //.path("/oauth2/redirect/")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

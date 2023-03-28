@@ -1,13 +1,14 @@
 package project2.SAYO.domain.wish.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import project2.SAYO.domain.wish.dto.WishDto;
 import project2.SAYO.domain.wish.entity.Wish;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface WishMapper {
     WishDto.Response wishToWishResponse(Wish wish);
 

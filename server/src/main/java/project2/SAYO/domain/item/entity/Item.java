@@ -1,6 +1,7 @@
 package project2.SAYO.domain.item.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project2.SAYO.domain.category.entity.Category;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item extends Auditable {

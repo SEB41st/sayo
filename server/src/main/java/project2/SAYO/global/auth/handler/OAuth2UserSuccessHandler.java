@@ -107,8 +107,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 .newInstance()
                 .scheme("http")
                 //.host(serverName)
-                .host("sayo.n-e.kr")
-                .port(8080) // 기본 포트가 80이기 때문에 괜찮다
+                .host("localhost")
+                .port(3000) // 기본 포트가 80이기 때문에 괜찮다
                 //.path("/oauth2/redirect/")
                 .queryParams(queryParams)
                 .build()

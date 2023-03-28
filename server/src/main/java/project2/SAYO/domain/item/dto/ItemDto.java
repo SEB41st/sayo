@@ -4,6 +4,7 @@ import lombok.*;
 import project2.SAYO.domain.item.entity.Item;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ItemDto {
@@ -16,11 +17,11 @@ public class ItemDto {
         private String itemName; // 상품 이름
         @NotBlank(message="상품 이미지를 선택해주세요.")
         private String itemPicture; // 상품 이미지
-        @NotBlank(message="무료배송 여부를 선택해주세요.")
+        @NotNull(message="무료배송 여부를 선택해주세요.")
         private boolean itemDelivery; // 무료배송 여부
-        @NotNull(message="배송 가격을 입력해주세요.")
+       // @NotNull(message="배송 가격을 입력해주세요.")
         private int itemDeliveryPrice; // 배송비 가격
-        @NotNull(message="상품 가격을 입력해주세요.")
+       // @NotNull(message="상품 가격을 입력해주세요.")
         private int itemPrice; // 상품 가격
         @NotBlank(message="상품 설명을 입력해주세요.")
         private String itemBody; // 상품 설명
@@ -32,6 +33,7 @@ public class ItemDto {
         /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
         private double itemPlace_X; // 경도
         private double itemPlace_Y; // 위도
+        private Item.ItemStatus itemStatus;
     }
 
     @Getter

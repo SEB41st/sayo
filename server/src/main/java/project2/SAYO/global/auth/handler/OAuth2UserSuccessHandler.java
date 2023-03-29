@@ -58,6 +58,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         OAuthUserProfile oAuthUserProfile = OAuthAttributes.extract(registrationId, attributes); // OAuth2Profile 생성
         User user = userService.createOauth2User(oAuthUserProfile, roles); // DB에 권한과 정보 저장 (권한은 1:N 테이블로 설계)
         AuthUser authUser = AuthUser.of(user);
+        Long userId = authUser.getId();
 
         log.info("# OAuth2.0 AuthenticationSuccess !");
 
@@ -68,17 +69,18 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         log.info("# OAuth2.0 Token generated complete!");
 
         // 리다이렉트를 하기위한 정보들을 보내줌
-        redirect(request,response,accessToken,refreshToken);
+        redirect(request,response,accessToken,refreshToken, userId);
     }
 
     private void redirect(HttpServletRequest request,
                           HttpServletResponse response,
                           String accessToken,
-                          String refreshToken) throws IOException {
+                          String refreshToken,
+                          Long userId) throws IOException {
 
         // 받은 정보를 토대로 AccessToken, Refresh Token을 만듬
         // Token을 토대로 URI를 만들어서 String으로 변환
-        String uri = createURI(request, accessToken, refreshToken).toString();
+        String uri = createURI(request, accessToken, refreshToken, userId).toString();
 //        String uri = "http://localhost:3000";
         tokenProvider.accessTokenSetHeader(accessToken, response); // Access Token 헤더에 전송
         tokenProvider.refreshTokenSetCookie(refreshToken,response); // Refresh Token 쿠키에 전송
@@ -89,7 +91,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         getRedirectStrategy().sendRedirect(request,response,uri);
     }
 
-    private URI createURI(HttpServletRequest request, String accessToken, String refreshToken){
+    private URI createURI(HttpServletRequest request, String accessToken, String refreshToken, Long userId){
         // 리다이렉트시 JWT를 URI로 보내는 방법
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("access_token", accessToken);

@@ -11,13 +11,13 @@ import { useRecoilState } from "recoil";
 const MyInfo = () => {
 
   // const {userId} = useParams()
-  const memberId = localStorage.getItem("id");
+  const userId = localStorage.getItem("userId");
   const [getNickname, setNickname] = useRecoilState(nickname)
   const navigate = useNavigate()
 
   // const {data, isLoading, error} = useCustomQuery(
-  //   `/users/${memberId}`,
-  //   `users=${memberId}`
+  //   `/users/${userId}`,
+  //   `users=${userId}`
   // )
 
   // if (isLoading) return <Loading/>;
@@ -26,14 +26,14 @@ const MyInfo = () => {
   // const users = data;
   // console.log(users)
 
-  // const { data, isLoading, error } = useCustomQuery(`/users/${memberId}`, [
+  // const { data, isLoading, error } = useCustomQuery(`/users/${userId}`, [
   //   "members",
-  //   memberId,
+  //   userId,
   // ]);
 
   useEffect(()=> {
     axios
-    .get(`http://sayo.n-e.kr:8080/users/${memberId}/mypage`,
+    .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
     {
       headers: {
         // "Content-Type": "application/json;charset=UTF-8",

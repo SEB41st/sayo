@@ -29,6 +29,7 @@ export const PaymentContainer = styled.div`
 `;
 
 export const PaymentDiv = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

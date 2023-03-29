@@ -1,17 +1,46 @@
 import * as S from "./styled";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu,RxPerson } from 'react-icons/rx';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Header = () => {
+    let memberId = localStorage.getItem("id")
+    const [img, setImg] = useState()
+
+    useEffect(()=> {
+        axios
+        .get(`http://sayo.n-e.kr:8080/users/${memberId}/mypage`,
+        {
+          headers: {
+            // "Content-Type": "application/json;charset=UTF-8",
+            // Accept: "application/json",
+            Authorization : `Bearer ${localStorage.getItem("Authorization")}`,
+          },
+        })
+        .then((res) => {
+        //   console.log(res.data.data.profile[0].image)
+          setImg(res.data.data.profile[0].image)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },[])
+
     return (
     <S.HeaderMain>
         <Link to ="/">
             <S.LogoImg src="/assets/Logo.png" alt ="" ></S.LogoImg>
         </Link>
         <S.HeaderLogo>
-            <S.Login to='/login'>
-                <RxPerson className="personIcon"/>
-            </S.Login>
+            {memberId? 
+                <S.Login to='/myinfo'>
+                    <img src={img}/>
+                </S.Login>:
+                <S.Login to='/login'>
+                    <RxPerson className="personIcon"/>
+                </S.Login>
+            }
             <Link to="/sidebar">
                 <RxHamburgerMenu className="hambergerbar"/>
             </Link>

@@ -38,7 +38,7 @@ public class ItemController {
 
         log.info("## 컨트롤러에 들어옵니다.");
         Item item = mapper.itemPostDtoToItem(postRequest);
-        Item itemResponse = itemService.createItem(userId, item);
+        Item itemResponse = itemService.createItem(userId, item, postRequest.getCategoryId());
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -51,7 +51,7 @@ public class ItemController {
                                     @RequestBody ItemDto.ItemPatch patchRequest){
         Item itemForService = mapper.itemPatchDtoToItem(patchRequest);
         itemForService.addItemId(itemId);
-        Item itemResponse = itemService.updateItem(userId, itemForService);
+        Item itemResponse = itemService.updateItem(userId, itemForService, patchRequest.getCategoryId());
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);

@@ -56,6 +56,7 @@ public interface ItemMapper{
                 .createdAt(item.getCreatedAt())
                 .modifiedAt(item.getModifiedAt())
                 .itemStatus(item.getItemStatus())
+                .categoryId(item.getCategory().getCategoryId())
                 .build();
     }
     List<ItemDto.ItemResponse> itemListToItemResponseList(List<Item> item);

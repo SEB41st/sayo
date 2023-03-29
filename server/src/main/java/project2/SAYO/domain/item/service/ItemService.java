@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import project2.SAYO.domain.category.entity.Category;
+import project2.SAYO.domain.category.service.CategoryService;
 import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.repository.ItemRepository;
 import project2.SAYO.domain.user.entity.User;
@@ -23,14 +25,19 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final CustomBeanUtils<Item> beanUtils;
     private final UserService userService;
+    private final CategoryService categoryService;
 
     // 중복 조건(ex. email)이 따로 없어서 바로 저장
     // item 등록
-    public Item createItem(Long userId, Item item){
+    public Item createItem(Long userId, Item item, long categoryId){
 
         //현재 User을 가져와 저장
         User user = userService.findVerifiedUser(userId);
         item.addUser(user);
+
+        //카테고리 가져와 저장
+        Category category = categoryService.findCategory(categoryId);
+        item.addCategory(category);
 
         return itemRepository.save(item);
     }
@@ -47,6 +54,11 @@ public class ItemService {
 
         Item updateItem = beanUtils.copyNonNullProperties(item, findItem);
         updateItem.changeItemStatus(item.getItemStatus());
+
+        //카테고리 가져와 저장
+        Category category = categoryService.findCategory(categoryId);
+        updateItem.addCategory(category);
+
 
         return itemRepository.save(updateItem);
     }

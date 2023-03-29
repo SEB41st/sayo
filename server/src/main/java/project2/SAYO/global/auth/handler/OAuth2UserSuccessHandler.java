@@ -2,7 +2,6 @@ package project2.SAYO.global.auth.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -107,8 +106,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 .newInstance()
                 .scheme("http")
                 //.host(serverName)
-                .host("localhost")
-                .port(3000) // 기본 포트가 80이기 때문에 괜찮다
+                .host("sayo.n-e.kr")
+                .port(8080) // 기본 포트가 80이기 때문에 괜찮다
                 //.path("/oauth2/redirect/")
                 .queryParams(queryParams)
                 .build()

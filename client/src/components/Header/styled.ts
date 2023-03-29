@@ -37,7 +37,12 @@ export const Login = styled(NavLink)`
     font-size: small;
     font-weight: 600;
     margin-right: 10px;
+    display: flex;
+    align-content: center;
     img{
-        width: 100px;
+        width: 25px;
+        height: 25px;
+        border-radius: 20px;
+        align-content: center;
     }
 `

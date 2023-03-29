@@ -16,8 +16,8 @@ const MyInfo = () => {
   const navigate = useNavigate()
 
   // const {data, isLoading, error} = useCustomQuery(
-  //   `/users/${memberId}`,
-  //   `users=${memberId}`
+  //   `/users/${userId}`,
+  //   `users=${userId}`
   // )
 
   // if (isLoading) return <Loading/>;
@@ -26,9 +26,9 @@ const MyInfo = () => {
   // const users = data;
   // console.log(users)
 
-  // const { data, isLoading, error } = useCustomQuery(`/users/${memberId}`, [
+  // const { data, isLoading, error } = useCustomQuery(`/users/${userId}`, [
   //   "members",
-  //   memberId,
+  //   userId,
   // ]);
 
   useEffect(()=> {

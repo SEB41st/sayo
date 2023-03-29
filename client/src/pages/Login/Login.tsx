@@ -4,10 +4,30 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
 
+
 const Login = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+
+  const Authorization = searchParams.get("access_token") || null;
+  const userId = searchParams.get("id") || null;
+  useEffect(() => {
+    if (Authorization && userId) {
+      localStorage.setItem("Authorization", Authorization);
+      localStorage.setItem("userId", userId);
+      // navigate("/");
+    }
+  }, []);
+
+ 
 
   const handleNaverOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`;
+    console.log("hello");
+    // let storage = localStorage.getItem("payload");
+    // const personObj = JSON.parse(storage);
+    // console.log(personObj);
   };
 
   const handleGoogleOauthLogin = () => {
@@ -16,25 +36,12 @@ const Login = () => {
 
   const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
+
   }
 
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const Authorization = searchParams.get("access_token") || null;
-  const userId = searchParams.get("id") || null;
+  const handleLogin = () => {
+  };
 
-  useEffect(() => {
-    if (Authorization) {
-      localStorage.setItem("Authorization", Authorization);
-      localStorage.setItem("userId", userId);
-      navigate("/");
-      // window.location.reload();
-    }
-  }, []);
-
-  const handleLogin = () =>{
-    
-  }
 
   return (
     <S.Login>

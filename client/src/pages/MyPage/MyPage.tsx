@@ -9,17 +9,16 @@ import { useCustomMutation } from "../../components/util/useMutation";
 import axios from "axios";
 
 
-
 const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [nickName, setNickName] = useState("");
 
   const params = useLocation();
-  const id = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     axios
-      .get(`http://sayo.n-e.kr:8080/users/${id}/mypage`, {
+      .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
         },
@@ -147,9 +146,8 @@ const Mypage = () => {
               <img src="/assets/goods.png" alt="goods"></img>
             </S.ItemImg>
             <S.ItemName>
-              <div>상품명 : 호텔 수건(white)</div>
-              <div>구매일 : 2023.03.22</div>
-              <div>송장번호 : 381187499238</div>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
             </S.ItemName>
           </Link>
         </S.ChoiceList>
@@ -168,7 +166,7 @@ const Mypage = () => {
                 <div>9,900</div>
                 <div>구매인원 : 10명</div>
               </S.ItemName>
-              <button className="XButton" onClick={() => deleteGoods()}>x</button>
+              <button onClick={() => deleteGoods()}>x</button>
             </S.ItemImg>
             {/* <Modal
                 open={openModal}
@@ -182,17 +180,13 @@ const Mypage = () => {
             </Modal> */}
           </Link>
           <Link to="/detail">
-          <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods"/>
-            </S.ItemImg>
-            <S.ItemImg>    
-              <S.ItemName>
-                <div>고양이 에코백</div>
-                <div>3,900</div>
-                <div>구매인원 : 20명</div>                  
-              </S.ItemName>
-              <button className="XButton" onClick={() => deleteGoods()}>x</button>
-            </S.ItemImg>
+            <S.Item>
+              <img src="/assets/goods.png" alt="goods"></img>
+            </S.Item>
+            <S.ItemName>
+              <div>목포 쫀드기</div>
+              <div>9,900원</div>
+            </S.ItemName>
           </Link>
         </S.ChoiceList>
       </S.Lists>

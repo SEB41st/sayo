@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Header = () => {
-    let memberId = localStorage.getItem("id")
+    let userId = localStorage.getItem("userId")
     const [img, setImg] = useState()
 
     useEffect(()=> {
         axios
-        .get(`http://sayo.n-e.kr:8080/users/${memberId}/mypage`,
+        .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
         {
           headers: {
             // "Content-Type": "application/json;charset=UTF-8",
@@ -33,7 +33,7 @@ const Header = () => {
             <S.LogoImg src="/assets/Logo.png" alt ="" ></S.LogoImg>
         </Link>
         <S.HeaderLogo>
-            {memberId? 
+            {userId? 
                 <S.Login to='/myinfo'>
                     <img src={img}/>
                 </S.Login>:

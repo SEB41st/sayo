@@ -21,7 +21,6 @@ public class CategoryService {
                 .map(id -> categoryRepository.findById(id).orElseThrow(() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND)))
                 .orElse(null);
 
-
         return categoryRepository.save(new Category(categoryRequest.getCategoryName(), parent));
     }
 
@@ -30,8 +29,14 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
+    public Category findCategory(Long categoryId) {
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+        Category findCategory = optionalCategory.orElseThrow(()->new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
+        return findCategory;
+    }
+
     public List<Category> getAllCategory(){
-        //categoryRepository.
+
         return categoryRepository.findAllWhereParentIsNull();
     }
 

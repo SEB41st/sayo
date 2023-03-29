@@ -21,7 +21,7 @@ public interface ItemMapper{
                 .itemDate(postRequest.getItemDate())
                 .itemPlace_X(postRequest.getItemPlace_X())
                 .itemPlace_Y(postRequest.getItemPlace_Y())
-                .itemStatus(postRequest.getItemStatus())
+                .itemStatus(Item.ItemStatus.ITEM_PROGRESS)
                 .build();
     }
 
@@ -56,6 +56,7 @@ public interface ItemMapper{
                 .createdAt(item.getCreatedAt())
                 .modifiedAt(item.getModifiedAt())
                 .itemStatus(item.getItemStatus())
+                .categoryId(item.getCategory().getCategoryId())
                 .build();
     }
     List<ItemDto.ItemResponse> itemListToItemResponseList(List<Item> item);

@@ -5,18 +5,17 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const Login = () => {
-
-  const access_token = new URL(window.location.href).searchParams.get("access_token");
-
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const Authorization = searchParams.get(access_token);
+  // const [searchParams] = useSearchParams();
+
+  const Authorization = searchParams.get("access_token") || null;
+  const userId = searchParams.get("id") || null;
   useEffect(() => {
-    if (Authorization) {
+    if (Authorization && userId) {
       localStorage.setItem("Authorization", Authorization);
-    console.log("Authorization")
-      // navigate("/");
-      // window.location.reload();
+      localStorage.setItem("userId", userId);
+      navigate("/");
     }
   }, []);
 
@@ -43,6 +42,10 @@ const Login = () => {
 
   const handleNaverOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`;
+    console.log("hello");
+    // let storage = localStorage.getItem("payload");
+    // const personObj = JSON.parse(storage);
+    // console.log(personObj);
   };
 
   const handleGoogleOauthLogin = () => {
@@ -52,6 +55,7 @@ const Login = () => {
   const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
   };
+  // 카카오 code = {dfdfd} state
 
   return (
     <S.Login>

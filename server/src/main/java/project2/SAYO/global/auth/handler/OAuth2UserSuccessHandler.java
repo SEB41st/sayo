@@ -96,8 +96,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
 //        queryParams.add("code", request.getQueryString().substring(5));
 //        log.info("RequestURI1 = {}", request.getQueryString()); // code
 
-        //queryParams.add("code", code)
-        //queryParams.add("refresh_token", refreshToken);
+        // queryParams.add("code", code)
+        // queryParams.add("refresh_token", refreshToken);
 
         String serverName = request.getServerName();
         // log.info("# serverName = {}",serverName);
@@ -108,7 +108,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 //.host(serverName)
                 .host("sayo.n-e.kr")
                 .port(8080) // 기본 포트가 80이기 때문에 괜찮다
-                //.path("/oauth2/redirect/")
+                .path("/oauth2/redirect/")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

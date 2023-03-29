@@ -11,7 +11,7 @@ import { useRecoilState } from "recoil";
 const MyInfo = () => {
 
   // const {userId} = useParams()
-  const memberId = localStorage.getItem("id");
+  const userId = localStorage.getItem("userId");
   const [getNickname, setNickname] = useRecoilState(nickname)
   const navigate = useNavigate()
 
@@ -33,7 +33,7 @@ const MyInfo = () => {
 
   useEffect(()=> {
     axios
-    .get(`http://sayo.n-e.kr:8080/users/${memberId}/mypage`,
+    .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
     {
       headers: {
         // "Content-Type": "application/json;charset=UTF-8",

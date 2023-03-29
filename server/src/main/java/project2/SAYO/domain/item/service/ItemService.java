@@ -40,7 +40,7 @@ public class ItemService {
         Item findItem = findVerifiedItem(item.getItemId()); // item 존재 여부 확인
 
         // Item의 User가 현재 User와 동일할 경우 수정 가능
-        //User user = userService.findVerifiedUser(findItem.getUser().getId());
+        // User user = userService.findVerifiedUser(findItem.getUser().getId());
         if(!findItem.getUser().getId().equals(userId)){
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
@@ -63,7 +63,7 @@ public class ItemService {
         Item findItem = findVerifiedItem(itemId); // item 존재 여부 확인
 
         // Item의 User가 현재 User와 동일할 경우 삭제 가능
-        //User user = userService.findVerifiedUser(findItem.getUser().getId());
+        // User user = userService.findVerifiedUser(findItem.getUser().getId());
         if(!findItem.getUser().getId().equals(userId)){
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
@@ -81,7 +81,7 @@ public class ItemService {
         Item findItem = findVerifiedItem(itemId);
 
         // Item의 User가 현재 User와 동일할 경우 삭제 가능
-        //User user = userService.findVerifiedUser(findItem.getUser().getId());
+        // User user = userService.findVerifiedUser(findItem.getUser().getId());
         if(!findItem.getUser().getId().equals(userId)){
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
@@ -89,7 +89,7 @@ public class ItemService {
         findItem.changeItemStatus(ITEM_END); // 공동 구매 종료로 상태 변경
     }
 
-    //item 존재 여부 확인 후 없을 경우 Exception, 있을 경우 item 리턴
+    // item 존재 여부 확인 후 없을 경우 Exception, 있을 경우 item 리턴
     public Item findVerifiedItem(long itemId) {
         Optional<Item> item = itemRepository.findById(itemId);
         Item findItem = item.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ITEM_NOT_FOUND));

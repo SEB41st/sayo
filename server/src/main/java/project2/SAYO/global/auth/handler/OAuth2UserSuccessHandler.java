@@ -95,7 +95,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         // 리다이렉트시 JWT를 URI로 보내는 방법
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("access_token", accessToken);
-//        queryParams.add("code", request.getQueryString().substring(5));
+        queryParams.add("id", String.valueOf(userId) );
 //        log.info("RequestURI1 = {}", request.getQueryString()); // code
 
         // queryParams.add("code", code)

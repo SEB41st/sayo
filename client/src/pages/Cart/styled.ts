@@ -3,7 +3,7 @@ import { ButtonDiv, CartBtn } from "../../pages/Detail/styled";
 
 export const PaymentWrap = styled.div`
   width: 90%;
-  height: 100vh;
+  height: 100%;
   margin: 0.625rem 1.25rem;
 `;
 

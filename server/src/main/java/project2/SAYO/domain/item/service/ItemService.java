@@ -87,6 +87,7 @@ public class ItemService {
         }
 
         findItem.changeItemStatus(ITEM_END); // 공동 구매 종료로 상태 변경
+        itemRepository.save(findItem);
     }
 
     // item 존재 여부 확인 후 없을 경우 Exception, 있을 경우 item 리턴

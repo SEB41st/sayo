@@ -96,8 +96,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
 //        queryParams.add("code", request.getQueryString().substring(5));
 //        log.info("RequestURI1 = {}", request.getQueryString()); // code
 
-        //queryParams.add("code", code)
-        //queryParams.add("refresh_token", refreshToken);
+        // queryParams.add("code", code)
+        // queryParams.add("refresh_token", refreshToken);
 
         String serverName = request.getServerName();
         // log.info("# serverName = {}",serverName);

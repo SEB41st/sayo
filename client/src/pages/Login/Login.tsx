@@ -3,8 +3,47 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = () => {
+
+  const access_token = new URL(window.location.href).searchParams.get("access_token");
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const Authorization = searchParams.get(access_token);
+  useEffect(() => {
+    if (Authorization) {
+      localStorage.setItem("Authorization", Authorization);
+    console.log("Authorization")
+      // navigate("/");
+      // window.location.reload();
+    }
+  }, []);
+
+  // const handleNaverOauthLogin = () => {
+
+  //   // e.preventDefault();
+
+  // axios
+  //     .get(`${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`,
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res)
+  //       localStorage.setItem("accessToken", res.headers.authorization);
+  //       localStorage.setItem("refreshToken", res.headers.refreshtoken);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const handleNaverOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`;
@@ -16,6 +55,7 @@ const Login = () => {
 
   const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
+
   }
 
   const navigate = useNavigate();
@@ -32,9 +72,8 @@ const Login = () => {
     }
   }, []);
 
-  const handleLogin = () =>{
-    
-  }
+  const handleLogin = () => {
+  };
 
   return (
     <S.Login>

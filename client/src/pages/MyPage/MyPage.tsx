@@ -5,7 +5,7 @@ import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import Modal from "../../components/Modal/Modal";
 import { useState } from "react";
-import { useCustomMutation } from "../../components/util/useMutate";
+import { useCustomMutation } from "../../components/util/useMutation";
 import axios from "axios";
 
 const Mypage = () => {

@@ -43,7 +43,7 @@ public class ItemService {
     }
 
     // itemId에 해당하는 item 수정
-    public Item updateItem(Long userId, Item item){
+    public Item updateItem(Long userId, Item item, Long categoryId){
         Item findItem = findVerifiedItem(item.getItemId()); // item 존재 여부 확인
 
         // Item의 User가 현재 User와 동일할 경우 수정 가능

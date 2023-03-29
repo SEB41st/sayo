@@ -23,7 +23,7 @@ public class Category {
     @Column
     private Long categoryId;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, unique = true)
     private String categoryName;
 
     @JsonManagedReference

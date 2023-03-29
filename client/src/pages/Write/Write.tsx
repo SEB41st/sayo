@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import MapLocation from "../../components/Map/MapLocation";
-import { useCustomMutation } from "../../components/util/useMutate";
+import { useCustomMutation } from "../../components/util/useMutation";
 import { useRecoilState } from "recoil";
 import { salesLocation } from "../../recoil/atom";
 

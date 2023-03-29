@@ -108,7 +108,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 //.host(serverName)
                 .host("localhost")
                 .port(3000) // 기본 포트가 80이기 때문에 괜찮다
-                .path("/")
+                .path("/login")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

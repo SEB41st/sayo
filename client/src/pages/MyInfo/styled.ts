@@ -15,14 +15,14 @@ export const MypageContainer = styled.div`
   /* min-width: 20.4375rem;
   min-height: 9.75rem; */
   min-width: 90%;
-  height: 40%;
+  height: 55vh;
   background-color: #fef8e3;
   border-radius: .625rem;
   margin: 30px;
 
-  @media screen and (min-width: ${"700px"}) {
+  @media screen and (min-width: ${"1080px"}) {
     width: 31.25rem;
-    height: 55%;
+    height: 80vh;
   }
 `;
 
@@ -45,11 +45,11 @@ export const MypageDiv = styled.div`
   display: flex;
   width: 80%;
   .Name {
-    font-size: 1.25rem;
+    font-size: 1rem;
     width: 30%;
-    /* @media screen and (min-width: ${"1280px"}) {
-      margin-right: 9.375rem;
-    } */
+    @media screen and (min-width: ${"700px"}) {
+      font-size: 1.25rem;
+    }
   }
   .UserName {
     font-size: 1rem;

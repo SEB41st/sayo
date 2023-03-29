@@ -88,17 +88,22 @@ export const Line = styled.div`
 `
 
 export const ItemImg = styled.div`
+    display: flex;
+    justify-content: center;
     margin: 20px 10px 10px 10px ;
     img{
       width: 100%;
       height: 100%;
       border-radius: 20px;
     }
+    .XButton{
+      margin-left: 30px;
+    }
 `
 
 export const ItemName = styled.div`
   display: grid;
-  /* justify-content: center; */
+  justify-content: center;
   div{
       justify-content: center;
     }

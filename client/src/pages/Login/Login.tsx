@@ -1,3 +1,7 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -51,6 +55,24 @@ const Login = () => {
 
   const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
+
+  }
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const Authorization = searchParams.get("access_token") || null;
+  const Id = searchParams.get("id") || null;
+
+  useEffect(() => {
+    if (Authorization) {
+      localStorage.setItem("Authorization", Authorization);
+      localStorage.setItem("id", Id);
+      navigate("/");
+      // window.location.reload();
+    }
+  }, []);
+
+  const handleLogin = () => {
   };
 
   return (
@@ -61,7 +83,22 @@ const Login = () => {
           로그인 후 다양한 상품들을 구매해보세요 !
         </span>
       </S.LoginTitle>
-      <div className="buttons">
+      <S.JwtLogin>
+        <div className="jwtLogin">
+          <input
+          className="ID"
+          placeholder="ID">
+          </input> 
+          <input
+          className="PW"
+          placeholder="PW">
+          </input>
+        <S.JwtLoginBtn
+          onClick={handleLogin}>로그인</S.JwtLoginBtn>
+        <S.Line/>
+        </div>
+        
+      <S.SocialLogin>
         {/* 구글로그인 */}
         <S.GoogleLoginWrapper onClick={() => handleGoogleOauthLogin()}>
           <div className="social_login_image_box">
@@ -81,7 +118,8 @@ const Login = () => {
         <S.StKaKaoLogin onClick={handleKakaoOauthLogin}>
           <div className="kakaoTitle">카카오로 로그인하기</div>
         </S.StKaKaoLogin>
-      </div>
+      </S.SocialLogin>
+      </S.JwtLogin>
     </S.Login>
   );
 };

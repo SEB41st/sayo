@@ -62,3 +62,8 @@ export const likeState = atom({
   key:"like",
   default:false,
 });
+
+export const nickname = atom({
+  key:"nickname",
+  default:""
+})

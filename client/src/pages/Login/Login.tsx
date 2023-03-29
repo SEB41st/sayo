@@ -1,18 +1,39 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import * as S from "./styled";
 
 const Login = () => {
 
   const handleNaverOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`;
+    // console.log(res.headers.Authorization)
   };
 
   const handleGoogleOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/google`;
+    
   };
 
   const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
-  } 
+    // console.log(res.headers.Authorization)
+  }
+
+  // const [searchParams] = useSearchParams();
+  // const Authorization = searchParams.get("access_token") || null;
+  // useEffect(() => {
+  //   if (Authorization) {
+  //     console.log("Authorization", Authorization)
+  //     // localStorage.setItem("Authorization", Authorization);
+  //     // Navigate("/");
+  //     window.location.reload();
+  //   }
+  // }, []);
+
+  const handleLogin = () =>{
+    
+  }
 
   return (
     <S.Login>
@@ -22,7 +43,22 @@ const Login = () => {
           로그인 후 다양한 상품들을 구매해보세요 !
         </span>
       </S.LoginTitle>
-      <div className="buttons">
+      <S.JwtLogin>
+        <div className="jwtLogin">
+          <input
+          className="ID"
+          placeholder="ID">
+          </input> 
+          <input
+          className="PW"
+          placeholder="PW">
+          </input>
+        <S.JwtLoginBtn
+          onClick={handleLogin}>로그인</S.JwtLoginBtn>
+        <S.Line/>
+        </div>
+        
+      <S.SocialLogin>
         {/* 구글로그인 */}
         <S.GoogleLoginWrapper onClick={() => handleGoogleOauthLogin()}>
           <div className="social_login_image_box">
@@ -42,7 +78,8 @@ const Login = () => {
         <S.StKaKaoLogin onClick={handleKakaoOauthLogin}>
           <div className="kakaoTitle">카카오로 로그인하기</div>
         </S.StKaKaoLogin>
-      </div>
+      </S.SocialLogin>
+      </S.JwtLogin>
     </S.Login>
   );
 };

@@ -91,11 +91,30 @@ export const Login = styled.div`
   background-color: #f9fafb;
   border-radius: 10px;
   display: grid;
-  .buttons {
-    display: grid;
-    justify-content: center;
-  }
+  
 `;
+export const JwtLogin = styled.div`
+    display: flex;
+    justify-content: center;
+    .jwtLogin{
+      display: grid;
+      justify-content: center;
+      width: auto;
+      height: 20%;
+      
+    }
+    .ID{
+      margin: 20px;
+      border: 1px solid gray;
+    }
+    .PW{
+      margin: 20px;
+      border: 1px solid gray;
+    }
+    @media only screen and (max-width: ${"1024px"}) {
+      display: grid;
+    }
+  `
 
 export const GoogleLoginWrapper = styled.div`
   display: flex;
@@ -158,4 +177,31 @@ export const StKaKaoLogin = styled.div`
     }
   }
 `;
+
+export const SocialLogin = styled.div`
+  display: grid;
+  @media only screen and (min-width: ${"700px"}) {
+  margin-left: 10%;
+    }
+`
+
+export const JwtLoginBtn = styled.button`
+  background-color: whitesmoke;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 70%;
+  margin: 10px 0 20px 25px;
+`
+export const Line = styled.div`
+  margin: auto;
+  width: 100%;
+  height: 0.6px;
+  background-color: gray;
+  @media only screen and (min-width: ${"700px"}) {
+    background-color: white;
+    }
+`
 

@@ -21,12 +21,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const Authorization = searchParams.get("access_token") || null;
-  const Id = searchParams.get("id") || null;
+  const userId = searchParams.get("id") || null;
 
   useEffect(() => {
     if (Authorization) {
       localStorage.setItem("Authorization", Authorization);
-      localStorage.setItem("id", Id);
+      localStorage.setItem("userId", userId);
       navigate("/");
       // window.location.reload();
     }

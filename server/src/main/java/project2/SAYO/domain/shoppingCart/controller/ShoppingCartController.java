@@ -36,18 +36,6 @@ public class ShoppingCartController {
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
     }
 
-    // TODO PATCH
-    @PatchMapping("/{shoppingCart-id}")
-    public ResponseEntity patchShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
-                                            @LoginUserId Long userId,
-                                            @RequestBody ShoppingCartDto.Patch shoppingCartPatch) {
-        ShoppingCart shoppingCartForResponse = shoppingCartService.updateShoppingCart(userId, shoppingCartId,shoppingCartPatch);
-
-        ShoppingCartDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartForResponse);
-
-        return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.OK);
-    }
-
     // TODO GET ONE
     @GetMapping("/{shoppingCart-id}")
     public ResponseEntity getShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,

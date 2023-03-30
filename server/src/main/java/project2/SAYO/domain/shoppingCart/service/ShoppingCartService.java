@@ -6,7 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project2.SAYO.domain.item.dto.ItemDto;
 import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.item.repository.ItemRepository;
 import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.domain.shoppingCart.dto.ShoppingCartDto;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCart;
@@ -34,7 +36,12 @@ public class ShoppingCartService {
         ShoppingCart createShoppingCart = findByUserAndItem(findUser,findItem);
         createShoppingCart.addUser(findUser);
         createShoppingCart.addItem(findItem);
-        createShoppingCart.ChangeShoppingCartSelected(shoppingCartPost.isShoppingCartSelected());
+
+        if(createShoppingCart.isShoppingCartSelected() != Boolean.TRUE){
+            createShoppingCart.changeShoppingCartSelected(Boolean.TRUE);
+        }else{
+            createShoppingCart.changeShoppingCartSelected(Boolean.FALSE);
+        }
 
         return shoppingCartRepository.save(createShoppingCart);
     }

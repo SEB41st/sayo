@@ -10,12 +10,6 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface ShoppingCartMapper {
     default ShoppingCartDto.Response shoppingCartToShoppingCartResponse(ShoppingCart shoppingCart) {
-        ShoppingCartDto.Response shoppingCartResponse = ShoppingCartDto.Response.builder()
-                .itemId(shoppingCart.getItem().getItemId())
-                .userId(shoppingCart.getUser().getId())
-                .shoppingCartId(shoppingCart.getShoppingCartId())
-                .shoppingCartSelected(shoppingCart.isShoppingCartSelected())
-                .build();
 
         return ShoppingCartDto.Response.builder()
                 .itemId(shoppingCart.getItem().getItemId())

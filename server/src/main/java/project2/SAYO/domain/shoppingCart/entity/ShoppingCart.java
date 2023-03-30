@@ -37,7 +37,7 @@ public class ShoppingCart extends Auditable {
         this.item = item;
     }
 
-    public void ChangeShoppingCartSelected(boolean shoppingCartSelected) {
+    public void changeShoppingCartSelected(boolean shoppingCartSelected) {
         this.shoppingCartSelected = shoppingCartSelected;
     }
 }

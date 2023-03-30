@@ -11,6 +11,7 @@ public class ItemDto {
     @Getter
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class ItemPost{
         @NotBlank(message="상품 이름을 입력해주세요.")
         private String itemName; // 상품 이름

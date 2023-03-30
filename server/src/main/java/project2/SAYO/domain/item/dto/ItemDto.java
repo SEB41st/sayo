@@ -4,7 +4,6 @@ import lombok.*;
 import project2.SAYO.domain.item.entity.Item;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ItemDto {
@@ -25,8 +24,12 @@ public class ItemDto {
         private int itemPrice; // 상품 가격
         @NotBlank(message="상품 설명을 입력해주세요.")
         private String itemBody; // 상품 설명
-        @NotBlank(message="참여 일정을 입력해주세요.")
-        private String itemDate; // 참여 일정
+        @NotBlank(message="참여 시작 일정을 입력해주세요.")
+        private String itemDateStart; // 참여 일정
+
+        @NotBlank(message="참여 종료 일정을 입력해주세요.")
+        private String itemDateEnd; // 참여 종료 일정
+
         private long categoryId;
         /*@NotBlank(message="상품 태그를 선택해주세요.")
         private String itemTag; // 상품 태그*/

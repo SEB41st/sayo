@@ -1,6 +1,8 @@
 package project2.SAYO.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import project2.SAYO.domain.address.entity.Address;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
@@ -35,6 +37,14 @@ public class User extends Auditable {
     @Setter
     @Enumerated(value = EnumType.STRING)
     private OAuthStatus oAuthStatus;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Address> addressList;
+
+    public void addAddressList(Address address) {
+        addressList.add(address);
+    }
 
     public enum OAuthStatus {
         NORMAL("일반"),

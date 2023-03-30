@@ -28,6 +28,7 @@ public class AddressService {
 
     public Address createAddress(Address address, Long userId) {
         User currentUser = userService.findVerifiedUser(userId);
+        currentUser.addAddressList(address);
         address.addUser(currentUser);
 
         return addressRepository.save(address);

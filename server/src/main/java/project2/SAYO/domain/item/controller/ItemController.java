@@ -61,7 +61,8 @@ public class ItemController {
     @GetMapping("/{item-id}")
     public ResponseEntity getItem(@Valid @PathVariable("item-id") @Positive Long itemId){
         Item findItem = itemService.findVerifiedItem(itemId);
-        return new ResponseEntity(new SingleResponseDto<>(findItem), HttpStatus.OK);
+        ItemDto.ItemResponse itemResponse = mapper.itemToItemResponseDto(findItem);
+        return new ResponseEntity(new SingleResponseDto<>(itemResponse), HttpStatus.OK);
     }
 
     // item 전체 조회

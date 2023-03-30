@@ -37,7 +37,18 @@ public interface UserMapper {
     @Mapping(source = "profile.image", target = "profile.image")
     @Mapping(source = "profile.introduction", target = "profile.introduction")
     @Mapping(source = "roles", target = "role")
-    UserDto.GetResponse userToGetResponse(User user);
+    default UserDto.GetResponse userToGetResponse(User user){
+        return UserDto.GetResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .profile(user.getProfile())
+                .role(user.getRoles())
+                .addressList(user.getAddressList())
+                .createdAt(user.getCreatedAt())
+                .modifiedAt(user.getModifiedAt())
+                .userStatus(user.getUserStatus())
+                .build();
+    }
 
     //User userPreModifyToUser(UserDto.PrevModify prevModifyRequest);
 

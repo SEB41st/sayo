@@ -1,5 +1,6 @@
 package project2.SAYO.domain.address.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
@@ -30,6 +31,7 @@ public class Address extends Auditable {
     @Column(length = 200, nullable = false)
     private String detailAddress; // 상세 주소
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     @Setter

@@ -1,9 +1,11 @@
 package project2.SAYO.domain.user.dto;
 
+import project2.SAYO.domain.address.entity.Address;
 import project2.SAYO.domain.user.entity.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import project2.SAYO.domain.user.entity.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -41,18 +43,26 @@ public class UserDto {
         private String email;
         private String role;
         private List<Profile> profile;
+
+        private User.UserStatus userStatus;
+
+        private List<Address> addressList;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
       /*  private Double latitude;
         private Double longitude;
 */
         @Builder
-        public GetResponse(Long id, String email, List<String> role, Profile profile, LocalDateTime createdAt, LocalDateTime modifiedAt/*,
+        public GetResponse(Long id, String email, List<String> role, Profile profile, LocalDateTime createdAt, LocalDateTime modifiedAt,
+                           List<Address> addressList,
+                           User.UserStatus userStatus/*,
                            Double latitude, Double longitude*/){
             this.id = id;
             this.email = email;
             this.role = role.get(0);
             this.profile = List.of(profile);
+            this.addressList = addressList;
+            this.userStatus = userStatus;
 /*            this.latitude = latitude;
             this.longitude = longitude;*/
             this.createdAt = createdAt;

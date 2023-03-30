@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class AddressDto {
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @NotBlank(message = "주소명칭은 공백이 없어야 합니다.")
         private String addressName;

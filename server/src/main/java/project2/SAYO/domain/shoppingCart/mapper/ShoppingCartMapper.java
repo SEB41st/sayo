@@ -17,7 +17,14 @@ public interface ShoppingCartMapper {
                 .shoppingCartSelected(shoppingCart.isShoppingCartSelected())
                 .build();
 
-        return shoppingCartResponse;
+        return ShoppingCartDto.Response.builder()
+                .itemId(shoppingCart.getItem().getItemId())
+                .userId(shoppingCart.getUser().getId())
+                .shoppingCartId(shoppingCart.getShoppingCartId())
+                .shoppingCartSelected(shoppingCart.isShoppingCartSelected())
+                .createdAt(shoppingCart.getCreatedAt())
+                .modifiedAt(shoppingCart.getModifiedAt())
+                .build();
     }
 
     default List<ShoppingCartDto.Response> shoppingCartListToShoppingCartResponseList(List<ShoppingCart> shoppingCartList){

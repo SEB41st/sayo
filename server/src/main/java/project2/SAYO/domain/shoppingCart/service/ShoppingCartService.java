@@ -27,28 +27,16 @@ public class ShoppingCartService {
 
     // TODO POST
     @Transactional
-    public ShoppingCart createShoppingCart(long userId, ShoppingCartDto.Post shoppingCartPost) {
-        ShoppingCart createShoppingCart = new ShoppingCart();
+    public ShoppingCart createShoppingCart(long userId, Long itemId) {
         User findUser = userService.findVerifiedUser(userId);
+        Item findItem = itemService.findVerifiedItem(itemId);
+
+        ShoppingCart createShoppingCart = findByUserAndItem(findUser,findItem);
         createShoppingCart.addUser(findUser);
-        Item findItem = itemService.findVerifiedItem(shoppingCartPost.getItemId());
         createShoppingCart.addItem(findItem);
         createShoppingCart.ChangeShoppingCartSelected(shoppingCartPost.isShoppingCartSelected());
 
         return shoppingCartRepository.save(createShoppingCart);
-    }
-
-    // TODO PATCH
-    @Transactional
-    public ShoppingCart updateShoppingCart(long userId, long shoppingCartId, ShoppingCartDto.Patch shoppingCartPatch) {
-        ShoppingCart findShoppingCart = findVerifiedShoppingCart(shoppingCartId);
-        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(!findShoppingCart.getUser().getId().equals(userId)) {
-            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
-        }
-        findShoppingCart.ChangeShoppingCartSelected(shoppingCartPatch.isShoppingCartSelected());
-
-        return shoppingCartRepository.save(findShoppingCart);
     }
 
     // TODO GET
@@ -85,6 +73,17 @@ public class ShoppingCartService {
         Optional<ShoppingCart> optionalShoppingCart = shoppingCartRepository.findById(shoppingCartId);
 
         return optionalShoppingCart.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
+    }
+
+    // TODO FIND_BY_USER_AND_ITEM
+    public ShoppingCart findByUserAndItem(User user, Item item) {
+        Optional<ShoppingCart> optionalShoppingCart = this.shoppingCartRepository.findByUserAndItem(user,item);
+
+        if(optionalShoppingCart.isPresent()) {
+            return optionalShoppingCart.get();
+        }else {
+            return new ShoppingCart();
+        }
     }
 
 }

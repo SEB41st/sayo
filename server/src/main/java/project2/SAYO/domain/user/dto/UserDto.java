@@ -1,5 +1,6 @@
 package project2.SAYO.domain.user.dto;
 
+import lombok.NoArgsConstructor;
 import project2.SAYO.domain.address.entity.Address;
 import project2.SAYO.domain.user.entity.Profile;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class UserDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @NotBlank
         @Email

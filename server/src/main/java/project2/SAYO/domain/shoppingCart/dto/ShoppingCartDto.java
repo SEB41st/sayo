@@ -13,29 +13,6 @@ public class ShoppingCartDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
-    public static class Post {
-        @NotBlank
-        private long itemId;
-        @NotBlank
-        private boolean shoppingCartSelected;
-
-        public void addItemId(long itemId) {
-            this.itemId = itemId;
-        }
-    }
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    public static class Patch {
-
-        @NotBlank
-        private boolean shoppingCartSelected;
-
-    }
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
     @Builder
     public static class Response {
         private long itemId;

@@ -27,12 +27,10 @@ public class ShoppingCartController {
     private final ShoppingCartMapper mapper;
 
     // TODO POST
-    @PostMapping("/{item-id}")
+    @PostMapping("items/{item-id}")
     public ResponseEntity postShoppingCart(@Valid @PathVariable("item-id") @Positive long itemId,
-                                           @LoginUserId Long userId,
-                                           @RequestBody ShoppingCartDto.Post shoppingCartPost) {
-        shoppingCartPost.addItemId(itemId);
-        ShoppingCart shoppingCartForResponse = shoppingCartService.createShoppingCart(userId, shoppingCartPost);
+                                           @LoginUserId Long userId) {
+        ShoppingCart shoppingCartForResponse = shoppingCartService.createShoppingCart(userId, itemId);
         ShoppingCartDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);

@@ -24,8 +24,8 @@ public class Item extends Auditable {
     @Column(nullable = false)
     private String itemPicture; // 상품 이미지
 
-    @Column(nullable = false)
-    private boolean itemDelivery; // 무료배송 여부
+/*    @Column(nullable = false)
+    private boolean itemDelivery; // 무료배송 여부*/
 
     @Column(nullable = false)
     private int itemDeliveryPrice; // 배송비 가격
@@ -37,11 +37,15 @@ public class Item extends Auditable {
     private String itemBody; // 상품 설명
 
     @Column(nullable = false)
-    private String itemDate; // 참여 일정
+    private String itemDateStart; // 참여 시작 일정
+
+    @Column(nullable = false)
+    private String itemDateEnd; // 참여 종료 일정
 
    /* @Column(length = 50)
     private String itemTag; // 상품 태그 (카테고리랑 연관관계 매핑)*/
 
+    // 위도, 경도 추후 수정 필요
     @Column(nullable = false)
     private double itemPlace_X; // 경도
 

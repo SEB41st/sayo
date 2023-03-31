@@ -8,12 +8,14 @@ const Login = () => {
   const [searchParams] = useSearchParams();
 
   const Authorization = searchParams.get("access_token") || null;
+  const refresh_token = searchParams.get("refresh_token") || null;
   const userId = searchParams.get("id") || null;
   useEffect(() => {
     if (Authorization && userId) {
       localStorage.setItem("Authorization", Authorization);
+      localStorage.setItem("refresh_token", refresh_token);
       localStorage.setItem("userId", userId);
-      navigate("/");
+      // navigate("/");
     }
   }, []);
 

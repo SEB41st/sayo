@@ -15,7 +15,7 @@ const ItemsSlider = () => {
   const handleResize = () => {
     setWindowSize(window.innerWidth);
   }
-  console.log(windowSize,window.innerWidth)
+  // console.log(windowSize,window.innerWidth)
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -24,12 +24,13 @@ const ItemsSlider = () => {
     }
   }, [windowSize]);
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items`, `items`);
+  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
 
   if (isLoading ) return <Loading/>;
   if (error) return <Error/>;
   
-  const Items = data;
+  const Items = data.data;
+  console.log(data)
   
     const settings = {
       dots: true,

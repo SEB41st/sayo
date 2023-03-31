@@ -6,11 +6,13 @@ export const useCustomQuery = (url: string, queryKey: string) => {
   const { data, isLoading, error, status, refetch } = useQuery(
     [queryKey],
     () =>
-    axios(`http://localhost:4000${url}`, {
+    axios(`http://sayo.n-e.kr:8080${url}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+          // Authorization:  localStorage.getItem("accessToken")
+          Authorization: `Bearer ${localStorage.getItem("Authorization")}`
+          ,
         },
       }).then((res) => {
         return res.data;

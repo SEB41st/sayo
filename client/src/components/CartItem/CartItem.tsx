@@ -23,7 +23,7 @@ const CartItem = () => {
 
 
   useEffect(() => { 
-    axios.get(`http://localhost:4000/cart`)
+    axios.get(`http://sayo.n-e.kr:8080/shoppingCarts/1`)
     .then(res => {
       setProducts(res.data)
     })

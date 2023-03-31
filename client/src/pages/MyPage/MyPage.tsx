@@ -20,7 +20,7 @@ const Mypage = () => {
     axios
       .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+          Authorization: localStorage.getItem("Authorization"),
         },
       })
       .then((res) => {

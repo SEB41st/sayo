@@ -40,9 +40,14 @@ export const Login = styled(NavLink)`
     display: flex;
     align-content: center;
     img{
-        width: 25px;
-        height: 25px;
+        width: 40px;
+        height: 40px;
         border-radius: 20px;
         align-content: center;
+        margin-left: 20px;
+        @media screen and (max-width: ${"1080px"}) {
+            width: 25px;
+            height: 25px;
+  }
     }
 `

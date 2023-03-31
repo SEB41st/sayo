@@ -15,7 +15,7 @@ const Header = () => {
           headers: {
             // "Content-Type": "application/json;charset=UTF-8",
             // Accept: "application/json",
-            Authorization : `Bearer ${localStorage.getItem("Authorization")}`,
+            Authorization : localStorage.getItem("Authorization"),
           },
         })
         .then((res) => {

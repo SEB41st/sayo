@@ -24,12 +24,13 @@ const ItemsSlider = () => {
     }
   }, [windowSize]);
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items`, `items`);
+  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
 
   if (isLoading ) return <Loading/>;
   if (error) return <Error/>;
   
-  const Items = data;
+  const Items = data.data;
+  console.log(Items)
   
     const settings = {
       dots: true,
@@ -67,7 +68,7 @@ const ItemsSlider = () => {
         >
           {Items && Items.map ((item:any) => {
               return (
-                <Link to={`/detail/${item.id}`} key={item.id}>
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.Item>
                     <img
                       src={item.itemPicture}

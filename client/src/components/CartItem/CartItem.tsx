@@ -9,6 +9,7 @@ import { CartItemList, countState, countSelector, totalPriceState } from "../../
 import { ItemType } from "../../pages/Cart/Cart";
 import axios from "axios";
 import { useCustomMutation } from "../util/useMutation";
+import { useParams } from "react-router-dom";
 
 type ItemProps = {
   item: ItemType; // 부모컴포넌트에서 import 해온 타입을 재사용 해 줍시다.
@@ -20,23 +21,30 @@ const CartItem = () => {
   const [products, setProducts] = useRecoilState(CartItemList);
   const [count, setCount] = useRecoilState(countSelector);
 
+  const { itemId } = useParams();
 
-
-  useEffect(() => { 
-    axios.get(`http://localhost:4000/cart`)
-    .then(res => {
-      setProducts(res.data)
-    })
-  },[])
-
-  console.log(products)
-
+  const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts?page=1&size=10`, `shoppingCarts`);
 
   const { mutate } = useCustomMutation(
-    `/cart`,
+    `/shoppingCarts/items/${itemId}`,
     `/cart`,
     "POST"
   );
+
+  if (isLoading ) return <Loading/>;
+  if (error) return <Error/>;
+
+  // useEffect(() => { 
+  //   axios.get(`http://sayo.n-e.kr:8080/shoppingCarts`)
+  //   .then(res => {
+  //     setProducts(res.data)
+  //   })
+  // },[])
+
+  // console.log(products)
+
+
+  
 
   // console.log(products[0].itmePrice)
   // const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);

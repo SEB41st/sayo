@@ -63,7 +63,8 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .antMatchers(HttpMethod.GET, "/users/*").hasAnyRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/users/*").hasRole("USER")
-
+                        .antMatchers(HttpMethod.POST, "/categories").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/categories").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2

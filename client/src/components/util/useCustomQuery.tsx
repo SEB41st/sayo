@@ -11,7 +11,7 @@ export const useCustomQuery = (url: string, queryKey: string) => {
         headers: {
           "Content-Type": "application/json",
           // Authorization:  localStorage.getItem("accessToken")
-          Authorization: `Bearer ${localStorage.getItem("Authorization")}`
+          Authorization: localStorage.getItem("Authorization")
           ,
         },
       }).then((res) => {

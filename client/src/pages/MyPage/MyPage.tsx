@@ -20,11 +20,11 @@ const Mypage = () => {
     axios
       .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
+          Authorization: localStorage.getItem("Authorization"),
         },
       })
       .then((res) => {
-        setNickName(res.data.data.profile[0].nickname)
+        setNickName(res.data.data)
         console.log(res.data.data.profile[0].nickname);
       })
       .catch((err) => {

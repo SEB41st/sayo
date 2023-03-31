@@ -13,13 +13,11 @@ const Header = () => {
         .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
         {
           headers: {
-            // "Content-Type": "application/json;charset=UTF-8",
-            // Accept: "application/json",
-            Authorization : `Bearer ${localStorage.getItem("Authorization")}`,
+            Authorization : localStorage.getItem("Authorization"),
           },
         })
         .then((res) => {
-        //   console.log(res.data.data.profile[0].image)
+          console.log(res.data.data.profile[0].image)
           setImg(res.data.data.profile[0].image)
         })
         .catch((error) => {

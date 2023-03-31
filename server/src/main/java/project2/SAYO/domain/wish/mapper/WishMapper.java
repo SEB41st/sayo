@@ -10,7 +10,16 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface WishMapper {
-    WishDto.Response wishToWishResponse(Wish wish);
+    default WishDto.Response wishToWishResponse(Wish wish){
+        return WishDto.Response.builder()
+                .itemId(wish.getItem().getItemId())
+                .userId(wish.getUser().getId())
+                .wishId(wish.getWishId())
+                .wishSelected(wish.isWishSelected())
+                .createdAt(wish.getCreatedAt())
+                .modifiedAt(wish.getModifiedAt())
+                .build();
+    }
 
     default List<WishDto.Response> WishListToWishResponseList(List<Wish> wishList) {
 

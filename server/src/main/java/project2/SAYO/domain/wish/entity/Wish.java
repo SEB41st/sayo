@@ -37,7 +37,7 @@ public class Wish extends Auditable {
         this.item = item;
     }
 
-    public void ChangeWishSelected(boolean wishSelected) {
+    public void changeWishSelected(boolean wishSelected) {
         this.wishSelected = wishSelected;
     }
 }

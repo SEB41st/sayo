@@ -40,4 +40,5 @@ public class ShoppingCart extends Auditable {
     public void changeShoppingCartSelected(boolean shoppingCartSelected) {
         this.shoppingCartSelected = shoppingCartSelected;
     }
+
 }

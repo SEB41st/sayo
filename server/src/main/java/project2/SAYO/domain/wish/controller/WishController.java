@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/wish")
+@RequestMapping("/wishes")
 @Validated
 public class WishController {
     private final WishService wishService;
@@ -29,25 +29,11 @@ public class WishController {
     // TODO POST
     @PostMapping("/{item-id}")
     public ResponseEntity postWish(@Valid @PathVariable("item-id") @Positive long itemId,
-                                   @RequestBody WishDto.Post wishPost,
                                    @LoginUserId Long userId) {
-        wishPost.addItemId(itemId);
-        Wish wishForResponse = wishService.createWish(userId, wishPost);
+        Wish wishForResponse = wishService.createWish(userId, itemId);
         WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(wishResponse), HttpStatus.CREATED);
-    }
-
-    // TODO PATCH
-    @PatchMapping("/{wish-id}")
-    public ResponseEntity patchWish(@Valid @PathVariable("wish-id") @Positive long wishId,
-                                            @RequestBody WishDto.Patch wishPatch,
-                                    @LoginUserId Long userId) {
-        Wish wishForResponse = wishService.updateWish(userId, wishId,wishPatch);
-
-        WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);
-
-        return new ResponseEntity(new SingleResponseDto<>(wishResponse), HttpStatus.OK);
     }
 
     // TODO GET ONE

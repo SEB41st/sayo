@@ -6,33 +6,32 @@ import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import { useState } from "react";
 
+
 const ItemList = () => {
   const [state, setState] = useState("전체");
 
-  const { data, isLoading, error, refetch } = useCustomQuery(
-    `/items/get?page=1&size=10`,
-    `items`
-  );
+  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
   const Items = data.data;
 
-  console.log("Items", Items);
+  console.log(Items);
 
-  const ChangeCategory = (e: any) => {
-    setState(e.target.id);
-  };
-  console.log("state", state);
+  const ChangeCategory = (e:any) => {
+    console.log(e.target.id)
+    setState(e.target.id)
+  }
+  console.log(Items)
 
-  // const cartegoryFilterSale = Items.filter(
-  //   (item: any) => item.itemStatus === "ITEM_PROGRESS"
-  // );
+  // const cartegoryFilterSale =  Items.filter((item:any) => 
+  //   item.itemStatus === "ITEM_PROGRESS"
+  // )
 
-  // const cartegoryFilterFin = Items.filter(
-  //   (item: any) => item.itemStatus === "ITEM_END"
-  // );
+  // const cartegoryFilterFin =  Items.filter((item:any) => 
+  //   item.itemStatus === "ITEM_END"
+  // )
 
 
   return (
@@ -45,16 +44,17 @@ const ItemList = () => {
           <Link to="/write">공동구매 제안하기</Link>
         </S.WriteButton>
 
+        <S.Categorys>
+          <S.Category onClick={ChangeCategory}>전체</S.Category>
+          <S.Category onClick={ChangeCategory}>음식</S.Category>
+          <S.Category onClick={ChangeCategory}>의류</S.Category>
+          <S.Category onClick={ChangeCategory}>생활용품</S.Category>
+        </S.Categorys>
+
         <S.Tags>
-          <S.Tag id="전체" onClick={ChangeCategory}>
-            전체
-          </S.Tag>
-          <S.Tag id="ITEM_PROGRESS" onClick={ChangeCategory}>
-            판매 중
-          </S.Tag>
-          <S.Tag id="ITEM_END" onClick={ChangeCategory}>
-            판매 종료
-          </S.Tag>
+          <S.Tag onClick={ChangeCategory} id="전체">전체</S.Tag>
+          <S.Tag onClick={ChangeCategory} id="ITEM_PROGRESS">판매 중</S.Tag>
+          <S.Tag onClick={ChangeCategory} id="ITEM_END">판매 종료</S.Tag>
         </S.Tags>
         <S.GoodsList>
           {Items &&

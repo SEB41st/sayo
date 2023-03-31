@@ -15,7 +15,7 @@ const ItemsSlider = () => {
   const handleResize = () => {
     setWindowSize(window.innerWidth);
   }
-  console.log(windowSize,window.innerWidth)
+  // console.log(windowSize,window.innerWidth)
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -30,7 +30,7 @@ const ItemsSlider = () => {
   if (error) return <Error/>;
   
   const Items = data.data;
-  console.log(Items)
+  console.log(data)
   
     const settings = {
       dots: true,

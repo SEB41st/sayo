@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Error from "../../components/Error/Error";
 import Loading from "../../components/Loading/Loading";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
@@ -34,7 +35,8 @@ const MyInfo = () => {
       headers: {
         // "Content-Type": "application/json;charset=UTF-8",
         // Accept: "application/json",
-        Authorization : localStorage.getItem("Authorization"),
+        // Authorization :localStorage.getItem("Authorization")
+        Authorization : localStorage.getItem("accessToken"),
       },
     })
     .then((res) => {
@@ -51,18 +53,20 @@ const MyInfo = () => {
       .post(
         `http://sayo.n-e.kr:8080/users/logout`,
         {
-          Authorization : `Bearer ${localStorage.getItem("Authorization")}`,
+          Authorization : localStorage.getItem("Authorization"),
           // refreshToken : localStorage.getItem("refreshToken")
         },
       )
       .then((res) => {
-        // localStorage.clear();
-        // navigate("/");
+        localStorage.clear();
+        navigate("/");
+        window.location.reload()
       })
       .catch((err) => {
         console.log(err);
         localStorage.clear();
         navigate("/");
+        window.location.reload()
       });
   };
     return (

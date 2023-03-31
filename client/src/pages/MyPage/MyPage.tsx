@@ -20,11 +20,11 @@ const Mypage = () => {
     axios
       .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
         headers: {
-          Authorization: localStorage.getItem("Authorization"),
+          Authorization: localStorage.getItem("accessToken"),
         },
       })
       .then((res) => {
-        setNickName(res.data.data.profile[0].nickname)
+        setNickName(res.data.data.profile[0].nickname);
         console.log(res.data.data.profile[0].nickname);
       })
       .catch((err) => {
@@ -33,12 +33,12 @@ const Mypage = () => {
   }, []);
 
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items`, `items`);
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
+  // const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error />;
 
-  const Items = data;
-  console.log(Items);
+  // const Items = data.data;
+  // console.log(Items);
 
   const openModal = () => {
     SetModalOpen(true);

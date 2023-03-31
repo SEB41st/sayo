@@ -20,8 +20,8 @@ public interface ItemMapper{
                 .itemBody(postRequest.getItemBody())
                 .itemDateStart(postRequest.getItemDateStart())
                 .itemDateEnd(postRequest.getItemDateEnd())
-                .itemPlace_X(postRequest.getItemPlace_X())
-                .itemPlace_Y(postRequest.getItemPlace_Y())
+                .latitude(postRequest.getLatitude())
+                .longitude(postRequest.getLongitude())
                 .itemStatus(Item.ItemStatus.ITEM_PROGRESS)
                 .build();
     }
@@ -37,8 +37,8 @@ public interface ItemMapper{
                 .itemBody(patchRequest.getItemBody())
                 .itemDateStart(patchRequest.getItemDateStart())
                 .itemDateEnd(patchRequest.getItemDateEnd())
-                .itemPlace_X(patchRequest.getItemPlace_X())
-                .itemPlace_Y(patchRequest.getItemPlace_Y())
+                .latitude(patchRequest.getLatitude())
+                .longitude(patchRequest.getLongitude())
                 .itemStatus(Item.ItemStatus.ITEM_PROGRESS)
                 .build();
     }
@@ -54,8 +54,8 @@ public interface ItemMapper{
                 .itemBody(item.getItemBody())
                 .itemDateStart(item.getItemDateStart())
                 .itemDateEnd(item.getItemDateEnd())
-                .itemPlace_X(item.getItemPlace_X())
-                .itemPlace_Y(item.getItemPlace_Y())
+                .latitude(item.getLatitude())
+                .longitude(item.getLongitude())
                 .createdAt(item.getCreatedAt())
                 .modifiedAt(item.getModifiedAt())
                 .itemStatus(item.getItemStatus())

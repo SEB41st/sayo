@@ -35,9 +35,8 @@ public class ItemDto {
         /*@NotBlank(message="상품 태그를 선택해주세요.")
         private String itemTag; // 상품 태그*/
 
-        /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
-        private double itemPlace_X; // 경도
-        private double itemPlace_Y; // 위도
+        private double latitude; // 경도
+        private double longitude; // 위도
         private Item.ItemStatus itemStatus;
     }
 
@@ -65,10 +64,8 @@ public class ItemDto {
         private String itemTag; // 상품 태그*/
         private Item.ItemStatus itemStatus; // 상품 진행 상태
         private long categoryId;
-
-        /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
-        private double itemPlace_X; // 경도
-        private double itemPlace_Y; // 위도
+        private double latitude; // 위도
+        private double longitude; // 경도
     }
 
     @Getter
@@ -87,11 +84,9 @@ public class ItemDto {
         private String itemDateEnd; // 참여 종료 일정
         private long categoryId; // 카테고리 번호
         //private String itemTag; // 상품 태그
-
-        /*경도 위도의 경우 지도 API 연결을 통해 입력되기 때문에 ItemPost에서 필요할지, 어떻게 입력될지 추후 확인 필요*/
-        private double itemPlace_X; // 경도
-        private double itemPlace_Y; // 위도
-
+        
+        private double latitude; // 위도
+        private double longitude; // 경도
         private Item.ItemStatus itemStatus;
 
         private LocalDateTime createdAt;

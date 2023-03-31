@@ -34,7 +34,7 @@ const Main = (props: any) => {
         </S.Title>
         <br />
         <br />
-        <S.Title>최근 본 상품</S.Title>
+        <S.Title>인기 상품</S.Title>
         <S.Menus>
               <S.GoodsList>
                 <ItemsSlider/>

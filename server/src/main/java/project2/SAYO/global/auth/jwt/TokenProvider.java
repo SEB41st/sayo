@@ -183,12 +183,11 @@ public class TokenProvider {
 		return cookie;
 	}
 
-
 	// Request Header Access Token 정보를 꺼내오는 메소드
 	public String resolveAccessToken(HttpServletRequest request) {
 		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-			return bearerToken.substring(7);
+			return bearerToken/*.substring(7)*/;
 		}
 		return null;
 	}

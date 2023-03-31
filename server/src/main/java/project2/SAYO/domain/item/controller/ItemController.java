@@ -58,7 +58,7 @@ public class ItemController {
     }
 
     // item 1개 조회
-    @GetMapping("/{item-id}")
+    @GetMapping("/get/{item-id}")
     public ResponseEntity getItem(@Valid @PathVariable("item-id") @Positive Long itemId){
         Item findItem = itemService.findVerifiedItem(itemId);
         ItemDto.ItemResponse itemResponse = mapper.itemToItemResponseDto(findItem);
@@ -66,7 +66,7 @@ public class ItemController {
     }
 
     // item 전체 조회
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity getItems(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size){
         Page<Item> itemPage = itemService.findItems(page-1, size);

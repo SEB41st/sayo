@@ -47,10 +47,10 @@ public class Item extends Auditable {
 
     // 위도, 경도 추후 수정 필요
     @Column(nullable = false)
-    private double itemPlace_X; // 경도
+    private double latitude; // 위도
 
     @Column(nullable = false)
-    private double itemPlace_Y; // 위도
+    private double longitude; // 경도
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20)

@@ -7,6 +7,7 @@ import MapLocation from "../../components/Map/MapLocation";
 import { useCustomMutation } from "../../components/util/useMutation";
 import { useRecoilState } from "recoil";
 import { salesLocation } from "../../recoil/atom";
+import ModifyImage from "../../components/ModifyImage/ModifyImage";
 
 const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -41,7 +42,9 @@ const Write = () => {
   return (
     <S.WriteWrap>
       <S.WriteContainer>
-        <S.ImageDiv></S.ImageDiv>
+        <S.ImageDiv>
+          <ModifyImage/>
+        </S.ImageDiv>
         <S.SubmitBtn onClick={submitKeyPress}>등록하기</S.SubmitBtn>
         <S.WriteForm>
           <S.InputDiv>

@@ -9,8 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import project2.SAYO.global.auth.jwt.TokenProvider;
-import project2.SAYO.global.exception.BusinessLogicException;
-import project2.SAYO.global.exception.ErrorResponse;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -30,6 +28,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
                     "/users/signup",
                     "/users/login",
                     "/users/reissue",
+                    "/items",
                     "/oauth2/authorization/google",
                     "/oauth2/authorization/kakao",
                     "/oauth2/authorization/naver");

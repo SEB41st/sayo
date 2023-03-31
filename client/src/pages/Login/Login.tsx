@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
@@ -8,26 +8,26 @@ import * as S from "./styled";
 const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  // const [searchParams] = useSearchParams();
+  const [info, setInfo] = useState<{email:string, password:string}>({email:"",password:""})
 
-  const Authorization = searchParams.get("access_token") || null;
+  const accessToken = searchParams.get("access_token") || null;
   const userId = searchParams.get("id") || null;
+  const refreshToken = searchParams.get("refresh_token") || null;
+  console.log(searchParams.get("refresh_token"))
+
   useEffect(() => {
-    if (Authorization && userId) {
-      localStorage.setItem("Authorization", Authorization);
+    if (accessToken && userId) {
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("userId", userId);
-      // navigate("/");
+      navigate("/");
+      alert("로그인 성공")
     }
   }, []);
 
  
-
   const handleNaverOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/naver`;
-    console.log("hello");
-    // let storage = localStorage.getItem("payload");
-    // const personObj = JSON.parse(storage);
-    // console.log(personObj);
   };
 
   const handleGoogleOauthLogin = () => {
@@ -36,12 +36,42 @@ const Login = () => {
 
   const handleKakaoOauthLogin = () => {
     window.location.href = `${process.env.REACT_APP_LOGIN_URL}oauth2/authorization/kakao`;
-
   }
 
-  const handleLogin = () => {
+  const handleLogin = async (e:any) => {
+    const jsonData = JSON.stringify(info);
+    console.log(info)
+
+    if (info.email === "" || info.password === "") {
+      alert("이메일이나 패스워드를 확인하세요");
+      return;
+    }
+
+    await axios
+      .post("http://sayo.n-e.kr:8080/users/login", jsonData)
+      .then((res) => {
+        // console.log("accessToken", res.headers.authorization);
+        // console.log("refreshToken", res.headers.refresh);
+        localStorage.setItem("accessToken", res.headers.accessToken);
+        localStorage.setItem("refreshToken", res.headers.refresh);
+        // console.log("userId", res.data.data.id);
+        localStorage.setItem("userId", res.data.data.id);
+        if (res.status === 200) {
+          alert("로그인이 완료되었습니다!");
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        alert("입력하신 정보를 다시 확인해주세요!");
+        console.log(err);
+      });
   };
 
+  const handleKeypress = (e:any) => {
+    if (e.key === "Enter") {
+      handleLogin(e);
+    }
+  };
 
   return (
     <S.Login>
@@ -54,12 +84,28 @@ const Login = () => {
       <S.JwtLogin>
         <div className="jwtLogin">
           <input
+          type="text"
           className="ID"
-          placeholder="ID">
+          placeholder="ID"
+          onChange={(e)=> {
+            setInfo({
+              ...info,
+              email:e.target.value,
+            })
+          }}>
           </input> 
           <input
+          type="password"
           className="PW"
-          placeholder="PW">
+          placeholder="PW"
+          onChange={(e)=> {
+            setInfo({
+              ...info,
+              password:e.target.value,
+            })
+          }}
+          // onChange={(e) => console.log(e.target.value)}
+          onKeyPress={handleKeypress}>
           </input>
         <S.JwtLoginBtn
           onClick={handleLogin}>로그인</S.JwtLoginBtn>

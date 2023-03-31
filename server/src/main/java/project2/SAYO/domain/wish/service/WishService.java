@@ -10,7 +10,6 @@ import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
-import project2.SAYO.domain.wish.dto.WishDto;
 import project2.SAYO.domain.wish.entity.Wish;
 import project2.SAYO.domain.wish.repository.WishRepository;
 import project2.SAYO.global.exception.BusinessLogicException;
@@ -27,28 +26,20 @@ public class WishService {
 
     // TODO POST
     @Transactional
-    public Wish createWish(Long userId, WishDto.Post wishPost) {
-        Wish createWish = new Wish();
+    public Wish createWish(Long userId, Long itemId) {
         User findUser = userService.findVerifiedUser(userId);
+        Item findItem = itemService.findVerifiedItem(itemId);
+
+        Wish createWish = findByUserAndItem(findUser, findItem);
         createWish.addUser(findUser);
-        Item findItem = itemService.findVerifiedItem(wishPost.getItemId());
         createWish.addItem(findItem);
-        createWish.ChangeWishSelected(wishPost.isWishSelected());
+        if (createWish.isWishSelected() != Boolean.TRUE) {
+            createWish.changeWishSelected(Boolean.FALSE);
+        } else {
+            createWish.changeWishSelected(Boolean.TRUE);
+        }
 
         return wishRepository.save(createWish);
-    }
-
-    // TODO PATCH
-    @Transactional
-    public Wish updateWish(Long userId, long wishId, WishDto.Patch wishPatch) {
-        Wish findWish = findVerifiedWish(wishId);
-        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
-        if(!findWish.getUser().getId().equals(userId)) {
-            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
-        }
-        findWish.ChangeWishSelected(wishPatch.isWishSelected());
-
-        return wishRepository.save(findWish);
     }
 
     // TODO GET
@@ -85,5 +76,15 @@ public class WishService {
         Optional<Wish> optionalWish = wishRepository.findById(wishId);
 
         return optionalWish.orElseThrow(()->new BusinessLogicException(ExceptionCode.WISH_NOT_FOUND));
+    }
+
+    public Wish findByUserAndItem(User user, Item item){
+        Optional<Wish> optionalWish = this.wishRepository.findByUserAndItem(user, item);
+
+        if(optionalWish.isPresent()){
+            return optionalWish.get();
+        }else{
+            return new Wish();
+        }
     }
 }

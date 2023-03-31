@@ -187,7 +187,7 @@ public class TokenProvider {
 	public String resolveAccessToken(HttpServletRequest request) {
 		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-			return bearerToken/*.substring(7)*/;
+			return bearerToken.substring(7);
 		}
 		return null;
 	}

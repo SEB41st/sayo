@@ -27,10 +27,6 @@ const MyInfo = () => {
   // const users = data;
   // console.log(users)
 
-  // const { data, isLoading, error } = useCustomQuery(`/users/${userId}`, [
-  //   "members",
-  //   userId,
-  // ]);
 
   useEffect(()=> {
     axios
@@ -39,7 +35,7 @@ const MyInfo = () => {
       headers: {
         // "Content-Type": "application/json;charset=UTF-8",
         // Accept: "application/json",
-        // Authorization : `Bearer ${localStorage.getItem("Authorization")}`
+        // Authorization :localStorage.getItem("Authorization")
         Authorization : localStorage.getItem("accessToken"),
       },
     })

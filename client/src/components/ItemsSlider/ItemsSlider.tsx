@@ -68,7 +68,7 @@ const ItemsSlider = () => {
         >
           {Items && Items.map ((item:any) => {
               return (
-                <Link to={`/detail/${item.id}`} key={item.id}>
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.Item>
                     <img
                       src={item.itemPicture}

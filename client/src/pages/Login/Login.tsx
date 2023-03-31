@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
 
 
@@ -11,6 +10,9 @@ const Login = () => {
   const [info, setInfo] = useState<{email:string, password:string}>({email:"",password:""})
 
   const accessToken = searchParams.get("access_token") || null;
+
+  // const Authorization = searchParams.get("access_token") || null;
+  // const refresh_token = searchParams.get("refresh_token") || null;
   const userId = searchParams.get("id") || null;
   const refreshToken = searchParams.get("refresh_token") || null;
   console.log(searchParams.get("refresh_token"))

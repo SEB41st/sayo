@@ -13,7 +13,7 @@ const Header = () => {
         .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
         {
           headers: {
-            Authorization : localStorage.getItem("Authorization"),
+            Authorization : localStorage.getItem("accessToken"),
           },
         })
         .then((res) => {
@@ -33,7 +33,7 @@ const Header = () => {
         <S.HeaderLogo>
             {userId? 
                 <S.Login to='/myinfo'>
-                    <img src={img}/>
+                    <img src={img} alt="" />
                 </S.Login>:
                 <S.Login to='/login'>
                     <RxPerson className="personIcon"/>

@@ -30,19 +30,19 @@ const Detail = () => {
   const { itemId } = useParams();
 
   const { data, isLoading, error, refetch } = useCustomQuery(
-    `/items/${itemId}`,
-    `items=${itemId}`
+    `/items/get/${itemId}`,
+    `/items/get/=${itemId}`
   );
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
-  const Items = data;
+  const Items = data.data;
 
-  // console.log(Items);
+  console.log(Items);
 
   const location: any = Items.location;
-  // console.log(location);
+  console.log(location);
 
   // setSalesLocation(location)
   // const longitude: any = Items.location.Ma;
@@ -63,11 +63,13 @@ const Detail = () => {
     <S.DetailWrap>
       <S.DetailContainer>
         <S.ImageDiv>
-          <div className="ProductImg"></div>
+          <div className="ProductImg" >
+           <img src={Items.itemPicture} alt="goods"></img> 
+          </div>
         </S.ImageDiv>
         <S.ProductInfoDiv>
           <div className="Product">
-            <div className="ProductName">{Items.title}</div>
+            <div className="ProductName">{Items.itemName}</div>
             {like ? <BsHeartFill
               onClick={handleLikeBtn}
               size="20"
@@ -78,9 +80,9 @@ const Detail = () => {
             style={{ marginLeft: "10px", color: "#eb1717" }}
           />}
           </div>
-          <div className="ProductPrice">판매가 : {Items.itmePrice}원</div>
-          <div className="ProductFee">배송비 : {Items.deliveryFee}</div>
-          <div className="SalesSchedule">판매일정 : {Items.startDate} ~ {Items.endDate}
+          <div className="ProductPrice">판매가 : {Items.itemPrice}원</div>
+          <div className="ProductFee">배송비 : {Items.itemDeliveryPrice}</div>
+          <div className="SalesSchedule">판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
             {/* <Calendar/> */}
           </div>
           <S.ButtonDiv>
@@ -100,9 +102,9 @@ const Detail = () => {
       </Modal>
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
-        <div className="DetailInfoTxt">{Items.itemDatail}</div>
+        <div className="DetailInfoTxt">{Items.itemBody}</div>
         <div className="DetailLocation">위치</div>
-        <Maps
+        {/* <Maps
           center={{
             lat: location.latitude,
             lng: location.longitude,
@@ -112,7 +114,7 @@ const Detail = () => {
           {location && (
             <MapMarker position={{ lat: location.latitude, lng: location.longitude }} />
           )}
-        </Maps>
+        </Maps> */}
       </S.DetailDiv>
     </S.DetailWrap>
   );

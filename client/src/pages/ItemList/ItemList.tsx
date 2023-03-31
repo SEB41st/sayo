@@ -8,8 +8,8 @@ import { useState } from "react";
 
 
 const ItemList = () => {
+  const [state, setState] = useState("전체");
 
-  const [state, setState] = useState("전체")
   const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
 
   if (isLoading) return <Loading></Loading>;
@@ -25,16 +25,14 @@ const ItemList = () => {
   }
   console.log(Items)
 
-  const cartegoryFilterSale =  Items.filter((item:any) => 
-    item.itemStatus === "ITEM_PROGRESS"
-  )
+  // const cartegoryFilterSale =  Items.filter((item:any) => 
+  //   item.itemStatus === "ITEM_PROGRESS"
+  // )
 
-  const cartegoryFilterFin =  Items.filter((item:any) => 
-    item.itemStatus === "ITEM_END"
-  )
+  // const cartegoryFilterFin =  Items.filter((item:any) => 
+  //   item.itemStatus === "ITEM_END"
+  // )
 
-    console.log(cartegoryFilterSale)
-    console.log(cartegoryFilterFin)
 
   return (
     <S.Main>
@@ -61,9 +59,8 @@ const ItemList = () => {
         <S.GoodsList>
           {Items &&
             Items.map((item: any) => {
-              return (
-                state === "전체" ? (
-                <Link to={`/detail/${item.id}`} key={item.id}>
+              return state === "전체" ? (
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.EachItem>
                     <S.Item>
                       <img src={item.itemPicture} alt="goods"></img>
@@ -74,9 +71,8 @@ const ItemList = () => {
                     </S.Font>
                   </S.EachItem>
                 </Link>
-                ):(
-                item.itemStatus === state ? (
-                <Link to={`/detail/${item.id}`} key={item.id}>
+              ) : item.itemStatus === state ? (
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.EachItem>
                     <S.Item>
                       <img src={item.itemPicture} alt="goods"></img>
@@ -87,9 +83,7 @@ const ItemList = () => {
                     </S.Font>
                   </S.EachItem>
                 </Link>
-              ):(
-                null
-              )));
+              ) : null;
             })}
         </S.GoodsList>
       </S.MainList>

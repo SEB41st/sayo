@@ -66,7 +66,7 @@ public class ItemController {
     }
 
     // item 전체 조회
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity getItems(@Positive @RequestParam int page,
                                    @Positive @RequestParam int size){
         Page<Item> itemPage = itemService.findItems(page-1, size);

@@ -81,6 +81,7 @@ public class SecurityConfiguration {
         configuration.setAllowedOrigins(List.of("http://localhost:3000",
                 "http://sayo.n-e.kr",
                 "http://sayo.n-e.kr:8080",
+                "http://sayo.n-e.kr:8080/items/",
                 "http://localhost", // 로컬환경 OAuth2 테스트용
                 "http://localhost:8080",
                 "http://sayo.n-e.kr:80"));

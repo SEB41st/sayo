@@ -65,6 +65,13 @@ const Write = () => {
               onChange={(e) => {setDeliveryCharge(Number(e.target.value))}}
             />
           </S.InputDiv>
+          <S.InputDiv>
+            <S.InputLabel> 카테고리</S.InputLabel>
+            <S.WriteInput 
+              type="text"
+              onChange={(e) => {setDeliveryCharge(Number(e.target.value))}}
+            />
+          </S.InputDiv>
           <S.InputDiv> 
             <S.InputLabel>공구시작</S.InputLabel>
             <S.Day>

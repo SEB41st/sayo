@@ -7,32 +7,33 @@ import Error from "../../components/Error/Error";
 import { useState } from "react";
 
 const ItemList = () => {
+  const [state, setState] = useState("전체");
 
-  const [state, setState] = useState("전체")
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items`, `items`);
+  const { data, isLoading, error, refetch } = useCustomQuery(
+    `/items/get?page=1&size=10`,
+    `items`
+  );
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
-  const Items = data;
+  const Items = data.data;
 
-  // console.log(Items);
+  console.log("Items", Items);
 
-  const ChangeCategory = (e:any) => {
-    setState(e.target.innerText)
-  }
-  console.log(state)
+  const ChangeCategory = (e: any) => {
+    setState(e.target.id);
+  };
+  console.log("state", state);
 
-  const cartegoryFilterSale =  Items.filter((item:any) => 
-    item.state === "판매 중"
-  )
+  // const cartegoryFilterSale = Items.filter(
+  //   (item: any) => item.itemStatus === "ITEM_PROGRESS"
+  // );
 
-  const cartegoryFilterFin =  Items.filter((item:any) => 
-    item.state === "판매 종료"
-  )
+  // const cartegoryFilterFin = Items.filter(
+  //   (item: any) => item.itemStatus === "ITEM_END"
+  // );
 
-    console.log(cartegoryFilterSale)
-    console.log(cartegoryFilterFin)
 
   return (
     <S.Main>
@@ -45,42 +46,44 @@ const ItemList = () => {
         </S.WriteButton>
 
         <S.Tags>
-          <S.Tag onClick={ChangeCategory}>전체</S.Tag>
-          <S.Tag onClick={ChangeCategory}>판매 중</S.Tag>
-          <S.Tag onClick={ChangeCategory}>판매 종료</S.Tag>
+          <S.Tag id="전체" onClick={ChangeCategory}>
+            전체
+          </S.Tag>
+          <S.Tag id="ITEM_PROGRESS" onClick={ChangeCategory}>
+            판매 중
+          </S.Tag>
+          <S.Tag id="ITEM_END" onClick={ChangeCategory}>
+            판매 종료
+          </S.Tag>
         </S.Tags>
         <S.GoodsList>
           {Items &&
             Items.map((item: any) => {
-              return (
-                state === "전체" ? (
-                <Link to={`/detail/${item.id}`} key={item.id}>
+              return state === "전체" ? (
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.EachItem>
                     <S.Item>
                       <img src={item.itemPicture} alt="goods"></img>
                     </S.Item>
                     <S.Font>
-                      <div>{item.title}</div>
+                      <div>{item.itemName}</div>
                       <div>{item.itmePrice}</div>
                     </S.Font>
                   </S.EachItem>
                 </Link>
-                ):(
-                item.state === state ? (
-                <Link to={`/detail/${item.id}`} key={item.id}>
+              ) : item.itemStatus === state ? (
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.EachItem>
                     <S.Item>
                       <img src={item.itemPicture} alt="goods"></img>
                     </S.Item>
                     <S.Font>
-                      <div>{item.title}</div>
+                      <div>{item.itemName}</div>
                       <div>{item.itmePrice}</div>
                     </S.Font>
                   </S.EachItem>
                 </Link>
-              ):(
-                null
-              )));
+              ) : null;
             })}
         </S.GoodsList>
       </S.MainList>

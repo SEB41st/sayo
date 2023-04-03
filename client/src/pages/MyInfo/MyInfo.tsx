@@ -32,11 +32,13 @@ const MyInfo = () => {
     `addresses`,
     "POST"
   );
+
+
   if (isLoading) return <Loading/>;
   if (error) return <Error/>;
 
   const users = data.data;
-  console.log(users)
+  // console.log(users)
 
   
 
@@ -66,20 +68,21 @@ const MyInfo = () => {
 
   const changeAddressConform = () => {
       mutate({
-      addressName:"주소명칭",
-      addressUserName:"회원이름",
-      phoneNumber:phoneNum,
-      postcode: addressCode,
-      roadAddress: addressDetail,
-      detailAddress:address})
-      alert("한줄평 내용이 입력되었습니다");
+        addressName:"주소명칭",
+        addressUserName:"회원이름",
+        phoneNumber:phoneNum,
+        postcode: addressCode,
+        roadAddress: addressDetail,
+        detailAddress:address})
+      console.log(phoneNum,addressCode,addressDetail,address)
+      alert("수정이 완료되었습니다");
       // refetch();
   };
 
 
   const changeAddress = () => {
     setChange(!change);
-    console.log(change)
+    // console.log(phoneNum)
   }
 
   const onChangeOpenPost = () => {
@@ -161,7 +164,7 @@ const MyInfo = () => {
           <>
             <S.MypageDiv>
               <span className="Name">핸드폰 번호</span>
-              {users.addressList.length === 0 ? null:( <span className="address">{users.addressList[0]} </span>)}
+              {users.addressList.length === 0 ? null:( <span className="address">{users.addressList[0].phoneNumber} </span>)}
             </S.MypageDiv>
             <S.MypageDiv>
               <span className="Name">주소</span>

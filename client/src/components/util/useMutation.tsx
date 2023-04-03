@@ -6,7 +6,7 @@ export const useCustomMutation = (url: string, queryKey: any, method: any) => {
   const queryClient = useQueryClient();
   const { data, isLoading, mutate } = useMutation(
     (suggest: any) => {
-      return axios(`http://localhost:4000${url}`, {
+      return axios(`http://sayo.n-e.kr:8080${url}`, {
         headers: { 'Content-Type': 'application/json' },
         method: method,
         data: suggest,

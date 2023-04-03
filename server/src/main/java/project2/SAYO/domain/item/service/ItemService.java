@@ -60,6 +60,8 @@ public class ItemService {
         updateItem.addCategory(category);
 
 
+
+
         return itemRepository.save(updateItem);
     }
 

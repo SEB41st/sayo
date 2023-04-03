@@ -107,14 +107,16 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                //.host(serverName)
-                .host("localhost")
+                .host(serverName)
+                // .host("localhost")
                 .port(3000) // 기본 포트가 80이기 때문에 괜찮다
                 .path("/login")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
     }
+
+
     /*return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")

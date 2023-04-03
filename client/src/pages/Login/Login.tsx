@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { convertToObject } from "typescript";
 import * as S from "./styled";
 
 
@@ -54,13 +55,14 @@ const Login = () => {
       .then((res) => {
         // console.log("accessToken", res.headers.authorization);
         // console.log("refreshToken", res.headers.refresh);
-        localStorage.setItem("accessToken", res.headers.accessToken);
+        localStorage.setItem("accessToken", res.headers.authorization);
         localStorage.setItem("refreshToken", res.headers.refresh);
         // console.log("userId", res.data.data.id);
         localStorage.setItem("userId", res.data.data.id);
         if (res.status === 200) {
           alert("로그인이 완료되었습니다!");
           navigate("/");
+          // console.log(res.headers)
         }
       })
       .catch((err) => {

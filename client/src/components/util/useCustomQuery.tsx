@@ -10,8 +10,8 @@ export const useCustomQuery = (url: string, queryKey: string) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Authorization:  localStorage.getItem("accessToken")
-          Authorization: localStorage.getItem("Authorization")
+          Authorization:  localStorage.getItem("accessToken")
+          // Authorization: localStorage.getItem("Authorization")
         },
       }).then((res) => {
         return res.data;

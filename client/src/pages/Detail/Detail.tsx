@@ -81,7 +81,7 @@ const Detail = () => {
           />}
           </div>
           <div className="ProductPrice">판매가 : {Items.itemPrice}원</div>
-          <div className="ProductFee">배송비 : {Items.itemDeliveryPrice}</div>
+          <div className="ProductFee">배송비 : {Items.itemDeliveryPrice}원</div>
           <div className="SalesSchedule">판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
             {/* <Calendar/> */}
           </div>

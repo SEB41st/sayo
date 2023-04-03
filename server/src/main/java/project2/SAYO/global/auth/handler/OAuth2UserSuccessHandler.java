@@ -102,7 +102,7 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         // queryParams.add("code", code)
 
         String serverName = request.getServerName();
-        // log.info("# serverName = {}",serverName);
+        log.info("# serverName = {}",serverName);
 
         return UriComponentsBuilder
                 .newInstance()

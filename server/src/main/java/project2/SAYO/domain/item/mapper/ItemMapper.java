@@ -20,8 +20,8 @@ public interface ItemMapper{
                 .itemBody(postRequest.getItemBody())
                 .itemDateStart(postRequest.getItemDateStart())
                 .itemDateEnd(postRequest.getItemDateEnd())
-                .latitude(postRequest.getLatitude())
-                .longitude(postRequest.getLongitude())
+                .latitude(postRequest.getLocation().get("latitude"))
+                .longitude(postRequest.getLocation().get("longitude"))
                 .itemStatus(Item.ItemStatus.ITEM_PROGRESS)
                 .build();
     }
@@ -37,8 +37,8 @@ public interface ItemMapper{
                 .itemBody(patchRequest.getItemBody())
                 .itemDateStart(patchRequest.getItemDateStart())
                 .itemDateEnd(patchRequest.getItemDateEnd())
-                .latitude(patchRequest.getLatitude())
-                .longitude(patchRequest.getLongitude())
+                .latitude(patchRequest.getLocation().get("latitude"))
+                .longitude(patchRequest.getLocation().get("longitude"))
                 .itemStatus(Item.ItemStatus.ITEM_PROGRESS)
                 .build();
     }

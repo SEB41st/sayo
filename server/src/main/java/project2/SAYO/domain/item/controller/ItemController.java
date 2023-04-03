@@ -36,7 +36,6 @@ public class ItemController {
     public ResponseEntity postItem(@Valid @RequestBody ItemDto.ItemPost postRequest,
                                    @LoginUserId Long userId){
 
-        log.info("## 컨트롤러에 들어옵니다.");
         Item item = mapper.itemPostDtoToItem(postRequest);
         Item itemResponse = itemService.createItem(userId, item, postRequest.getCategoryId());
         ItemDto.ItemResponse response = mapper.itemToItemResponseDto(itemResponse);

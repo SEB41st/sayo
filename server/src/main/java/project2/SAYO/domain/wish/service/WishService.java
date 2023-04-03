@@ -34,9 +34,9 @@ public class WishService {
         createWish.addUser(findUser);
         createWish.addItem(findItem);
         if (createWish.isWishSelected() != Boolean.TRUE) {
-            createWish.changeWishSelected(Boolean.FALSE);
-        } else {
             createWish.changeWishSelected(Boolean.TRUE);
+        } else {
+            createWish.changeWishSelected(Boolean.FALSE);
         }
 
         return wishRepository.save(createWish);

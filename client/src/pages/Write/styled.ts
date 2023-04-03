@@ -15,7 +15,7 @@ export const ImageDiv = styled.div`
   min-width: 50%;
   min-height: 100px;
   background-color: #fffdfd;
-  border: .1008px solid #d2cdcd;
+  border: 0.1008px solid #d2cdcd;
   border-radius: 10px;
   margin: 1.875rem;
 
@@ -25,12 +25,22 @@ export const ImageDiv = styled.div`
   }
 `;
 
+export const BtnDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 25%;
+
+  @media screen and (min-width: ${"80rem"}) {
+    margin-left: 32%;
+  }
+`;
+
 export const SubmitBtn = styled.button`
-  width: 65px;
+  width: 70px;
   height: 20px;
-  margin: 0 0 1.875rem 16.875rem;
+  margin: 0 0 10px 10px;
   color: #ffffff;
-  font-size: .625rem;
+  font-size: 0.625rem;
   background-color: #f9bb00;
   border-radius: 5px;
   cursor: pointer;
@@ -38,8 +48,8 @@ export const SubmitBtn = styled.button`
   @media screen and (min-width: ${"80rem"}) {
     width: 6.25rem;
     height: 2.1875rem;
-    margin: 0 0 3.125rem 37.5rem;
-    font-size: .9375rem;
+    margin: 0 0 60px 70px;
+    font-size: 0.9375rem;
   }
 `;
 
@@ -47,7 +57,7 @@ export const WriteForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-size: .75rem;
+  font-size: 0.75rem;
   width: 100%;
 
   @media screen and (min-width: ${"80rem"}) {
@@ -58,7 +68,7 @@ export const WriteForm = styled.form`
 export const InputDiv = styled.div`
   display: flex;
   margin: 0 0 20px 20px;
-  .input-datepicker{
+  .input-datepicker {
     margin-left: 18px;
   }
   @media screen and (min-width: ${"80rem"}) {
@@ -69,7 +79,7 @@ export const InputDiv = styled.div`
 export const InputLabel = styled.div`
   min-width: 90px;
   margin-left: 20px;
-  
+
   @media screen and (min-width: ${"80rem"}) {
     width: 120px;
   }
@@ -77,7 +87,7 @@ export const InputLabel = styled.div`
 
 export const WriteInput = styled.input`
   min-width: 80%;
-  border-bottom: .0625rem solid #999999;
+  border-bottom: 0.0625rem solid #999999;
 
   @media screen and (min-width: ${"700px"}) {
     min-width: 100%;
@@ -93,4 +103,4 @@ export const Day = styled.div`
   /* @media screen and (min-width: ${"700px"}) {
     position: absolute;
   } */
-`
+`;

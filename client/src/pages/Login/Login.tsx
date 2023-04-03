@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { convertToObject } from "typescript";
 import * as S from "./styled";
 
 
@@ -61,6 +62,7 @@ const Login = () => {
         if (res.status === 200) {
           alert("로그인이 완료되었습니다!");
           navigate("/");
+          // console.log(res.headers)
         }
       })
       .catch((err) => {

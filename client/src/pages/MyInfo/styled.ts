@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DaumPostcode from 'react-daum-postcode';
+
 
 export const MypageWrap = styled.div`
   width: 100vw;
@@ -93,5 +95,48 @@ export const LogoutBtn = styled.button`
     width: 100px;
     height: 35px;
     font-size: 15px;
+  }
+`;
+export const PostCode = styled.div`
+  margin: 15px;
+  /* display: flex; */
+  width: 80%;
+  @media screen and (max-width: ${"1280px"}) {
+    width: 90%;
+    }
+  .Name {
+    font-size: 1rem;
+    width: 40%;
+    @media screen and (min-width: ${"700px"}) {
+      font-size: 1.25rem;
+    }
+  }
+  .UserName {
+    font-size: 1rem;
+
+    /* @media screen and (min-width: ${"1280px"}) {
+      font-size: 1rem;
+    } */
+  }
+  .address{
+    font-size: 10px;
+    @media screen and (min-width: ${"1280px"}) {
+      font-size: 1rem;
+    }
+  }
+  button{
+    width: 100%;
+  }
+  .input{
+    margin-left: 20px;
+  }
+  .PostCodeStyle{
+    display: block;
+    position: relative;
+    top: -20%;
+    left: -20px;
+    width: 100%;
+    height: 100%;
+    padding: 7px;
   }
 `;

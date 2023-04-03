@@ -1,60 +1,54 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import Error from "../../components/Error/Error";
 import Loading from "../../components/Loading/Loading";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
-import { nickname } from "../../recoil/atom";
-import { useRecoilState } from "recoil";
+import DaumPostcode from 'react-daum-postcode';
+import { useCustomMutation } from "../../components/util/useMutation";
 
 const MyInfo = () => {
 
   // const {userId} = useParams()
   const userId = localStorage.getItem("userId");
-  const [getNickname, setNickname] = useRecoilState(nickname)
+  const [change, setChange] = useState<boolean>(false)
+  const [isOpenPost, setIsOpenPost] = useState<boolean>(false);
+  const [addressCode, setAddressCode] = useState(''); // 주소
+  const [address, setAddress] = useState(''); // 주소
+  const [addressDetail, setAddressDetail] = useState(''); // 상세주소
+  const [phoneNum, setPhoneNumber] = useState('')
+  // const [getNickname, setNickname] = useRecoilState(nickname)
   const navigate = useNavigate()
 
-  // const {data, isLoading, error} = useCustomQuery(
-  //   `/users/${userId}`,
-  //   `users=${userId}`
-  // )
+  const {data, isLoading, error} = useCustomQuery(
+    `/users/${userId}/mypage`,
+    `users=${userId}/mypage`
+  )
 
-  // if (isLoading) return <Loading/>;
-  // if (error) return <Error/>;
+  const { mutate } = useCustomMutation(
+    `/addresses`,
+    `addresses`,
+    "POST"
+  );
 
-  // const users = data;
+
+  if (isLoading) return <Loading/>;
+  if (error) return <Error/>;
+
+  const users = data.data;
   // console.log(users)
 
-
-  useEffect(()=> {
-    axios
-    .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
-    {
-      headers: {
-        // "Content-Type": "application/json;charset=UTF-8",
-        // Accept: "application/json",
-        // Authorization :localStorage.getItem("Authorization")
-        Authorization : localStorage.getItem("accessToken"),
-      },
-    })
-    .then((res) => {
-      console.log(res.data.data.profile[0])
-      setNickname(res.data.data.profile[0].nickname)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  },[])
+  
 
   const handleLogout = () => {
       axios
       .post(
         `http://sayo.n-e.kr:8080/users/logout`,
         {
-          Authorization : localStorage.getItem("Authorization"),
-          // refreshToken : localStorage.getItem("refreshToken")
+          Authorization : localStorage.getItem("accessToken"),
+          refreshToken : localStorage.getItem("refreshToken")
         },
       )
       .then((res) => {
@@ -69,23 +63,117 @@ const MyInfo = () => {
         window.location.reload()
       });
   };
+
+  
+
+  const changeAddressConform = () => {
+      mutate({
+        addressName:"주소명칭",
+        addressUserName:"회원이름",
+        phoneNumber:phoneNum,
+        postcode: addressCode,
+        roadAddress: addressDetail,
+        detailAddress:address})
+      console.log(phoneNum,addressCode,addressDetail,address)
+      alert("수정이 완료되었습니다");
+      // refetch();
+  };
+
+
+  const changeAddress = () => {
+    setChange(!change);
+    // console.log(phoneNum)
+  }
+
+  const onChangeOpenPost = () => {
+    setIsOpenPost(!isOpenPost);
+  };
+
+  const onCompletePost = (data:any) => {
+    let fullAddr = data.address;
+    console.log(data.address)
+    let extraAddr = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddr += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddr += extraAddr !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
+    }
+
+    setAddressCode(data.zonecode);
+    console.log(data.zonecode)
+    setAddressDetail(fullAddr);
+    setIsOpenPost(false);
+  };
+
+  const PhoneNumChange = (e:any) => {
+    console.log(e.target.value)
+    setPhoneNumber(e.target.value)
+  }
+
+  const addressChange = (e:any) => {
+    console.log(e.target.value)
+    setAddress(e.target.value)
+  }
+
     return (
         <S.MypageWrap>
         <S.MypageContainer>
-          <S.ImageDiv src="/assets/Github.png"></S.ImageDiv>
+          <S.ImageDiv src={users.profile[0].image}></S.ImageDiv>
           <S.MypageDiv>
             <span className="Name">이름</span>
-            <span className="UserName">{getNickname}</span>
+            <span className="UserName">{users.profile[0].nickname}</span>
           </S.MypageDiv>
-          <S.MypageDiv>
-            <span className="Name">핸드폰 번호</span>
-            <span className="address">010-2345-1234 </span>
-          </S.MypageDiv>
-          <S.MypageDiv>
-            <span className="Name">주소</span>
-            <span className="address">서울특별시 영등포구 0000로 00길 0000아파트 101동 101호 </span>
-          </S.MypageDiv>
-          <S.LogoutBtn>주소수정</S.LogoutBtn>
+          {change ? (
+          <>
+            <S.PostCode>
+              <span className="Name">핸드폰 번호</span>
+              <input
+              type="text"
+              className="input"
+              placeholder="'-'형태로 입력해주세요"
+              onChange={PhoneNumChange}
+              >
+              </input>
+
+            </S.PostCode>
+            <S.MypageDiv>
+              {/* <span >주소</span> */}
+              <button className="Name" onClick={onChangeOpenPost}>우편번호</button>
+              {isOpenPost  ? (
+            <S.PostCode><DaumPostcode className="PostCodeStyle" autoClose onComplete={onCompletePost} /></S.PostCode>
+          ) : null}{addressCode}
+            <br/><div>{addressDetail}</div>
+            </S.MypageDiv>
+            <S.MypageDiv>
+              <span className="Name">세부 주소</span>
+              <input
+              type="text"
+              placeholder="나머지 주소를 입력해주세요"
+              onChange={addressChange}
+              >
+              </input>
+            </S.MypageDiv>
+            <S.LogoutBtn onClick={changeAddressConform}>확인</S.LogoutBtn>
+          </>
+          ) : (
+          <>
+            <S.MypageDiv>
+              <span className="Name">핸드폰 번호</span>
+              {users.addressList.length === 0 ? null:( <span className="address">{users.addressList[0].phoneNumber} </span>)}
+            </S.MypageDiv>
+            <S.MypageDiv>
+              <span className="Name">주소</span>
+              {users.addressList.length === 0 ? null : (<span className="address">{users.addressList[0].roadAddress}, {users.addressList[0].detailAddress} </span>)}
+
+            </S.MypageDiv>
+            <S.LogoutBtn onClick={changeAddress}>주소수정</S.LogoutBtn>
+          </>
+          )}
         </S.MypageContainer>
         <S.ButtonDiv>
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>

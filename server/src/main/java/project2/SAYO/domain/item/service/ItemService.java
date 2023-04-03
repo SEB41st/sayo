@@ -55,8 +55,8 @@ public class ItemService {
         Item updateItem = beanUtils.copyNonNullProperties(item, findItem);
         updateItem.changeItemStatus(item.getItemStatus());
 
-        //카테고리 가져와 저장
-        Category category = categoryService.findCategory(categoryId);
+        // 카테고리 가져와 저장
+        Category category = categoryService.findCategory(updateItem.getCategory().getCategoryId());
         updateItem.addCategory(category);
 
 

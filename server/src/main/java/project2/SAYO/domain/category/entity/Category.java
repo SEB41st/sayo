@@ -36,6 +36,7 @@ public class Category {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category parent;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "itemId")
     private List<Item> itemList = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package project2.SAYO.domain.item.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import project2.SAYO.domain.category.entity.Category;
 import project2.SAYO.domain.user.entity.User;
@@ -47,10 +48,9 @@ public class Item extends Auditable {
 
     // 위도, 경도 추후 수정 필요
     @Column(nullable = false)
-    private double latitude; // 위도
+    private double latitude; // 경도
+    private double longitude; // 위도
 
-    @Column(nullable = false)
-    private double longitude; // 경도
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20)
@@ -80,6 +80,7 @@ public class Item extends Auditable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;

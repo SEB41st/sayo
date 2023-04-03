@@ -10,12 +10,12 @@ const Login = () => {
   const [searchParams] = useSearchParams();
   const [info, setInfo] = useState<{email:string, password:string}>({email:"",password:""})
 
-  const accessToken = searchParams.get("access_token") || null;
 
-  // const Authorization = searchParams.get("access_token") || null;
-  // const refresh_token = searchParams.get("refresh_token") || null;
-  const userId = searchParams.get("id") || null;
+
+  const accessToken = searchParams.get("access_token") || null;
   const refreshToken = searchParams.get("refresh_token") || null;
+  const userId = searchParams.get("id") || null;
+
   console.log(searchParams.get("refresh_token"))
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("userId", userId);
-      navigate("/");
+      // navigate("/");
       alert("로그인 성공")
     }
   }, []);

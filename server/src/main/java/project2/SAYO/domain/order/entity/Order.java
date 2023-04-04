@@ -30,7 +30,9 @@ public class Order extends Auditable {
     @JoinColumn(name="USER_ID")
     private User user;
 
-
+    @ManyToOne
+    @JoinColumn(name="ITEM_ID")
+    private Item item;
 
     public enum OrderStatus {
         PAYMENT_COMPLETED("결제 완료"),

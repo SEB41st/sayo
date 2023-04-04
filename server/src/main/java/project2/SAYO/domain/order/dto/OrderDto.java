@@ -1,6 +1,7 @@
 package project2.SAYO.domain.order.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project2.SAYO.domain.order.entity.Order;
@@ -26,6 +27,7 @@ public class OrderDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
+    @Builder
     public static class Response {
         private Long orderId;
         private Long orderPrice;

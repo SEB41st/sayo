@@ -1,8 +1,10 @@
 package project2.SAYO.domain.order.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
@@ -10,6 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
@@ -50,6 +53,7 @@ public class Order extends Auditable {
 
     }
     public void addUser(User user) {this.user = user;}
+    public void addItem(Item item) {this.item = item;}
     public void ChangeOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }

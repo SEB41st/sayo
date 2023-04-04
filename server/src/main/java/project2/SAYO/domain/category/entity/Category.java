@@ -40,6 +40,10 @@ public class Category {
     @OneToMany(mappedBy = "itemId")
     private List<Item> itemList = new ArrayList<>();
 
+    public void addItemList(List<Item> itemList) {
+        this.itemList = itemList;
+    }
+
     public Category(String categoryName, Category parent) {
         this.categoryName = categoryName;
         this.parent = parent;

@@ -36,8 +36,15 @@ public class CategoryService {
     }
 
     public List<Category> getAllCategory(){
-
-        return categoryRepository.findAllWhereParentIsNull();
+        List<Category> categoryList = categoryRepository.findAllWhereParentIsNull();
+//        categoryList.stream()
+//                .map(category ->  {
+//                    List<Item> itemList = category.getItemList().stream().map(item -> {
+//                        User user = User.builder().
+//                                build()
+//                    })
+//                })
+       return categoryList;
     }
 
 

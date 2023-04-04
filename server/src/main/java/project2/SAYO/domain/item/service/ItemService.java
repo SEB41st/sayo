@@ -59,9 +59,6 @@ public class ItemService {
         Category category = categoryService.findCategory(updateItem.getCategory().getCategoryId());
         updateItem.addCategory(category);
 
-
-
-
         return itemRepository.save(updateItem);
     }
 

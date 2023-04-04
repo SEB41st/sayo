@@ -1,12 +1,12 @@
 package project2.SAYO.domain.order.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project2.SAYO.domain.order.entity.Order;
 import reactor.util.annotation.Nullable;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
@@ -26,6 +26,7 @@ public class OrderDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
+    @Builder
     public static class Response {
         private Long orderId;
         private Long orderPrice;

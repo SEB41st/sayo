@@ -9,6 +9,7 @@ import project2.SAYO.domain.category.dto.CategoryDto;
 import project2.SAYO.domain.category.entity.Category;
 import project2.SAYO.domain.category.mapper.CategoryMapper;
 import project2.SAYO.domain.category.service.CategoryService;
+import project2.SAYO.domain.item.mapper.ItemMapper;
 import project2.SAYO.global.Response.SingleResponseDto;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper mapper;
+    private final ItemMapper itemMapper;
 
     @PostMapping
     public ResponseEntity createCategory(@Valid @RequestBody CategoryDto.CategoryRequest categoryRequest) {

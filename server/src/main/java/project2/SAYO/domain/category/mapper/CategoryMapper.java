@@ -11,5 +11,6 @@ import java.util.List;
 public interface CategoryMapper {
     Category categoryRequestToCategory(CategoryDto.CategoryRequest request);
     CategoryDto.CategoryResponse categoryToCategoryResponseDto(Category category);
-    List<CategoryDto.CategoryResponse> categoryListToCategoryResponseList(List<Category> category);
+    List<CategoryDto.CategoryResponse> categoryToCategoryResponseDto(List<Category> category);
+
 }

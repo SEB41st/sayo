@@ -4,6 +4,7 @@ import lombok.*;
 import project2.SAYO.domain.item.entity.Item;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class ItemDto {
         /*@NotBlank(message="상품 태그를 선택해주세요.")
         private String itemTag; // 상품 태그*/
 
-        @NotBlank(message = "공동구매 지역을 선택해주세요.")
+        @NotNull(message = "공동구매 지역을 선택해주세요.")
         private Map<String,Double> location = new HashMap<>();
         private Item.ItemStatus itemStatus;
     }
@@ -59,7 +60,7 @@ public class ItemDto {
         private String itemTag; // 상품 태그*/
         private Item.ItemStatus itemStatus; // 상품 진행 상태
         private long categoryId;
-        @NotBlank(message = "공동구매 지역을 선택해주세요.")
+        @NotNull(message = "공동구매 지역을 선택해주세요.")
         private Map<String,Double> location = new HashMap<>();
     }
 

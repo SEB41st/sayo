@@ -37,7 +37,8 @@ public class Category {
     private Category parent;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "itemId")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "itemId"
     private List<Item> itemList = new ArrayList<>();
 
     public void addItemList(List<Item> itemList) {

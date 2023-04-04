@@ -50,7 +50,6 @@ public class Order extends Auditable {
         OrderStatus(String status) {
             this.status = status;
         }
-
     }
     public void addUser(User user) {this.user = user;}
     public void addItem(Item item) {this.item = item;}

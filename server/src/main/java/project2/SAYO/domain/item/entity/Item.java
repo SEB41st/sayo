@@ -89,8 +89,7 @@ public class Item extends Auditable {
         this.category = category;
     }
 
-    public void addUser(User user){
+    public void addUser(User user) {
         this.user = user;
     }
-
 }

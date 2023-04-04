@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import project2.SAYO.domain.order.entity.Order;
 import reactor.util.annotation.Nullable;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 

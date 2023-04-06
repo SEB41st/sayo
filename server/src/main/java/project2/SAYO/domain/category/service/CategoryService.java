@@ -10,6 +10,7 @@ import project2.SAYO.global.exception.ExceptionCode;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,15 +38,16 @@ public class CategoryService {
 
     public List<Category> getAllCategory(){
         List<Category> categoryList = categoryRepository.findAllWhereParentIsNull();
-//        categoryList.stream()
-//                .map(category ->  {
-//                    List<Item> itemList = category.getItemList().stream().map(item -> {
-//                        User user = User.builder().
-//                                build()
-//                    })
-//                })
+
+        // 카테고리와 연관관계매핑되어있는 아이템에서 유저정보가 패스워드까지 나와 유저 null
+        categoryList.stream()
+                .map(category ->  {
+                    return category.getItemList().stream()
+                            .map(item -> {
+                                item.addUser(null);
+                                return item;
+                            }).collect(Collectors.toList());
+                }).collect(Collectors.toList());
        return categoryList;
     }
-
-
 }

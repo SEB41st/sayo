@@ -17,18 +17,21 @@ const Write = () => {
   const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
   const [goodsDetail, setGoodsDetail] = useState<string>("");
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
+  const [goodsCategoryId, setGoodsCategoryId] = useState<number>(0);
 
   const { mutate } = useCustomMutation(`/items`, `items`, "POST");
 
   const submitKeyPress = () => {
     mutate({
       itemName: goodsName,
+      itemPicture: "https://i.ibb.co/t3vdVB0/goods.png",
       itemPrice: goodsPrice,
       itemDeliveryPrice: deliveryCharge,
       itemDateStart: startDate,
       itemDateEnd: endDate,
       itemBody: goodsDetail,
       location: markLocation,
+      categoryId: goodsCategoryId
     });
   };
 
@@ -84,7 +87,7 @@ const Write = () => {
             <S.WriteInput
               type="text"
               onChange={(e) => {
-                setDeliveryCharge(Number(e.target.value));
+                setGoodsCategoryId(Number(e.target.value));
               }}
             />
           </S.InputDiv>
@@ -129,7 +132,7 @@ const Write = () => {
             <S.InputLabel>위치</S.InputLabel>
             판매 위치를 아래 지도의 마커로 표시해주세요
           </S.InputDiv>
-          <MapLocation></MapLocation>
+          <MapLocation />
         </S.WriteForm>
       </S.WriteContainer>
     </S.WriteWrap>

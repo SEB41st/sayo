@@ -87,7 +87,7 @@ const Write = () => {
           <S.InputDiv>
             <S.InputLabel> 카테고리</S.InputLabel>
             <select onChange={selectChange}>
-              <option selected disabled>
+              <option defaultValue="카테고리를 선택해주세요" disabled>
                 카테고리를 선택해주세요
               </option>
               <option value="1">의류</option>

@@ -17,7 +17,12 @@ const Write = () => {
   const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
   const [goodsDetail, setGoodsDetail] = useState<string>("");
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
-  const [goodsCategoryId, setGoodsCategoryId] = useState<number>(0);
+  const [goodsCategoryId, setGoodsCategoryId] = useState<number>(1);
+
+  //카테고리 id 값을 보냄
+  const selectChange = (e: any) => {
+    setGoodsCategoryId(Number(e.target.value));
+  };
 
   const { mutate } = useCustomMutation(`/items`, `items`, "POST");
 
@@ -31,18 +36,15 @@ const Write = () => {
       itemDateEnd: endDate,
       itemBody: goodsDetail,
       location: markLocation,
-      categoryId: goodsCategoryId
+      categoryId: goodsCategoryId,
     });
   };
 
   // 이미지 업로드 api
-  const submitImage = () => {
-  
-  };
-
+  const submitImage = () => {};
 
   // console.log(goodsName)
-  console.log(startDate, endDate);
+  // console.log(startDate, endDate);
   return (
     <S.WriteWrap>
       <S.WriteContainer>
@@ -84,12 +86,14 @@ const Write = () => {
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 카테고리</S.InputLabel>
-            <S.WriteInput
-              type="text"
-              onChange={(e) => {
-                setGoodsCategoryId(Number(e.target.value));
-              }}
-            />
+            <select onChange={selectChange}>
+              <option selected disabled>
+                카테고리를 선택해주세요
+              </option>
+              <option value="1">의류</option>
+              <option value="2">음식</option>
+              <option value="3">생활용품</option>
+            </select>
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel>공구시작</S.InputLabel>

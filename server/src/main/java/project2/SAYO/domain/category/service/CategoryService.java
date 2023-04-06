@@ -50,6 +50,4 @@ public class CategoryService {
                 }).collect(Collectors.toList());
        return categoryList;
     }
-
-
 }

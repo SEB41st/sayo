@@ -91,8 +91,8 @@ const Write = () => {
                 카테고리를 선택해주세요
               </option>
               <option value="1">의류</option>
-              <option value="2">음식</option>
               <option value="3">생활용품</option>
+              <option value="6">컴퓨터</option>
             </select>
           </S.InputDiv>
           <S.InputDiv>

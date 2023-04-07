@@ -17,37 +17,42 @@ const Write = () => {
   const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
   const [goodsDetail, setGoodsDetail] = useState<string>("");
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
+  const [goodsCategoryId, setGoodsCategoryId] = useState<number>(1);
+
+  //카테고리 id 값을 보냄
+  const selectChange = (e: any) => {
+    setGoodsCategoryId(Number(e.target.value));
+  };
 
   const { mutate } = useCustomMutation(`/items`, `items`, "POST");
 
   const submitKeyPress = () => {
     mutate({
       itemName: goodsName,
+      itemPicture: "https://i.ibb.co/t3vdVB0/goods.png",
       itemPrice: goodsPrice,
       itemDeliveryPrice: deliveryCharge,
       itemDateStart: startDate,
       itemDateEnd: endDate,
       itemBody: goodsDetail,
       location: markLocation,
+      categoryId: goodsCategoryId,
     });
   };
 
   // 이미지 업로드 api
-  const submitImage = () => {
-  
-  };
-
+  const submitImage = () => {};
 
   // console.log(goodsName)
-  console.log(startDate, endDate);
+  // console.log(startDate, endDate);
   return (
     <S.WriteWrap>
       <S.WriteContainer>
-        <S.ImageDiv>
+        {/* <S.ImageDiv> */}
           <ModifyImage />
-        </S.ImageDiv>
+        {/* </S.ImageDiv> */}
         <S.BtnDiv>
-          <S.SubmitBtn onClick={submitImage}>이미지 업로드</S.SubmitBtn>
+          {/* <S.SubmitBtn onClick={submitImage}>이미지 업로드</S.SubmitBtn> */}
           <S.SubmitBtn onClick={submitKeyPress}>등록하기</S.SubmitBtn>
         </S.BtnDiv>
 
@@ -81,12 +86,14 @@ const Write = () => {
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 카테고리</S.InputLabel>
-            <S.WriteInput
-              type="text"
-              onChange={(e) => {
-                setDeliveryCharge(Number(e.target.value));
-              }}
-            />
+            <select onChange={selectChange}>
+              <option defaultValue="카테고리를 선택해주세요" disabled>
+                카테고리를 선택해주세요
+              </option>
+              <option value="1">의류</option>
+              <option value="2">음식</option>
+              <option value="3">생활용품</option>
+            </select>
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel>공구시작</S.InputLabel>
@@ -129,7 +136,7 @@ const Write = () => {
             <S.InputLabel>위치</S.InputLabel>
             판매 위치를 아래 지도의 마커로 표시해주세요
           </S.InputDiv>
-          <MapLocation></MapLocation>
+          <MapLocation />
         </S.WriteForm>
       </S.WriteContainer>
     </S.WriteWrap>

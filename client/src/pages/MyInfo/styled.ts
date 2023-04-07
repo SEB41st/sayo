@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import DaumPostcode from 'react-daum-postcode';
 
 
 export const MypageWrap = styled.div`

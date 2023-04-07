@@ -58,7 +58,11 @@ const ModifyImage = () => {
 
   return (
     <S.ModifyImageWrapper>
-      <label htmlFor="productImg">이미지 추가 </label>
+      
+      <img
+        src={imgFile ? imgFile : "https://i.ibb.co/t3vdVB0/goods.png"}
+        alt="프로필 이미지"
+      />
       <input
         type="file"
         accept="image/*"
@@ -68,8 +72,12 @@ const ModifyImage = () => {
         // ref={inputRef}
         // onChange={onUploadImage}
       />
+      <label htmlFor="productImg">
+        <div className="upLoad">이미지 업로드</div>
+      </label>
+      {/* <button type="button" id="productImg">이미지 추가</button> */}
       {/* <button onClick={onUploadImageButtonClick} /> */}
-      <img src={imgFile}></img>
+      {/* <img src={imgFile} alt="productImage"></img> */}
     </S.ModifyImageWrapper>
   );
 };

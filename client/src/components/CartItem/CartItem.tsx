@@ -34,6 +34,9 @@ const CartItem = () => {
   if (isLoading ) return <Loading/>;
   if (error) return <Error/>;
 
+  const Items = data.data;
+
+  console.log(Items);
   // useEffect(() => { 
   //   axios.get(`http://sayo.n-e.kr:8080/shoppingCarts`)
   //   .then(res => {
@@ -75,8 +78,8 @@ const CartItem = () => {
 
   return (
     <S.PaymentDiv>
-      {products &&
-        products.map((item: any) => (
+      {Items &&
+        Items.map((item: any) => (
           <S.ProductDiv key={item.id} >
             <S.ProductInfoDiv>
               <S.CheckboxDiv>

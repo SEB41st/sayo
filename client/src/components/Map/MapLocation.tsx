@@ -54,9 +54,6 @@ const MapLocation = () => {
     }
   };
 
-  
-  console.log("clickPoint", markLocation)
-
   return (
     <>
     {location && (

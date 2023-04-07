@@ -7,7 +7,10 @@ export const useCustomMutation = (url: string, queryKey: any, method: any) => {
   const { data, isLoading, mutate } = useMutation(
     (suggest: any) => {
       return axios(`http://sayo.n-e.kr:8080${url}`, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem("accessToken")
+        },
         method: method,
         data: suggest,
       }, 

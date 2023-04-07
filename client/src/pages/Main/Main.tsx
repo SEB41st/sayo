@@ -14,7 +14,7 @@ const Main = (props: any) => {
       <S.LogoImg src="/assets/Sayo.png" alt=""></S.LogoImg>
       <S.MainList>
         <S.Line />
-        <S.Title>강남구 공동구매 상품</S.Title>
+        <S.Title>공동구매 상품</S.Title>
         <S.Menus>
           <h4 className="font">
             전체보기

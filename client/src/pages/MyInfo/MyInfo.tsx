@@ -38,7 +38,7 @@ const MyInfo = () => {
   if (error) return <Error/>;
 
   const users = data.data;
-  // console.log(users)
+  console.log(users)
 
   
 
@@ -64,9 +64,29 @@ const MyInfo = () => {
       });
   };
 
-  
+  const handleunregister = () => {
+    axios({
+        method:"delete",
+        url:`http://sayo.n-e.kr:8080/users/${userId}`,
+        headers: {
+        Authorization : localStorage.getItem("accessToken"),
+        refreshToken : localStorage.getItem("refreshToken")
+      }
+      }
+    )
+    .then((res) => {
+      // navigate("/");
+      // window.location.reload()
+      console.log("성공")
+    })
+    .catch((err) => {
+      console.log(err);
+      // navigate("/");
+      // window.location.reload()
+    });
+};
 
-  const changeAddressConform = () => {
+  const addAddressConform = () => {
       mutate({
         addressName:"주소명칭",
         addressUserName:"회원이름",
@@ -120,6 +140,33 @@ const MyInfo = () => {
     setAddress(e.target.value)
   }
 
+  const changeAddressConform = () => {
+    axios
+      ({
+        method:"patch",
+        url:`http://sayo.n-e.kr:8080/addresses/${users.addressList[0].addressId}`,
+        headers:{
+        'Content-Type': 'application/json',
+        Authorization : localStorage.getItem("accessToken"),
+        refreshToken : localStorage.getItem("refreshToken")
+        },
+        data: {
+          addressName:"주소명칭",
+          addressUserName:"회원이름",
+          phoneNumber:phoneNum,
+          postcode: addressCode,
+          roadAddress: addressDetail,
+          detailAddress:address
+        }
+      })
+    .then((res) => {
+      console.log(res)
+      window.location.reload()
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
     return (
         <S.MypageWrap>
         <S.MypageContainer>
@@ -158,7 +205,10 @@ const MyInfo = () => {
               >
               </input>
             </S.MypageDiv>
-            <S.LogoutBtn onClick={changeAddressConform}>확인</S.LogoutBtn>
+            {users.addressList.length === 0 ? 
+              <S.LogoutBtn onClick={addAddressConform}>확인</S.LogoutBtn>:
+              <S.LogoutBtn onClick={changeAddressConform}>확인</S.LogoutBtn>
+            }
           </>
           ) : (
           <>
@@ -171,13 +221,16 @@ const MyInfo = () => {
               {users.addressList.length === 0 ? null : (<span className="address">{users.addressList[0].roadAddress}, {users.addressList[0].detailAddress} </span>)}
 
             </S.MypageDiv>
-            <S.LogoutBtn onClick={changeAddress}>주소수정</S.LogoutBtn>
+            {users.addressList.length === 0 ? 
+              <S.LogoutBtn onClick={changeAddress}>주소추가</S.LogoutBtn>:
+              <S.LogoutBtn onClick={changeAddress}>주소수정</S.LogoutBtn>
+            }
           </>
           )}
         </S.MypageContainer>
         <S.ButtonDiv>
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
-          <S.LogoutBtn>회원탈퇴</S.LogoutBtn>
+          <S.LogoutBtn onClick={handleunregister}>회원탈퇴</S.LogoutBtn>
         </S.ButtonDiv>
       </S.MypageWrap>
     )

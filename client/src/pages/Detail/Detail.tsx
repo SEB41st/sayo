@@ -14,6 +14,7 @@ import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { likeState } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
+import axios from "axios";
 
 export interface LatLng {
   latitude: any;
@@ -44,6 +45,33 @@ const Detail = () => {
   const location: any = Items.location;
   console.log(location);
 
+
+  const handleLikeBtn = () => {
+    axios
+      ({
+        method:"post",
+        url:`http://sayo.n-e.kr:8080/wishes/${itemId}`,
+        headers:{
+        'Content-Type': 'application/json',
+        Authorization : localStorage.getItem("accessToken"),
+        refreshToken : localStorage.getItem("refreshToken")
+      }},
+    )
+    .then((res) => {
+      console.log(res)
+      setLike(!like)
+      // localStorage.clear();
+      // navigate("/");
+      // window.location.reload()
+    })
+    .catch((err) => {
+      console.log(err);
+      // localStorage.clear();
+      // navigate("/");
+      // window.location.reload()
+    });
+};
+
   // setSalesLocation(location)
   // const longitude: any = Items.location.Ma;
 
@@ -54,10 +82,10 @@ const Detail = () => {
     SetModalOpen(false);
   };
 
-  const handleLikeBtn = () => {
-    setLike(!like)
-    console.log(like)
-  }
+  // const handleLikeBtn = () => {
+  //   setLike(!like)
+  //   console.log(like)
+  // }
 
   return (
     <S.DetailWrap>

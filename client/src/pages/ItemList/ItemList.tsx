@@ -4,11 +4,31 @@ import { LogoImg, Line } from "../Main/styled";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Item } from "../../components/ItemsSlider/styled";
+import axios from "axios";
 
 
 const ItemList = () => {
-  const [state, setState] = useState("전체");
+  const [state, setState] = useState<string>("전체");
+  const [category, setCategory] = useState<string[]>([]);
+
+    useEffect(()=> {
+        axios
+        .get(`http://sayo.n-e.kr:8080/categories`,
+        {
+          headers: {
+            Authorization : localStorage.getItem("accessToken"),
+          },
+        })
+        .then((res) => {
+          setCategory(res.data.data)
+          console.log(category)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },[])
 
   const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
 
@@ -17,22 +37,12 @@ const ItemList = () => {
 
   const Items = data.data;
 
-  console.log(Items);
+  // console.log(Items);
 
   const ChangeCategory = (e:any) => {
-    console.log(e.target.id)
-    setState(e.target.id)
+    setState(String(e.target.id))
   }
-  console.log(Items)
-
-  // const cartegoryFilterSale =  Items.filter((item:any) => 
-  //   item.itemStatus === "ITEM_PROGRESS"
-  // )
-
-  // const cartegoryFilterFin =  Items.filter((item:any) => 
-  //   item.itemStatus === "ITEM_END"
-  // )
-
+  // console.log(Items)
 
   return (
     <S.Main>
@@ -45,10 +55,12 @@ const ItemList = () => {
         </S.WriteButton>
 
         <S.Categorys>
-          <S.Category onClick={ChangeCategory}>전체</S.Category>
-          <S.Category onClick={ChangeCategory}>음식</S.Category>
-          <S.Category onClick={ChangeCategory}>의류</S.Category>
-          <S.Category onClick={ChangeCategory}>생활용품</S.Category>
+          <S.Category onClick={ChangeCategory} id="전체">전체</S.Category>
+          {
+            //Todo : 눌러진 상태 확인할 수 있게 css 수정
+          category && category.map((category:any)=>{
+            return <S.Category onClick={ChangeCategory} id={category.categoryId}> {category.categoryName}</S.Category>
+          })}
         </S.Categorys>
 
         <S.Tags>
@@ -71,7 +83,8 @@ const ItemList = () => {
                     </S.Font>
                   </S.EachItem>
                 </Link>
-              ) : item.itemStatus === state ? (
+                //Todo : category와 판매 state를 중복으로 선택했을 때 filter체크
+              ) : String(item.categoryId) === state ? (
                 <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.EachItem>
                     <S.Item>
@@ -83,7 +96,19 @@ const ItemList = () => {
                     </S.Font>
                   </S.EachItem>
                 </Link>
-              ) : null;
+              ) : item.itemStatus === state ? (
+                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
+                  <S.EachItem>
+                    <S.Item>
+                      <img src={item.itemPicture} alt="goods"></img>
+                    </S.Item>
+                    <S.Font>
+                      <div>{item.itemName}</div>
+                      <div>{item.itmePrice}</div>
+                    </S.Font>
+                  </S.EachItem>
+                </Link>)
+              : null;
             })}
         </S.GoodsList>
       </S.MainList>

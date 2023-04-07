@@ -16,29 +16,36 @@ const Mypage = () => {
   const params = useLocation();
   const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
-    axios
-      .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
-        headers: {
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res) => {
-        setNickName(res.data.data.profile[0].nickname);
-        console.log(res.data.data.profile[0].nickname);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
+  const { data, isLoading, error, refetch } = useCustomQuery(
+    `/users/${userId}/mypage`,
+    `userId=${userId}`
+  );
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
+  //       headers: {
+  //         Authorization: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setNickName(res.data.data.profile[0].nickname);
+  //       console.log(res.data.data.profile[0].nickname);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  if (isLoading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
 
   // const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
   // if (isLoading) return <Loading />;
   // if (error) return <Error />;
 
-  // const Items = data.data;
-  // console.log(Items);
+  const Items = data.data;
+  console.log(Items);
 
   const openModal = () => {
     SetModalOpen(true);
@@ -81,8 +88,8 @@ const Mypage = () => {
     <S.MypageWrap>
       <div className="Title">마이페이지</div>
       <S.MypageContainer>
-        <S.ImageDiv src="/assets/Github.png"></S.ImageDiv>
-        <div className="Nickname">{nickName}</div>
+        <S.ImageDiv src={Items.profile[0].image}></S.ImageDiv>
+        <div className="Nickname">{Items.profile[0].nickname}</div>
       </S.MypageContainer>
       <S.Line />
       <S.Lists>

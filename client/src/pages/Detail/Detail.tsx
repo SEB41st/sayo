@@ -83,6 +83,16 @@ const Detail = () => {
 
   const Items = data.data;
 
+  console.log(Items);
+
+  const location: any = Items.location;
+  console.log(location);
+
+
+
+  // setSalesLocation(location)
+  // const longitude: any = Items.location.Ma;
+
   const openModal = () => {
     SetModalOpen(true);
   };

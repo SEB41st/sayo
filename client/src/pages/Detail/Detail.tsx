@@ -15,6 +15,7 @@ import { MapMarker } from "react-kakao-maps-sdk";
 import { likeState } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
+import { useCustomMutation } from "../../components/util/useMutation";
 
 export interface LatLng {
   latitude: any;
@@ -22,18 +23,60 @@ export interface LatLng {
 }
 
 const Detail = () => {
-  // const [SalesLocation], setSalesLocation] = useState<LatLng[]>( latitude:"", longitude:"" );
-
-  // const [SalesLocation, setSalesLocation] = useState< Array<any> >([]);
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
-  const [like, setLike] = useRecoilState(likeState)
+  const [like, setLike] = useRecoilState(likeState);
 
   const { itemId } = useParams();
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://whatu1.kro.kr:8080/wishes/${wishId}`,
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json;charset=UTF-8",
+  //         Accept: "application/json",
+  //         "AutHorization" : localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((res) => {
+
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   }, []);
 
   const { data, isLoading, error, refetch } = useCustomQuery(
     `/items/get/${itemId}`,
     `/items/get/=${itemId}`
   );
+
+  const { mutate } = useCustomMutation(
+    `/wishes/${itemId}`,
+    `/wishes/${itemId}`,
+    "POST"
+  );
+  // const { mutate } = useCustomMutation(`/shoppingCarts/items/${itemId}`, `/shoppingCarts/items/${itemId}`, "POST");
+
+  const PostCart = async () => {
+    await axios
+      (`http://sayo.n-e.kr:8080/shoppingCarts/items/${itemId}`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          AutHorization: localStorage.getItem("accessToken"),
+        }
+      })
+      .then((res) => {
+        console.log(res);
+        SetModalOpen(true);
+        // toast.success("선택하신 내용이 삭제되었습니다");
+        // refetch();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
@@ -46,31 +89,6 @@ const Detail = () => {
   console.log(location);
 
 
-  const handleLikeBtn = () => {
-    axios
-      ({
-        method:"post",
-        url:`http://sayo.n-e.kr:8080/wishes/${itemId}`,
-        headers:{
-        'Content-Type': 'application/json',
-        Authorization : localStorage.getItem("accessToken"),
-        refreshToken : localStorage.getItem("refreshToken")
-      }},
-    )
-    .then((res) => {
-      console.log(res)
-      setLike(!like)
-      // localStorage.clear();
-      // navigate("/");
-      // window.location.reload()
-    })
-    .catch((err) => {
-      console.log(err);
-      // localStorage.clear();
-      // navigate("/");
-      // window.location.reload()
-    });
-};
 
   // setSalesLocation(location)
   // const longitude: any = Items.location.Ma;
@@ -83,38 +101,66 @@ const Detail = () => {
   };
 
   // const handleLikeBtn = () => {
-  //   setLike(!like)
-  //   console.log(like)
+  //   setLike(!like);
+  //   mutate(like);
+  // };
+
+  // const handlePostCart = () => {
+  //   // setLike(!like)
+  //   mutate(openModal)
   // }
+
+  const handleLikeBtn = () => {
+    // if (!isLogin) return navigate("/login");
+    axios
+      (`http://sayo.n-e.kr:8080/wishes/${itemId}`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        setLike(!like);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <S.DetailWrap>
       <S.DetailContainer>
         <S.ImageDiv>
-          <div className="ProductImg" >
-           <img src={Items.itemPicture} alt="goods"></img> 
+          <div className="ProductImg">
+            <img src={Items.itemPicture} alt="goods"></img>
           </div>
         </S.ImageDiv>
         <S.ProductInfoDiv>
           <div className="Product">
             <div className="ProductName">{Items.itemName}</div>
-            {like ? <BsHeartFill
-              onClick={handleLikeBtn}
-              size="20"
-              style={{ marginLeft: "10px", color: "#d3d3d3" }}
-            />:<BsHeartFill
-            size="20"
-            onClick={handleLikeBtn}
-            style={{ marginLeft: "10px", color: "#eb1717" }}
-          />}
+            {like ? (
+              <BsHeartFill
+                onClick={handleLikeBtn}
+                size="20"
+                style={{ marginLeft: "10px", color: "#d3d3d3" }}
+              />
+            ) : (
+              <BsHeartFill
+                size="20"
+                onClick={handleLikeBtn}
+                style={{ marginLeft: "10px", color: "#eb1717" }}
+              />
+            )}
           </div>
           <div className="ProductPrice">판매가 : {Items.itemPrice}원</div>
           <div className="ProductFee">배송비 : {Items.itemDeliveryPrice}원</div>
-          <div className="SalesSchedule">판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
+          <div className="SalesSchedule">
+            판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
             {/* <Calendar/> */}
           </div>
           <S.ButtonDiv>
-            <S.CartBtn onClick={openModal}>장바구니</S.CartBtn>
+            <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>
             <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
             </S.BuyBtn>
@@ -132,17 +178,19 @@ const Detail = () => {
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemBody}</div>
         <div className="DetailLocation">위치</div>
-        {/* <Maps
+        <Maps
           center={{
-            lat: location.latitude,
-            lng: location.longitude,
+            lat: Items.latitude,
+            lng: Items.longitude,
           }}
           isPanto={true}
         >
-          {location && (
-            <MapMarker position={{ lat: location.latitude, lng: location.longitude }} />
+          {Items && (
+            <MapMarker
+              position={{ lat: Items.latitude, lng: Items.longitude }}
+            />
           )}
-        </Maps> */}
+        </Maps>
       </S.DetailDiv>
     </S.DetailWrap>
   );

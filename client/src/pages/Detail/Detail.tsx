@@ -23,9 +23,8 @@ export interface LatLng {
 }
 
 const Detail = () => {
-
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
-  const [like, setLike] = useRecoilState(likeState)
+  const [like, setLike] = useRecoilState(likeState);
 
   const { itemId } = useParams();
 
@@ -52,22 +51,25 @@ const Detail = () => {
     `/items/get/=${itemId}`
   );
 
-  const { mutate } = useCustomMutation(`/wishes/${itemId}`, `/wishes/${itemId}`, "POST");
+  const { mutate } = useCustomMutation(
+    `/wishes/${itemId}`,
+    `/wishes/${itemId}`,
+    "POST"
+  );
   // const { mutate } = useCustomMutation(`/shoppingCarts/items/${itemId}`, `/shoppingCarts/items/${itemId}`, "POST");
 
   const PostCart = async () => {
-    
     await axios
-      .post(`http://sayo.n-e.kr:8080/shoppingCarts/items/${itemId}`, 
-      {
+      (`http://sayo.n-e.kr:8080/shoppingCarts/items/${itemId}`, {
+        method: "post",
         headers: {
           "Content-Type": "application/json",
           AutHorization: localStorage.getItem("accessToken"),
-        },
-      }
-      )
+        }
+      })
       .then((res) => {
         console.log(res);
+        SetModalOpen(true);
         // toast.success("선택하신 내용이 삭제되었습니다");
         // refetch();
       })
@@ -75,7 +77,6 @@ const Detail = () => {
         console.log(err);
       });
   };
-
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
@@ -89,62 +90,63 @@ const Detail = () => {
     SetModalOpen(false);
   };
 
-  const handleLikeBtn = () => {
-    setLike(!like)
-    mutate(like)
-  }
+  // const handleLikeBtn = () => {
+  //   setLike(!like);
+  //   mutate(like);
+  // };
 
   // const handlePostCart = () => {
   //   // setLike(!like)
   //   mutate(openModal)
   // }
 
-
-
-//   const handleLikeBtn =  () => {
-//     // if (!isLogin) return navigate("/login");
-// axios
-//       .post(
-//         `http://sayo.n-e.kr:8080/wishes/${itemId}`, {
-//           headers: {
-//             Authorization: accessToken.split('Bearer ' )[1]
-//         }
-//   })
-//       .then((res) => {
-//         console.log(res)
-//         // setDeprecate(!deprecate);
-//         // refetch();
-//         // toast.success("비추천이 완료되었습니다");
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
+  const handleLikeBtn = () => {
+    // if (!isLogin) return navigate("/login");
+    axios
+      (`http://sayo.n-e.kr:8080/wishes/${itemId}`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        setLike(!like);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <S.DetailWrap>
       <S.DetailContainer>
         <S.ImageDiv>
-          <div className="ProductImg" >
-           <img src={Items.itemPicture} alt="goods"></img> 
+          <div className="ProductImg">
+            <img src={Items.itemPicture} alt="goods"></img>
           </div>
         </S.ImageDiv>
         <S.ProductInfoDiv>
           <div className="Product">
             <div className="ProductName">{Items.itemName}</div>
-            {like ? <BsHeartFill
-              onClick={handleLikeBtn}
-              size="20"
-              style={{ marginLeft: "10px", color: "#d3d3d3" }}
-            />:<BsHeartFill
-            size="20"
-            onClick={handleLikeBtn}
-            style={{ marginLeft: "10px", color: "#eb1717" }}
-          />}
+            {like ? (
+              <BsHeartFill
+                onClick={handleLikeBtn}
+                size="20"
+                style={{ marginLeft: "10px", color: "#d3d3d3" }}
+              />
+            ) : (
+              <BsHeartFill
+                size="20"
+                onClick={handleLikeBtn}
+                style={{ marginLeft: "10px", color: "#eb1717" }}
+              />
+            )}
           </div>
           <div className="ProductPrice">판매가 : {Items.itemPrice}원</div>
           <div className="ProductFee">배송비 : {Items.itemDeliveryPrice}원</div>
-          <div className="SalesSchedule">판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
+          <div className="SalesSchedule">
+            판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
             {/* <Calendar/> */}
           </div>
           <S.ButtonDiv>
@@ -174,7 +176,9 @@ const Detail = () => {
           isPanto={true}
         >
           {Items && (
-            <MapMarker position={{ lat: Items.latitude, lng: Items.longitude }} />
+            <MapMarker
+              position={{ lat: Items.latitude, lng: Items.longitude }}
+            />
           )}
         </Maps>
       </S.DetailDiv>

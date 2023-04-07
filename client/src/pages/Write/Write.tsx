@@ -48,11 +48,11 @@ const Write = () => {
   return (
     <S.WriteWrap>
       <S.WriteContainer>
-        <S.ImageDiv>
+        {/* <S.ImageDiv> */}
           <ModifyImage />
-        </S.ImageDiv>
+        {/* </S.ImageDiv> */}
         <S.BtnDiv>
-          <S.SubmitBtn onClick={submitImage}>이미지 업로드</S.SubmitBtn>
+          {/* <S.SubmitBtn onClick={submitImage}>이미지 업로드</S.SubmitBtn> */}
           <S.SubmitBtn onClick={submitKeyPress}>등록하기</S.SubmitBtn>
         </S.BtnDiv>
 

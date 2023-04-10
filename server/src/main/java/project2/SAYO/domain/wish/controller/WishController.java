@@ -1,7 +1,6 @@
 package project2.SAYO.domain.wish.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -10,7 +9,6 @@ import project2.SAYO.domain.wish.dto.WishDto;
 import project2.SAYO.domain.wish.entity.Wish;
 import project2.SAYO.domain.wish.mapper.WishMapper;
 import project2.SAYO.domain.wish.service.WishService;
-import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
 
@@ -47,13 +45,11 @@ public class WishController {
     }
 
     // TODO GET ALL
-    @GetMapping
-    public ResponseEntity getWishes(@Positive @RequestParam int page,
-                                           @Positive @RequestParam int size) {
-        Page<Wish> wishPage = wishService.findWishes(page-1,size);
-        List<Wish> wishList = wishPage.getContent();
+    @GetMapping("/user/{user-id}/wish")
+    public ResponseEntity getWishes(@Valid @PathVariable("wish-id") @LoginUserId Long userId) {
+        List<Wish> wishList = wishService.findWishes(userId);
         List<WishDto.Response> shoppingCartResponseList = mapper.WishListToWishResponseList(wishList);
-        return new ResponseEntity(new MultiResponseDto<>(shoppingCartResponseList,wishPage),HttpStatus.OK);
+        return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponseList),HttpStatus.OK);
     }
 
     // TODO DELETE ONE

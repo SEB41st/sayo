@@ -1,9 +1,6 @@
 package project2.SAYO.domain.wish.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.domain.item.entity.Item;
@@ -15,7 +12,9 @@ import project2.SAYO.domain.wish.repository.WishRepository;
 import project2.SAYO.global.exception.BusinessLogicException;
 import project2.SAYO.global.exception.ExceptionCode;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,13 +50,22 @@ public class WishService {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
 
+        //wish가 false라면 exception 발생
+        if(findWish.isWishSelected() != Boolean.TRUE){
+            throw new BusinessLogicException(ExceptionCode.WISH_NOT_FOUND);
+        }
+
         return findWish;
     }
 
     // TODO GET ALL
     @Transactional
-    public Page<Wish> findWishes(int page, int size) {
-        return wishRepository.findAll(PageRequest.of(page,size, Sort.by("wishId").descending()));
+    public List<Wish> findWishes(long userId) {
+        //wish에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
+        return wishRepository.findAll().stream()
+                .filter(wish -> wish.getUser().getId() == userId)
+                .filter(a -> a.isWishSelected() == Boolean.TRUE)
+                .collect(Collectors.toList());
     }
 
     // TODO DELETE ONE

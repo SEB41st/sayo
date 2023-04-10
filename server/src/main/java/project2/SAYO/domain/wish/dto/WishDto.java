@@ -38,6 +38,9 @@ public class WishDto {
     @Builder
     public static class Response {
         private long itemId;
+        private String itemName;
+        private long itemPrice;
+        private String itemPicture;
         private long userId;
         private long wishId;
         private boolean wishSelected;

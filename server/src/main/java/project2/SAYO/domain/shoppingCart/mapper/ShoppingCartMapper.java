@@ -18,7 +18,7 @@ public interface ShoppingCartMapper {
                 .itemName(shoppingCart.getItem().getItemName())
                 .userId(shoppingCart.getUser().getId())
                 .shoppingCartId(shoppingCart.getShoppingCartId())
-                .shoppingCartSelected(shoppingCart.isShoppingCartSelected())
+                .shoppingCartSelected(shoppingCart.getShoppingCartSelected())
                 .createdAt(shoppingCart.getCreatedAt())
                 .modifiedAt(shoppingCart.getModifiedAt())
                 .build();

@@ -13,9 +13,12 @@ public interface WishMapper {
     default WishDto.Response wishToWishResponse(Wish wish){
         return WishDto.Response.builder()
                 .itemId(wish.getItem().getItemId())
+                .itemPicture(wish.getItem().getItemPicture())
+                .itemPrice(wish.getItem().getItemPrice())
+                .itemName(wish.getItem().getItemName())
                 .userId(wish.getUser().getId())
                 .wishId(wish.getWishId())
-                .wishSelected(wish.isWishSelected())
+                .wishSelected(wish.getWishSelected())
                 .createdAt(wish.getCreatedAt())
                 .modifiedAt(wish.getModifiedAt())
                 .build();

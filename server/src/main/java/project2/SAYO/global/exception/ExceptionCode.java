@@ -10,6 +10,7 @@ public enum ExceptionCode {
     USER_NOT_ALLOW(405, "User doesn't have authority"),
     USER_EXISTS(409, "User exists"),
     USER_UNAUTHORIZED(401, "User unauthorized"),
+    USER_NOT_ACTIVE(404, "User not active"),
     TOKEN_NOT_ALLOW(404, "Token not allow"),
     REFRESH_TOKEN_NOT_EQUAL(404, "Refresh token doesn't equal"),
     REFRESH_TOKEN_NOT_ALLOW(404, "Token not allow"),

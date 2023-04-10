@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.config.AES128Config;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
@@ -14,6 +15,8 @@ import project2.SAYO.global.auth.dto.LoginDto;
 import project2.SAYO.global.auth.dto.TokenDto;
 import project2.SAYO.global.auth.jwt.TokenProvider;
 import project2.SAYO.global.auth.userDetails.AuthUser;
+import project2.SAYO.global.exception.BusinessLogicException;
+import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.redis.RedisDao;
 import project2.SAYO.global.util.Responder;
 
@@ -75,6 +78,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         AuthUser authUser = (AuthUser) authResult.getPrincipal();
         TokenDto tokenDto = tokenProvider.generateTokenDto(authUser);
         String accessToken = tokenDto.getAccessToken(); // accessToken 만들기
+
+/*        if(authUser.getUserStatus() == User.UserStatus.USER_QUIT || authUser.getUserStatus() == User.UserStatus.USER_SLEEP) {
+            throw new BusinessLogicException(ExceptionCode.USER_NOT_ACTIVE);
+        } // 회원의 상태가 휴면중이거나 삭제했다면 로그인 실패*/
 
         String refreshToken = tokenDto.getRefreshToken(); // refreshToken 만들기
         String secretRefreshToken = aes128Config.encryptAes(refreshToken); // refreshToken 암호화

@@ -1,7 +1,6 @@
 package project2.SAYO.domain.shoppingCart.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -10,7 +9,6 @@ import project2.SAYO.domain.shoppingCart.dto.ShoppingCartDto;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCart;
 import project2.SAYO.domain.shoppingCart.mapper.ShoppingCartMapper;
 import project2.SAYO.domain.shoppingCart.service.ShoppingCartService;
-import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
 
@@ -36,7 +34,7 @@ public class ShoppingCartController {
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
     }
 
-    // TODO GET ONE
+    // TODO GET ONE >> 현재 사용X
     @GetMapping("/{shoppingCart-id}")
     public ResponseEntity getShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
                                           @LoginUserId Long userId) {
@@ -47,13 +45,11 @@ public class ShoppingCartController {
     }
 
     // TODO GET ALL
-    @GetMapping
-    public ResponseEntity getShoppingCarts(@Positive @RequestParam int page,
-                                           @Positive @RequestParam int size) {
-        Page<ShoppingCart> shoppingCartPage = shoppingCartService.findShoppingCarts(page-1,size);
-        List<ShoppingCart> shoppingCartList = shoppingCartPage.getContent();
+    @GetMapping("/user/{user-id}/shoppingCart")
+    public ResponseEntity getShoppingCarts(@Valid @PathVariable("user-id") @LoginUserId Long userId) {
+        List<ShoppingCart> shoppingCartList = shoppingCartService.findShoppingCarts(userId);
         List<ShoppingCartDto.Response> shoppingCartResponseList = mapper.shoppingCartListToShoppingCartResponseList(shoppingCartList);
-        return new ResponseEntity(new MultiResponseDto<>(shoppingCartResponseList,shoppingCartPage),HttpStatus.OK);
+        return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponseList),HttpStatus.OK);
     }
 
     // TODO DELETE ONE

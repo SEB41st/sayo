@@ -20,7 +20,7 @@ public class ShoppingCart extends Auditable {
     private Long shoppingCartId;
 
     @Column
-    private boolean shoppingCartSelected;
+    private Boolean shoppingCartSelected;
 
     @ManyToOne
     @JoinColumn(name="USER_ID")

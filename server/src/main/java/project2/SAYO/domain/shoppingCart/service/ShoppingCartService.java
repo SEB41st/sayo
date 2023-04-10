@@ -33,7 +33,7 @@ public class ShoppingCartService {
         createShoppingCart.addUser(findUser);
         createShoppingCart.addItem(findItem);
 
-        if(createShoppingCart.isShoppingCartSelected() != Boolean.TRUE){
+        if(createShoppingCart.getShoppingCartSelected() != Boolean.TRUE){
             createShoppingCart.changeShoppingCartSelected(Boolean.TRUE);
         }else{
             createShoppingCart.changeShoppingCartSelected(Boolean.FALSE);
@@ -52,7 +52,7 @@ public class ShoppingCartService {
         }
 
         //shoppingCart가 false라면 exception 발생
-        if(findShoppingCart.isShoppingCartSelected() != Boolean.TRUE){
+        if(findShoppingCart.getShoppingCartSelected() != Boolean.TRUE){
             throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND);
         }
 
@@ -65,7 +65,7 @@ public class ShoppingCartService {
         //shoppingCart에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
         return shoppingCartRepository.findAll().stream()
                 .filter(shoppingCart -> shoppingCart.getUser().getId() == userId)
-                .filter(a -> a.isShoppingCartSelected() == Boolean.TRUE)
+                .filter(a -> a.getShoppingCartSelected() == Boolean.TRUE)
                 .collect(Collectors.toList());
     }
 

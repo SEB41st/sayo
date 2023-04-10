@@ -46,7 +46,7 @@ public class WishController {
 
     // TODO GET ALL
     @GetMapping("/user/{user-id}/wish")
-    public ResponseEntity getWishes(@Valid @PathVariable("wish-id") @LoginUserId Long userId) {
+    public ResponseEntity getWishes(@Valid @PathVariable("user-id") @LoginUserId Long userId) {
         List<Wish> wishList = wishService.findWishes(userId);
         List<WishDto.Response> shoppingCartResponseList = mapper.WishListToWishResponseList(wishList);
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponseList),HttpStatus.OK);

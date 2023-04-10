@@ -32,7 +32,7 @@ public class WishService {
         Wish createWish = findByUserAndItem(findUser, findItem);
         createWish.addUser(findUser);
         createWish.addItem(findItem);
-        if (createWish.isWishSelected() != Boolean.TRUE) {
+        if (createWish.getWishSelected() != Boolean.TRUE) {
             createWish.changeWishSelected(Boolean.TRUE);
         } else {
             createWish.changeWishSelected(Boolean.FALSE);
@@ -51,7 +51,7 @@ public class WishService {
         }
 
         //wish가 false라면 exception 발생
-        if(findWish.isWishSelected() != Boolean.TRUE){
+        if(findWish.getWishSelected() != Boolean.TRUE){
             throw new BusinessLogicException(ExceptionCode.WISH_NOT_FOUND);
         }
 
@@ -64,7 +64,7 @@ public class WishService {
         //wish에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
         return wishRepository.findAll().stream()
                 .filter(wish -> wish.getUser().getId() == userId)
-                .filter(a -> a.isWishSelected() == Boolean.TRUE)
+                .filter(a -> a.getWishSelected() == Boolean.TRUE)
                 .collect(Collectors.toList());
     }
 

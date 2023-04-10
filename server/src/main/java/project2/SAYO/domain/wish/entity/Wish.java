@@ -19,7 +19,7 @@ public class Wish extends Auditable {
     private Long wishId;
 
     @Column
-    private boolean wishSelected;
+    private Boolean wishSelected;
 
     @ManyToOne
     @JoinColumn(name="USER_ID")

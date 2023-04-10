@@ -9,6 +9,7 @@ import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
 
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -28,6 +29,10 @@ public class ShoppingCart extends Auditable {
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    private String itemName;
+    private long itemPrice;
+    private String itemPicture;
 
     public void addUser(User user) {
         this.user = user;

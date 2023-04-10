@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public class ShoppingCartDto {
@@ -16,6 +15,9 @@ public class ShoppingCartDto {
     @Builder
     public static class Response {
         private long itemId;
+        private String itemName;
+        private long itemPrice;
+        private String itemPicture;
         private long userId;
         private long shoppingCartId;
         private boolean shoppingCartSelected;

@@ -30,7 +30,7 @@ const ItemList = () => {
         });
     },[])
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
+  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=50`, `items`);
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
@@ -68,6 +68,7 @@ const ItemList = () => {
           <S.Tag onClick={ChangeCategory} id="ITEM_PROGRESS">판매 중</S.Tag>
           <S.Tag onClick={ChangeCategory} id="ITEM_END">판매 종료</S.Tag>
         </S.Tags>
+        {/* Todo : pagenation 구현하기 */}
         <S.GoodsList>
           {Items &&
             Items.map((item: any) => {

@@ -4,6 +4,7 @@ export const ModifyImageWrapper = styled.div`
   width: 350px;
   height: 175px;
   margin-top: 30px;
+
   @media screen and (min-width: ${"1280px"}) {
     width: 350px;
     height: 350px;
@@ -50,3 +51,11 @@ export const ModifyImageWrapper = styled.div`
     }
   }
 `;
+
+export const Image = styled.div`
+  width: 90%;
+  height: 90%;
+  margin: 10px;
+  border-radius: 20px;
+  border: 0.5px solid black;
+`

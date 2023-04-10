@@ -13,6 +13,9 @@ public interface ShoppingCartMapper {
 
         return ShoppingCartDto.Response.builder()
                 .itemId(shoppingCart.getItem().getItemId())
+                .itemPicture(shoppingCart.getItem().getItemPicture())
+                .itemPrice(shoppingCart.getItem().getItemPrice())
+                .itemName(shoppingCart.getItem().getItemName())
                 .userId(shoppingCart.getUser().getId())
                 .shoppingCartId(shoppingCart.getShoppingCartId())
                 .shoppingCartSelected(shoppingCart.isShoppingCartSelected())

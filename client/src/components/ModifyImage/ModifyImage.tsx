@@ -5,7 +5,7 @@ import * as S from "./styled";
 const ModifyImage = () => {
   const [imgFile, setImgFile]: any = useState(null);
   const imgRef = useRef<HTMLInputElement | null>(null);
-
+console.log(imgFile)
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
     const file = imgRef.current.files[0];
@@ -60,9 +60,10 @@ const ModifyImage = () => {
     <S.ModifyImageWrapper>
       
       <img
-        src={imgFile ? imgFile : "https://i.ibb.co/t3vdVB0/goods.png"}
+        src={imgFile === null? <S.Image/> : imgFile}
         alt="프로필 이미지"
       />
+      {/* <S.Image></S.Image> */}
       <input
         type="file"
         accept="image/*"

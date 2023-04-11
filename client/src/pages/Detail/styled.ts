@@ -12,7 +12,7 @@ export const DetailContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 300px;
+  min-height: 500px;
   margin-top: 20px;
   border-bottom: 1px solid #f9bb00;
 
@@ -25,6 +25,7 @@ export const DetailContainer = styled.div`
 export const ImageDiv = styled.div`
   width: 165px;
   height: 250px;
+  border-radius: 20px;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 500px;
@@ -36,8 +37,10 @@ export const ImageDiv = styled.div`
     height: 155px;
     margin: 0 15px;
     background-color: #fffdfd;
-    border: 0.1008px solid #d2cdcd;
+    /* border: 0.1008px solid #d2cdcd; */
+    img{
     border-radius: 10px;
+    }
 
     @media screen and (min-width: ${"1280px"}) {
       width: 250px;
@@ -75,8 +78,8 @@ export const ProductInfoDiv = styled.div`
 export const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-around;
-  min-width: 196px;
-  margin-top: 10rem;
+  /* width: 100%; */
+  margin-top: 20rem;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 500px;

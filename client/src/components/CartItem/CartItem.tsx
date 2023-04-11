@@ -92,7 +92,7 @@ const CartItem = () => {
               </S.CheckboxDiv>
 
               <S.ImageDiv>
-                <img className="itemPicture" src={item.itemPicture}></img>
+                <img className="itemPicture" src={item.itemPicture} alt="goods"></img>
               </S.ImageDiv>
               <S.ProductInfoDiv2>
                 <div className="Name">{item.itemName}</div>

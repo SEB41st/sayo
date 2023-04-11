@@ -89,6 +89,7 @@ public class UserController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(getResponse), HttpStatus.OK);
     }
+
     @GetMapping("/{user-id}/mypage")
     public ResponseEntity getMyUser(@Positive @PathVariable("user-id") Long userId,
                                     @LoginUserId Long loginUserId){

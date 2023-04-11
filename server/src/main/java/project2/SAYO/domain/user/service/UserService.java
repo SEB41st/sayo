@@ -174,8 +174,6 @@ public class UserService {
     }
 
 
-
-
     public void verifiedUserId(Long userId, Long loginUserId){
         if(userId.longValue() != loginUserId.longValue()){
             log.info("userId = {}, loginUserId = {}",userId,loginUserId);

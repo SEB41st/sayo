@@ -18,6 +18,7 @@ public class ShoppingCartDto {
         private String itemName;
         private long itemPrice;
         private String itemPicture;
+        private int itemDeliveryPrice;
         private long userId;
         private long shoppingCartId;
         private boolean shoppingCartSelected;

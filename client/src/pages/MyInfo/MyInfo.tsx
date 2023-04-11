@@ -19,7 +19,7 @@ const MyInfo = () => {
   const [address, setAddress] = useState(''); // 주소
   const [addressDetail, setAddressDetail] = useState(''); // 상세주소
   const [phoneNum, setPhoneNumber] = useState('')
-  // const [getNickname, setNickname] = useRecoilState(nickname)
+  const [getName, setName] = useState('')
   const navigate = useNavigate()
 
   const {data, isLoading, error} = useCustomQuery(
@@ -89,7 +89,7 @@ const MyInfo = () => {
   const addAddressConform = () => {
       mutate({
         addressName:"주소명칭",
-        addressUserName:"회원이름",
+        addressUserName:getName,
         phoneNumber:phoneNum,
         postcode: addressCode,
         roadAddress: addressDetail,
@@ -130,6 +130,11 @@ const MyInfo = () => {
     setIsOpenPost(false);
   };
 
+  const NameChange = (e:any) => {
+    console.log(e.target.value)
+    setName(e.target.value)
+  }
+
   const PhoneNumChange = (e:any) => {
     console.log(e.target.value)
     setPhoneNumber(e.target.value)
@@ -152,7 +157,7 @@ const MyInfo = () => {
         },
         data: {
           addressName:"주소명칭",
-          addressUserName:"회원이름",
+          addressUserName:getName,
           phoneNumber:phoneNum,
           postcode: addressCode,
           roadAddress: addressDetail,
@@ -171,12 +176,18 @@ const MyInfo = () => {
         <S.MypageWrap>
         <S.MypageContainer>
           <S.ImageDiv src={users.profile[0].image}></S.ImageDiv>
-          <S.MypageDiv>
-            <span className="Name">이름</span>
-            <span className="UserName">{users.profile[0].nickname}</span>
-          </S.MypageDiv>
           {change ? (
           <>
+            <S.MypageDiv>
+              <span className="Name">이름</span>
+              {/* <span className="UserName">{users.profile[0].nickname}</span> */}
+              <input
+              type="text"
+              className="input"
+              placeholder="배송받으실 이름을 입력해주세요"
+              onChange={NameChange}
+              />
+            </S.MypageDiv>
             <S.PostCode>
               <span className="Name">핸드폰 번호</span>
               <input
@@ -184,9 +195,7 @@ const MyInfo = () => {
               className="input"
               placeholder="'-'형태로 입력해주세요"
               onChange={PhoneNumChange}
-              >
-              </input>
-
+              />
             </S.PostCode>
             <S.MypageDiv>
               {/* <span >주소</span> */}
@@ -213,13 +222,16 @@ const MyInfo = () => {
           ) : (
           <>
             <S.MypageDiv>
+            <span className="Name">이름</span>
+              {users.addressList.length === 0 ? <span className="address">{users.profile[0].nickname}</span>:( <span className="address">{users.addressList[0].addressUserName} </span>)}
+              </S.MypageDiv>
+              <S.MypageDiv>
               <span className="Name">핸드폰 번호</span>
               {users.addressList.length === 0 ? null:( <span className="address">{users.addressList[0].phoneNumber} </span>)}
             </S.MypageDiv>
             <S.MypageDiv>
               <span className="Name">주소</span>
               {users.addressList.length === 0 ? null : (<span className="address">{users.addressList[0].roadAddress}, {users.addressList[0].detailAddress} </span>)}
-
             </S.MypageDiv>
             {users.addressList.length === 0 ? 
               <S.LogoutBtn onClick={changeAddress}>주소추가</S.LogoutBtn>:

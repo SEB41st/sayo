@@ -160,6 +160,15 @@ public class UserService {
         log.info("로그아웃 서비스로직 수행 완료!");
     }
 
+    public User findUser(long userId, long loginUserId){
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(loginUserId != userId) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
+        return findVerifiedUser(userId);
+    }
+
     public List<User> findUsers() {
         return userRepository.findAll();
     }

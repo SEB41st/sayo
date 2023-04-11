@@ -61,7 +61,12 @@ public class ShoppingCartService {
 
     // TODO GET ALL
     @Transactional
-    public List<ShoppingCart> findShoppingCarts(long userId) {
+    public List<ShoppingCart> findShoppingCarts(long userId, long loginUserId) {
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(loginUserId != userId) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
         //shoppingCart에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
         return shoppingCartRepository.findAll().stream()
                 .filter(shoppingCart -> shoppingCart.getUser().getId() == userId)

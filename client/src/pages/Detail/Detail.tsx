@@ -9,13 +9,14 @@ import Error from "../../components/Error/Error";
 // import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
 // import MapLocation from "../../components/Map/MapLocation";
 import Modal from "../../components/Modal/Modal";
-import Calendar from "../../components/Calendar/Calendar";
+import DataCalendar from "../../components/Calendar/Calendar";
 import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { likeState } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { useCustomMutation } from "../../components/util/useMutation";
+import { Item } from "../Main/styled";
 
 export interface LatLng {
   latitude: any;
@@ -83,10 +84,10 @@ const Detail = () => {
 
   const Items = data.data;
 
-  console.log(Items);
+  console.log(Items.itemDateEnd);
 
   const location: any = Items.location;
-  console.log(location);
+  // console.log(location);
 
 
 
@@ -127,6 +128,9 @@ const Detail = () => {
         console.log(err);
       });
   };
+  function CommaFormat(x:any) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   return (
     <S.DetailWrap>
@@ -153,11 +157,12 @@ const Detail = () => {
               />
             )}
           </div>
-          <div className="ProductPrice">판매가 : {Items.itemPrice}원</div>
-          <div className="ProductFee">배송비 : {Items.itemDeliveryPrice}원</div>
+          <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
+          <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
           <div className="SalesSchedule">
-            판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd}
-            {/* <Calendar/> */}
+            {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
+            판매 일정 :
+            <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
           </div>
           <S.ButtonDiv>
             <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>

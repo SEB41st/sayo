@@ -60,29 +60,30 @@ const Mypage = () => {
   //   "DELETE"
   // )
 
-  const deleteGoods = () => {
-    //   mutate(Items)
-    //   refetch()
-  };
+  // const deleteGoods = () => {
+  //     mutate(Items)
+  //     refetch()
+  // };
 
-  // const deleteGoods = async (dataId) => {
-  //     await axios
-  //       .delete(
-  //         `http://localhost:4000${params.pathname}/${dataId}`,
-  //         {
-  //           headers: {
-  //             Authorization: localStorage.getItem("accessToken"),
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         refetch()
-  //         // window.location.reload();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
+  const deleteGoods = async (itemId:any) => {
+      await axios
+        .delete(
+          `http://sayo.n-e.kr:8080/items/${itemId}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("accessToken"),
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res)
+          // refetch()
+          // window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
   return (
     <S.MypageWrap>
@@ -173,7 +174,7 @@ const Mypage = () => {
                 <div>9,900</div>
                 <div>구매인원 : 10명</div>
               </S.ItemName>
-              <button onClick={() => deleteGoods()}>x</button>
+              {/* <button onClick={() => deleteGoods()}>x</button> */}
             </S.ItemImg>
             {/* <Modal
                 open={openModal}

@@ -5,80 +5,33 @@ import styled from "styled-components";
 //   }
   
   export const CalenderContainer = styled.div`
-    width: 20%;
+    width: 30%;
     height: 20%;
     margin: auto;
     padding: 20px 20px;
-    border: 1px solid rgba(128, 128, 128, 0.267);
     position: absolute; 
-    left: 60%;
-    top: 30%;
-    transform: translate(-20%, -20%);
+    left: 50%;
+    top: 20%;
+    /* transform: translate(-20%, -20%); */
+    @media screen and (max-width: ${"700px"}) {
+    width: 50%;
+    /* height: 100%; */
+    left: 40%;
+    top: 20%;
+  }
     .title {
      display: flex;
     }
+    .calender { 
+      width: 100%;
+      /* height: 30%; */
+      font-size: 5px;
+      .dot {
+        height: 0.5rem;
+        width: 0.5rem;
+        background-color: #f87171;
+        border-radius: 50%;
+        display: flex;
+        margin-left: 1px;
+}}
   `
-  
-//   
-  
-//   .container .title > button {
-//     border: none;
-//     margin-left: 5px;
-//     height: 20px;
-//     align-self: center;
-//     background: none;
-//   }
-  
-//   .container .title .pagination {
-//     margin-left: auto;
-//     align-self: center;
-//   }
-//   .container .title .pagination button {
-//     margin: 0 10px;
-//     border: none;
-//     background: none;
-//   }
-  
-//   .container .week {
-//     display: flex;
-//   }
-  
-//   .container .week .weekday {
-//     width: calc(500px / 7);
-//     text-align: center;
-//   }
-  
-//   .container .week .sunday {
-//     color: red;
-//   }
-  
-//   .container .week .saturday {
-//     color: blue;
-//   }
-  
-//   .container .date {
-//     margin-top: 20px;
-//   }
-  
-//   .container .date .weekday {
-//     width: calc(500px / 7);
-//     float: left;
-//     text-align: center;
-//     height: 50px;
-//     line-height: 50px;
-//   }
-  
-//   .container .date .sunday {
-//     color: red;
-//   }
-  
-//   .container .date .saturday {
-//     color: blue;
-//   }
-  
-//   .container .date .today {
-//     background-color: rgb(88, 111, 187);
-//     color: white;
-//     font-weight: 700;
-//     border-radius: 50%;
-//   }

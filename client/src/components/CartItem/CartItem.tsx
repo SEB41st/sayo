@@ -91,7 +91,7 @@ const CartItem = () => {
                 <img className="itemPicture" src={item.itemPicture}></img>
               </S.ImageDiv>
               <S.ProductInfoDiv2>
-                <div className="Name">{item.title}</div>
+                <div className="Name">{item.itemName}</div>
                 <div className="ProductFee">배송비 {item.deliveryFee}</div>
               </S.ProductInfoDiv2>
               <S.CloseBox>X</S.CloseBox>
@@ -106,7 +106,8 @@ const CartItem = () => {
                   onClick={() => { handleAddCount(item.id)}}
                 ></TfiPlus>
               </S.CountDiv>
-              <div className="Price">{item.amount * item.itemPrice}</div>
+              {/* <div className="Price">{item.amount * item.itemPrice}</div> */}
+              <div className="Price">{ item.itemPrice}</div>
             </S.ProductInfoDiv3>
           </S.ProductDiv>
           )

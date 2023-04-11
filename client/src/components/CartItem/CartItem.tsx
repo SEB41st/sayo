@@ -22,6 +22,10 @@ const CartItem = () => {
   const [count, setCount] = useRecoilState(countSelector);
 
   let userId = localStorage.getItem("userId")
+
+  function CommaFormat(x:any) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   // const { userId } = useParams();
 
   const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
@@ -107,7 +111,7 @@ const CartItem = () => {
                 ></TfiPlus>
               </S.CountDiv>
               {/* <div className="Price">{item.amount * item.itemPrice}</div> */}
-              <div className="Price">{ item.itemPrice}</div>
+              <div className="Price">{CommaFormat(item.itemPrice)}원</div>
             </S.ProductInfoDiv3>
           </S.ProductDiv>
           )

@@ -83,12 +83,13 @@ public class UserController {
 
     // TODO GET ONE
     @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@Positive @PathVariable("user-id") Long userId) {
-        User uerForResponse = userService.findVerifiedUser(userId);
+    public ResponseEntity getUser(@Positive @PathVariable("user-id")Long userId, @LoginUserId Long loginUserId) {
+        User uerForResponse = userService.findUser(userId, loginUserId);
         UserDto.GetResponse getResponse = userMapper.userToGetResponse(uerForResponse);
 
         return new ResponseEntity<>(new SingleResponseDto<>(getResponse), HttpStatus.OK);
     }
+
     @GetMapping("/{user-id}/mypage")
     public ResponseEntity getMyUser(@Positive @PathVariable("user-id") Long userId,
                                     @LoginUserId Long loginUserId){

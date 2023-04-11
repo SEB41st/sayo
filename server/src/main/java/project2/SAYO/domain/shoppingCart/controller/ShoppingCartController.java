@@ -46,8 +46,8 @@ public class ShoppingCartController {
 
     // TODO GET ALL
     @GetMapping("/user/{user-id}/shoppingCart")
-    public ResponseEntity getShoppingCarts(@Valid @PathVariable("user-id") @LoginUserId Long userId) {
-        List<ShoppingCart> shoppingCartList = shoppingCartService.findShoppingCarts(userId);
+    public ResponseEntity getShoppingCarts(@Valid @PathVariable("user-id") long userId, @LoginUserId Long loginUserId) {
+        List<ShoppingCart> shoppingCartList = shoppingCartService.findShoppingCarts(userId, loginUserId);
         List<ShoppingCartDto.Response> shoppingCartResponseList = mapper.shoppingCartListToShoppingCartResponseList(shoppingCartList);
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponseList),HttpStatus.OK);
     }

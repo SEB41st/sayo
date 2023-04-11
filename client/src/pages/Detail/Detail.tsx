@@ -26,12 +26,14 @@ export interface LatLng {
 const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [like, setLike] = useRecoilState(likeState);
+  const [addCart, setAddCart] = useState<boolean>(false);
+  // const userId = localStorage.getItem("userId")
 
   const { itemId } = useParams();
 
   // useEffect(() => {
   //   axios
-  //     .get(`http://whatu1.kro.kr:8080/wishes/${wishId}`,
+  //     .get(`http://sayo.n-e.kr:8080/shoppingCarts/user/${userId}/shoppingCart/`,
   //     {
   //       headers: {
   //         "Content-Type": "application/json;charset=UTF-8",
@@ -40,7 +42,7 @@ const Detail = () => {
   //       },
   //     })
   //     .then((res) => {
-
+  //       console.log(res)
   //     })
   //     .catch((error) => {
   //       console.log(error);
@@ -71,6 +73,7 @@ const Detail = () => {
       .then((res) => {
         console.log(res);
         SetModalOpen(true);
+        setAddCart(!addCart)
         // toast.success("선택하신 내용이 삭제되었습니다");
         // refetch();
       })
@@ -157,12 +160,14 @@ const Detail = () => {
               />
             )}
           </div>
-          <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
-          <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
-          <div className="SalesSchedule">
-            {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
-            판매 일정 :
-            <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
+          <div>
+            <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
+            <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
+            <div className="SalesSchedule">
+              {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
+              판매 일정 :
+              <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
+          </div>
           </div>
           <S.ButtonDiv>
             <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>
@@ -172,13 +177,16 @@ const Detail = () => {
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>
-      <Modal
+      {addCart ? <Modal
+        open={modalOpen}
+        close={closeModal}
+        header="장바구니에 상품이 정상적으로 삭제되었습니다."
+      ><div>장바구니에 담으시려면 장바구니 버튼을 한번 더 눌러주세요</div></Modal>
+      : <Modal
         open={modalOpen}
         close={closeModal}
         header="장바구니에 상품이 성공적으로 담겼습니다."
-      >
-        <div>장바구니로 이동하시겠습니까?</div>
-      </Modal>
+      ><div>장바구니로 이동하시겠습니까?</div></Modal>}
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemBody}</div>

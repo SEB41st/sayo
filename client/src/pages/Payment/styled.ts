@@ -31,10 +31,12 @@ export const PaymentDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+  `;
 export const OrderDiv = styled.div`
   width: 90%;
   height: auto;
+  font-weight: 600;
+  font-size: 17px;
   display: flex;
   flex-direction: column;
   border: 1px solid #f9bb00;
@@ -49,12 +51,17 @@ export const OrderDiv = styled.div`
 `;
 
 export const OrderInfoDiv = styled.div`
-  display: flex;
+  display: grid;
   width: 90%;
   padding: 1% 5%;
+  font-weight:400;
+  font-size: 13px;
   /* flex-direction: column; */
   @media screen and (min-width: ${"1280px"}) {
 
+  }
+  .orderDetail{
+    margin-bottom: 20px;
   }
 `;
 

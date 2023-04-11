@@ -15,6 +15,7 @@ public interface ShoppingCartMapper {
                 .itemId(shoppingCart.getItem().getItemId())
                 .itemPicture(shoppingCart.getItem().getItemPicture())
                 .itemPrice(shoppingCart.getItem().getItemPrice())
+                .itemDeliveryPrice(shoppingCart.getItem().getItemDeliveryPrice())
                 .itemName(shoppingCart.getItem().getItemName())
                 .userId(shoppingCart.getUser().getId())
                 .shoppingCartId(shoppingCart.getShoppingCartId())

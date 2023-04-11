@@ -15,9 +15,9 @@ import styled from "styled-components";
     /* transform: translate(-20%, -20%); */
     @media screen and (max-width: ${"700px"}) {
     width: 50%;
-    height: 100%;
+    /* height: 100%; */
     left: 40%;
-    top: 17%;
+    top: 20%;
   }
     .title {
      display: flex;

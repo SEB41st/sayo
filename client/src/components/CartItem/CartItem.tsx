@@ -21,12 +21,13 @@ const CartItem = () => {
   const [products, setProducts] = useRecoilState(CartItemList);
   const [count, setCount] = useRecoilState(countSelector);
 
-  const { itemId } = useParams();
+  let userId = localStorage.getItem("userId")
+  // const { userId } = useParams();
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts?page=1&size=10`, `shoppingCarts`);
+  const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
   const { mutate } = useCustomMutation(
-    `/shoppingCarts/items/${itemId}`,
+    `/shoppingCarts/user/${userId}/shoppingCart`,
     `/cart`,
     "POST"
   );

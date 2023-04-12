@@ -80,6 +80,7 @@ public class ItemDto {
         private String itemDateEnd; // 참여 종료 일정
         private long categoryId; // 카테고리 번호
         //private String itemTag; // 상품 태그
+        private int wishCount; // 찜하기 count
 
         private double latitude; // 위도
         private double longitude; // 경도

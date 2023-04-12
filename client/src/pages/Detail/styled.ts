@@ -65,7 +65,7 @@ export const ProductInfoDiv = styled.div`
   }
 
   .ProductName {
-    font-size: 14px;
+    font-size: 17px;
     margin-bottom: 10px;
 
     @media screen and (min-width: ${"1280px"}) {
@@ -79,7 +79,7 @@ export const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-around;
   /* width: 100%; */
-  margin-top: 20rem;
+  margin-top: 3rem;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 500px;
@@ -161,4 +161,8 @@ export const StaticMap = styled.div`
   height:100%;
   border-radius: 10px;
   margin-bottom:10px;
+`
+export const goodsDetail = styled.div`
+  width: 80%;
+  font-size: 13px;
 `

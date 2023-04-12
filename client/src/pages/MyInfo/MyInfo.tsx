@@ -111,9 +111,9 @@ const MyInfo = () => {
 
   const onCompletePost = (data:any) => {
     let fullAddr = data.address;
-    console.log(data.address)
+    console.log(data)
     let extraAddr = '';
-
+    
     if (data.addressType === 'R') {
       if (data.bname !== '') {
         extraAddr += data.bname;
@@ -202,7 +202,7 @@ const MyInfo = () => {
               <button className="Name" onClick={onChangeOpenPost}>우편번호</button>
               {isOpenPost  ? (
             <S.PostCode><DaumPostcode className="PostCodeStyle" autoClose onComplete={onCompletePost} /></S.PostCode>
-          ) : null}{addressCode}
+          ) : null}{addressCode},
             <br/><div>{addressDetail}</div>
             </S.MypageDiv>
             <S.MypageDiv>

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.item.repository.ItemRepository;
 import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
@@ -22,6 +23,7 @@ public class WishService {
     private final WishRepository wishRepository;
     private final UserService userService;
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
 
     // TODO POST
     @Transactional
@@ -34,10 +36,12 @@ public class WishService {
         createWish.addItem(findItem);
         if (createWish.getWishSelected() != Boolean.TRUE) {
             createWish.changeWishSelected(Boolean.TRUE);
+            findItem.addWishCount(createWish.getWishCount()+1);
         } else {
             createWish.changeWishSelected(Boolean.FALSE);
+            findItem.addWishCount(createWish.getWishCount()-1);
         }
-
+        itemRepository.save(findItem);
         return wishRepository.save(createWish);
     }
 

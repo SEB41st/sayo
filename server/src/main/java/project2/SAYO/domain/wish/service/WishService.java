@@ -36,10 +36,10 @@ public class WishService {
         createWish.addItem(findItem);
         if (createWish.getWishSelected() != Boolean.TRUE) {
             createWish.changeWishSelected(Boolean.TRUE);
-            findItem.addWishCount(createWish.getWishCount()+1);
+            findItem.addWishCount(findItem.getWishCount()+1);
         } else {
             createWish.changeWishSelected(Boolean.FALSE);
-            findItem.addWishCount(createWish.getWishCount()-1);
+            findItem.addWishCount(findItem.getWishCount()-1);
         }
         itemRepository.save(findItem);
         return wishRepository.save(createWish);

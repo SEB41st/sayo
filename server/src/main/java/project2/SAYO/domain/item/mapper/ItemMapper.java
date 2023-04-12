@@ -48,6 +48,7 @@ public interface ItemMapper{
                 .itemId(item.getItemId())
                 .itemName(item.getItemName())
                 .itemPicture(item.getItemPicture())
+                .wishCount(item.getWishCount())
                 //.itemDelivery(item.isItemDelivery())
                 .itemDeliveryPrice(item.getItemDeliveryPrice())
                 .itemPrice(item.getItemPrice())

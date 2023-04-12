@@ -16,7 +16,6 @@ import { likeState } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { useCustomMutation } from "../../components/util/useMutation";
-import { Item } from "../Main/styled";
 
 export interface LatLng {
   latitude: any;
@@ -27,38 +26,39 @@ const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [like, setLike] = useRecoilState(likeState);
   const [addCart, setAddCart] = useState<boolean>(false);
+  const [wish, setwishId] = useState<number>(0)
   // const userId = localStorage.getItem("userId")
 
   const { itemId } = useParams();
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://sayo.n-e.kr:8080/shoppingCarts/user/${userId}/shoppingCart/`,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json;charset=UTF-8",
-  //         Accept: "application/json",
-  //         "AutHorization" : localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   }, []);
+  useEffect(() => {
+    axios
+      .get(`http://sayo.n-e.kr:8080/wishes/${wish}`,
+      {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          Accept: "application/json",
+          "AutHorization" : localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }, [wish]);
 
   const { data, isLoading, error, refetch } = useCustomQuery(
     `/items/get/${itemId}`,
     `/items/get/=${itemId}`
   );
 
-  const { mutate } = useCustomMutation(
-    `/wishes/${itemId}`,
-    `/wishes/${itemId}`,
-    "POST"
-  );
+  // const { mutate } = useCustomMutation(
+  //   `/wishes/${itemId}`,
+  //   `/wishes/${itemId}`,
+  //   "POST"
+  // );
   // const { mutate } = useCustomMutation(`/shoppingCarts/items/${itemId}`, `/shoppingCarts/items/${itemId}`, "POST");
 
   const PostCart = async () => {
@@ -87,7 +87,7 @@ const Detail = () => {
 
   const Items = data.data;
 
-  console.log(Items.itemDateEnd);
+  console.log(Items);
 
   const location: any = Items.location;
   // console.log(location);
@@ -126,6 +126,8 @@ const Detail = () => {
       })
       .then((res) => {
         setLike(!like);
+        setwishId(res.data.data.wishId)
+        refetch()
       })
       .catch((err) => {
         console.log(err);
@@ -146,29 +148,28 @@ const Detail = () => {
         <S.ProductInfoDiv>
           <div className="Product">
             <div className="ProductName">{Items.itemName}</div>
-            {like ? (
+            {Items.wishSelected ? (
               <BsHeartFill
                 onClick={handleLikeBtn}
                 size="20"
-                style={{ marginLeft: "10px", color: "#d3d3d3" }}
+                style={{ marginLeft: "10px", color: "#eb1717" }}
               />
             ) : (
               <BsHeartFill
                 size="20"
                 onClick={handleLikeBtn}
-                style={{ marginLeft: "10px", color: "#eb1717" }}
+                style={{ marginLeft: "10px", color: "#d3d3d3" }}
               />
             )}
           </div>
-          <div>
+          <S.goodsDetail>
             <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
             <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
             <div className="SalesSchedule">
               {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
-              판매 일정 :
+              판매 일정 :</div>
               <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
-          </div>
-          </div>
+          </S.goodsDetail>
           <S.ButtonDiv>
             <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>
             <S.BuyBtn>

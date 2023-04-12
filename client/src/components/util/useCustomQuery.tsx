@@ -1,8 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 
+interface OutPut {
+  data: any;
+  isLoading: boolean;
+  error: string | null | unknown;
+  status: string;
+  refetch: () => void;
+}
 
-export const useCustomQuery = (url: string, queryKey: string) => {
+
+export const useCustomQuery = (url: string, queryKey: string) : OutPut => {
   const { data, isLoading, error, status, refetch } = useQuery(
     [queryKey],
     () =>

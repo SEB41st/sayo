@@ -94,4 +94,8 @@ public class Item extends Auditable {
     public void addUser(User user) {
         this.user = user;
     }
+
+    public void addWishCount(int wishCount){
+        this.wishCount = wishCount;
+    }
 }

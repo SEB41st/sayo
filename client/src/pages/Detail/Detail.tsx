@@ -18,50 +18,89 @@ import axios from "axios";
 import { useCustomMutation } from "../../components/util/useMutation";
 import { Item } from "../Main/styled";
 
+
 export interface LatLng {
   latitude: any;
   longitude: any;
 }
 
+interface WishItem {
+  createdAt: string;
+  itemId: number;
+  itemName: string;
+  itemPicture: string;
+  itemPrice: number;
+  modifiedAt: string;
+  userId: number;
+  wishId: number;
+  wishSelected: boolean;
+  Id: number;
+}
+
+const apiCall = async (url: any) => {
+  return await axios
+    .get(`http://sayo.n-e.kr:8080${url}`, {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Accept: "application/json",
+        AutHorization: localStorage.getItem("accessToken"),
+      },
+    })
+    .then((res) => res.data.data)
+    .catch((error) => {
+      if (error) return false;
+    });
+};
+
 const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
-  const [like, setLike] = useRecoilState(likeState);
+  const [like, setLike] = useState<boolean>(false);
+  // const [like, setLike] = useRecoilState(likeState);
+  const [item, setItem] = useState<WishItem[]>([]);
+  const [wish, setWish] = useState<WishItem[]>([]);
 
-  const { itemId } = useParams();
+  const { Id } = useParams();
+  console.log(Id)
+  const userId = localStorage.getItem("userId")
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://whatu1.kro.kr:8080/wishes/${wishId}`,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json;charset=UTF-8",
-  //         Accept: "application/json",
-  //         "AutHorization" : localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res) => {
+    useEffect(() => {
+      axios
+      (`http://sayo.n-e.kr:8080/wishes/user/${userId}/wish`, {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res: any) => {
+        setWish(res.data.data);
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   }, []);
+  const hasItemId = wish.some(item => item.itemId === Number(Id));
+  console.log("hasItemId", hasItemId)
+  console.log("wish", wish)
+  
 
   const { data, isLoading, error, refetch } = useCustomQuery(
-    `/items/get/${itemId}`,
-    `/items/get/=${itemId}`
+    `/items/get/${Id}`,
+    `/items/get/=${Id}`
   );
 
   const { mutate } = useCustomMutation(
-    `/wishes/${itemId}`,
-    `/wishes/${itemId}`,
+    `/wishes/${Id}`,
+    `/wishes/${Id}`,
     "POST"
   );
   // const { mutate } = useCustomMutation(`/shoppingCarts/items/${itemId}`, `/shoppingCarts/items/${itemId}`, "POST");
 
   const PostCart = async () => {
     await axios
-      (`http://sayo.n-e.kr:8080/shoppingCarts/items/${itemId}`, {
+      (`http://sayo.n-e.kr:8080/shoppingCarts/items/${Id}`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -79,14 +118,35 @@ const Detail = () => {
       });
   };
 
+  const handleLikeBtn = () => {
+    // if (!isLogin) return navigate("/login");
+    axios
+      (`http://sayo.n-e.kr:8080/wishes/${Id}`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        setLike(!res.data.data.wishSelected);
+        // window.location.reload();
+        // refetch();
+        // console.log(res.data.data.wishSelected);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
   const Items = data.data;
 
-  console.log(Items.itemDateEnd);
+  // console.log(Items.itemDateEnd);
 
-  const location: any = Items.location;
+  // const location: any = Items.location;
   // console.log(location);
 
 
@@ -104,30 +164,14 @@ const Detail = () => {
   // const handleLikeBtn = () => {
   //   setLike(!like);
   //   mutate(like);
+  //   // window.location.reload();
+  //   refetch();
   // };
 
-  // const handlePostCart = () => {
-  //   // setLike(!like)
-  //   mutate(openModal)
-  // }
+  
 
-  const handleLikeBtn = () => {
-    // if (!isLogin) return navigate("/login");
-    axios
-      (`http://sayo.n-e.kr:8080/wishes/${itemId}`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res) => {
-        setLike(!like);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+ 
+
   function CommaFormat(x:any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -142,18 +186,20 @@ const Detail = () => {
         </S.ImageDiv>
         <S.ProductInfoDiv>
           <div className="Product">
+          
             <div className="ProductName">{Items.itemName}</div>
-            {like ? (
+            
+            { hasItemId ? (
               <BsHeartFill
                 onClick={handleLikeBtn}
                 size="20"
-                style={{ marginLeft: "10px", color: "#d3d3d3" }}
+                style={{ marginLeft: "10px", color: "#eb1717" }}
               />
             ) : (
               <BsHeartFill
                 size="20"
                 onClick={handleLikeBtn}
-                style={{ marginLeft: "10px", color: "#eb1717" }}
+                style={{ marginLeft: "10px", color: "#d3d3d3" }}
               />
             )}
           </div>

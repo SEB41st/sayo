@@ -16,7 +16,6 @@ import { likeState } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { useCustomMutation } from "../../components/util/useMutation";
-import { Item } from "../Main/styled";
 
 
 export interface LatLng {
@@ -54,6 +53,30 @@ const apiCall = async (url: any) => {
 
 const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
+  // const [like, setLike] = useRecoilState(likeState);
+  const [addCart, setAddCart] = useState<boolean>(false);
+  // const [wish, setwishId] = useState<number>(0)
+  // // const userId = localStorage.getItem("userId")
+
+  // const { itemId } = useParams();
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://sayo.n-e.kr:8080/wishes/${wish}`,
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json;charset=UTF-8",
+  //         Accept: "application/json",
+  //         "AutHorization" : localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   }, [wish]);
   const [like, setLike] = useState<boolean>(false);
   // const [like, setLike] = useRecoilState(likeState);
   const [item, setItem] = useState<WishItem[]>([]);
@@ -91,6 +114,11 @@ const Detail = () => {
     `/items/get/=${Id}`
   );
 
+  // const { mutate } = useCustomMutation(
+  //   `/wishes/${itemId}`,
+  //   `/wishes/${itemId}`,
+  //   "POST"
+  // );
   const { mutate } = useCustomMutation(
     `/wishes/${Id}`,
     `/wishes/${Id}`,
@@ -110,6 +138,7 @@ const Detail = () => {
       .then((res) => {
         console.log(res);
         SetModalOpen(true);
+        setAddCart(!addCart)
         // toast.success("선택하신 내용이 삭제되었습니다");
         // refetch();
       })
@@ -144,12 +173,8 @@ const Detail = () => {
 
   const Items = data.data;
 
-  // console.log(Items.itemDateEnd);
-
   // const location: any = Items.location;
   // console.log(location);
-
-
 
   // setSalesLocation(location)
   // const longitude: any = Items.location.Ma;
@@ -172,6 +197,25 @@ const Detail = () => {
 
  
 
+  // const handleLikeBtn = () => {
+  //   // if (!isLogin) return navigate("/login");
+  //   axios
+  //     (`http://sayo.n-e.kr:8080/wishes/${itemId}`, {
+  //       method: "post",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setLike(!like);
+  //       setwishId(res.data.data.wishId)
+  //       refetch()
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   function CommaFormat(x:any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -203,13 +247,14 @@ const Detail = () => {
               />
             )}
           </div>
-          <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
-          <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
-          <div className="SalesSchedule">
-            {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
-            판매 일정 :
-            <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
-          </div>
+          <S.goodsDetail>
+            <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
+            <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
+            <div className="SalesSchedule">
+              {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
+              판매 일정 :</div>
+              <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
+          </S.goodsDetail>
           <S.ButtonDiv>
             <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>
             <S.BuyBtn>
@@ -218,13 +263,16 @@ const Detail = () => {
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>
-      <Modal
+      {addCart ? <Modal
+        open={modalOpen}
+        close={closeModal}
+        header="장바구니에 상품이 정상적으로 삭제되었습니다."
+      ><div>장바구니에 담으시려면 장바구니 버튼을 한번 더 눌러주세요</div></Modal>
+      : <Modal
         open={modalOpen}
         close={closeModal}
         header="장바구니에 상품이 성공적으로 담겼습니다."
-      >
-        <div>장바구니로 이동하시겠습니까?</div>
-      </Modal>
+      ><div>장바구니로 이동하시겠습니까?</div></Modal>}
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemBody}</div>

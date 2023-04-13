@@ -31,17 +31,21 @@ export const PaymentDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+  `;
 export const OrderDiv = styled.div`
   width: 90%;
   height: auto;
+  font-weight: 600;
+  font-size: 17px;
   display: flex;
   flex-direction: column;
   border: 1px solid #f9bb00;
   border-radius: 10px;
   margin-bottom: 1%;
   padding: 1%;
-
+  div{
+    margin: 5px;
+  }
   @media screen and (min-width: ${"1280px"}) {
     max-width: 60%;
     height: auto;
@@ -49,12 +53,17 @@ export const OrderDiv = styled.div`
 `;
 
 export const OrderInfoDiv = styled.div`
-  display: flex;
+  display: grid;
   width: 90%;
   padding: 1% 5%;
+  font-weight:400;
+  font-size: 13px;
   /* flex-direction: column; */
   @media screen and (min-width: ${"1280px"}) {
 
+  }
+  .orderDetail{
+    margin-bottom: 20px;
   }
 `;
 
@@ -66,6 +75,7 @@ export const ProductDiv = styled.div`
   flex-direction: column;
   border: 1px solid #f9bb00;
   border-radius: 10px;
+  margin-top: 10px;
 
   @media screen and (min-width: ${"1280px"}) {
     max-width: 60%;
@@ -133,8 +143,8 @@ export const TotalPriceDiv = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 90%;
-  max-height: 1.5rem;
-  margin-top: 1%;
+  max-height: 5.5rem;
+  margin-top: 5%;
   padding: 5%;
   background-color: #fcf6e2;
   border-radius: 10px;
@@ -142,6 +152,7 @@ export const TotalPriceDiv = styled.div`
   @media screen and (min-width: ${"1280px"}) {
     max-width: 60%;
     height: 5rem;
+    margin-top: 2%;
     padding: 4% 5%;
   }
 `;
@@ -155,7 +166,7 @@ export const TotalPriceDiv3 = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 50%;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 `;
 
 export const ButtonDiv2 = styled(ButtonDiv)`

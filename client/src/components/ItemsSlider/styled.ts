@@ -1,56 +1,33 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    display: flex;
-    /* position: relative; */
-    justify-content: center;
-    
-    width: 90%;
-    .item{
-        margin: 20px;
-        flex-direction: column;
-        width: 80vw;
-        height: 10vh;
-    }
-    .dots_custom {
-    /* display: grid; */
-    margin-left: 15%;
-    @media screen and (min-width: ${"600px"}) {
-      margin-left: 45%;
-    }
-    .dots_custom ul {
-    display: flex;
-    margin: 0 6px;
-    padding: 0;
-  }
-  }
-  
+  display: flex;
 
-  .dots_custom li {
+  .item{
+    margin: 20px;
+    flex-direction: column;
+    width: 80vw;
+    height: 10vh;
+    @media screen and (min-width: ${"600px"}) {
+        /* margin-left: 45%; */
+    }
+    .slick-dots {
+    /* position: absolute; */
+    bottom: -50px;
+    width: 100%;
+    /* padding: 0; */
+    /* margin-top: 100px; */
     list-style: none;
-    cursor: pointer;
-    display: inline-block;
-    margin: 0 6px;
-    padding: 0;
+    } 
+    }
+  .slick-dots li.slick-active button:before
+  {
+    opacity: .75;
+    color: #F9BB00;
   }
-  
-  .dots_custom li button {
-    border: none;
-    background: #d1d1d1;
-    color: transparent;
-    display: grid;
-    justify-content: center;
-    cursor: pointer;
-    height: 8px;
-    width: 8px;
-    border-radius: 100%;
-    padding: 0;
-  }
-  
-  .dots_custom li.slick-active button {
-    background-color: #F9BB00;
-  }
+
 `
+
 export const Item = styled.div`
     height: 4rem;
     max-width: 50%;

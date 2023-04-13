@@ -1,16 +1,14 @@
 import React, { Component, useEffect, useState } from "react";
 import Slider from "react-slick";
 import * as S from "./styled";
-import { useCustomQuery } from "../util/useCustomQuery";
-import Loading from "../Loading/Loading";
-import Error from "../Error/Error";
 import { Link } from "react-router-dom";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const ItemsSlider = () => {
+const ItemsSlider = (Items:any) => {
 
+  console.log(Items)
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const handleResize = () => {
     setWindowSize(window.innerWidth);
@@ -24,13 +22,13 @@ const ItemsSlider = () => {
     }
   }, [windowSize]);
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
+  // const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
 
-  if (isLoading ) return <Loading/>;
-  if (error) return <Error/>;
+  // if (isLoading ) return <Loading/>;
+  // if (error) return <Error/>;
   
-  const Items = data.data;
-  console.log(data)
+  // const Items = data.data;
+  console.log(Items.Items)
   
     const settings = {
       dots: true,
@@ -39,7 +37,7 @@ const ItemsSlider = () => {
       speed: 500,
       // autoplay: true,
       pauseOnHover: true,
-      dotsClass: "dots_custom"
+      // dotsClass: "dots_custom"
     };
 
     return (
@@ -66,7 +64,7 @@ const ItemsSlider = () => {
 
           {...settings}
         >
-          {Items && Items.map ((item:any) => {
+          {Items.Items && Items.Items.map ((item:any) => {
               return (
                 <Link to={`/detail/${item.itemId}`} key={item.itemId}>
                   <S.Item>

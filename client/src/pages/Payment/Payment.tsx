@@ -1,7 +1,23 @@
 import * as S from "./styled";
 import { CartBtn } from "../Detail/styled";
+import { useCustomQuery } from "../../components/util/useCustomQuery";
+import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 const Cart = () => {
+
+  const userId = localStorage.getItem("userId")
+
+  const {data, isLoading, error} = useCustomQuery(
+    `/users/${userId}/mypage`,
+    `users=${userId}/mypage`
+  )
+  // console.log(data.data)
+
+  if (isLoading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
+
+
   return (
     <S.CartWrap>
       <S.CartContainer>
@@ -11,10 +27,15 @@ const Cart = () => {
   
         <S.OrderDiv>
           <div>주문자 정보</div>
+          {data.data.addressList.length === 0 ? <S.OrderInfoDiv>나의 정보에서 주소를 입력해주세요</S.OrderInfoDiv> 
+          : 
           <S.OrderInfoDiv>
-            <div>이름</div>
-            <div>휴대폰 번호 010-0000-0000</div>
+            <div className="orderDetail">회원 이름 : {data.data.addressList[0].addressUserName}</div>
+            <div className="orderDetail">휴대폰 번호 : {data.data.addressList[0].phoneNumber}</div>
+            <span>주문 주소 : {data.data.addressList[0].postcode}, {data.data.addressList[0].roadAddress} {data.data.addressList[0].detailAddress}</span>
           </S.OrderInfoDiv>
+          }
+          
         </S.OrderDiv>
         <S.ProductDiv>
           <S.ProductInfoDiv>

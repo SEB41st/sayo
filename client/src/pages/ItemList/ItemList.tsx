@@ -5,8 +5,8 @@ import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import { useEffect, useState } from "react";
-import { Item } from "../../components/ItemsSlider/styled";
 import axios from "axios";
+import EachItem from "../../components/EachItem/EachItem";
 
 
 const ItemList = () => {
@@ -37,12 +37,9 @@ const ItemList = () => {
 
   const Items = data.data;
 
-  // console.log(Items);
-
   const ChangeCategory = (e:any) => {
     setState(String(e.target.id))
   }
-  // console.log(Items)
 
   return (
     <S.Main>
@@ -74,40 +71,16 @@ const ItemList = () => {
             Items.map((item: any) => {
               return state === "전체" ? (
                 <Link to={`/detail/${item.itemId}`} key={item.itemId}>
-                  <S.EachItem>
-                    <S.Item>
-                      <img src={item.itemPicture} alt="goods"></img>
-                    </S.Item>
-                    <S.Font>
-                      <div>{item.itemName}</div>
-                      <div>{item.itmePrice}</div>
-                    </S.Font>
-                  </S.EachItem>
+                  <EachItem item={item}/>
                 </Link>
                 //Todo : category와 판매 state를 중복으로 선택했을 때 filter체크
               ) : String(item.categoryId) === state ? (
                 <Link to={`/detail/${item.itemId}`} key={item.itemId}>
-                  <S.EachItem>
-                    <S.Item>
-                      <img src={item.itemPicture} alt="goods"></img>
-                    </S.Item>
-                    <S.Font>
-                      <div>{item.itemName}</div>
-                      <div>{item.itmePrice}</div>
-                    </S.Font>
-                  </S.EachItem>
+                  <EachItem item={item}/>
                 </Link>
               ) : item.itemStatus === state ? (
                 <Link to={`/detail/${item.itemId}`} key={item.itemId}>
-                  <S.EachItem>
-                    <S.Item>
-                      <img src={item.itemPicture} alt="goods"></img>
-                    </S.Item>
-                    <S.Font>
-                      <div>{item.itemName}</div>
-                      <div>{item.itmePrice}</div>
-                    </S.Font>
-                  </S.EachItem>
+                  <EachItem item={item}/>
                 </Link>)
               : null;
             })}

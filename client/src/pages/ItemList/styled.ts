@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 
 export const Main = styled.div`
     background: white;  
@@ -49,29 +48,6 @@ export const GoodsList = styled.div`
     margin: 5%;
     gap: 40px;
 `
-export const Item = styled.div`
-    height: 6rem;
-    width: 6rem;
-    margin: 0px 0px 13px 0px;
-    border-bottom: 1px solid whitesmoke;
-    gap: 50px;
-    img{
-        border-radius: 30px;
-    }
-    :hover{
-        transform: scale(1.1);
-    }
-    @media screen and (min-width: ${"700px"}) {
-        height: 10rem;
-        width: 10rem;
-        margin: 20px;
-    }
-    @media screen and (min-width: ${"1280px"}) {
-        height: 13rem;
-        width: 13rem;
-        margin: 20px;
-    }
-`
 
 export const Tag = styled.button`
     background-color: #F9BB00;
@@ -80,13 +56,16 @@ export const Tag = styled.button`
     height: 20px;
     color: white;
     margin: 10px;
-    font-size: 5px;
+    font-size: 7px;
     box-shadow: 0px 0px 3px gray;
     cursor: pointer;
     @media screen and (min-width: ${"1000px"}) {
         width: 6%;
         height: 30px;
         font-size: 15px;
+    }
+    :active{
+        background-color: #e49b03;
     }
 `
 
@@ -118,29 +97,3 @@ export const Category = styled.div`
         font-size: 16px;
     }
 ` 
-
-export const Font = styled.div`
-    display: grid;
-    font-size: 12px;
-    @media screen and (min-width: ${"700px"}) {
-        font-size: 15px;
-    }
-`
-//  export const EachItem = styled(NavLink)`
-//     background-color: aliceblue;
-//     border:40px solid black;
-// `
-export const EachItem = styled.div`
-    background-color: white;
-    width: 100%;
-    height: 105%;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    /* :hover{
-        transform: scale(1.1);
-    } */
-`

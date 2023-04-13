@@ -10,6 +10,7 @@ export const ModalWrap = styled.div`
   right: 0;
   background: rgba(0, 0, 0, 0.2);
   z-index: 9999;
+  
 `;
 
 export const ModalSection = styled.div`
@@ -29,11 +30,18 @@ export const ModalSection = styled.div`
       font-size: 20px;
       display: flex;
       justify-content: space-between;
+      @media screen and (max-width: ${"700px"}) {
+      font-size: 13px;
+    }
   }
   main{
     margin: 20px 20px 0 20px;
   }
-  
+  @media screen and (max-width: ${"1024px"}) {
+    width: 60%;
+    height: 23%;
+    font-size: 10px;
+    }
 `;
 
 export const Footer=styled.div`

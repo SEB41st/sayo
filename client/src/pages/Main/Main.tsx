@@ -2,12 +2,31 @@ import { Link } from "react-router-dom";
 import * as S from "./styled";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 import ItemsSlider  from "../../components/ItemsSlider/ItemsSlider";
+import { useCustomQuery } from "../../components/util/useCustomQuery";
+import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
 
 // Type {
 //   Items: Array;
 // }
 
-const Main = (props: any) => {
+const Main = () => {
+
+  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
+
+  if (isLoading ) return <Loading/>;
+  if (error) return <Error/>;
+  
+  const Items = data.data;
+  console.log(Items)
+
+  let sortItems = [...Items]
+  sortItems.sort((a:any,b:any)=> {
+    if(a.wishCount > b.wishCount) return -1;
+    if(a.wishCount < b.wishCount) return 1;
+    return 0  
+  })
+  console.log(sortItems.slice(0,5))
 
   return (
     <S.Main>
@@ -23,7 +42,7 @@ const Main = (props: any) => {
             </Link>
           </h4>
           <S.GoodsList>
-            <ItemsSlider/>
+            <ItemsSlider Items={Items}/>
           </S.GoodsList>
         </S.Menus>
         <S.Title>
@@ -34,10 +53,10 @@ const Main = (props: any) => {
         </S.Title>
         <br />
         <br />
-        <S.Title>인기 상품</S.Title>
+        <S.Title>인기 상품 (TOP 6)</S.Title>
         <S.Menus>
               <S.GoodsList>
-                <ItemsSlider/>
+                <ItemsSlider Items= {sortItems.slice(0,6)}/>
               </S.GoodsList>
         </S.Menus>
           <S.Title style={{ marginLeft: 30 }}>

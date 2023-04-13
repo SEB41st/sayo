@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const MypageWrap = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@ export const MypageContainer = styled.div`
   /* min-width: 20.4375rem;
   min-height: 9.75rem; */
   min-width: 90%;
-  height: 55vh;
+  height: 50%;
   background-color: #fef8e3;
   border-radius: .625rem;
   margin: 30px;
@@ -44,10 +44,16 @@ export const ImageDiv = styled.img`
 export const MypageDiv = styled.div`
   margin: 15px;
   display: flex;
+  justify-content: left;
   width: 80%;
+  button{
+    justify-content: left;
+  }
   .Name {
     font-size: 1rem;
     width: 30%;
+    display: flex;
+    padding: 0;
     @media screen and (min-width: ${"700px"}) {
       font-size: 1.25rem;
     }
@@ -71,6 +77,7 @@ export const MypageDiv = styled.div`
 export const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-around;
+  margin-top: 10%;
   min-width: 20.4375rem;
   margin-bottom: 1.875rem;
 
@@ -131,9 +138,9 @@ export const PostCode = styled.div`
   }
   .PostCodeStyle{
     display: block;
-    position: relative;
-    top: -20%;
-    left: -20px;
+    /* position: relative; */
+    /* top: -20%;
+    left: -20px; */
     width: 100%;
     height: 100%;
     padding: 7px;

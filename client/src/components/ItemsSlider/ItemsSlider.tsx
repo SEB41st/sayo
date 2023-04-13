@@ -37,7 +37,7 @@ const ItemsSlider = (Items:any) => {
       speed: 500,
       // autoplay: true,
       pauseOnHover: true,
-      dotsClass: "dots_custom"
+      // dotsClass: "dots_custom"
     };
 
     return (

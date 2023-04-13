@@ -56,7 +56,7 @@ export const Tag = styled.button`
     height: 20px;
     color: white;
     margin: 10px;
-    font-size: 5px;
+    font-size: 7px;
     box-shadow: 0px 0px 3px gray;
     cursor: pointer;
     @media screen and (min-width: ${"1000px"}) {

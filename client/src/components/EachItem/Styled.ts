@@ -49,8 +49,8 @@ export const EachItem = styled.div`
 export const EndImg = styled.div`
     background-color: 	rgba(0,0,0,20%);
     border-radius: 20px;
-    width: 25%;
-    height: 25%;
+    min-width: 10rem;
+    height: 10rem;
     position: absolute;
     font-size: 20px;
     color: white;
@@ -58,4 +58,9 @@ export const EndImg = styled.div`
     align-items: center;
     justify-content: center;
     transform: translate(0, 0);
+    @media screen and (min-width: ${"700px"}) {
+        min-width: 15rem;
+        min-height: 18rem;
+        font-size: 30px;
+    }
 `

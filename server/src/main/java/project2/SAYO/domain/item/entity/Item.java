@@ -45,8 +45,8 @@ public class Item extends Auditable {
 
    /* @Column(length = 50)
     private String itemTag; // 상품 태그 (카테고리랑 연관관계 매핑)*/
+    @Column
    private int wishCount; // 찜하기 count
-
 
     // 위도, 경도 추후 수정 필요
     @Column(nullable = false)

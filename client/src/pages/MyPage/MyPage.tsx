@@ -7,35 +7,37 @@ import Modal from "../../components/Modal/Modal";
 import { useState, useEffect } from "react";
 import { useCustomMutation } from "../../components/util/useMutation";
 import axios from "axios";
-
+import { WishItem } from "../Detail/Detail";
 
 const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [nickName, setNickName] = useState("");
+  const [wish, setWish] = useState<WishItem[]>([]);
 
   const params = useLocation();
   const userId = localStorage.getItem("userId");
 
-
   const { data, isLoading, error, refetch } = useCustomQuery(
-    `/users/${userId}/mypage`,
-    `userId=${userId}`
+    `/wishes/user/${userId}/wish`,
+    `wishes/user/${userId}/wish`
   );
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
-  //       headers: {
-  //         Authorization: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setNickName(res.data.data.profile[0].nickname);
-  //       console.log(res.data.data.profile[0].nickname);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+
+  useEffect(() => {
+    axios(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res: any) => {
+        console.log(res.data.data);
+        setWish(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
@@ -54,6 +56,10 @@ const Mypage = () => {
     SetModalOpen(false);
   };
 
+  const CommaFormat = (x: any) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   // let {mutate} = useCustomMutation(
   //   `items`,
   //   `items`,
@@ -65,69 +71,51 @@ const Mypage = () => {
   //     refetch()
   // };
 
-  const deleteGoods = async (itemId:any) => {
-      await axios
-        .delete(
-          `http://sayo.n-e.kr:8080/items/${itemId}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("accessToken"),
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res)
-          // refetch()
-          // window.location.reload();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+  const deleteGoods = async (itemId: any) => {
+    await axios
+      .delete(`http://sayo.n-e.kr:8080/items/${itemId}`, {
+        headers: {
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        // refetch()
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <S.MypageWrap>
       <div className="Title">마이페이지</div>
-      <S.MypageContainer>
+      {/* <S.MypageContainer>
         <S.ImageDiv src={Items.profile[0].image}></S.ImageDiv>
         <div className="Nickname">{Items.profile[0].nickname}</div>
-      </S.MypageContainer>
+      </S.MypageContainer> */}
       <S.Line />
+      <S.ProductListName>내가 찜한 상품</S.ProductListName>
       <S.Lists>
-        <div className="Name">내가 찜한 상품</div>
-        <S.ChoiceList>
-          <Link to="/detail">
-            <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods"></img>
-            </S.ItemImg>
-            <S.ItemName>
-              <div>목포 쫀드기</div>
-              <div>9,900원</div>
-            </S.ItemName>
-          </Link>
-          <Link to="/detail">
-            <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods"></img>
-            </S.ItemImg>
-            <S.ItemName>
-              <div>목포 쫀드기</div>
-              <div>9,900원</div>
-            </S.ItemName>
-          </Link>
-          <Link to="/detail">
-            <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods"></img>
-            </S.ItemImg>
-            <S.ItemName>
-              <div>목포 쫀드기</div>
-              <div>9,900원</div>
-            </S.ItemName>
-          </Link>
-        </S.ChoiceList>
+        {Items &&
+          Items.map((item: any) => (
+            <S.ChoiceList>
+              <Link to="/detail">
+                <S.ItemImg>
+                  <img src={item.itemPicture} alt="goods"></img>
+                </S.ItemImg>
+                <S.ItemName>
+                  <div>{item.itemName}</div>
+                  <div>{CommaFormat(item.itemPrice)}원</div>
+                </S.ItemName>
+              </Link>
+            </S.ChoiceList>
+          ))}
       </S.Lists>
       <S.Line />
+      <S.ProductListName>참여 중인 공동구매</S.ProductListName>
       <S.Lists>
-        <div className="Name">참여 중인 공동구매</div>
         <S.ChoiceList>
           <Link to="/detail">
             <S.ItemImg>
@@ -161,8 +149,8 @@ const Mypage = () => {
         </S.ChoiceList>
       </S.Lists>
       <S.Line />
+      <S.ProductListName>내가 작성한 공동구매</S.ProductListName>
       <S.Lists>
-        <div className="Name">내가 작성한 공동구매</div>
         <S.ChoiceList>
           <Link to="/detail">
             <S.ItemImg>
@@ -188,9 +176,9 @@ const Mypage = () => {
             </Modal> */}
           </Link>
           <Link to="/detail">
-            <S.Item>
-              <img src="/assets/goods.png" alt="goods"></img>
-            </S.Item>
+          <S.ItemImg>
+              <img src="/assets/goods.png" alt="goods" />
+            </S.ItemImg>
             <S.ItemName>
               <div>목포 쫀드기</div>
               <div>9,900원</div>

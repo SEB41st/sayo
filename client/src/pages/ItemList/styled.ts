@@ -17,7 +17,7 @@ export const MainList = styled.div`
 export const Title = styled.div`
     font-size: 2em;
     font-weight: 800;
-    margin: 0 20px;
+    margin: 30px;
 `
 
 export const WriteButton = styled.button`

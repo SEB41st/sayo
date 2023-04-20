@@ -255,7 +255,7 @@ const Detail = () => {
           </div>
           <S.goodsDetail>
             <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
-            <div className="ProductFee">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
+            <div className="ProductPrice">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
             <div className="SalesSchedule">
               {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
               판매 일정 :</div>

@@ -63,16 +63,28 @@ export const ProductInfoDiv = styled.div`
 export const ProductInfoDiv2 = styled.div`
   margin-left: 10px;
   width: 60%;
+  margin: 20px;
+  .Name{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  .ProductFee{
+
+  }
 
   @media screen and (min-width: ${"1280px"}) {
     width: 60%;
   }
 `;
 
-export const CheckboxDiv = styled.div``;
+export const CheckboxDiv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
 
 export const CheckboxInput = styled.input`
   width: 50%;
+  margin-right: 20px;
   cursor: pointer;
 
   @media screen and (min-width: ${"1280px"}) {

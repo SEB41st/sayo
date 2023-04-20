@@ -188,7 +188,7 @@ const MyInfo = () => {
               onChange={NameChange}
               />
             </S.MypageDiv>
-            <S.PostCode>
+            <S.MypageDiv>
               <span className="Name">핸드폰 번호</span>
               <input
               type="text"
@@ -196,14 +196,14 @@ const MyInfo = () => {
               placeholder="'-'형태로 입력해주세요"
               onChange={PhoneNumChange}
               />
-            </S.PostCode>
+            </S.MypageDiv>
             <S.MypageDiv>
               {/* <span >주소</span> */}
               <button className="Name" onClick={onChangeOpenPost}>우편번호</button>
               {isOpenPost  ? (
             <S.PostCode><DaumPostcode className="PostCodeStyle" autoClose onComplete={onCompletePost} /></S.PostCode>
-          ) : null}{addressCode},
-            <br/><div>{addressDetail}</div>
+          ) : null}{addressCode}
+            <br/><div>,{addressDetail}</div>
             </S.MypageDiv>
             <S.MypageDiv>
               <span className="Name">세부 주소</span>

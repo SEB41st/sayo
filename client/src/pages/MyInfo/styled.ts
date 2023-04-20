@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const MypageWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,6 +48,11 @@ export const MypageDiv = styled.div`
   width: 80%;
   button{
     justify-content: left;
+    cursor: pointer;
+    width: 100%;
+  }
+  input{
+    width: 100%;
   }
   .Name {
     font-size: 1rem;
@@ -105,8 +110,10 @@ export const LogoutBtn = styled.button`
 `;
 export const PostCode = styled.div`
   margin: 15px;
-  /* display: flex; */
+  /* display: flex;
+  justify-content: flex-end; */
   width: 80%;
+  cursor: pointer;
   @media screen and (max-width: ${"1280px"}) {
     width: 90%;
     }
@@ -116,6 +123,9 @@ export const PostCode = styled.div`
     @media screen and (min-width: ${"700px"}) {
       font-size: 1.25rem;
     }
+  }
+  .input{
+    margin-left: 20%;
   }
   .UserName {
     font-size: 1rem;

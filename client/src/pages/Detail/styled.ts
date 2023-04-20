@@ -65,11 +65,11 @@ export const ProductInfoDiv = styled.div`
   }
 
   .ProductName {
-    font-size: 17px;
+    font-size: 20px;
     margin-bottom: 10px;
 
     @media screen and (min-width: ${"1280px"}) {
-      font-size: 20px;
+      font-size: 25px;
       margin-bottom: 20px;
     }
   }
@@ -164,5 +164,9 @@ export const StaticMap = styled.div`
 `
 export const goodsDetail = styled.div`
   width: 80%;
-  font-size: 13px;
+  font-size: 15px;
+  margin-left: 10px;
+  .ProductPrice{
+    margin-bottom: 10px;
+  }
 `

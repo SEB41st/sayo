@@ -2,12 +2,12 @@ import styled from "styled-components";
 
   
   export const CalenderContainer = styled.div`
-    width: 100%;
-    height: 20%;
-    left: 50%;
-    top: 20%;
-    @media screen and (max-width: ${"700px"}) {
-
+    width: 70%;
+    height: 10%;
+    margin: 40px 0 0 40px ;
+    @media screen and (max-width: ${"1280px"}) {
+      width: 100%;
+      margin-left: 10px;
   }
     .title {
      display: flex;
@@ -70,7 +70,7 @@ import styled from "styled-components";
 
   .react-calendar__navigation {
     display: flex;
-    height: 20px;
+    height: 10px;
     margin: 0.5em 0;
   }
 
@@ -96,7 +96,7 @@ import styled from "styled-components";
   }
 
   .react-calendar__month-view__weekdays__weekday {
-    padding: 0.5em;
+    padding: 0.3em;
   }
 /* 
   .react-calendar__month-view__weekNumbers .react-calendar__tile {
@@ -126,7 +126,7 @@ import styled from "styled-components";
 
   .react-calendar__tile {
     max-width: 100%;
-    padding: 10px 6.6667px;
+    padding: 5px 6.6667px;
     background: none;
     text-align: center;
     line-height: 16px;

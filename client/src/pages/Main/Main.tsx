@@ -42,7 +42,7 @@ const Main = () => {
             </Link>
           </h4>
           <S.GoodsList>
-            <ItemsSlider Items={Items}/>
+          <ItemsSlider Items={Items.slice(0,6)}/>
           </S.GoodsList>
         </S.Menus>
         <S.Title>

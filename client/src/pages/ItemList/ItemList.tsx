@@ -15,12 +15,7 @@ const ItemList = () => {
 
     useEffect(()=> {
         axios
-        .get(`http://sayo.n-e.kr:8080/categories`,
-        {
-          headers: {
-            Authorization : localStorage.getItem("accessToken"),
-          },
-        })
+        .get(`http://sayo.n-e.kr:8080/categories`)
         .then((res) => {
           setCategory(res.data.data)
           console.log(category)

@@ -45,7 +45,7 @@ export const Line = styled.div`
 
 export const Menus = styled.div`
     display: grid;
-    margin: 20px 0 ;
+    margin: 20px 0;
     width: 90%;
     .font{
         justify-self: end;
@@ -57,6 +57,7 @@ export const Menus = styled.div`
     }
     @media screen and (min-width: ${"700px"}) {
       display: grid;
+      margin: 20px 70px;
       
     }
 `

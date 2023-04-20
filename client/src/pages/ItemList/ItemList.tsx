@@ -12,6 +12,7 @@ import EachItem from "../../components/EachItem/EachItem";
 const ItemList = () => {
   const [state, setState] = useState<string>("전체");
   const [category, setCategory] = useState<string[]>([]);
+  const [clicked, setclick] = useState<boolean>(false)
 
     useEffect(()=> {
         axios
@@ -34,7 +35,10 @@ const ItemList = () => {
 
   const ChangeCategory = (e:any) => {
     setState(String(e.target.id))
+    setclick(!clicked)
   }
+  console.log(state)
+  console.log(category)
 
   return (
     <S.Main>
@@ -51,14 +55,14 @@ const ItemList = () => {
           {
             //Todo : 눌러진 상태 확인할 수 있게 css 수정
           category && category.map((category:any)=>{
-            return <S.Category onClick={ChangeCategory} id={category.categoryId}> {category.categoryName}</S.Category>
+            return <S.Category onClick={ChangeCategory} className={state === String(category.categoryId)? "Clicked":"unclicked"} id={category.categoryId}> {category.categoryName}</S.Category>
           })}
         </S.Categorys>
 
         <S.Tags>
           <S.Tag onClick={ChangeCategory} id="전체">전체</S.Tag>
-          <S.Tag onClick={ChangeCategory} id="ITEM_PROGRESS">판매 중</S.Tag>
-          <S.Tag onClick={ChangeCategory} id="ITEM_END">판매 종료</S.Tag>
+          <S.Tag onClick={ChangeCategory} className={state === 'ITEM_PROGRESS'? "Clicked":"unclicked"} id="ITEM_PROGRESS">판매 중</S.Tag>
+          <S.Tag onClick={ChangeCategory} className={state === 'ITEM_END'? "Clicked":"unclicked"} id="ITEM_END">판매 종료</S.Tag>
         </S.Tags>
         {/* Todo : pagenation 구현하기 */}
         <S.GoodsList>

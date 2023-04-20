@@ -8,11 +8,14 @@ import { useState, useEffect } from "react";
 import { useCustomMutation } from "../../components/util/useMutation";
 import axios from "axios";
 import { WishItem } from "../Detail/Detail";
+import { BsPlusCircle, BsSearch } from "react-icons/bs";
+
+
 
 const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [nickName, setNickName] = useState("");
-  const [wish, setWish] = useState<WishItem[]>([]);
+  const [imgae, setImgae] = useState("");
 
   const params = useLocation();
   const userId = localStorage.getItem("userId");
@@ -31,8 +34,8 @@ const Mypage = () => {
       },
     })
       .then((res: any) => {
-        console.log(res.data.data);
-        setWish(res.data.data);
+        setNickName(res.data.data.profile[0].nickname);
+        setImgae(res.data.data.profile[0].image)
       })
       .catch((err) => {
         console.log(err);
@@ -91,12 +94,18 @@ const Mypage = () => {
   return (
     <S.MypageWrap>
       <div className="Title">마이페이지</div>
-      {/* <S.MypageContainer>
-        <S.ImageDiv src={Items.profile[0].image}></S.ImageDiv>
-        <div className="Nickname">{Items.profile[0].nickname}</div>
-      </S.MypageContainer> */}
+      <S.MypageContainer>
+        <S.ImageDiv src={imgae}></S.ImageDiv>
+        <div className="Nickname">{nickName}</div>
+      </S.MypageContainer>
       <S.Line />
       <S.ProductListName>내가 찜한 상품</S.ProductListName>
+      <S.ProductList>
+            전체보기
+            <Link to="/mywishList">
+              <BsPlusCircle className="plusIcon" />
+            </Link>
+          </S.ProductList>
       <S.Lists>
         {Items &&
           Items.map((item: any) => (

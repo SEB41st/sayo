@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import * as S from "./styled";
 import React, { useEffect, useState } from "react";
 import { BsHeartFill } from "react-icons/bs";
@@ -16,6 +16,8 @@ import { likeState } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { useCustomMutation } from "../../components/util/useMutation";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 export interface LatLng {
@@ -23,7 +25,7 @@ export interface LatLng {
   longitude: any;
 }
 
-interface WishItem {
+export interface WishItem {
   createdAt: string;
   itemId: number;
   itemName: string;
@@ -55,6 +57,7 @@ const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   // const [like, setLike] = useRecoilState(likeState);
   const [addCart, setAddCart] = useState<boolean>(false);
+  const navigate = useNavigate()
   // const [wish, setwishId] = useState<number>(0)
   // // const userId = localStorage.getItem("userId")
 
@@ -139,7 +142,7 @@ const Detail = () => {
         console.log(res);
         SetModalOpen(true);
         setAddCart(!addCart)
-        // toast.success("선택하신 내용이 삭제되었습니다");
+        toast.success("선택하신 내용이 삭제되었습니다");
         // refetch();
       })
       .catch((err) => {
@@ -159,12 +162,15 @@ const Detail = () => {
       })
       .then((res) => {
         setLike(!res.data.data.wishSelected);
+        toast.success("성공")
         // window.location.reload();
-        // refetch();
+        refetch();
         // console.log(res.data.data.wishSelected);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("로그인을 해주세요")
+        // navigate("/login")n
       });
   };
 
@@ -216,7 +222,7 @@ const Detail = () => {
   //       console.log(err);
   //     });
   // };
-  function CommaFormat(x:any) {
+  const CommaFormat = (x:any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 

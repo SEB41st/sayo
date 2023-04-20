@@ -64,12 +64,19 @@ export const ProductInfoDiv2 = styled.div`
   margin-left: 10px;
   width: 60%;
   margin: 20px;
+  @media screen and (max-width: ${"700px"}) {
+    margin: 10px;
+  }
   .Name{
     font-size: 1.2rem;
     margin-bottom: 20px;
+    @media screen and (max-width: ${"700px"}) {
+    font-size: 15px;
+  }}
   }
   .ProductFee{
-
+    @media screen and (max-width: ${"700px"}) {
+    font-size: 10px;
   }
 
   @media screen and (min-width: ${"1280px"}) {
@@ -106,7 +113,7 @@ export const ImageDiv = styled.div`
       width: 100%;
       height: 350%;
     }
-  }
+  };
 
   @media screen and (min-width: ${"1280px"}) {
     width: 30%;
@@ -147,7 +154,9 @@ export const CountDiv = styled.div`
   justify-content: center;
   width: 30%;
   gap: 10%;
-  /* margin-left: 8%; */
+  @media screen and (max-width: ${"500px"}) {
+    margin-left: 8%;
+  }
 `;
 
 export const TotalPriceDiv = styled.div`

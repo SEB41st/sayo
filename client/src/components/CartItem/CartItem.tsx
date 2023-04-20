@@ -96,8 +96,8 @@ const CartItem = () => {
               </S.ImageDiv>
               <S.ProductInfoDiv2>
                 <div className="Name">{item.itemName}</div>
-                <div className="ProductFee">가격 : {CommaFormat(item.itemPrice)}</div>
-                <div className="ProductFee">배송비 : {CommaFormat(item.itemDeliveryPrice)}</div>
+                <div className="ProductFee">가격 : {CommaFormat(item.itemPrice)}원</div>
+                <div className="ProductFee">배송비 : {CommaFormat(item.itemDeliveryPrice)}원</div>
               </S.ProductInfoDiv2>
               <S.CloseBox>X</S.CloseBox>
             </S.ProductInfoDiv>

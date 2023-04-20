@@ -4,25 +4,25 @@ export const MypageWrap = styled.div`
   width: 100%;
   height: 100%;
 
-  .Title{
+  .Title {
     font-size: 20px;
     margin: 20px;
     margin-left: 40%;
   }
-  `;
+`;
 
 export const MypageContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 20.4375rem;
-    height: 3.75rem;
-    border-radius: .625rem;
-    margin: 30px;
-    .Nickname{
-        font-size: 14px;
-    }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 20.4375rem;
+  height: 3.75rem;
+  border-radius: 0.625rem;
+  margin: 30px;
+  .Nickname {
+    font-size: 14px;
+  }
+
   @media screen and (min-width: ${"1280px"}) {
     width: 31.25rem;
     height: 18.75rem;
@@ -34,7 +34,7 @@ export const ImageDiv = styled.img`
   height: 2.25rem;
   background-color: aliceblue;
   border-radius: 100%;
-  margin: .625rem;
+  margin: 0.625rem;
 
   @media screen and (min-width: ${"1280px"}) {
     width: 8.125rem;
@@ -45,7 +45,7 @@ export const ImageDiv = styled.img`
 
 export const MypageDiv = styled.div`
   .Name {
-    font-size: .625rem;
+    font-size: 0.625rem;
     margin-right: 7.5rem;
 
     @media screen and (min-width: ${"1280px"}) {
@@ -54,7 +54,7 @@ export const MypageDiv = styled.div`
     }
   }
   .UserName {
-    font-size: .625rem;
+    font-size: 0.625rem;
 
     @media screen and (min-width: ${"1280px"}) {
       font-size: 1rem;
@@ -62,53 +62,58 @@ export const MypageDiv = styled.div`
   }
 `;
 
+export const ProductListName = styled.div`
+  margin-left: 20px;
+  font-size: 20px;
+`;
+
+export const ProductList = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  font-size: 13px;
+  .plusIcon {
+    margin-left: 5px;
+    color: #f9bb00;
+  }
+`;
 
 export const Lists = styled.div`
-    width: 90%;
-    height: 100%;
-    margin: 20px;
-    .Name {
-    font-size: 20px;
-    }
-    
-  `
+  display: flex;
+  width: 90%;
+  height: 100%;
+  margin: 20px;
+`;
 
 export const ChoiceList = styled.div`
-    display: flex;
-    width: 90%;
-    height: 90%;
-    margin: 10px;
-    
-  `
+  width: 50%;
+  height: 90%;
+  /* margin: 10px; */
+`;
 export const Line = styled.div`
-    background-color: #D9D9D9;
-    height: 2px;
-    margin: 50px 0 10px 0 ;
-    width: 100%;
-`
+  background-color: #d9d9d9;
+  height: 2px;
+  margin: 50px 0 10px 0;
+  width: 100%;
+`;
 
 export const ItemImg = styled.div`
-    display: flex;
-    justify-content: center;
-    margin: 20px 10px 10px 10px ;
-    img{
-      width: 100%;
-      height: 100%;
-      border-radius: 20px;
-    }
-    .XButton{
-      margin-left: 30px;
-    }
-`
+  /* width: 50%; */
+  margin: 10px;
+  img {
+    border-radius: 30px;
+  }
+  .XButton {
+    margin-left: 30px;
+  }
+`;
 
 export const ItemName = styled.div`
-  display: grid;
-  justify-content: center;
-  div{
-      justify-content: center;
-    }
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const Item = styled.div`
   display: grid;
-`
+`;

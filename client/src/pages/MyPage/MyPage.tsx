@@ -110,7 +110,7 @@ const Mypage = () => {
         {Items &&
           Items.map((item: any) => (
             <S.ChoiceList>
-              <Link to="/detail">
+              <Link to={`/detail/${item.itemId}`}>
                 <S.ItemImg>
                   <img src={item.itemPicture} alt="goods"></img>
                 </S.ItemImg>
@@ -147,13 +147,14 @@ const Mypage = () => {
             </Modal> */}
           </Link>
           <Link to="/detail">
-            <S.ItemImg>
+            {/* <S.ItemImg>
               <img src="/assets/goods.png" alt="goods"></img>
             </S.ItemImg>
             <S.ItemName>
-              <div>목포 쫀드기</div>
-              <div>9,900원</div>
-            </S.ItemName>
+              <div>상품명 : 생수</div>
+              <div>구매일 : 2023.03.23</div>
+              <div>송장번호 : 3827498379244</div>
+            </S.ItemName> */}
           </Link>
         </S.ChoiceList>
       </S.Lists>
@@ -184,7 +185,7 @@ const Mypage = () => {
             </S.ItemName>
             </Modal> */}
           </Link>
-          <Link to="/detail">
+          {/* <Link to="/detail">
           <S.ItemImg>
               <img src="/assets/goods.png" alt="goods" />
             </S.ItemImg>
@@ -192,7 +193,7 @@ const Mypage = () => {
               <div>목포 쫀드기</div>
               <div>9,900원</div>
             </S.ItemName>
-          </Link>
+          </Link> */}
         </S.ChoiceList>
       </S.Lists>
     </S.MypageWrap>

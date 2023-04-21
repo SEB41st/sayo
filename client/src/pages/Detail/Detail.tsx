@@ -142,7 +142,7 @@ const Detail = () => {
         console.log(res);
         SetModalOpen(true);
         setAddCart(!addCart)
-        toast.success("선택하신 내용이 삭제되었습니다");
+        // toast.success("선택하신 내용이 삭제되었습니다");
         // refetch();
       })
       .catch((err) => {
@@ -169,7 +169,7 @@ const Detail = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("로그인을 해주세요")
+        toast.info("로그인을 해주세요")
         // navigate("/login")n
       });
   };

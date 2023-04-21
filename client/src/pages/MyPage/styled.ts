@@ -86,7 +86,7 @@ export const Lists = styled.div`
 `;
 
 export const ChoiceList = styled.div`
-  width: 50%;
+  width: 30%;
   height: 90%;
   /* margin: 10px; */
 `;
@@ -112,6 +112,9 @@ export const ItemName = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: ${"500px"}) {
+    align-items: flex-start;
+    }
 `;
 
 export const Item = styled.div`

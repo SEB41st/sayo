@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { convertToObject } from "typescript";
 import * as S from "./styled";
 
@@ -60,13 +61,13 @@ const Login = () => {
         // console.log("userId", res.data.data.id);
         localStorage.setItem("userId", res.data.data.id);
         if (res.status === 200) {
-          alert("로그인이 완료되었습니다!");
+          toast.success("로그인이 완료되었습니다")
           navigate("/");
           // console.log(res.headers)
         }
       })
       .catch((err) => {
-        alert("입력하신 정보를 다시 확인해주세요!");
+        toast.error("입력하신 정보를 다시 확인해주세요!");
         console.log(err);
       });
   };

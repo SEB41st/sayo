@@ -8,6 +8,7 @@ import { useCustomQuery } from "../../components/util/useCustomQuery";
 import * as S from "./styled";
 import DaumPostcode from 'react-daum-postcode';
 import { useCustomMutation } from "../../components/util/useMutation";
+import { toast } from "react-toastify";
 
 const MyInfo = () => {
 
@@ -55,6 +56,7 @@ const MyInfo = () => {
         localStorage.clear();
         navigate("/");
         window.location.reload()
+        // toast.info("로그아웃 되었습니다")
       })
       .catch((err) => {
         console.log(err);
@@ -95,7 +97,7 @@ const MyInfo = () => {
         roadAddress: addressDetail,
         detailAddress:address})
       console.log(phoneNum,addressCode,addressDetail,address)
-      alert("수정이 완료되었습니다");
+      toast.success("수정이 완료되었습니다")
       // refetch();
   };
 

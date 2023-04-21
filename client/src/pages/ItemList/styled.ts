@@ -67,16 +67,25 @@ export const Tag = styled.button`
     :active{
         background-color: #e49b03;
     }
+    
 `
+
 
 export const Tags = styled.div`
     display: flex;
     justify-content: flex-end;
     margin: 10px;
+    .Clicked { 
+        background-color: #e49b03;
+    }
 `
 export const Categorys = styled.div`
     display: flex;
     margin: 10px 10px 20px 10px;
+    .Clicked { 
+        background-color: #e49b03;
+        color: white;
+    }
 `
 export const Category = styled.div`
     background-color: #ffffff;
@@ -91,6 +100,7 @@ export const Category = styled.div`
     font-size: 12px;
     box-shadow: 0px 0px 3px gray;
     cursor: pointer;
+
     @media screen and (min-width: ${"1000px"}) {
         width: 8%;
         height: 40px;

@@ -18,7 +18,6 @@ const ItemList = () => {
   const [size, setSize] = useState(10);
   const [totalElements, setTotalElements] = useState(100);
 
-
   useEffect(() => {
     axios
       .get(`http://sayo.n-e.kr:8080/categories`)
@@ -36,9 +35,9 @@ const ItemList = () => {
       .get(`http://sayo.n-e.kr:8080/items/get?page=${page}&size=10`)
       .then((res) => {
         setItem(res.data.data);
-        setPage(res.data.pageInfo.page)
-        setSize(res.data.pageInfo.size)
-        setTotalElements(res.data.pageInfo.totalElements)
+        setPage(res.data.pageInfo.page);
+        setSize(res.data.pageInfo.size);
+        setTotalElements(res.data.pageInfo.totalElements);
       })
       .catch((error) => {
         console.log(error);
@@ -114,20 +113,20 @@ const ItemList = () => {
             item.map((items: any) => {
               return state === "전체" ? (
                 <Link to={`/detail/${items.itemId}`} key={items.itemId}>
-                  <EachItem items={items} />
+                  <EachItem items={items} page={page} />
                 </Link>
               ) : //Todo : category와 판매 state를 중복으로 선택했을 때 filter체크
               String(items.categoryId) === state ? (
                 <Link to={`/detail/${items.itemId}`} key={items.itemId}>
-                  <EachItem items={items} page={page}/>
+                  <EachItem items={items} page={page} />
                 </Link>
               ) : items.itemStatus === state ? (
                 <Link to={`/detail/${items.itemId}`} key={items.itemId}>
-                  <EachItem items={items} />
+                  <EachItem items={items} page={page} />
                 </Link>
               ) : null;
             })}
-             <Pagination
+          <Pagination
             activePage={page}
             itemsCountPerPage={size}
             totalItemsCount={totalElements}

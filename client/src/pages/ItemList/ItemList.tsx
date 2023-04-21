@@ -12,13 +12,14 @@ import Pagination from "react-js-pagination";
 const ItemList = () => {
   const [state, setState] = useState<string>("전체");
   const [category, setCategory] = useState<string[]>([]);
-  const [item, setItem] = useState<string[]>([]);
+  const [item, setItem] = useState<any[]>([]);
   const [pageinfo, setPageinfo] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [totalElements, setTotalElements] = useState(100);
   const [clicked, setclick] = useState<boolean>(false)
 
+  console.log(page)
   useEffect(() => {
     axios
       .get(`http://sayo.n-e.kr:8080/categories`)
@@ -33,7 +34,7 @@ const ItemList = () => {
 
   useEffect(() => {
     axios
-      .get(`http://sayo.n-e.kr:8080/items/get?page=${page}&size=10`)
+      .get(`http://sayo.n-e.kr:8080/items/get?page=${page}&size=900`)
       .then((res) => {
         setItem(res.data.data);
         setPage(res.data.pageInfo.page);
@@ -45,33 +46,30 @@ const ItemList = () => {
       });
   }, [page]);
 
-  // const { data, isLoading, error, refetch } = useCustomQuery(
-  //   `/items/get?page=${page}&size=10`,
-  //   `items`
-  // );
+  const [activePage, setActivePage] = useState(1); // 현재 활성화된 페이지
+  const filteredItems = item.filter((item)=> String(item.categoryId) === state);
+  const progressAllItem = item.filter((item)=> "전체" === state) // 조건에 따라 필터링
+  const progressItem = item.filter((item)=> item.itemStatus === state)
+  const combinedItems = [...progressAllItem, ...filteredItems, ...progressItem];
+  const totalItemCount = combinedItems.length; // 필터링된 아이템 개수
+  const pageCount = Math.ceil(totalItemCount / 9); // 전체 페이지 개수
+  const startIndex = (activePage - 1) * 9; // 현재 페이지의 첫번째 아이템 인덱스
+  const pagedItems = combinedItems.slice(startIndex, startIndex + 9); // 현재 페이지의 아이템
 
-  // if (isLoading) return <Loading></Loading>;
-  // if (error) return <Error></Error>;
-
-  // const { size, totalPages, totalElements } = data.pageInfo;
-  // // console.log("page", page);
-  // // console.log("size", size);
-  // // console.log("totalPages", totalPages);
-  // // console.log("totalElements", totalElements);
-  // const Items = data.data;
+  const handlePageChange = (pageNumber:any) => {
+    setActivePage(pageNumber); // 페이지 변경 시 현재 페이지 업데이트
+  };
+  console.log(filteredItems)
+  console.log(progressItem)
+  console.log(combinedItems)
+  console.log(pagedItems)
+  console.log(state)
 
   const ChangeCategory = (e:any) => {
     setState(String(e.target.id))
+    console.log(e.target.id)
     setclick(!clicked)
   }
-
-  const handlePageChange = (page: number) => {
-    setPage(page);
-    console.log(page);
-  };
-  
-  console.log(state)
-  console.log(category)
 
   return (
     <S.Main>
@@ -88,7 +86,6 @@ const ItemList = () => {
             전체
           </S.Category>
           {
-            //Todo : 눌러진 상태 확인할 수 있게 css 수정
           category && category.map((category:any)=>{
             return <S.Category onClick={ChangeCategory} className={state === String(category.categoryId)? "Clicked":"unclicked"} id={category.categoryId}> {category.categoryName}</S.Category>
           })}
@@ -99,38 +96,28 @@ const ItemList = () => {
           <S.Tag onClick={ChangeCategory} className={state === 'ITEM_PROGRESS'? "Clicked":"unclicked"} id="ITEM_PROGRESS">판매 중</S.Tag>
           <S.Tag onClick={ChangeCategory} className={state === 'ITEM_END'? "Clicked":"unclicked"} id="ITEM_END">판매 종료</S.Tag>
         </S.Tags>
-        {/* Todo : pagenation 구현하기 */}
         <S.GoodsList>
-          {item &&
-            item.map((items: any) => {
-              return state === "전체" ? (
-                <Link to={`/detail/${items.itemId}`} key={items.itemId}>
-                  <EachItem items={items} page={page} />
-                </Link>
-              ) : //Todo : category와 판매 state를 중복으로 선택했을 때 filter체크
-              String(items.categoryId) === state ? (
-                <Link to={`/detail/${items.itemId}`} key={items.itemId}>
-                  <EachItem items={items} page={page} />
-                </Link>
-              ) : items.itemStatus === state ? (
-                <Link to={`/detail/${items.itemId}`} key={items.itemId}>
-                  <EachItem items={items} page={page} />
-                </Link>
-              ) : null;
-            })}
+          <>
+            { pagedItems.map((items)=> {
+            return (
+            <Link to={`/detail/${items.itemId}`} key={items.itemId}>
+              <EachItem items={items} />
+            </Link>)})}
+          </>
+            
+          </S.GoodsList>
           <Pagination
-            activePage={page}
-            itemsCountPerPage={size}
-            totalItemsCount={totalElements}
-            pageRangeDisplayed={5}
-            prevPageText={"<"}
-            nextPageText={">"}
-            onChange={handlePageChange}
-          />
-        </S.GoodsList>
+        activePage={activePage}
+        itemsCountPerPage={9}
+        totalItemsCount={totalItemCount}
+        pageRangeDisplayed={5}
+        onChange={handlePageChange}
+      />
+
       </S.MainList>
     </S.Main>
   );
 };
 
 export default ItemList;
+// 

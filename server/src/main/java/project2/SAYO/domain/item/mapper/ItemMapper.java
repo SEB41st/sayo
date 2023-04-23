@@ -60,6 +60,7 @@ public interface ItemMapper{
                 .createdAt(item.getCreatedAt())
                 .modifiedAt(item.getModifiedAt())
                 .itemStatus(item.getItemStatus())
+                .userId(item.getUser().getId())
                 .categoryId(item.getCategory().getCategoryId())
                 .build();
     }

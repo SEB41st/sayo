@@ -70,6 +70,8 @@ public class ItemDto {
     @NoArgsConstructor
     public static class ItemResponse{
         private Long itemId; // 아이디
+
+        private Long userId; // 회원 아이디
         private String itemName; // 상품 이름
         private String itemPicture; // 상품 이미지
         //private boolean itemDelivery; // 무료배송 여부

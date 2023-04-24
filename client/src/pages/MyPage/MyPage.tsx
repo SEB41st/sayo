@@ -100,16 +100,18 @@ const Mypage = () => {
       </S.MypageContainer>
       <S.Line />
       <S.ProductListName>내가 찜한 상품</S.ProductListName>
+      {Items.length === 0 ? null :
       <S.ProductList>
             전체보기
             <Link to="/mywishList">
               <BsPlusCircle className="plusIcon" />
             </Link>
-          </S.ProductList>
+          </S.ProductList> }
       <S.Lists>
-        {Items &&
-          Items.map((item: any) => (
-            <S.ChoiceList>
+        {Items.length === 0 ? <div>원하는 상품을 찜해주세요 !</div> : (
+          Items &&
+            Items.map((item: any) => (
+              <S.ChoiceList>
               <Link to={`/detail/${item.itemId}`}>
                 <S.ItemImg>
                   <img src={item.itemPicture} alt="goods"></img>
@@ -120,7 +122,8 @@ const Mypage = () => {
                 </S.ItemName>
               </Link>
             </S.ChoiceList>
-          ))}
+          ))
+          )}
       </S.Lists>
       <S.Line />
       <S.ProductListName>참여 중인 공동구매</S.ProductListName>

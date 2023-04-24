@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { convertToObject } from "typescript";
 import * as S from "./styled";
 
 
@@ -10,7 +9,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [info, setInfo] = useState<{email:string, password:string}>({email:"",password:""})
-
 
 
   const accessToken = searchParams.get("access_token") || null;
@@ -24,8 +22,8 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("userId", userId);
-      // navigate("/");
-      alert("로그인 성공")
+      navigate("/");
+      toast("로그인이 완료되었습니다")
     }
   }, []);
 
@@ -54,16 +52,12 @@ const Login = () => {
     await axios
       .post("http://sayo.n-e.kr:8080/users/login", jsonData)
       .then((res) => {
-        // console.log("accessToken", res.headers.authorization);
-        // console.log("refreshToken", res.headers.refresh);
         localStorage.setItem("accessToken", res.headers.authorization);
         localStorage.setItem("refreshToken", res.headers.refresh);
-        // console.log("userId", res.data.data.id);
         localStorage.setItem("userId", res.data.data.id);
         if (res.status === 200) {
           toast.success("로그인이 완료되었습니다")
           navigate("/");
-          // console.log(res.headers)
         }
       })
       .catch((err) => {

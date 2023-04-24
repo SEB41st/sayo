@@ -121,16 +121,18 @@ const Mypage = () => {
       </S.MypageContainer>
       <S.Line />
       <S.ProductListName>내가 찜한 상품</S.ProductListName>
+      {Items.length === 0 ? null :
       <S.ProductList>
-        전체보기
-        <Link to="/mywishList">
-          <BsPlusCircle className="plusIcon" />
-        </Link>
-      </S.ProductList>
+            전체보기
+            <Link to="/mywishList">
+              <BsPlusCircle className="plusIcon" />
+            </Link>
+          </S.ProductList> }
       <S.Lists>
-        {Items &&
-          Items.map((item: any) => (
-            <S.ChoiceList>
+        {Items.length === 0 ? <div className="nullItem">원하는 상품을 찜해주세요 !</div> : (
+          Items &&
+            Items.map((item: any) => (
+              <S.ChoiceList>
               <Link to={`/detail/${item.itemId}`}>
                 <S.ItemImg>
                   <img src={item.itemPicture} alt="goods"></img>
@@ -141,7 +143,8 @@ const Mypage = () => {
                 </S.ItemName>
               </Link>
             </S.ChoiceList>
-          ))}
+          ))
+          )}
       </S.Lists>
       <S.Line />
       <S.ProductListName>참여 중인 공동구매</S.ProductListName>
@@ -152,9 +155,9 @@ const Mypage = () => {
               <img src="/assets/goods.png" alt="goods"></img>
             </S.ItemImg>
             <S.ItemName>
-              <div>상품명 : 목포 쫀드기</div>
-              <div>구매일 : 2023.02.03</div>
-              <div>송장번호 : 3827498379238</div>
+              <span>상품명</span><span> 목포 쫀드기</span>
+              <span>구매일</span><span> 2023.02.03</span>
+              <span>송장번호</span><span>  3827498379238</span>
             </S.ItemName>
             {/* <Modal
                 open={openModal}
@@ -181,14 +184,10 @@ const Mypage = () => {
       </S.Lists>
       <S.Line />
       <S.ProductListName>내가 작성한 공동구매</S.ProductListName>
-      <S.ProductList>
-        전체보기
-        <Link to="/myList">
-          <BsPlusCircle className="plusIcon" />
-        </Link>
-      </S.ProductList><S.Lists>
-        {hasMyId.slice(0, 4) &&
-          hasMyId.slice(0, 4).map((item: any) => (
+      <S.Lists>
+      {hasMyId.length === 0 ? <div className="nullItem">공동구매 상품을 제안해주세요 !</div> : (
+        hasMyId.slice(0,4) &&
+          hasMyId.slice(0,4).map((item: any) => (
             <S.ChoiceList>
               <Link to={`/detail/${item.itemId}`}>
                 <S.ItemImg>
@@ -200,7 +199,7 @@ const Mypage = () => {
                 </S.ItemName>
               </Link>
             </S.ChoiceList>
-          ))}
+          )))}
       </S.Lists>
     </S.MypageWrap>
   );

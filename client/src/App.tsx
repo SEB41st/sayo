@@ -16,7 +16,8 @@ import ItemList from "./pages/ItemList/ItemList";
 import Cart from "./pages/Cart/Cart";
 import Payment from "./pages/Payment/Payment";
 import Login from "./pages/Login/Login";
-import MypageItemList from "./pages/ItemList/MypageItemList";
+import MyWishItemList from "./pages/ItemList/MyWishItemList";
+import MyItemList from "./pages/ItemList/MyItemList";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -56,7 +57,8 @@ const App = () => {
         <Route path="/itemList" element={<ItemList />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/mywishList" element={<MypageItemList />} />
+        <Route path="/mywishList" element={<MyWishItemList />} />
+        <Route path="/myList" element={<MyItemList />} />
         {/* <Route path="/kakaoLogin" element={<KakaoSignUp/>}/> */}
         <Route path="/login" element={<Login />} />
         {/* <Route path="/googlelogin" element={<GoogleAuthLogin/>}/> */}

@@ -10,8 +10,6 @@ import axios from "axios";
 import { WishItem } from "../Detail/Detail";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 
-
-
 const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [nickName, setNickName] = useState("");
@@ -36,7 +34,7 @@ const Mypage = () => {
     })
       .then((res: any) => {
         setNickName(res.data.data.profile[0].nickname);
-        setImgae(res.data.data.profile[0].image)
+        setImgae(res.data.data.profile[0].image);
       })
       .catch((err) => {
         console.log(err);
@@ -52,8 +50,7 @@ const Mypage = () => {
       },
     })
       .then((res: any) => {
-        setMyItem(res.data.data)
-        console.log(res.data.data)
+        setMyItem(res.data.data);
       })
       .catch((err) => {
         console.log(err);

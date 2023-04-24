@@ -37,9 +37,9 @@ const MypageItemList = () => {
         <S.GoodsList>
         
           {Items &&
-            Items.map((item: any) => (
-                <Link to={`/detail/${item.itemId}`} key={item.itemId}>
-                  <EachItem item={item}/>
+            Items.map((items: any) => (
+                <Link to={`/detail/${items.itemId}`} key={items.itemId}>
+                  <EachItem items={items}/>
                 </Link>
             ))}
         </S.GoodsList>

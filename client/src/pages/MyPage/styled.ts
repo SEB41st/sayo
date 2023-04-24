@@ -83,12 +83,19 @@ export const Lists = styled.div`
   width: 90%;
   height: 100%;
   margin: 20px;
+  .nullItem{
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: gray;
+  }
 `;
 
 export const ChoiceList = styled.div`
-  width: 30%;
+  width: 20%;
   height: 90%;
-  /* margin: 10px; */
+  margin: 10px;
 `;
 export const Line = styled.div`
   background-color: #d9d9d9;
@@ -100,8 +107,15 @@ export const Line = styled.div`
 export const ItemImg = styled.div`
   /* width: 50%; */
   margin: 10px;
+  display: flex;
+  justify-content: center;
   img {
     border-radius: 30px;
+    width: 80%;
+    @media screen and (max-width: ${"500px"}) {
+    width: 140%;
+    border-radius: 10px;
+    }
   }
   .XButton {
     margin-left: 30px;
@@ -112,9 +126,15 @@ export const ItemName = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 15px;
   @media screen and (max-width: ${"500px"}) {
-    align-items: flex-start;
-    }
+    align-items: center;
+    font-size: 10px;
+  }
+  span{
+  display: flex;
+  flex-direction: row;
+  }
 `;
 
 export const Item = styled.div`

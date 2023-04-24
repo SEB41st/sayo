@@ -16,6 +16,7 @@ const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [nickName, setNickName] = useState("");
   const [imgae, setImgae] = useState("");
+  const [myItem, setMyItem] = useState([]);
 
   const params = useLocation();
   const userId = localStorage.getItem("userId");
@@ -42,6 +43,23 @@ const Mypage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios(`http://sayo.n-e.kr:8080/items/get?page=1&size=100`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res: any) => {
+        setMyItem(res.data.data)
+        console.log(res.data.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
@@ -51,6 +69,12 @@ const Mypage = () => {
 
   const Items = data.data;
   console.log(Items);
+
+  const hasMyId = myItem.filter((item) => item.userId === Number(userId));
+
+  // console.log(typeof(userId))
+  // console.log("hasMyId", hasMyId)
+  // console.log("wish", myItem)
 
   const openModal = () => {
     SetModalOpen(true);
@@ -161,40 +185,20 @@ const Mypage = () => {
       <S.Line />
       <S.ProductListName>내가 작성한 공동구매</S.ProductListName>
       <S.Lists>
-        <S.ChoiceList>
-          <Link to="/detail">
-            <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods" />
-            </S.ItemImg>
-            <S.ItemImg>
-              <S.ItemName>
-                <div>목포 쫀드기</div>
-                <div>9,900</div>
-                <div>구매인원 : 10명</div>
-              </S.ItemName>
-              {/* <button onClick={() => deleteGoods()}>x</button> */}
-            </S.ItemImg>
-            {/* <Modal
-                open={openModal}
-                close={closeModal} 
-            >
-            <S.ItemName>
-               <div>상품명 : 목포 쫀드기</div>
-               <div>구매일 : 2023.02.03</div>
-               <div>송장번호 : 3827498379238</div>                      
-            </S.ItemName>
-            </Modal> */}
-          </Link>
-          {/* <Link to="/detail">
-          <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods" />
-            </S.ItemImg>
-            <S.ItemName>
-              <div>목포 쫀드기</div>
-              <div>9,900원</div>
-            </S.ItemName>
-          </Link> */}
-        </S.ChoiceList>
+        {hasMyId.slice(0,4) &&
+          hasMyId.slice(0,4).map((item: any) => (
+            <S.ChoiceList>
+              <Link to={`/detail/${item.itemId}`}>
+                <S.ItemImg>
+                  <img src={item.itemPicture} alt="goods"></img>
+                </S.ItemImg>
+                <S.ItemName>
+                  <div>{item.itemName}</div>
+                  <div>{CommaFormat(item.itemPrice)}원</div>
+                </S.ItemName>
+              </Link>
+            </S.ChoiceList>
+          ))}
       </S.Lists>
     </S.MypageWrap>
   );

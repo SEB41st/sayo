@@ -10,8 +10,6 @@ import axios from "axios";
 import { WishItem } from "../Detail/Detail";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 
-
-
 const Mypage = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [nickName, setNickName] = useState("");
@@ -36,7 +34,7 @@ const Mypage = () => {
     })
       .then((res: any) => {
         setNickName(res.data.data.profile[0].nickname);
-        setImgae(res.data.data.profile[0].image)
+        setImgae(res.data.data.profile[0].image);
       })
       .catch((err) => {
         console.log(err);
@@ -52,8 +50,7 @@ const Mypage = () => {
       },
     })
       .then((res: any) => {
-        setMyItem(res.data.data)
-        console.log(res.data.data)
+        setMyItem(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -125,11 +122,11 @@ const Mypage = () => {
       <S.Line />
       <S.ProductListName>내가 찜한 상품</S.ProductListName>
       <S.ProductList>
-            전체보기
-            <Link to="/mywishList">
-              <BsPlusCircle className="plusIcon" />
-            </Link>
-          </S.ProductList>
+        전체보기
+        <Link to="/mywishList">
+          <BsPlusCircle className="plusIcon" />
+        </Link>
+      </S.ProductList>
       <S.Lists>
         {Items &&
           Items.map((item: any) => (
@@ -184,9 +181,14 @@ const Mypage = () => {
       </S.Lists>
       <S.Line />
       <S.ProductListName>내가 작성한 공동구매</S.ProductListName>
-      <S.Lists>
-        {hasMyId.slice(0,4) &&
-          hasMyId.slice(0,4).map((item: any) => (
+      <S.ProductList>
+        전체보기
+        <Link to="/myList">
+          <BsPlusCircle className="plusIcon" />
+        </Link>
+      </S.ProductList><S.Lists>
+        {hasMyId.slice(0, 4) &&
+          hasMyId.slice(0, 4).map((item: any) => (
             <S.ChoiceList>
               <Link to={`/detail/${item.itemId}`}>
                 <S.ItemImg>

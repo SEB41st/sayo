@@ -165,12 +165,10 @@ const Detail = () => {
         toast.success("성공")
         // window.location.reload();
         refetch();
-        // console.log(res.data.data.wishSelected);
       })
       .catch((err) => {
         console.log(err);
         toast.info("로그인을 해주세요")
-        // navigate("/login")n
       });
   };
 
@@ -257,7 +255,6 @@ const Detail = () => {
             <div className="ProductPrice">판매가 : {CommaFormat(Items.itemPrice)}원</div>
             <div className="ProductPrice">배송비 : {CommaFormat(Items.itemDeliveryPrice)}원</div>
             <div className="SalesSchedule">
-              {/* 판매일정 : {Items.itemDateStart} ~ {Items.itemDateEnd} */}
               판매 일정 :</div>
               <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
           </S.goodsDetail>
@@ -269,16 +266,16 @@ const Detail = () => {
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>
-      {addCart ? <Modal
-        open={modalOpen}
-        close={closeModal}
-        header="장바구니에 상품이 정상적으로 삭제되었습니다."
-      ><div>장바구니에 담으시려면 장바구니 버튼을 한번 더 눌러주세요</div></Modal>
-      : <Modal
+      {addCart ? 
+      <Modal
         open={modalOpen}
         close={closeModal}
         header="장바구니에 상품이 성공적으로 담겼습니다."
-      ><div>장바구니로 이동하시겠습니까?</div></Modal>}
+      ><div>장바구니로 이동하시겠습니까?</div></Modal>:<Modal
+        open={modalOpen}
+        close={closeModal}
+        header="장바구니에 상품이 정상적으로 삭제되었습니다."
+      ><div>장바구니에 담으시려면 장바구니 버튼을 한번 더 눌러주세요</div></Modal>}
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemBody}</div>

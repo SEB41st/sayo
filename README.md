@@ -1,6 +1,5 @@
 ## sayo
 
-<img src = https://i.postimg.cc/y6GbHprc/Green-Logo.png width = "200">
 
 1인 가구가 늘어나는 현재, 이웃들과 대량의 제품을 공동구매 할 수 있도록 지도를 기반으로 제품을 검색하고 구매할 수 있도록 제작하게 된 사이트입니다.
 
@@ -23,7 +22,7 @@ PW : asdf1234!!
 ## 👨‍👩‍👧‍👦 Member
 
 | 장한나(FE) |  강성심(FE)  |  김희진(BE)  |  강신찬(BE) |  박금비(BE) |
-| :-: | :-: |  :-: |  :-: |  :-: |  :-: |
+|       :-: |       :-: |         :-: |       :-: |        :-: |
 | [jhn221](https://github.com/jhn221) | [kangseong-sim](https://github.com/kangseong-sim) | [Khjin06k](https://github.com/Khjin06k) | [superscman](https://github.com/superscman)| [keumbi](https://github.com/keumbi)
 </br></br>
 

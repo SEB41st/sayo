@@ -1,7 +1,9 @@
 package project2.SAYO.global.upload;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ import project2.SAYO.domain.user.service.UserService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
@@ -46,18 +50,38 @@ public class S3UploadService {
     }
 
     private String userImageUpload(File uploadFile, String dirName) {
+        String preSignedURL = "";
         String fileName = dirName + "/" + uploadFile.getName();
         //String uploadImageUrl = putS3(uploadFile, fileName);
+        Date expiration = new Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * 2;
+        expiration.setTime(expTimeMillis);
+
+        log.info(expiration.toString());
+
+        try {
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucket, fileName)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
+            preSignedURL = url.toString();
+            log.info("Pre-Signed URL : " + url.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
         User user = userService.getCurrentMember();
         Profile profile = user.getProfile();
-        profile.setImage(fileName);
+        profile.setImage(preSignedURL);
 
         userRepository.save(user);
 
-        return fileName;      // 업로드 할 파일 URL 반환
+        return preSignedURL;      // 업로드 할 파일 URL 반환
     }
 
     public String itemImageUpload(MultipartFile multipartFile, String dirName, Long itemId) throws IOException {
@@ -67,8 +91,30 @@ public class S3UploadService {
     }
 
     private String itemImageUpload(File uploadFile, String dirName, Long itemId) {
+        String preSignedURL1 = "";
         String fileName = dirName + "/" + uploadFile.getName();
         //String uploadImageUrl = putS3(uploadFile, fileName);
+
+        Date expiration = new Date();
+        long expTimeMillis1 = expiration.getTime();
+        expTimeMillis1 += 1000 * 60 * 2;
+        expiration.setTime(expTimeMillis1);
+
+        log.info(expiration.toString());
+
+        try {
+            GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                    new GeneratePresignedUrlRequest(bucket, fileName)
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+            URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
+            preSignedURL1 = url.toString();
+            log.info("Pre-Signed URL : " + url.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
@@ -77,7 +123,7 @@ public class S3UploadService {
 
         itemRepository.save(item);
 
-        return fileName;      // 업로드 할 파일 URL 반환
+        return preSignedURL1;      // 업로드 할 파일 URL 반환
     }
 
     private String putS3(File uploadFile, String fileName) {

@@ -19,6 +19,9 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 500MB
   security:
     oauth2:
       client:

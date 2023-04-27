@@ -75,11 +75,11 @@ public class S3UploadService {
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
-        User user = userService.getCurrentMember();
+        /*User user = userService.getCurrentMember();
         Profile profile = user.getProfile();
         profile.setImage(preSignedURL);
 
-        userRepository.save(user);
+        userRepository.save(user);*/
 
         return preSignedURL;      // 업로드 할 파일 URL 반환
     }
@@ -118,10 +118,10 @@ public class S3UploadService {
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
-        Item item = itemService.findVerifiedItem(itemId);
+        /*Item item = itemService.findVerifiedItem(itemId);
         item.setItemPicture(fileName);
 
-        itemRepository.save(item);
+        itemRepository.save(item);*/
 
         return preSignedURL1;      // 업로드 할 파일 URL 반환
     }

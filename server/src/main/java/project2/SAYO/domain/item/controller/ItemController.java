@@ -105,8 +105,8 @@ public class ItemController {
     // TODO IMAGE UPLOAD
     @PostMapping("/upload/{item-id}")
     public ResponseEntity userImageUpload(@PathVariable("item-id") @Positive Long itemId,
-                                          @RequestBody MultipartFile memberPicture) throws IOException {
-        String itemPictureUrl = s3UploadService.itemImageUpload(memberPicture, "image", itemId);
+                                          @RequestBody MultipartFile itemPicture) throws IOException {
+        String itemPictureUrl = s3UploadService.itemImageUpload(itemPicture, "image", itemId);
         return new ResponseEntity(new SingleResponseDto<>((itemPictureUrl)), HttpStatus.OK);
     }
 }

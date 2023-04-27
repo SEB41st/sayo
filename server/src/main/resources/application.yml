@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   h2:
     console:
       enabled: true
@@ -11,7 +13,9 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
-
+  servlet:
+    multipart:
+      max-file-size: 500MB
   jpa:
     show-sql: true
     hibernate:

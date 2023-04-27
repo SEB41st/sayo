@@ -15,11 +15,13 @@ import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.fileupload.AwsS3Path;
 import project2.SAYO.global.fileupload.ImageUploadService;
 import project2.SAYO.global.loginresolver.LoginUserId;
+import project2.SAYO.global.upload.S3UploadService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +33,7 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final ImageUploadService awsS3Service;
+    private final S3UploadService s3UploadService;
 
     // TODO POST
     @PostMapping("/signup")
@@ -127,6 +130,13 @@ public class UserController {
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(("회원탈퇴가 완료되었습니다"),HttpStatus.NO_CONTENT);
+    }
+
+    // TODO IMAGE UPLOAD
+    @PostMapping("/upload")
+    public ResponseEntity userImageUpload(@RequestBody MultipartFile memberPicture) throws IOException {
+        String memberPictureUrl = s3UploadService.userImageUpload(memberPicture, "image");
+        return new ResponseEntity(new SingleResponseDto<>((memberPictureUrl)), HttpStatus.OK);
     }
 
 }

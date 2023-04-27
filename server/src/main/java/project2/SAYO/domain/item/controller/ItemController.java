@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import project2.SAYO.domain.item.dto.ItemDto;
 import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.mapper.ItemMapper;
@@ -14,10 +15,12 @@ import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
+import project2.SAYO.global.upload.S3UploadService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,6 +33,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ItemMapper mapper;
+    private final S3UploadService s3UploadService;
 
     // item 등록
     @PostMapping
@@ -96,5 +100,13 @@ public class ItemController {
                                   @LoginUserId Long userId){
         itemService.endItem(userId, itemId);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    // TODO IMAGE UPLOAD
+    @PostMapping("/upload/{item-id}")
+    public ResponseEntity userImageUpload(@PathVariable("item-id") @Positive Long itemId,
+                                          @RequestBody MultipartFile memberPicture) throws IOException {
+        String itemPictureUrl = s3UploadService.itemImageUpload(memberPicture, "image", itemId);
+        return new ResponseEntity(new SingleResponseDto<>((itemPictureUrl)), HttpStatus.OK);
     }
 }

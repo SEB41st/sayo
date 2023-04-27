@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -234,5 +236,17 @@ public class UserService {
         User verifiedUser = findVerifiedUser(id);
 
         userRepository.delete(verifiedUser);
+    }
+
+    public User getCurrentMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        Optional<User> optionalMember = userRepository.findByEmail(authentication.getName());
+        User user = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+
+        log.info("# 현재 사용자 ={}",user.getId());
+
+        return user;
     }
 }

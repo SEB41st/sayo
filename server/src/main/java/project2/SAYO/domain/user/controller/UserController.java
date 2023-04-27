@@ -134,8 +134,8 @@ public class UserController {
 
     // TODO IMAGE UPLOAD
     @PostMapping("/upload")
-    public ResponseEntity userImageUpload(@RequestBody MultipartFile memberPicture) throws IOException {
-        String memberPictureUrl = s3UploadService.userImageUpload(memberPicture, "image");
+    public ResponseEntity userImageUpload(@RequestBody MultipartFile image) throws IOException {
+        String memberPictureUrl = s3UploadService.userImageUpload(image, "image");
         return new ResponseEntity(new SingleResponseDto<>((memberPictureUrl)), HttpStatus.OK);
     }
 

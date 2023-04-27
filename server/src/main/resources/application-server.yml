@@ -1,14 +1,3 @@
-cloud:
-  aws:
-    credentials:
-      access-key: ${S3_ACCESS_KEY}
-      secret-key: ${S3_SECRET_KEY}
-    s3: #버킷이름
-      bucket: ${S3_BUCKET}
-    region: #S3 지역
-      static: ${S3_REGION}
-    stack:
-      auto: false
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -98,7 +87,17 @@ mail:
         join: email-registration-user
   address:
     admin: admin@gmail.com, test@gmail.com
-
+cloud:
+  aws:
+    credentials:
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}
+    s3: #버킷이름
+      bucket: ${S3_BUCKET}
+    region: #S3 지역
+      static: ${S3_REGION}
+    stack:
+      auto: false
 
 #cloud:
 #  aws:

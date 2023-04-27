@@ -79,92 +79,106 @@ const MapContainer = () => {
     setBounds: (bounds: any) => void;
   }
 
-  const [info, setInfo] = useState<any>();
+  const [info, setInfo] = useState([]);
   const [markers, setMarkers] = useState<Array<Marker>>([]);
   const [map, setMap] = useState<Map | undefined>();
 
   useEffect(() => {
-    if (!map) return;
+    console.log(1);
+    // if (!map) return;
+    // const mapContainer = document.getElementById("map"), // 지도를 표시할 div
+    //   mapOption = {
+    //     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+    //     level: 3, // 지도의 확대 레벨
+    //   };
+    //   console.log(2);  
 
-    const ps = new kakao.maps.services.Places();
-    ps.keywordSearch(searchvalue, (data: any, status, _pagination) => {
+    //   const map = new kakao.maps.Map(mapContainer, mapOption);
+    // console.log(mapContainer);  
+    const geocoder = new kakao.maps.services.Geocoder();
+    
+
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(searchvalue, function (result, status) {
+      // 정상적으로 검색이 완료됐으면
       if (status === kakao.maps.services.Status.OK) {
-        const bounds = new kakao.maps.LatLngBounds();
-        //  const markers: Array<Marker> = [];
 
-        for (let i = 0; i < data.length; i++) {
-          markers.push({
-            position: {
-              lat: data[i].y,
-              lng: data[i].x,
-            },
-            content: data[i].place_name,
-          });
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
-        setMarkers(markers);
+        var coords = new kakao.maps.LatLng(
+          Number(result[0].y),
+          Number(result[0].x)
+        );
+      
 
-        map.setBounds(bounds);
+        // map.setCenter(coords);
+        setInfo(result);
       }
     });
-    console.log("markers", markers);
   }, [searchvalue]);
 
   // 지도 리스트 불러오기
-  const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=100`, `items/list`);
+  const { data, isLoading, error, refetch } = useCustomQuery(
+    `/items/get?page=1&size=100`,
+    `items/list`
+  );
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
   const Items = data.data;
-  console.log(Items)
-
-  
+  console.log(Items);
+  console.log(info);
 
   return (
     <div>
-      {location ? location && (
-        <Maps
-          center={{ lat: location.latitude, lng: location.longitude }}
-          level={3}
-        >
-          {Items && Items.map ((item:any) => {
-            return (
-            <MapMarker
-              position={{ lat: item.latitude, lng: item.longitude }}
-              title={item.itemName}
-              // image={{
-              //   src: item.itemPicture, // 마커이미지의 주소입니다
-              //   size: {
-              //     width: 30,
-              //     height: 30,
-              //   }, // 마커이미지의 크기입니다
-              //   options: {
-              //     offset: {
-              //       x: 27,
-              //       y: 69,
-              //     }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-              //   },
-              // }}
-            >
-              
-              <div style={{ width: "50px", padding: "5px", color: "#000" }}>{item.itemName}</div>
-            </MapMarker>
-            )})}
-    
-          {/* {markers.map((marker) => (
-            <MapMarker
-              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-              position={marker.position}
-              onClick={() => setInfo(marker)}
-            >
-              {info && info.content === marker.content && (
-                <div style={{ color: "#000" }}>{marker.content}</div>
-              )}
-            </MapMarker>
-          ))} */}
-        </Maps>
-      ) : <Loading/>}
+      {info.length === 0 ? (
+        location && (
+          <Maps
+            center={{ lat: location.latitude, lng: location.longitude }}
+            level={3}
+          >
+            {Items &&
+              Items.map((item: any) => {
+                return (
+                  <MapMarker
+                    position={{ lat: item.latitude, lng: item.longitude }}
+                    title={item.itemName}
+                  >
+                    <div
+                      style={{ width: "50px", padding: "5px", color: "#000" }}
+                    >
+                      {item.itemName}
+                    </div>
+                  </MapMarker>
+                );
+              })}
+          </Maps>
+        )
+      ) : searchvalue ? (
+        info && (
+          <Maps
+            center={{ lat: Number(info[0].y), lng: Number(info[0].x) }}
+            level={3}
+          >
+            {Items &&
+              Items.map((item: any) => {
+                return (
+                  <MapMarker
+                    position={{ lat: item.latitude, lng: item.longitude }}
+                    title={item.itemName}
+                  >
+                    <div
+                      style={{ width: "50px", padding: "5px", color: "#000" }}
+                    >
+                      {item.itemName}
+                    </div>
+                  </MapMarker>
+                );
+              })}
+          </Maps>
+        )
+      ) : (
+        <Loading></Loading>
+      )}
       <S.SearchBar>
         <input
           className="Search"

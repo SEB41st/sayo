@@ -21,7 +21,7 @@ public class Profile {
     @Column(length = 100)
     private String address;
 
-    @Column(length = 1000000)//(nullable = false)
+    @Column(length = 2000000000)//(nullable = false)
     private String image;
 
     @Column(columnDefinition = "TEXT")

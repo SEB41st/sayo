@@ -39,6 +39,7 @@ public class S3UploadService {
 
     // MultipartFile을 전달받아 File로 전환한 후 S3에 업로드
     public String userImageUpload(MultipartFile multipartFile, String dirName) throws IOException {
+        log.info("multipartFile = {}", multipartFile);
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
         return userImageUpload(uploadFile, dirName);
@@ -72,6 +73,7 @@ public class S3UploadService {
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
         Item item = itemService.findVerifiedItem(itemId);
+        item.setItemPicture(fileName);
 
         itemRepository.save(item);
 

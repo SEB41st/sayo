@@ -122,12 +122,13 @@ const Mypage = () => {
       <S.Line />
       <S.ProductListName>내가 찜한 상품</S.ProductListName>
       {Items.length === 0 ? null :
-      <S.ProductList>
-            전체보기
-            <Link to="/mywishList">
-              <BsPlusCircle className="plusIcon" />
-            </Link>
-          </S.ProductList> }
+        <S.ProductList>
+          전체보기
+          <Link to="/mywishList">
+            <BsPlusCircle className="plusIcon" />
+          </Link>
+        </S.ProductList>
+      }
       <S.Lists>
         {Items.length === 0 ? <div className="nullItem">원하는 상품을 찜해주세요 !</div> : (
           Items &&
@@ -184,6 +185,14 @@ const Mypage = () => {
       </S.Lists>
       <S.Line />
       <S.ProductListName>내가 작성한 공동구매</S.ProductListName>
+      {Items.length === 0 ? null :
+        <S.ProductList>
+          전체보기
+          <Link to="/myList">
+            <BsPlusCircle className="plusIcon" />
+          </Link>
+        </S.ProductList>
+      }
       <S.Lists>
       {hasMyId.length === 0 ? <div className="nullItem">공동구매 상품을 제안해주세요 !</div> : (
         hasMyId.slice(0,4) &&

@@ -4,37 +4,22 @@ import { LogoImg, Line } from "../Main/styled";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import EachItem from "../../components/EachItem/EachItem";
 
 const MyItemList = () => {
-  const [state, setState] = useState<string>("전체");
-  const [category, setCategory] = useState<string[]>([]);
-  const [myItem, setMyItem] = useState([]);
   const userId = localStorage.getItem("userId");
 
-  
+  const {data, isLoading, error} = useCustomQuery(
+    `/items/get?page=1&size=100`,
+    `page=1&size=100`
+  )
 
-  useEffect(() => {
-    axios(`http://sayo.n-e.kr:8080/items/get?page=1&size=100`, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("accessToken"),
-      },
-    })
-      .then((res: any) => {
-        setMyItem(res.data.data);
-        console.log(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const myItem = data.data;
 
+  if (isLoading) return <Loading></Loading>;
+  if (error) return <Error></Error>;
 
-  const hasMyId = myItem.filter((item) => item.userId === Number(userId));
+  const hasMyId = myItem.filter((item:any) => item.userId === Number(userId));
 
   return (
     <S.Main>

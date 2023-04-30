@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import * as S from "./styled";
 import { Link } from "react-router-dom";
@@ -7,14 +7,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const ItemsSlider = (Items:any) => {
-
-  console.log(Items)
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const handleResize = () => {
     setWindowSize(window.innerWidth);
   }
-  // console.log(windowSize,window.innerWidth)
-
   useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {
@@ -22,13 +18,6 @@ const ItemsSlider = (Items:any) => {
     }
   }, [windowSize]);
 
-  // const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);
-
-  // if (isLoading ) return <Loading/>;
-  // if (error) return <Error/>;
-  
-  // const Items = data.data;
-  console.log(Items.Items)
   
     const settings = {
       dots: true,

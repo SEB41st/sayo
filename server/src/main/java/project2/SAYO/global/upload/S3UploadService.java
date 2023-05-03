@@ -84,13 +84,13 @@ public class S3UploadService {
         return preSignedURL;      // 업로드 할 파일 URL 반환
     }
 
-    public String itemImageUpload(MultipartFile multipartFile, String dirName, Long itemId) throws IOException {
+    public String itemImageUpload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
-        return itemImageUpload(uploadFile, dirName, itemId);
+        return itemImageUpload(uploadFile, dirName);
     }
 
-    private String itemImageUpload(File uploadFile, String dirName, Long itemId) {
+    private String itemImageUpload(File uploadFile, String dirName) {
         String preSignedURL1 = "";
         String fileName = dirName + "/" + uploadFile.getName();
         //String uploadImageUrl = putS3(uploadFile, fileName);
@@ -114,7 +114,6 @@ public class S3UploadService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 

@@ -22,7 +22,7 @@ public class Item extends Auditable {
     @Column(nullable = false, length = 50)
     private String itemName; // 상품 이름
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGTEXT")
     private String itemPicture; // 상품 이미지
 
 /*    @Column(nullable = false)

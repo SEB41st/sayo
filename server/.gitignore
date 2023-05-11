@@ -27,6 +27,11 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+# yml
+server/src/main/resources/application.yml
+server/src/main/resources/application-server.yml
+
+
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries

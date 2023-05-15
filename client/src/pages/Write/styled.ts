@@ -104,3 +104,10 @@ export const Day = styled.div`
     position: absolute;
   } */
 `;
+
+export const Image = styled.div`
+  width: 90%;
+  height: 90%;
+  margin: 10px;
+  border-radius: 20px;
+  border: 0.5px solid black;`

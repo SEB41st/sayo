@@ -1,13 +1,18 @@
 import * as S from "./styled";
 import MapMain from "../../components/Map/MapMain";
 import DatePicker from "react-datepicker";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import MapLocation from "../../components/Map/MapLocation";
 import { useCustomMutation } from "../../components/util/useMutation";
 import { useRecoilState } from "recoil";
 import { salesLocation } from "../../recoil/atom";
 import ModifyImage from "../../components/ModifyImage/ModifyImage";
+import { toast } from "react-toastify";
+import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -18,18 +23,27 @@ const Write = () => {
   const [goodsDetail, setGoodsDetail] = useState<string>("");
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
   const [goodsCategoryId, setGoodsCategoryId] = useState<number>(1);
+  // const [image, setImage] = useState(null);
+  const [file, setFile]: any = useState(null);
+
+  const { Id } = useParams();
 
   //카테고리 id 값을 보냄
   const selectChange = (e: any) => {
     setGoodsCategoryId(Number(e.target.value));
   };
 
-  const { mutate } = useCustomMutation(`/items`, `items`, "POST");
+  const { mutate, isLoading } = useCustomMutation(
+    `/items`,
+    `items`,
+    "POST"
+  );
 
   const submitKeyPress = () => {
     mutate({
       itemName: goodsName,
-      itemPicture: "https://i.ibb.co/t3vdVB0/goods.png",
+      // itemPicture: "https://i.ibb.co/t3vdVB0/goods.png",
+      itemPicture: imgFile,
       itemPrice: goodsPrice,
       itemDeliveryPrice: deliveryCharge,
       itemDateStart: startDate,
@@ -40,16 +54,105 @@ const Write = () => {
     });
   };
 
-  // 이미지 업로드 api
-  const submitImage = () => {};
+  const [imgFile, setImgFile]: any = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const imgRef = useRef<HTMLInputElement | null>(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  console.log(imgFile);
 
-  // console.log(goodsName)
-  // console.log(startDate, endDate);
+
+  // // 이미지 업로드 input의 onChange
+  // const saveImgFile = () => {
+  // //   const file = imgRef.current.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   return new Promise<void>((resolve) => {
+  //     reader.onload = () => {
+  //       setImgFile(reader.result || null); // 파일의 컨텐츠
+  //       resolve();
+  //     };
+
+  //     axios
+  //     .post(`http://sayo.n-e.kr:8080/items/upload`, {
+  //       itemPicture: imgFile,
+  //       headers: {
+  //         "content-type": "multipart/form-data",
+  //         AutHorization: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //       .then((res) => {
+  //         console.log(res);
+
+  //         // toast.success("선택하신 내용이 삭제되었습니다");
+  //         // refetch();
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   });
+  // };
+
+  // 이미지 업로드 api
+  const submitImage = (e: any) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setSelectedFile(file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+    if (e.target.files) {
+      const uploadFile = e.target.files[0];
+      console.log(uploadFile);
+      const formData = new FormData();
+      formData.append("itemPicture", uploadFile);
+      console.log(formData.getAll("itemPicture"));
+
+      axios
+        .post(`http://sayo.n-e.kr:8080/items/upload`, formData, {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: localStorage.getItem("accessToken"),
+          },
+        })
+        .then((res) => {
+          // console.log(res.data.data);
+          setImgFile(res.data.data);
+          // refetch();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  if (isLoading) return <Loading />;
+  // if (error) return <Error/>;
+
   return (
     <S.WriteWrap>
       <S.WriteContainer>
-        {/* <S.ImageDiv> */}
-          <ModifyImage />
+        <img
+          src={imageUrl === null ? <S.Image /> : imageUrl}
+          alt="프로필 이미지"
+          style={{"width":"40%", "borderRadius":"20px"}}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          name="goods_img"
+          id="productImg"
+          onChange={submitImage}
+          ref={imgRef}
+          // ref={inputRef}
+          // onChange={onUploadImage}
+        />
+        <label htmlFor="productImg">
+          {/* <div className="upLoad">이미지 업로드</div> */}
+        </label>
+        {/* <ModifyImage /> */}
         {/* </S.ImageDiv> */}
         <S.BtnDiv>
           {/* <S.SubmitBtn onClick={submitImage}>이미지 업로드</S.SubmitBtn> */}

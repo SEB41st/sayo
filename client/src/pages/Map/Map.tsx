@@ -183,7 +183,7 @@ const MapContainer = () => {
         <input
           className="Search"
           type="text"
-          placeholder="원하는 제품을 입력해주세요"
+          placeholder="원하는 장소의 주소를 입력해주세요"
           onChange={searchResult}
           onKeyPress={onKeyPressEnter}
         ></input>

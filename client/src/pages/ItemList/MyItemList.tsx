@@ -5,19 +5,28 @@ import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import EachItem from "../../components/EachItem/EachItem";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const MyItemList = () => {
   const userId = localStorage.getItem("userId");
+  const [myItem, setMyItem] = useState([]);
 
-  const {data, isLoading, error} = useCustomQuery(
-    `/items/get?page=1&size=100`,
-    `page=1&size=100`
-  )
-
-  const myItem = data.data;
-
-  if (isLoading) return <Loading></Loading>;
-  if (error) return <Error></Error>;
+  useEffect(() => {
+    axios(`http://sayo.n-e.kr:8080/items/get?page=1&size=100`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res: any) => {
+        setMyItem(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const hasMyId = myItem.filter((item:any) => item.userId === Number(userId));
 

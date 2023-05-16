@@ -36,6 +36,8 @@ public enum ExceptionCode {
     // ShoppingCart
     SHOPPINGCART_NOT_FOUND(404, "ShoppingChart not found"),
 
+    SHOPPINGCART_CANNOT_MINUS(404, "ShoppingChart can not minus"),
+
     // Wish
     WISH_NOT_FOUND(404, "Wish not found"),
 

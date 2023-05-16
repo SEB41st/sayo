@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-public class ShoppingCartDto {
+public class ShoppingCartItemDto {
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -21,6 +21,8 @@ public class ShoppingCartDto {
         private int itemDeliveryPrice;
         private long userId;
         private long shoppingCartId;
+        private int itemCount;
+        private int itemTotalCount;
         private boolean shoppingCartSelected;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;

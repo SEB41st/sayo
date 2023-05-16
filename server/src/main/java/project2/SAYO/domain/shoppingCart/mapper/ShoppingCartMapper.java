@@ -1,33 +1,34 @@
 package project2.SAYO.domain.shoppingCart.mapper;
 
 import org.mapstruct.Mapper;
-import project2.SAYO.domain.shoppingCart.dto.ShoppingCartDto;
-import project2.SAYO.domain.shoppingCart.entity.ShoppingCart;
+import project2.SAYO.domain.shoppingCart.dto.ShoppingCartItemDto;
+import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface ShoppingCartMapper {
-    default ShoppingCartDto.Response shoppingCartToShoppingCartResponse(ShoppingCart shoppingCart) {
+    default ShoppingCartItemDto.Response shoppingCartToShoppingCartResponse(ShoppingCartItem shoppingCartItem) {
 
-        return ShoppingCartDto.Response.builder()
-                .itemId(shoppingCart.getItem().getItemId())
-                .itemPicture(shoppingCart.getItem().getItemPicture())
-                .itemPrice(shoppingCart.getItem().getItemPrice())
-                .itemDeliveryPrice(shoppingCart.getItem().getItemDeliveryPrice())
-                .itemName(shoppingCart.getItem().getItemName())
-                .userId(shoppingCart.getUser().getId())
-                .shoppingCartId(shoppingCart.getShoppingCartId())
-                .shoppingCartSelected(shoppingCart.getShoppingCartSelected())
-                .createdAt(shoppingCart.getCreatedAt())
-                .modifiedAt(shoppingCart.getModifiedAt())
+        return ShoppingCartItemDto.Response.builder()
+                .itemId(shoppingCartItem.getItem().getItemId())
+                .itemPicture(shoppingCartItem.getItem().getItemPicture())
+                .itemPrice(shoppingCartItem.getItem().getItemPrice())
+                .itemDeliveryPrice(shoppingCartItem.getItem().getItemDeliveryPrice())
+                .itemName(shoppingCartItem.getItem().getItemName())
+                .userId(shoppingCartItem.getUser().getId())
+                .shoppingCartId(shoppingCartItem.getShoppingCartId())
+                .shoppingCartSelected(shoppingCartItem.getShoppingCartSelected())
+                .itemCount(shoppingCartItem.getItemCount())
+                .createdAt(shoppingCartItem.getCreatedAt())
+                .modifiedAt(shoppingCartItem.getModifiedAt())
                 .build();
     }
 
-    default List<ShoppingCartDto.Response> shoppingCartListToShoppingCartResponseList(List<ShoppingCart> shoppingCartList){
+    default List<ShoppingCartItemDto.Response> shoppingCartListToShoppingCartResponseList(List<ShoppingCartItem> shoppingCartItemList){
 
-        return shoppingCartList.stream()
+        return shoppingCartItemList.stream()
                 .map(this::shoppingCartToShoppingCartResponse).collect(Collectors.toList());
     }
 }

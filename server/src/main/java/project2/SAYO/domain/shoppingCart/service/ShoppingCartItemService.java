@@ -1,0 +1,157 @@
+package project2.SAYO.domain.shoppingCart.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.item.service.ItemService;
+import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
+import project2.SAYO.domain.shoppingCart.repository.ShoppingCartItemRepository;
+import project2.SAYO.domain.user.entity.User;
+import project2.SAYO.domain.user.service.UserService;
+import project2.SAYO.global.exception.BusinessLogicException;
+import project2.SAYO.global.exception.ExceptionCode;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class ShoppingCartItemService {
+    private final ShoppingCartItemRepository shoppingCartItemRepository;
+    private final UserService userService;
+    private final ItemService itemService;
+
+    // TODO POST : 수량 변경은 불가능
+    @Transactional
+    public ShoppingCartItem createShoppingCart(long userId, Long itemId) {
+        // User와 Item을 찾아서 가져옴
+        User findUser = userService.findVerifiedUser(userId);
+        Item findItem = itemService.findVerifiedItem(itemId);
+
+        // ShoppingCart를 찾고, 없으면 새로운 쇼핑카트를 생성
+        ShoppingCartItem createShoppingCartItem = findByUserAndItem(findUser,findItem);
+
+        // ShoppingCart에 User와 Item을 set
+        createShoppingCartItem.addUser(findUser);
+        createShoppingCartItem.addItem(findItem);
+        Optional<ShoppingCartItem> shoppingCartTotal = this.shoppingCartItemRepository.findByUser(findUser);
+        //ShoppingCartItem totalCount = shoppingCartTotal.get();
+
+        if(createShoppingCartItem.getShoppingCartSelected() != Boolean.TRUE){
+            createShoppingCartItem.changeShoppingCartSelected(Boolean.TRUE);
+            createShoppingCartItem.addItemCount(createShoppingCartItem.getItemCount() +1);
+            // User가 가진 shoppingCartItem을 조회하여 계속 누적 Count 진행
+            //totalCount.addItemTotalCount(totalCount.getItemTotalCount()+1);
+        }else{
+            // shoppingCart에서 item을 뺄 경우에는 count 값 또한 초기화 진행
+            createShoppingCartItem.changeShoppingCartSelected(Boolean.FALSE);
+            createShoppingCartItem.addItemCount(0);
+        }
+
+        return shoppingCartItemRepository.save(createShoppingCartItem);
+    }
+
+    // TODO : shoppingCart의 item 수량 추가
+    @Transactional
+    public ShoppingCartItem addShoppingCartCount(long userId, long itemId){
+        User findUser = userService.findVerifiedUser(userId);
+        Item findItem = itemService.findVerifiedItem(itemId);
+
+        ShoppingCartItem createShoppingCartItem = findByUserAndItem(findUser,findItem);
+
+        if(createShoppingCartItem == null){
+            throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND);
+        }else{
+            createShoppingCartItem.addItemCount(createShoppingCartItem.getItemCount()+1);
+        }
+
+        return shoppingCartItemRepository.save(createShoppingCartItem);
+    }
+
+    // TODO : shoppingCart의 item 수량 감소
+    @Transactional
+    public ShoppingCartItem minusShoppingCartCount(long userId, long itemId){
+        User findUser = userService.findVerifiedUser(userId);
+        Item findItem = itemService.findVerifiedItem(itemId);
+
+        ShoppingCartItem createShoppingCartItem = findByUserAndItem(findUser,findItem);
+
+        if(createShoppingCartItem == null){
+            throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND);
+        }else{
+            if(createShoppingCartItem.getItemCount() <= 1){
+                throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_CANNOT_MINUS);
+            }else {
+                createShoppingCartItem.addItemCount(createShoppingCartItem.getItemCount() - 1);
+            }
+        }
+
+        return shoppingCartItemRepository.save(createShoppingCartItem);
+    }
+/*
+
+    // TODO GET
+    @Transactional
+    public ShoppingCartItem findShoppingCart(long userId, long shoppingCartId) {
+        ShoppingCartItem findShoppingCartItem = findVerifiedShoppingCart(shoppingCartId);
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findShoppingCartItem.getUser().getId().equals(userId)) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
+        //shoppingCart가 false라면 exception 발생
+        if(findShoppingCartItem.getShoppingCartSelected() != Boolean.TRUE){
+            throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND);
+        }
+
+        return findShoppingCartItem;
+    }
+
+    // TODO GET ALL
+    @Transactional
+    public List<ShoppingCartItem> findShoppingCarts(long userId, long loginUserId) {
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(loginUserId != userId) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+        //shoppingCart에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
+        return shoppingCartItemRepository.findAll().stream()
+                .filter(shoppingCartItem -> shoppingCartItem.getUser().getId() == userId)
+                .filter(a -> a.getShoppingCartSelected() == Boolean.TRUE)
+                .collect(Collectors.toList());
+    }
+
+    // TODO DELETE ONE
+    @Transactional
+    public void deleteShoppingCart(long userId, long shoppingCartId) {
+        ShoppingCartItem findShoppingCartItem = findVerifiedShoppingCart(shoppingCartId);
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findShoppingCartItem.getUser().getId().equals(userId)) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+        shoppingCartItemRepository.delete(findShoppingCartItem);
+    }
+*/
+    // TODO VERIFIED
+    public ShoppingCartItem findVerifiedShoppingCart(long shoppingCartId) {
+        Optional<ShoppingCartItem> optionalShoppingCart = shoppingCartItemRepository.findById(shoppingCartId);
+
+        return optionalShoppingCart.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
+    }
+
+    // TODO FIND_BY_USER_AND_ITEM
+    public ShoppingCartItem findByUserAndItem(User user, Item item) {
+        Optional<ShoppingCartItem> optionalShoppingCart = this.shoppingCartItemRepository.findByUserAndItem(user,item);
+
+        if(optionalShoppingCart.isPresent()) {
+            return optionalShoppingCart.get();
+        }else {
+            return new ShoppingCartItem();
+        }
+    }
+
+
+}

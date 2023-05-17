@@ -47,7 +47,6 @@ public class ShoppingCartItemService {
         }else{
             // shoppingCart에서 item을 뺄 경우에는 count 값 또한 초기화 진행
             createShoppingCartItem.changeShoppingCartSelected(Boolean.FALSE);
-            createShoppingCartItem.addItemCount(0);
         }
 
         return shoppingCartItemRepository.save(createShoppingCartItem);

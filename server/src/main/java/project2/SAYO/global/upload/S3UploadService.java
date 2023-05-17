@@ -2,6 +2,7 @@ package project2.SAYO.global.upload;
 
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.Headers;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -87,12 +88,40 @@ public class S3UploadService {
     public String itemImageUpload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
-        return itemImageUpload(uploadFile, dirName);
+        return /*itemImageUpload*/getPreSignedUrl(bucket, "",uploadFile.getName());
+    }
+    public String getPreSignedUrl(String bucket, String prefix, String fileName) {
+        if (!prefix.equals("")) {
+            fileName = prefix + "/" + fileName;
+        }
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePreSignedUrlRequest(bucket, fileName);
+        URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
+        return url.toString();
     }
 
+    private GeneratePresignedUrlRequest getGeneratePreSignedUrlRequest(String bucket, String fileName) {
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(bucket, fileName)
+                        .withMethod(HttpMethod.PUT)
+                        .withExpiration(getPreSignedUrlExpiration());
+        generatePresignedUrlRequest.addRequestParameter(
+                Headers.S3_CANNED_ACL,
+                CannedAccessControlList.PublicRead.toString());
+        return generatePresignedUrlRequest;
+    }
+
+    private Date getPreSignedUrlExpiration() {
+        Date expiration = new Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * 2;
+        expiration.setTime(expTimeMillis);
+        log.info(expiration.toString());
+        return expiration;
+    }
+/*
     private String itemImageUpload(File uploadFile, String dirName) {
         String preSignedURL1 = "";
-        String fileName = /*dirName + "_" + */uploadFile.getName();
+        String fileName = *//*dirName + "_" + *//*uploadFile.getName();
         //String uploadImageUrl = putS3(uploadFile, fileName);
 
         Date expiration = new Date();
@@ -117,13 +146,13 @@ public class S3UploadService {
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
-        /*Item item = itemService.findVerifiedItem(itemId);
+        *//*Item item = itemService.findVerifiedItem(itemId);
         item.setItemPicture(fileName);
 
-        itemRepository.save(item);*/
+        itemRepository.save(item);*//*
 
         return preSignedURL1;      // 업로드 할 파일 URL 반환
-    }
+    }*/
 
     private String putS3(File uploadFile, String fileName) {
         amazonS3Client.putObject(

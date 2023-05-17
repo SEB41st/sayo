@@ -92,7 +92,7 @@ public class S3UploadService {
 
     private String itemImageUpload(File uploadFile, String dirName) {
         String preSignedURL1 = "";
-        String fileName = dirName + "_" + uploadFile.getName();
+        String fileName = /*dirName + "_" + */uploadFile.getName();
         //String uploadImageUrl = putS3(uploadFile, fileName);
 
         Date expiration = new Date();

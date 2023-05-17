@@ -51,7 +51,7 @@ public class ShoppingCartItemController {
         ShoppingCartItemDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartItemForResposne);
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
     }
-/*
+
     // TODO GET ONE >> 현재 사용X
     @GetMapping("/{shoppingCart-id}")
     public ResponseEntity getShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
@@ -77,5 +77,5 @@ public class ShoppingCartItemController {
         shoppingCartItemService.deleteShoppingCart(userId, shoppingCartId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }*/
+    }
 }

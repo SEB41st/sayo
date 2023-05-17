@@ -44,10 +44,10 @@ public class ShoppingCartItemService {
             createShoppingCartItem.addItemCount(createShoppingCartItem.getItemCount() +1);
             // User가 가진 shoppingCartItem을 조회하여 계속 누적 Count 진행
             //totalCount.addItemTotalCount(totalCount.getItemTotalCount()+1);
-        }else{
+        }/*else{
             // shoppingCart에서 item을 뺄 경우에는 count 값 또한 초기화 진행
             createShoppingCartItem.changeShoppingCartSelected(Boolean.FALSE);
-        }
+        }*/
 
         return shoppingCartItemRepository.save(createShoppingCartItem);
     }
@@ -89,7 +89,6 @@ public class ShoppingCartItemService {
 
         return shoppingCartItemRepository.save(createShoppingCartItem);
     }
-/*
 
     // TODO GET
     @Transactional
@@ -131,9 +130,14 @@ public class ShoppingCartItemService {
         if(!findShoppingCartItem.getUser().getId().equals(userId)) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
+
+        //쇼핑카트에서 삭제할 경우 다시 false로 변경 및 count 0으로 초기화
+        findShoppingCartItem.changeShoppingCartSelected(Boolean.FALSE);
+        findShoppingCartItem.addItemCount(0);
+
         shoppingCartItemRepository.delete(findShoppingCartItem);
     }
-*/
+
     // TODO VERIFIED
     public ShoppingCartItem findVerifiedShoppingCart(long shoppingCartId) {
         Optional<ShoppingCartItem> optionalShoppingCart = shoppingCartItemRepository.findById(shoppingCartId);

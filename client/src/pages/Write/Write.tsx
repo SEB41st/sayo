@@ -33,17 +33,13 @@ const Write = () => {
     setGoodsCategoryId(Number(e.target.value));
   };
 
-  const { mutate, isLoading } = useCustomMutation(
-    `/items`,
-    `items`,
-    "POST"
-  );
+  const { mutate, isLoading } = useCustomMutation(`/items`, `items`, "POST");
 
   const submitKeyPress = () => {
     mutate({
       itemName: goodsName,
       // itemPicture: "https://i.ibb.co/t3vdVB0/goods.png",
-      itemPicture: imgFile,
+      itemPicture: uploadedFile,
       itemPrice: goodsPrice,
       itemDeliveryPrice: deliveryCharge,
       itemDateStart: startDate,
@@ -58,8 +54,8 @@ const Write = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const imgRef = useRef<HTMLInputElement | null>(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(null);
   console.log(imgFile);
-
 
   // // 이미지 업로드 input의 onChange
   // const saveImgFile = () => {
@@ -105,7 +101,7 @@ const Write = () => {
     reader.readAsDataURL(file);
     if (e.target.files) {
       const uploadFile = e.target.files[0];
-      console.log(uploadFile);
+      // console.log(uploadFile);
       const formData = new FormData();
       formData.append("itemPicture", uploadFile);
       console.log(formData.getAll("itemPicture"));
@@ -118,8 +114,12 @@ const Write = () => {
           },
         })
         .then((res) => {
+          const presignedUrl = res.data.data;
+              console.log(presignedUrl);
           // console.log(res.data.data);
           setImgFile(res.data.data);
+          uploadImageToS3(presignedUrl, uploadFile)
+          console.log(res.data.data);
           // refetch();
         })
         .catch((err) => {
@@ -127,6 +127,32 @@ const Write = () => {
         });
     }
   };
+
+  //   const createPresinedURL = (file: File) => {
+  //     axios
+  //       .post(imgFile, {filename: file.name})
+  //       .then((response) => {
+  //             const presignedUrl = response.data;
+  //             console.log(presignedUrl);
+  //             uploadImageToS3(presignedUrl, file);
+  //         })
+  //       .catch((error) => console.error(error));
+  // }
+
+  function uploadImageToS3(presignedUrl: string, uploadFile: File) {
+    console.log(uploadFile);
+    setUploadedFile(uploadFile.name)
+    console.log(uploadedFile) // 업로드할 파일 확인
+  
+    axios
+      .put(presignedUrl, uploadFile, {
+        headers: {
+          'Content-Type': 'image/png', // 업로드할 파일의 콘텐츠 유형 지정
+        },
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
+  }
 
   if (isLoading) return <Loading />;
   // if (error) return <Error/>;
@@ -137,7 +163,7 @@ const Write = () => {
         <img
           src={imageUrl === null ? <S.Image /> : imageUrl}
           alt="프로필 이미지"
-          style={{"width":"40%", "borderRadius":"20px"}}
+          style={{ width: "40%", borderRadius: "20px" }}
         />
         <input
           type="file"
@@ -155,7 +181,7 @@ const Write = () => {
         {/* <ModifyImage /> */}
         {/* </S.ImageDiv> */}
         <S.BtnDiv>
-          {/* <S.SubmitBtn onClick={submitImage}>이미지 업로드</S.SubmitBtn> */}
+          {/* <S.SubmitBtn onClick={uploadImageToS3}>이미지 업로드</S.SubmitBtn> */}
           <S.SubmitBtn onClick={submitKeyPress}>등록하기</S.SubmitBtn>
         </S.BtnDiv>
 

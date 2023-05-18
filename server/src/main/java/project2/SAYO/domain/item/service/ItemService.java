@@ -1,6 +1,9 @@
 package project2.SAYO.domain.item.service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,12 +23,18 @@ import java.util.Optional;
 import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_END;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
     private final CustomBeanUtils<Item> beanUtils;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final AmazonS3Client amazonS3Client;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+
 
     // 중복 조건(ex. email)이 따로 없어서 바로 저장
     // item 등록
@@ -38,6 +47,11 @@ public class ItemService {
         //카테고리 가져와 저장
         Category category = categoryService.findCategory(categoryId);
         item.addCategory(category);
+
+        log.info("itemPicture() = {}", item.getItemPicture());
+        log.info("itemPicture = {}", amazonS3Client.getUrl(bucket, item.getItemPicture()).toString());
+
+        item.setItemPicture(amazonS3Client.getUrl(bucket, item.getItemPicture()).toString());
 
         return itemRepository.save(item);
     }

@@ -12,11 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.repository.ItemRepository;
 import project2.SAYO.domain.item.service.ItemService;
-import project2.SAYO.domain.user.entity.Profile;
-import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.repository.UserRepository;
 import project2.SAYO.domain.user.service.UserService;
 
@@ -94,6 +91,7 @@ public class S3UploadService {
         if (!prefix.equals("")) {
             fileName = prefix + "/" + fileName;
         }
+        log.info("fileName = {}",fileName);
         GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePreSignedUrlRequest(bucket, fileName);
         URL url = amazonS3Client.generatePresignedUrl(generatePresignedUrlRequest);
         return url.toString();

@@ -40,7 +40,7 @@ public class ShoppingCartItemService {
         //ShoppingCartItem totalCount = shoppingCartTotal.get();
 
         // 기본 주문 선택은 False로 설정
-        createShoppingCartItem.changeOrderCheck(Boolean.FALSE);
+        createShoppingCartItem.changeOrderCheck(Boolean.TRUE);
 
         if(createShoppingCartItem.getShoppingCartSelected() != Boolean.TRUE){
             createShoppingCartItem.changeShoppingCartSelected(Boolean.TRUE);

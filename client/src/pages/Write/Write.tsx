@@ -1,5 +1,4 @@
 import * as S from "./styled";
-import MapMain from "../../components/Map/MapMain";
 import DatePicker from "react-datepicker";
 import React, { useState, useRef } from "react";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,12 +6,10 @@ import MapLocation from "../../components/Map/MapLocation";
 import { useCustomMutation } from "../../components/util/useMutation";
 import { useRecoilState } from "recoil";
 import { salesLocation } from "../../recoil/atom";
-import ModifyImage from "../../components/ModifyImage/ModifyImage";
-import { toast } from "react-toastify";
 import Loading from "../../components/Loading/Loading";
-import Error from "../../components/Error/Error";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Navigate, useNavigate } from "react-router";
 
 const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -22,15 +19,16 @@ const Write = () => {
   const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
   const [goodsDetail, setGoodsDetail] = useState<string>("");
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
-  const [goodsCategoryId, setGoodsCategoryId] = useState<number>(1);
+  const [goodsCategoryId, setGoodsCategoryId] = useState<number>(3);
   // const [image, setImage] = useState(null);
-  const [file, setFile]: any = useState(null);
 
-  const { Id } = useParams();
+  const navigate = useNavigate()
+
 
   //카테고리 id 값을 보냄
   const selectChange = (e: any) => {
     setGoodsCategoryId(Number(e.target.value));
+    // console.log(Number(e.target.value));
   };
 
   const { mutate, isLoading } = useCustomMutation(`/items`, `items`, "POST");
@@ -38,7 +36,6 @@ const Write = () => {
   const submitKeyPress = () => {
     mutate({
       itemName: goodsName,
-      // itemPicture: "https://i.ibb.co/t3vdVB0/goods.png",
       itemPicture: uploadedFile,
       itemPrice: goodsPrice,
       itemDeliveryPrice: deliveryCharge,
@@ -47,7 +44,9 @@ const Write = () => {
       itemBody: goodsDetail,
       location: markLocation,
       categoryId: goodsCategoryId,
-    });
+    })
+    toast.success("등록이 완료되었습니다")
+    navigate('/')
   };
 
   const [imgFile, setImgFile]: any = useState(null);
@@ -56,37 +55,6 @@ const Write = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
   console.log(imgFile);
-
-  // // 이미지 업로드 input의 onChange
-  // const saveImgFile = () => {
-  // //   const file = imgRef.current.files[0];
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   return new Promise<void>((resolve) => {
-  //     reader.onload = () => {
-  //       setImgFile(reader.result || null); // 파일의 컨텐츠
-  //       resolve();
-  //     };
-
-  //     axios
-  //     .post(`http://sayo.n-e.kr:8080/items/upload`, {
-  //       itemPicture: imgFile,
-  //       headers: {
-  //         "content-type": "multipart/form-data",
-  //         AutHorization: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //       .then((res) => {
-  //         console.log(res);
-
-  //         // toast.success("선택하신 내용이 삭제되었습니다");
-  //         // refetch();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   });
-  // };
 
   // 이미지 업로드 api
   const submitImage = (e: any) => {
@@ -127,17 +95,6 @@ const Write = () => {
         });
     }
   };
-
-  //   const createPresinedURL = (file: File) => {
-  //     axios
-  //       .post(imgFile, {filename: file.name})
-  //       .then((response) => {
-  //             const presignedUrl = response.data;
-  //             console.log(presignedUrl);
-  //             uploadImageToS3(presignedUrl, file);
-  //         })
-  //       .catch((error) => console.error(error));
-  // }
 
   function uploadImageToS3(presignedUrl: string, uploadFile: File) {
     console.log(uploadFile);
@@ -219,9 +176,11 @@ const Write = () => {
               <option defaultValue="카테고리를 선택해주세요" disabled>
                 카테고리를 선택해주세요
               </option>
-              <option value="1">의류</option>
               <option value="3">생활용품</option>
-              <option value="6">컴퓨터</option>
+              <option value="9">식품</option>
+              <option value="10">건강식품</option>
+              <option value="12">화장품</option>
+              <option value="13">스포츠용품</option>
             </select>
           </S.InputDiv>
           <S.InputDiv>

@@ -21,6 +21,7 @@ public interface ShoppingCartMapper {
                 .shoppingCartId(shoppingCartItem.getShoppingCartId())
                 .shoppingCartSelected(shoppingCartItem.getShoppingCartSelected())
                 .itemCount(shoppingCartItem.getItemCount())
+                .orderCheck(shoppingCartItem.getOrderCheck())
                 .createdAt(shoppingCartItem.getCreatedAt())
                 .modifiedAt(shoppingCartItem.getModifiedAt())
                 .build();

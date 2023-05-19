@@ -22,6 +22,13 @@ const Main = () => {
 
   let sortItems = [...Items]
   sortItems.sort((a:any,b:any)=> {
+    if(a.modifiedAt > b.modifiedAt) return -1;
+    if(a.modifiedAt < b.modifiedAt) return 1;
+    return 0  
+  })
+
+  let sortFavoritItems = [...Items]
+  sortFavoritItems.sort((a:any,b:any)=> {
     if(a.wishCount > b.wishCount) return -1;
     if(a.wishCount < b.wishCount) return 1;
     return 0  
@@ -33,16 +40,17 @@ const Main = () => {
       <S.LogoImg src="/assets/Sayo.png" alt=""></S.LogoImg>
       <S.MainList>
         <S.Line />
-        <S.Title>공동구매 상품</S.Title>
+        <S.Title>최신 공동구매 상품</S.Title>
         <S.Menus>
           <h4 className="font">
+        {/* <div>더 많은 상품을 보고 싶다면 ?</div> */}
             전체보기
             <Link to="/itemList">
               <BsPlusCircle className="plusIcon" />
             </Link>
           </h4>
           <S.GoodsList>
-          <ItemsSlider Items={Items.slice(0,6)}/>
+          <ItemsSlider Items={sortItems.slice(0,6)}/>
           </S.GoodsList>
         </S.Menus>
         <S.Title>
@@ -56,7 +64,7 @@ const Main = () => {
         <S.Title>인기 상품 (TOP 6)</S.Title>
         <S.Menus>
               <S.GoodsList>
-                <ItemsSlider Items= {sortItems.slice(0,6)}/>
+                <ItemsSlider Items= {sortFavoritItems.slice(0,6)}/>
               </S.GoodsList>
         </S.Menus>
           <S.Title style={{ marginLeft: 30 }}>

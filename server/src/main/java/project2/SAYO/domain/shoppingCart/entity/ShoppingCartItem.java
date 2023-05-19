@@ -35,6 +35,7 @@ public class ShoppingCartItem extends Auditable {
     private String itemPicture;
     private int itemCount; // 담긴 상품의 수량
     private int itemTotalCount; // 장바구니에 담긴 상품의 총 수량
+    private Boolean orderCheck; // 장바구니의 주문을 위한 체크 현황
 
     public void addUser(User user) {
         this.user = user;
@@ -52,6 +53,9 @@ public class ShoppingCartItem extends Auditable {
 
     public void changeShoppingCartSelected(boolean shoppingCartSelected) {
         this.shoppingCartSelected = shoppingCartSelected;
+    }
+    public void changeOrderCheck(boolean orderCheck){
+        this.orderCheck = orderCheck;
     }
 
     public static ShoppingCartItem createShoppingCartItem(User user, Item item){

@@ -24,6 +24,7 @@ public class ShoppingCartItemDto {
         private int itemCount;
         private int itemTotalCount;
         private boolean shoppingCartSelected;
+        private boolean orderCheck;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
 

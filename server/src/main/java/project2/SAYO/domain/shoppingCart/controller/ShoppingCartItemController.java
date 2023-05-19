@@ -40,6 +40,7 @@ public class ShoppingCartItemController {
                                               @LoginUserId Long userId){
         ShoppingCartItem shoppingCartItemForResposne = shoppingCartItemService.addShoppingCartCount(userId, itemId);
         ShoppingCartItemDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartItemForResposne);
+
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
     }
 
@@ -49,6 +50,17 @@ public class ShoppingCartItemController {
                                               @LoginUserId Long userId){
         ShoppingCartItem shoppingCartItemForResposne = shoppingCartItemService.minusShoppingCartCount(userId, itemId);
         ShoppingCartItemDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartItemForResposne);
+
+        return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
+    }
+
+    // TODO POST : shoppingCart에서 주문할 item 선택 여부
+    @PostMapping("/{shoppingCart-id}")
+    public ResponseEntity orderCheck(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,
+                                     @LoginUserId Long userId){
+        ShoppingCartItem shoppingCartItemForResponse = shoppingCartItemService.itemCheck(userId, shoppingCartId);
+        ShoppingCartItemDto.Response shoppingCartResponse = mapper.shoppingCartToShoppingCartResponse(shoppingCartItemForResponse);
+
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponse), HttpStatus.CREATED);
     }
 

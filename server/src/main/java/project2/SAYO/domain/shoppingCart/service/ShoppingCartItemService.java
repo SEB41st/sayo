@@ -39,6 +39,9 @@ public class ShoppingCartItemService {
         Optional<ShoppingCartItem> shoppingCartTotal = this.shoppingCartItemRepository.findByUser(findUser);
         //ShoppingCartItem totalCount = shoppingCartTotal.get();
 
+        // 기본 주문 선택은 False로 설정
+        createShoppingCartItem.changeOrderCheck(Boolean.FALSE);
+
         if(createShoppingCartItem.getShoppingCartSelected() != Boolean.TRUE){
             createShoppingCartItem.changeShoppingCartSelected(Boolean.TRUE);
             createShoppingCartItem.addItemCount(createShoppingCartItem.getItemCount() +1);
@@ -88,6 +91,26 @@ public class ShoppingCartItemService {
         }
 
         return shoppingCartItemRepository.save(createShoppingCartItem);
+    }
+
+    // TODO POST : 주문할 상품 선택 여부
+    @Transactional
+    public ShoppingCartItem itemCheck(long userId, long shoppingCartId){
+        // 쇼핑카트 존재 여부 확인
+        ShoppingCartItem findShoppingCartItem = findVerifiedShoppingCart(shoppingCartId);
+
+        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+        if(!findShoppingCartItem.getUser().getId().equals(userId)) {
+            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+        }
+
+        // 쇼핑카트에서 주문할 상품 선택 진행
+        if(findShoppingCartItem.getOrderCheck() != Boolean.TRUE){
+            findShoppingCartItem.changeOrderCheck(Boolean.TRUE);
+        }else{
+            findShoppingCartItem.changeOrderCheck(Boolean.FALSE);
+        }
+        return shoppingCartItemRepository.save(findShoppingCartItem);
     }
 
     // TODO GET

@@ -15,33 +15,29 @@ type ItemProps = {
   item: ItemType; // 부모컴포넌트에서 import 해온 타입을 재사용 해 줍시다.
 };
 
-const CartItem = () => {
+const CartItem = (Items:any) => {
   //{ item }:ItemProps
 
   const [products, setProducts] = useRecoilState(CartItemList);
-  const [count, setCount] = useRecoilState(countSelector);
-
-  let userId = localStorage.getItem("userId")
 
   function CommaFormat(x:any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  // const { userId } = useParams();
 
-  const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
+  // const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
-  const { mutate } = useCustomMutation(
-    `/shoppingCarts/user/${userId}/shoppingCart`,
-    `/cart`,
-    "POST"
-  );
+  // const { mutate } = useCustomMutation(
+  //   `/shoppingCarts/user/${userId}/shoppingCart`,
+  //   `/cart`,
+  //   "POST"
+  // );
 
-  if (isLoading ) return <Loading/>;
-  if (error) return <Error/>;
+  // if (isLoading ) return <Loading/>;
+  // if (error) return <Error/>;
 
-  const Items = data.data;
+  // const Items = data.data;
 
-  console.log(Items);
+  console.log(Items.Items);
   // useEffect(() => { 
   //   axios.get(`http://sayo.n-e.kr:8080/shoppingCarts`)
   //   .then(res => {
@@ -49,12 +45,6 @@ const CartItem = () => {
   //   })
   // },[])
 
-  // console.log(products)
-
-
-  
-
-  // console.log(products[0].itmePrice)
   // const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);
 
   // if (isLoading) return <Loading></Loading>;
@@ -62,16 +52,42 @@ const CartItem = () => {
 
   // 상품 개수 추가
   const handleAddCount = (ItemId : any) => {
-    const addQty = products.map((item: any) => {
-      if(ItemId === item.id && item.amount < 10 ){
-        return {...item, amount: item.amount + 1};
-       } else return item;
-    });
-    setProducts(addQty)
+   axios(`http://sayo.n-e.kr:8080/shoppingCarts/items/add/${ItemId}`, {
+     method:'post',
+     headers:{
+      Authorization: localStorage.getItem("accessToken"),
+     },   
+   })
+   .then((res: any) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+    // const addQty = products.map((item: any) => {
+    //   if(ItemId === item.id && item.amount < 10 ){
+    //     return {...item, amount: item.amount + 1};
+    //    } else return item;
+    // });
+    // setProducts(addQty)
   };
 
   // 상품 개수 삭제
   const handleDeleteCount = (ItemId : any) => {
+    axios(`http://sayo.n-e.kr:8080/shoppingCarts/items/minus/${ItemId}`, {
+     method:'post',
+     headers:{
+      Authorization: localStorage.getItem("accessToken"),
+     },   
+   })
+   .then((res: any) => {
+    console.log(res);
+    // setCount(count-1)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
     const addQty = products.map((item: any) => {
       if(ItemId === item.id && item.amount > 1 ){
         return {...item, amount: item.amount - 1};
@@ -79,16 +95,49 @@ const CartItem = () => {
     });
     setProducts(addQty)
   };
+
+  const handleCheckbox = (shoppingCartId:any) => {
+    axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
+     method:'post',
+     headers:{
+      Authorization: localStorage.getItem("accessToken"),
+     },   
+   })
+   .then((res: any) => {
+    console.log(res);
+    // setCount(count+1)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  }
  
+  const deleteCart = (shoppingCartId:any) => {
+    axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
+     method:'delete',
+     headers:{
+      Authorization: localStorage.getItem("accessToken"),
+     },   
+   })
+   .then((res: any) => {
+    console.log(res);
+    // setCount(count+1)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  }
 
   return (
     <S.PaymentDiv>
-      {Items &&
-        Items.map((item: any) => (
+      {Items.Items &&
+        Items.Items.map((item: any) => (
           <S.ProductDiv key={item.id} >
             <S.ProductInfoDiv>
               <S.CheckboxDiv>
-                <S.CheckboxInput type="checkbox"></S.CheckboxInput>
+                <S.CheckboxInput type="checkbox" 
+                  onClick={() => handleCheckbox(item.shoppingCartId)}
+                  checked={item.orderCheck}/>
               </S.CheckboxDiv>
 
               <S.ImageDiv>
@@ -99,20 +148,19 @@ const CartItem = () => {
                 <div className="ProductFee">가격 : {CommaFormat(item.itemPrice)}원</div>
                 <div className="ProductFee">배송비 : {CommaFormat(item.itemDeliveryPrice)}원</div>
               </S.ProductInfoDiv2>
-              <S.CloseBox>X</S.CloseBox>
+              <S.CloseBox onClick={() => deleteCart(item.shoppingCartId)}>X</S.CloseBox>
             </S.ProductInfoDiv>
             <S.ProductInfoDiv3>
               <S.CountDiv>
                 <TfiMinus
-                  onClick={() => { handleDeleteCount(item.id)}}
+                  onClick={() => { handleDeleteCount(item.itemId)}}
                 ></TfiMinus>
-                <div className="Sum">{item.amount}</div>
+                <div className="Sum">{item.itemCount}</div>
                 <TfiPlus
-                  onClick={() => { handleAddCount(item.id)}}
+                  onClick={() => { handleAddCount(item.itemId)}}
                 ></TfiPlus>
               </S.CountDiv>
-              {/* <div className="Price">{item.amount * item.itemPrice}</div> */}
-              <div className="Price">{CommaFormat(item.itemPrice+(item.itemDeliveryPrice))}원</div>
+              <div className="Price">{CommaFormat(item.itemCount*(item.itemPrice)+(item.itemDeliveryPrice))}원</div>
             </S.ProductInfoDiv3>
           </S.ProductDiv>
           )

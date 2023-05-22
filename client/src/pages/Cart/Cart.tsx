@@ -6,6 +6,8 @@ import { useCustomQuery } from "../../components/util/useCustomQuery";
 import CartItem from "../../components/CartItem/CartItem";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import { useCustomMutation } from "../../components/util/useMutation";
+import { Item } from "../Main/styled";
 
 export type ItemType = {
   id : number;
@@ -18,30 +20,40 @@ export type ItemType = {
 };
 
 const Payment = () => {
-  // const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);
 
-  // if (isLoading) return <Loading></Loading>;
-  // if (error) return <Error></Error>;
+  let userId = localStorage.getItem("userId")
+  let totalPrice = 0;
+  function CommaFormat(x:any) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
-  // const Items = data;
+  const { mutate } = useCustomMutation(
+    `/shoppingCarts/user/${userId}/shoppingCart`,
+    `/cart`,
+    "POST"
+  );
 
-  // console.log(Items);
+  if (isLoading ) return <Loading/>;
+  if (error) return <Error/>;
+  const Items = data.data;
 
-
+  console.log(Items);
   return (
     <S.PaymentWrap>
       <S.PaymentContainer>
         <div className="Cart">장바구니</div>
-        {/* {Items &&
-          Items.map((item: any) => {
-            return <CartItem key={item.id} item={item} />;
-          })} */}
-        <CartItem />
+        <CartItem Items={Items}/>
 
         <S.PaymentDiv>
           <S.TotalPriceDiv>
             <div>상품금액</div>
-            <div>16,700원</div>
+            {/* <div>{Items.}</div> */}
+        {Items &&
+          Items.map((item: any) => {
+            totalPrice = item.orderCheck ? totalPrice + item.itemCount*(item.itemPrice)+(item.itemDeliveryPrice) : totalPrice
+          })}
+          <div>{CommaFormat(totalPrice)}</div>
           </S.TotalPriceDiv>
           <S.ButtonDiv2>
             <CartBtn>

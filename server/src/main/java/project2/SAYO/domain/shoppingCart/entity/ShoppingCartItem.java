@@ -31,7 +31,7 @@ public class ShoppingCartItem extends Auditable {
     private Item item;
 
     private String itemName;
-    private long itemPrice;
+    private int itemPrice;
     private String itemPicture;
     private int itemCount; // 담긴 상품의 수량
     private int itemTotalCount; // 장바구니에 담긴 상품의 총 수량

@@ -2,39 +2,43 @@ package project2.SAYO.domain.order.Controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import project2.SAYO.domain.order.dto.OrderItemDto;
-import project2.SAYO.domain.order.entity.OrderItem;
-import project2.SAYO.domain.order.mapper.OrderItemMapper;
-import project2.SAYO.domain.order.service.OrderItemService;
+import project2.SAYO.domain.order.dto.OrderDto;
+import project2.SAYO.domain.order.entity.Order;
+import project2.SAYO.domain.order.mapper.OrderMapper;
+import project2.SAYO.domain.order.service.OrderService;
+import project2.SAYO.global.Response.MultiResponseDto;
 import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Slf4j
 @RestController
 @Validated
 @RequiredArgsConstructor
 @RequestMapping("/orders")
-public class OrderItemController {
-    private final OrderItemService orderItemService;
-    private final OrderItemMapper mapper;
+public class OrderController {
+    private final OrderService orderService;
+    private final OrderMapper mapper;
 
-    // TODO POST : 장바구니 한 상품만 주문하기
-    @PostMapping("/shoppingCart/{shoppingCart-id}")
-    public ResponseEntity postOrder(@Valid @PathVariable("shoppingCart-id") long shoppingCartId,
+    // TODO POST
+    @PostMapping
+    public ResponseEntity postOrder(@RequestBody OrderDto.Request request,
                                     @LoginUserId Long userId            ) {
-        //Order orderForService = mapper.orderRequestToOrder(request);
-        OrderItem orderForResponse = orderItemService.createOrder(userId, shoppingCartId);
-        OrderItemDto.Response response= mapper.orderToOrderResponse(orderForResponse);
+        Order orderForService = mapper.orderRequestToOrder(request);
+        Order orderForResponse = orderService.createOrder(userId,orderForService);
+        OrderDto.Response response= mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
-/*
+
     // TODO PATCH
     @PatchMapping("/{order-id}")
     public ResponseEntity patchOrder(@Valid @PathVariable("order-id") @Positive long orderId,
@@ -74,5 +78,5 @@ public class OrderItemController {
         orderService.deleteOrder(userId, orderId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }*/
+    }
 }

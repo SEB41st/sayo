@@ -62,7 +62,7 @@ const ItemsSlider = (Items:any) => {
                       alt="상품 이미지"
                       className='itempicture'
                     ></img>
-                    {/* <div>{item.title}</div> */}
+                    {/* <div>{item.itemName}</div> */}
                   </S.Item>
                 </Link>
                 )})}

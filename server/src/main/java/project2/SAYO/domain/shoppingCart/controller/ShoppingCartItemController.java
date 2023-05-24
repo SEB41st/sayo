@@ -82,6 +82,15 @@ public class ShoppingCartItemController {
         return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponseList),HttpStatus.OK);
     }
 
+    // TODO GET ORDER
+    @GetMapping("/order/user/{user-id}")
+    public ResponseEntity getOrderList(@Valid @PathVariable("user-id") long userId, @LoginUserId Long loginUserId){
+
+        List<ShoppingCartItem> orderList = shoppingCartItemService.findOrderLists(userId, loginUserId);
+        List<ShoppingCartItemDto.Response> sorderListResponseList = mapper.shoppingCartListToShoppingCartResponseList(orderList);
+        return new ResponseEntity(new SingleResponseDto<>(sorderListResponseList),HttpStatus.OK);
+    }
+
     // TODO DELETE ONE
     @DeleteMapping("/{shoppingCart-id}")
     public ResponseEntity deleteShoppingCart(@Valid @PathVariable("shoppingCart-id") @Positive long shoppingCartId,

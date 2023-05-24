@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
 
+
   .item{
     margin: 20px;
     flex-direction: column;
     width: 80vw;
-    height: 10vh;
+    height: 13vh;
     @media screen and (min-width: ${"600px"}) {
         /* margin-left: 45%; */
     }
@@ -29,11 +30,12 @@ export const Container = styled.div`
 `
 
 export const Item = styled.div`
+   /* border: 1px solid gray; */
     height: 4rem;
     max-width: 50%;
     border-radius: 10px;
     margin: -10px 10px 10px 10px;
-    gap: 30px;
+    gap: 20px;
     /* margin-bottom: 30px; */
     img{
       border-radius: 20px;
@@ -47,6 +49,13 @@ export const Item = styled.div`
         max-height: 100%;
         max-width: 100%;
         margin: 20px;
+    }
+    div{
+      font-size: 15px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      /* margin-left: 50%; */
     }
     @media screen and (min-width: ${"1280px"}) {
       height: 6rem;

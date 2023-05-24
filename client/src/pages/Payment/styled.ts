@@ -97,6 +97,15 @@ export const ProductInfoDiv = styled.div`
 export const ProductInfoDiv2 = styled.div`
   width: 60%;
   /* margin: 10px; */
+  .Name {
+    margin: 10px;
+  }
+  .ProductFee {
+    margin: 10px;
+  }
+  .Price{
+    margin: 10px;
+  }
 
   @media screen and (min-width: ${"1280px"}) {
     width: 60%;
@@ -113,16 +122,17 @@ export const CheckboxInput = styled.input`
   }
 `;
 
-export const ImageDiv = styled.div`
-  min-width: 30%;
-  min-height: 100%;
+export const ImageDiv = styled.img`
+  width: 150px;
+  height: 110px;
   background-color: #fffdfd;
   border: 1px solid #d2cdcd;
   /* margin: 0 10px; */
 
-  @media screen and (min-width: ${"1280px"}) {
-    /* width: 30%;
-    height: 90%; */
+  @media screen and (min-width: ${"1080px"}) {
+    width: 200px;
+    height: 150px;
+    font-size: 20px;
   }
 `;
 

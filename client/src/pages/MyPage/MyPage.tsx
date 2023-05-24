@@ -95,7 +95,7 @@ const Mypage = () => {
   //     refetch()
   // };
 
-  const deleteGoods = async (itemId: any) => {
+  const closeItem = async (itemId: any) => {
     await axios
       .delete(`http://sayo.n-e.kr:8080/items/${itemId}`, {
         headers: {
@@ -189,7 +189,8 @@ const Mypage = () => {
         </S.ChoiceList>
       </S.Lists>
       <S.Line />
-      <S.ProductListName>내가 작성한 공동구매</S.ProductListName>
+      <S.ProductListName>내가 작성한 공동구매
+      <div>'x'버튼을 누르면 판매 종료 처리가 됩니다. 상품 완전 삭제는 관리자에게 문의하세요!</div></S.ProductListName>
       {Items.length === 0 ? null :
         <S.ProductList>
           전체보기
@@ -204,6 +205,7 @@ const Mypage = () => {
         ) : (
           hasMyId.slice(0, 4) &&
           hasMyId.slice(0, 4).map((item: any) => (
+            item.itemStatus === "ITEM_PROGRESS" ? (
             <S.ChoiceList>
               <Link to={`/detail/${item.itemId}`}>
                 <S.ItemImg>
@@ -214,8 +216,9 @@ const Mypage = () => {
                   <div>{CommaFormat(item.itemPrice)}원</div>
                 </S.ItemName>
               </Link>
+                <button onClick={() => closeItem(item.itemId)}>x</button>
             </S.ChoiceList>
-          ))
+          ) : null))
         )}
       </S.Lists>
     </S.MypageWrap>

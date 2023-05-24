@@ -65,6 +65,10 @@ export const MypageDiv = styled.div`
 export const ProductListName = styled.div`
   margin-left: 20px;
   font-size: 20px;
+  div{
+    font-size: 10px;
+    color: red;
+  }
 `;
 
 export const ProductList = styled.div`

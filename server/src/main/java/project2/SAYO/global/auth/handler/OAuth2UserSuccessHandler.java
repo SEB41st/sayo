@@ -109,8 +109,8 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 .scheme("http")
                 .host("sayo.s3-website.ap-northeast-2.amazonaws.com")
                 //.host("localhost")
-                //.port(3000) // 기본 포트가 80이기 때문에 괜찮다
-                //.path("/login")
+                .port(3000) // 기본 포트가 80이기 때문에 괜찮다
+                .path("/login")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

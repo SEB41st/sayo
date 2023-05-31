@@ -22,6 +22,13 @@ import { useEffect, useState } from "react";
 // userId: number;
 // }
 
+declare global {
+  interface Window {
+    TossPayments: any;
+  }
+}
+
+
 const Cart = () => {
   const [user, setUser] = useState()
   // console.log(items)
@@ -67,6 +74,21 @@ const Cart = () => {
     totalDeliverPrice = totalDeliverPrice + item.itemCount*item.itemDeliveryPrice
   ))
 
+    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
+        // 2. 결제창 SDK 초기화
+        var tossPayments = window.TossPayments(clientKey)
+
+        const handlePay  = () => {
+          tossPayments.requestPayment('카드', {
+            amount: totalPrice,
+            orderId: 'KJET8EkEK-hnqlZW6hUIQ',
+            orderName: `${Items[0].itemName} 외 ${Items.length}건`,
+            customerName: '박토스',
+            successUrl: 'http://localhost:8080/success',
+            failUrl: 'http://localhost:8080/fail',
+          })
+        }
+
 
   return (
     <S.CartWrap>
@@ -106,7 +128,7 @@ const Cart = () => {
         </S.TotalPriceDiv>
         
         <S.ButtonDiv2>
-          <CartBtn>결제하기</CartBtn>
+          <CartBtn onClick={handlePay}>결제하기</CartBtn>
         </S.ButtonDiv2>
         </S.PaymentDiv>
       </S.CartContainer>

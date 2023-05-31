@@ -22,6 +22,13 @@ import { useEffect, useState } from "react";
 // userId: number;
 // }
 
+declare global {
+  interface Window {
+    TossPayments: any;
+  }
+}
+
+
 const Cart = () => {
   const [user, setUser] = useState()
   // console.log(items)
@@ -43,13 +50,7 @@ const Cart = () => {
         console.log(err);
       });
   }, []);
-  
 
-  // const {data} = useCustomQuery(
-  //   `/users/${userId}/mypage`,
-  //   `users=${userId}/mypage`
-  // )
-  // console.log(data.data)
 
   const CommaFormat = (x: any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -73,24 +74,27 @@ const Cart = () => {
     totalDeliverPrice = totalDeliverPrice + item.itemCount*item.itemDeliveryPrice
   ))
 
+    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
+        // 2. 결제창 SDK 초기화
+        var tossPayments = window.TossPayments(clientKey)
+
+        const handlePay  = () => {
+          tossPayments.requestPayment('카드', {
+            amount: totalPrice,
+            orderId: 'KJET8EkEK-hnqlZW6hUIQ',
+            orderName: `${Items[0].itemName} 외 ${Items.length}건`,
+            customerName: '박토스',
+            successUrl: 'http://localhost:8080/success',
+            failUrl: 'http://localhost:8080/fail',
+          })
+        }
+
 
   return (
     <S.CartWrap>
       <S.CartContainer>
         <div className="Cart">주문/결제</div>
         <S.PaymentDiv>
-        {/* <S.OrderDiv>
-          <div>주문자 정보</div>
-          {data.data.addressList.length === 0 ? <S.OrderInfoDiv>나의 정보에서 주소를 입력해주세요</S.OrderInfoDiv> 
-          : 
-          <S.OrderInfoDiv>
-            <div className="orderDetail">회원 이름 : {data.data.addressList[0].addressUserName}</div>
-            <div className="orderDetail">휴대폰 번호 : {data.data.addressList[0].phoneNumber}</div>
-            <span>주문 주소 : {data.data.addressList[0].postcode}, {data.data.addressList[0].roadAddress} {data.data.addressList[0].detailAddress}</span>
-          </S.OrderInfoDiv>
-          }
-          
-        </S.OrderDiv> */}
         <S.ProductDiv>
           {Items && Items.map((item:any) => (
             <S.ProductInfoDiv>
@@ -104,14 +108,6 @@ const Cart = () => {
             </S.ProductInfoDiv2>
           </S.ProductInfoDiv>
           ))}
-          {/* <S.ProductInfoDiv>
-            <S.ImageDiv></S.ImageDiv>
-            <S.ProductInfoDiv2>
-              <div className="Name">네임텍 아이렌캐리어</div>
-              <div className="ProductFee">수량 : 1개</div>
-              <div className="Price">6800원</div>
-            </S.ProductInfoDiv2>
-          </S.ProductInfoDiv> */}
         </S.ProductDiv>
 
         <S.TotalDiv>결제 예정 금액</S.TotalDiv>
@@ -132,7 +128,7 @@ const Cart = () => {
         </S.TotalPriceDiv>
         
         <S.ButtonDiv2>
-          <CartBtn>결제하기</CartBtn>
+          <CartBtn onClick={handlePay}>결제하기</CartBtn>
         </S.ButtonDiv2>
         </S.PaymentDiv>
       </S.CartContainer>

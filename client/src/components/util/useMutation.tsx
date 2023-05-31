@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useCustomMutation = (url: string, queryKey: any, method: any) => {
+export const useCustomMutation = (url: string, queryKey: any, method: any, onSuccess:any) => {
   const queryClient = useQueryClient();
   const { data, isLoading, mutate } = useMutation(
     (suggest: any) => {
@@ -14,10 +14,12 @@ export const useCustomMutation = (url: string, queryKey: any, method: any) => {
         data: suggest,
       });
     },
-    // {
-    //   onSuccess: () => queryClient.invalidateQueries(queryKey),
-    // },
     {
+      // onSuccess: () => queryClient.invalidateQueries(queryKey),
+      onSuccess: onSuccess ? (res) => {
+        queryClient.invalidateQueries(queryKey);
+        onSuccess(res); // 추가적인 로직 수행
+      } : () => queryClient.invalidateQueries(queryKey),
       onError: () => queryClient.invalidateQueries(queryKey),
     }
   );

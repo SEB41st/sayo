@@ -31,7 +31,12 @@ const Write = () => {
     // console.log(Number(e.target.value));
   };
 
-  const { mutate, isLoading } = useCustomMutation(`/items`, `items`, "POST");
+  const { mutate, isLoading } = useCustomMutation(`/items`, `items`, "POST", {
+    onSuccess: (result:any) => {
+      console.log(result); // 성공한 뒤의 결과 값 출력
+      // 추가적인 로직 수행
+    }
+  });
 
   const submitKeyPress = () => {
     mutate({

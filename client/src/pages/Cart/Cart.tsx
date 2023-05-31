@@ -31,24 +31,29 @@ const Payment = () => {
   const { mutate } = useCustomMutation(
     `/shoppingCarts/user/${userId}/shoppingCart`,
     `/cart`,
-    "POST"
+    "POST",
+    {
+      onSuccess: (result:any) => {
+        console.log(result); // 성공한 뒤의 결과 값 출력
+        // 추가적인 로직 수행
+      }
+    }
   );
 
   if (isLoading ) return <Loading/>;
   if (error) return <Error/>;
   const Items = data.data;
 
+  
   console.log(Items);
   return (
     <S.PaymentWrap>
       <S.PaymentContainer>
         <div className="Cart">장바구니</div>
         <CartItem Items={Items}/>
-
         <S.PaymentDiv>
           <S.TotalPriceDiv>
             <div>상품금액</div>
-            {/* <div>{Items.}</div> */}
         {Items &&
           Items.map((item: any) => {
             totalPrice = item.orderCheck ? totalPrice + item.itemCount*(item.itemPrice)+(item.itemDeliveryPrice) : totalPrice

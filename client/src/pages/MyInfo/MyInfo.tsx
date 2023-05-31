@@ -31,7 +31,12 @@ const MyInfo = () => {
   const { mutate } = useCustomMutation(
     `/addresses`,
     `addresses`,
-    "POST"
+    "POST", {
+      onSuccess: (result:any) => {
+        console.log(result); // 성공한 뒤의 결과 값 출력
+        // 추가적인 로직 수행
+      }
+    }
   );
 
 

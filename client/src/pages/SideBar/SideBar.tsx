@@ -56,7 +56,7 @@ const SideBar = () => {
                 <S.GoodsList>
                     {userId? <S.NavFont to="/myPage">마이페이지</S.NavFont> : <S.NavFont to="/login">마이페이지</S.NavFont>}
                     <S.NavFont to="http://st.sweettracker.co.kr/#/">배송 조회</S.NavFont>
-                    <S.NavFont to="/cart">장바구니</S.NavFont>
+                    {userId? <S.NavFont to="/cart">장바구니</S.NavFont> : <S.NavFont to="/login">장바구니</S.NavFont>}
                 </S.GoodsList>
                 ):(
                 null

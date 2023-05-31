@@ -82,8 +82,10 @@ const Detail = () => {
   //   }, [wish]);
   const [like, setLike] = useState<boolean>(false);
   // const [like, setLike] = useRecoilState(likeState);
-  const [item, setItem] = useState<WishItem[]>([]);
+  // const [item, setItem] = useState<WishItem[]>([]);
   const [wish, setWish] = useState<WishItem[]>([]);
+
+  console.log(like)
 
   const { Id } = useParams();
   console.log(Id)
@@ -107,8 +109,10 @@ const Detail = () => {
       });
   }, []);
 
-  const hasItemId = wish.some(item => item.itemId === Number(Id));
+  // const hasItemId = wish.some(item => item.itemId === Number(Id));
+  const hasItemId = wish.some(item => console.log(item.itemId));
   console.log("hasItemId", hasItemId)
+  console.log("Id", Number(Id))
   console.log("wish", wish)
   
 
@@ -117,15 +121,24 @@ const Detail = () => {
     `/items/get/=${Id}`
   );
 
-  // const { mutate } = useCustomMutation(
-  //   `/wishes/${itemId}`,
-  //   `/wishes/${itemId}`,
-  //   "POST"
-  // );
-  const { mutate } = useCustomMutation(
+  
+  const { mutate:mutateLike } = useCustomMutation(
     `/wishes/${Id}`,
     `/wishes/${Id}`,
-    "POST"
+    "POST",
+      (res:any) => {
+        setLike(!res.data.data.wishSelected);
+        console.log(res.data.data.itemId); // 성공한 뒤의 결과 값 출력
+        // 추가적인 로직 수행
+      }
+  
+    // {
+    //   onSuccess: (res:any) => {
+    //     setLike(!res.data.wishSelected);
+    //     console.log(res); // 성공한 뒤의 결과 값 출력
+    //     // 추가적인 로직 수행
+    //   }
+    // }
   );
   // const { mutate } = useCustomMutation(`/shoppingCarts/items/${itemId}`, `/shoppingCarts/items/${itemId}`, "POST");
 
@@ -150,27 +163,27 @@ const Detail = () => {
       });
   };
 
-  const handleLikeBtn = () => {
-    // if (!isLogin) return navigate("/login");
-    axios
-      (`http://sayo.n-e.kr:8080/wishes/${Id}`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res) => {
-        setLike(!res.data.data.wishSelected);
-        toast.success("성공")
-        // window.location.reload();
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.info("로그인을 해주세요")
-      });
-  };
+  // const handleLikeBtn = () => {
+  //   // if (!isLogin) return navigate("/login");
+  //   axios
+  //     (`http://sayo.n-e.kr:8080/wishes/${Id}`, {
+  //       method: "post",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setLike(!res.data.data.wishSelected);
+  //       toast.success("성공")
+  //       // window.location.reload();
+  //       refetch();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       toast.info("로그인을 해주세요")
+  //     });
+  // };
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
@@ -197,29 +210,15 @@ const Detail = () => {
   //   refetch();
   // };
 
-  
 
- 
+  const handleLikeBtn = () => {
+    mutateLike({})
+    console.log()
+      // setLike(!res.data.data.wishSelected);
+      toast.success("성공")
+      refetch();
+};
 
-  // const handleLikeBtn = () => {
-  //   // if (!isLogin) return navigate("/login");
-  //   axios
-  //     (`http://sayo.n-e.kr:8080/wishes/${itemId}`, {
-  //       method: "post",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setLike(!like);
-  //       setwishId(res.data.data.wishId)
-  //       refetch()
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
   const CommaFormat = (x:any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }

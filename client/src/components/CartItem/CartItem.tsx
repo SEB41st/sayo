@@ -23,7 +23,7 @@ const CartItem = (Items:any) => {
   function CommaFormat(x:any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
+  // const { addCountMutation, deleteCountMutation } = useCustomMutation();
   // const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
   // const { mutate } = useCustomMutation(
@@ -82,7 +82,6 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
-    // setCount(count-1)
   })
   .catch((err) => {
     console.log(err);
@@ -95,6 +94,11 @@ const CartItem = (Items:any) => {
     });
     setProducts(addQty)
   };
+  // const query1 = useCustomMutation(
+  //   `/shoppingCarts/items/minus/${ItemId}`,
+  //   `/minus/${ItemId}`,
+  //   "POST"
+  // );
 
   const handleCheckbox = (shoppingCartId:any) => {
     axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
@@ -105,7 +109,6 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
-    // setCount(count+1)
   })
   .catch((err) => {
     console.log(err);
@@ -127,6 +130,7 @@ const CartItem = (Items:any) => {
     console.log(err);
   });
   }
+
 
   return (
     <S.PaymentDiv>

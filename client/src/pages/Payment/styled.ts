@@ -150,10 +150,10 @@ export const TotalDiv = styled.div`
 export const TotalPriceDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   width: 90%;
-  max-height: 5.5rem;
+  height: 5.5rem;
   margin-top: 5%;
   padding: 5%;
   background-color: #fcf6e2;
@@ -161,9 +161,9 @@ export const TotalPriceDiv = styled.div`
 
   @media screen and (min-width: ${"1280px"}) {
     max-width: 60%;
-    height: 5rem;
+    height: 7rem;
     margin-top: 2%;
-    padding: 4% 5%;
+    padding: 5% 5%;
   }
 `;
 

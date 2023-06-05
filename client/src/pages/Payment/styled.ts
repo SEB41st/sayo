@@ -190,3 +190,40 @@ export const ButtonDiv2 = styled(ButtonDiv)`
     height: 5rem;
   }
 `;
+export const Fail = styled.div`
+  /* background: #f9bb00; */
+  position: fixed;
+  left: 0px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 1.5em;
+  z-index: 9999;
+  background-color: #f9f9f9;
+`;
+export const FailText = styled.div`
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Shabnam", Tahoma, sans-serif;
+  /* color: #000; */
+  color: #f9bb00;
+  direction: rtl;
+  span{
+    margin: 10px 0;
+  }
+  p{
+    margin: 10px 0;
+    font-size: 20px;
+    color: black;
+  }
+  a{
+    padding: 20px 0;
+    margin-top: 20%;
+    background-color: #f9bb00;
+    color: white;
+    border-radius: 10px;
+    font-size: large;
+  }
+`

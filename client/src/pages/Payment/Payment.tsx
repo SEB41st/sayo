@@ -85,7 +85,7 @@ const Cart = () => {
             orderName: `${Items[0].itemName} 외 ${Items.length}건`,
             customerName: '박토스',
             successUrl: 'http://localhost:8080/success',
-            failUrl: 'http://localhost:8080/fail',
+            failUrl: 'http://localhost:3000/fail',
           })
         }
 

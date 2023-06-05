@@ -20,6 +20,7 @@ import MyWishItemList from "./pages/ItemList/MyWishItemList";
 import MyItemList from "./pages/ItemList/MyItemList";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Fail from "./pages/Payment/fail";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -59,6 +60,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/mywishList" element={<MyWishItemList />} />
         <Route path="/myList" element={<MyItemList />} />
+        <Route path="/fail" element={<Fail />} />
         {/* <Route path="/kakaoLogin" element={<KakaoSignUp/>}/> */}
         <Route path="/login" element={<Login />} />
         {/* <Route path="/googlelogin" element={<GoogleAuthLogin/>}/> */}

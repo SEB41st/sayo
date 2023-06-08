@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.domain.order.entity.OrderItem;
 import project2.SAYO.domain.order.repository.OrderItemRepository;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
@@ -27,53 +29,29 @@ public class OrderItemService {
     private final CustomBeanUtils<OrderItem> orderCustomBeanUtils;
     private final UserService userService;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
-    private final ShoppingCartItemService shoppingCartItemService;
+    private final ItemService itemService;
 
 
-    // TODO POST : 한 상품만 주문
-    /*
-    * "data": {
-        "orderItemId": 1,
-        "orderStatus": null,
-        "userId": 1,
-        "itemId": null,
-        "itemPicture": null,
-        "itemName": null,
-        "itemCount": 3,
-        "totalCount": 3,
-        "itemTotalPrice": 0,
-        "createdAt": "2023-05-23T13:57:45.2406057",
-        "modifiedAt": "2023-05-23T13:57:45.2406057"
-        }
-    * 현재 데이터 출력 상황 >> new OrderItem으로 주문하기를 생성해서 나오는 문제로 Picture의 경우에는 s3문제일 수도 잇으므로 새략 진행
-    * 나머지는 잘 출력될 수 있도록 수정 필요*/
+    // TODO POST : 한 상품만 주문(Item에서 주문하기 버튼 눌렀을 경우)
     @Transactional
-    public OrderItem createOrder(long userId, long shoppingCartId){
+    public OrderItem createOrder(long userId, long itemId){
         User findUser = userService.findVerifiedUser(userId);
-        ShoppingCartItem findShoppingCart = shoppingCartItemService.findShoppingCart(userId, shoppingCartId);
-
-        // shoppingCartItem의 orderCheck가 true라면 주문 진행
-        if(findShoppingCart.getOrderCheck() != Boolean.TRUE){
-            throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_CHECK);
-        }
+        Item findItem = itemService.findVerifiedItem(itemId);
 
         // 동일한 상품도 주문 가능하기에 주문하기는 계속 새롭게 생성
         OrderItem orderItem = new OrderItem();
 
         orderItem.setUser(findUser);
-        orderItem.setItemId(findShoppingCart.getItem().getItemId());
-        orderItem.setItemName(findShoppingCart.getItem().getItemName());
-        orderItem.setItemPicture(findShoppingCart.getItem().getItemPicture());
-        orderItem.setItemPrice(findShoppingCart.getItem().getItemPrice());
-        orderItem.setItemCount(findShoppingCart.getItemCount());
-        orderItem.setTotalCount(findShoppingCart.getItemCount());
-        orderItem.setItemTotalPrice(findShoppingCart.getItem().getItemPrice()*findShoppingCart.getItemCount());
+        orderItem.setItemId(findItem.getItemId());
+        orderItem.setItemName(findItem.getItemName());
+        orderItem.setItemPicture(findItem.getItemPicture());
+        orderItem.setItemPrice(findItem.getItemPrice());
+        orderItem.setItemCount(1);
+        orderItem.setTotalCount(1);
+        orderItem.setItemTotalPrice(findItem.getItemPrice());
         orderItemRepository.save(orderItem);
 
         // order.ChangeOrderStatus(); >> 결제 시스템 구현 시 함께 진행
-
-        // 주문한 상품 쇼핑카트에서 삭제
-        shoppingCartItemRepository.delete(findShoppingCart);
         return orderItem;
     }
 

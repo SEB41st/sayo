@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import project2.SAYO.domain.payment.dto.PaymentDto;
 import project2.SAYO.domain.payment.dto.PaymentReq;
 import project2.SAYO.domain.payment.dto.PaymentRes;
+import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
 import project2.SAYO.domain.payment.entity.Payment;
 import project2.SAYO.domain.payment.enums.PayType;
 import project2.SAYO.domain.payment.enums.PaymentStatus;
@@ -43,13 +44,12 @@ public class PaymentService {
     private String testSecretApiKey;
 
 
-    /*@Transactional
+    @Transactional
     public PaymentRes requestPayments(Long userId, PaymentReq request){
         User finduser = userService.findVerifiedUser(userId);
-        verifyPayType(request.getPayType());
         Long amount = request.getAmount();
 
-        if(amount == null/* || amount < 3000){
+        if(amount == null){
             throw new BusinessLogicException(ExceptionCode.PAYMENT_ERROR_ORDER_PRICE);
         }
 
@@ -58,29 +58,30 @@ public class PaymentService {
         payment.setCancel(false);
 
         return paymentRepository.save(payment).toDto();
-    }*/
+    }
 
-    public PaymentRes requestPayments(Long userId, PayType payType, Long amount, String orderName){
+    /*public PaymentRes requestPayments(Long userId, PayType payType, Long amount, String orderName){
         User finduser = userService.findVerifiedUser(userId);
         verifyPayType(payType);
 
-        if(amount == null/* || amount < 3000*/){
+        if(amount == null || amount < 3000){
             throw new BusinessLogicException(ExceptionCode.PAYMENT_ERROR_ORDER_PRICE);
         }
+        String userName = String.valueOf(finduser.getAddressList().get(2));
 
         Payment payment = Payment.builder()
-                .payType(payType)
+                .payType(PayType.CARD)
                 .orderId(UUID.randomUUID().toString())
                 .amount(amount)
                 .orderName(orderName)
-                .userName(finduser.getProfile().getNickname())
-                .paymentStatus(PaymentStatus.READY)
+                .userName(userName)
+                .paymentStatus(READY)
                 .build();
         payment.setUser(finduser);
         payment.setCancel(false);
 
         return paymentRepository.save(payment).toDto();
-    }
+    }*/
 
     private void verifyPayType(PayType paymentType) {
 
@@ -96,7 +97,11 @@ public class PaymentService {
     }
 
     @Transactional
-    public PaymentDto.paymentSuccessDto paymentSuccess(String paymentKey, String orderId, Long amount) {
+    public PaymentDto.paymentSuccessDto paymentSuccess(/*String paymentKey, String orderId, Long amount*/PaymentSuccessDto request) {
+        String orderId = request.getOrderId();
+        long amount = request.getAmount();
+        String paymentKey = request.getPaymentKey();
+
         Payment payment = verifyPayment(orderId, amount);
         PaymentDto.paymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
         payment.setPaymentKey(paymentKey);

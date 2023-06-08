@@ -12,12 +12,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentReq{
-    private PayType payType;
     private Long amount; // 구매 금액
     private String orderName; // 주문 상품 이름
     public Payment toEntity(){
         return Payment.builder()
-                .payType(payType)
+                .payType(PayType.CARD)
                 .orderId(UUID.randomUUID().toString())
                 .amount(amount)
                 .orderName(orderName)

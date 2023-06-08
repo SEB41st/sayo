@@ -1,5 +1,8 @@
 package project2.SAYO.domain.order.Controller;
 
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,15 +17,25 @@ import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Slf4j
 @RestController
 @Validated
 @RequiredArgsConstructor
-@RequestMapping("/orders")
+@RequestMapping("/orderItems")
 public class OrderItemController {
     private final OrderItemService orderItemService;
     private final OrderItemMapper mapper;
+
+    // Iamport 결제 검증 컨트롤러
+
+    // 프론트에서 받은 PG사 결괏값을 통해 아임포트 토큰 발행
+   /* @PostMapping("/verifyIamport/{imp_uid}")
+    public IamportResponse<Payment> paymentByImpUid(@PathVariable String imp_uid) throws IamportResponseException, IOException {
+        log.info("paymentByImpUid 진입");
+        return iamportClient.paymentByImpUid(imp_uid);
+    }
 
     // TODO POST : 장바구니 한 상품만 주문하기
     @PostMapping("/shoppingCart/{shoppingCart-id}")
@@ -33,7 +46,7 @@ public class OrderItemController {
         OrderItemDto.Response response= mapper.orderToOrderResponse(orderForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
-    }
+    }*/
 /*
     // TODO PATCH
     @PatchMapping("/{order-id}")

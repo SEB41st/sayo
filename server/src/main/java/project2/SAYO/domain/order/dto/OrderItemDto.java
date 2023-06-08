@@ -25,6 +25,13 @@ public class OrderItemDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
+    public static class payment{
+        private int itemTotalPrice;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
     @Builder
     public static class Response {
         private Long orderItemId;

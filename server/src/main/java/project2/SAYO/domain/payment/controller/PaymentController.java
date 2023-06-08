@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import project2.SAYO.domain.payment.dto.PaymentDto;
 import project2.SAYO.domain.payment.dto.PaymentReq;
 import project2.SAYO.domain.payment.dto.PaymentRes;
+import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
 import project2.SAYO.domain.payment.entity.Payment;
 import project2.SAYO.domain.payment.enums.PayType;
 import project2.SAYO.domain.payment.mapper.PaymentMapper;
@@ -28,21 +29,22 @@ public class PaymentController {
     private final PaymentMapper mapper;
 
     @PostMapping
-    public ResponseEntity requestPayments(/*@RequestBody PaymentReq request,*/@RequestParam PayType payType,
+    public ResponseEntity requestPayments(@RequestBody PaymentReq request,/*@RequestParam PayType payType,
                                           @RequestParam String orderName,
-                                          @RequestParam Long amount,
+                                          @RequestParam Long amount,*/
                                           @LoginUserId Long userId){
-        //PaymentRes response = paymentService.requestPayments(userId, request);
-        PaymentRes response = paymentService.requestPayments(userId, payType, amount, orderName);
+        PaymentRes response = paymentService.requestPayments(userId, request);
+        //PaymentRes response = paymentService.requestPayments(userId, payType, amount, orderName);
         return new ResponseEntity(new SingleResponseDto<>(mapper.paymentResToPayment(response)), HttpStatus.OK);
     }
 
     @PostMapping("/success")
-    public ResponseEntity paymentSuccess(@RequestParam String paymentKey,
+    public ResponseEntity paymentSuccess(/*@RequestParam String paymentKey,
                                          @RequestParam String orderId,
-                                         @RequestParam Long amount) {
+                                         @RequestParam Long amount*/ @RequestBody PaymentSuccessDto request) {
 
-        return new ResponseEntity<>(paymentService.paymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
+        //return new ResponseEntity<>(paymentService.paymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
+        return new ResponseEntity<>(paymentService.paymentSuccess(request), HttpStatus.OK);
     }
 
     @PostMapping("/fail")

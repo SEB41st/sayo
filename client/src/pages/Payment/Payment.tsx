@@ -31,6 +31,7 @@ declare global {
 
 const Cart = () => {
   const [user, setUser] = useState()
+  console.log(user)
   // console.log(items)
   const userId = localStorage.getItem("userId")
 
@@ -74,20 +75,44 @@ const Cart = () => {
     totalDeliverPrice = totalDeliverPrice + item.itemCount*item.itemDeliveryPrice
   ))
 
-    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 키
+
+    const handlePay = async () => {
+    await axios
+      (`http://sayo.n-e.kr:8080/payments`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          AutHorization: localStorage.getItem("accessToken"),
+        },
+        data:{
+          amount:totalPrice,
+          payType:"CARD",
+          orderName:`${Items[0].itemName} 외 ${Items.length}건`,
+        }
+      })
+      .then((res) => {
+        handleTossPay();
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 공개 키
         // 2. 결제창 SDK 초기화
         var tossPayments = window.TossPayments(clientKey)
 
-        const handlePay  = () => {
+        const handleTossPay  = () => {
           tossPayments.requestPayment('카드', {
             amount: totalPrice,
             orderId: 'KJET8EkEK-hnqlZW6hUIQ',
             orderName: `${Items[0].itemName} 외 ${Items.length}건`,
             customerName: '박토스',
-            successUrl: 'http://localhost:3000/success',
-            failUrl: 'http://localhost:3000/fail',
-            // successUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/success',
-            // failUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/fail'
+            // successUrl: 'http://localhost:3000/success',
+            // failUrl: 'http://localhost:3000/fail',
+            successUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/success',
+            failUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/fail'
           })
         }
 

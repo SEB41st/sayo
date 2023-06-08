@@ -58,7 +58,15 @@ public enum ExceptionCode {
 
     // AES
     ENCRYPTION_FAIED(404, "암호화에 실패하였습니다."),
-    DECRYPTION_FAIED(404, "복호화에 실패하였습니다.");
+    DECRYPTION_FAIED(404, "복호화에 실패하였습니다."),
+
+    // Payment
+    PAYMENT_FAILED(404, "결제에 실패하였습니다."),
+    PAYMENT_ERROR_ORDER_PRICE(404, "결제 금액에 에러가 있습니다."),
+    PAYTYPE_NOT_EQUALS(404, "결제 타입이 일치하지 않습니다"),
+    PAYMENT_NOT_FOUND(404, "결제가 존재하지 않습니다."),
+    AMOUNT_NOT_EQUAL(404, "결제 금액이 일치하지 않습니다."),
+    PAYMENT_AUTHORIZATION_FAILED(404, "결제 토큰 검증에 실패하였습니다.");
 
     @Getter
     private int status;

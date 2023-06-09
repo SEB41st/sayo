@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class PaymentDto {
-
-
-
+    @Data
     public class paymentSuccessDto {
         String mid;
         String version;
@@ -32,6 +30,7 @@ public class PaymentDto {
         String type;
     }
 
+    @Data
     public class paymentSuccessCardDto {
         String company;                 // 회사명
         String number;                  // 카드번호

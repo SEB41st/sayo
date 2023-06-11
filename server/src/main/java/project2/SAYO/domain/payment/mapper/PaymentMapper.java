@@ -2,13 +2,10 @@ package project2.SAYO.domain.payment.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import project2.SAYO.domain.payment.dto.PaymentDto;
+import project2.SAYO.domain.payment.dto.PaymentFailDto;
 import project2.SAYO.domain.payment.dto.PaymentReq;
 import project2.SAYO.domain.payment.dto.PaymentRes;
-import project2.SAYO.domain.payment.dto.PaymentResHandleFailDto;
 import project2.SAYO.domain.payment.entity.Payment;
-
-import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PaymentMapper {
@@ -26,11 +23,9 @@ public interface PaymentMapper {
                 .user(paymentRes.getUser())
                 .build();
     };
-    Payment failResToPayment(PaymentDto.failRes failRes);
-    PaymentRes paymentToPaymentRes(Payment payment);
 
-    default PaymentResHandleFailDto createPaymentFailDto(String code, String errorMsg, String orderId) {
-        return PaymentResHandleFailDto.builder()
+    default PaymentFailDto createPaymentFailDto(String code, String errorMsg, String orderId) {
+        return PaymentFailDto.builder()
                 .errorCode(code)
                 .errorMsg(errorMsg)
                 .orderId(orderId)

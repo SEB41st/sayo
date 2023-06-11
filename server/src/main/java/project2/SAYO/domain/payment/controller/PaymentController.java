@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import project2.SAYO.domain.payment.dto.PaymentDto;
-import project2.SAYO.domain.payment.dto.PaymentReq;
-import project2.SAYO.domain.payment.dto.PaymentRes;
-import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
+import project2.SAYO.domain.payment.dto.*;
 import project2.SAYO.domain.payment.entity.Payment;
 import project2.SAYO.domain.payment.enums.PayType;
 import project2.SAYO.domain.payment.mapper.PaymentMapper;
@@ -48,23 +45,23 @@ public class PaymentController {
     }
 
     @PostMapping("/fail")
-    public ResponseEntity paymentFail(@RequestParam String code,
+    public ResponseEntity paymentFail(/*@RequestParam String code,
                                       @RequestParam String errorMsg,
-                                      @RequestParam String orderId) {
+                                      @RequestParam String orderId*/ @RequestBody PaymentFailDto request) {
 
-        paymentService.paymentFail(errorMsg, orderId);
+        paymentService.paymentFail(request.getErrorMsg(), request.getOrderId());
 
         return new ResponseEntity<>(new SingleResponseDto<>(
-                mapper.createPaymentFailDto(code, errorMsg,orderId)), HttpStatus.OK);
+                mapper.createPaymentFailDto(request.getErrorCode(), request.getErrorMsg(), request.getOrderId())), HttpStatus.OK);
     }
 
     @PostMapping("/cancel")
     public ResponseEntity cancelPayment(@LoginUserId Long memberId,
-                                        @RequestParam String paymentKey,
-                                        @RequestParam String cancelReason) {
+                                        /*@RequestParam String paymentKey,
+                                        @RequestParam String cancelReason*/ @RequestBody PaymentCancelDto request) {
 
         return new ResponseEntity<>(new SingleResponseDto<>(
-                paymentService.cancelPayment(memberId, paymentKey, cancelReason)), HttpStatus.OK);
+                paymentService.cancelPayment(memberId, request.getPaymentKey(), request.getCancelReason())), HttpStatus.OK);
     }
 }
 

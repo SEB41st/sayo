@@ -1,7 +1,6 @@
 package project2.SAYO.domain.payment.entity;
 
 import lombok.*;
-import project2.SAYO.domain.payment.dto.PaymentDto;
 import project2.SAYO.domain.payment.dto.PaymentRes;
 import project2.SAYO.domain.payment.enums.PayType;
 import project2.SAYO.domain.payment.enums.PaymentStatus;
@@ -9,7 +8,6 @@ import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

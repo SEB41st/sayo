@@ -201,7 +201,7 @@ public class PaymentService {
     }
 
     private Payment verifyPaymentByMemberIdAndPaymentKey(String paymentKey, User user) {
-        return paymentRepository.findByPaymentKeyAndUser_Email(user.getEmail(), paymentKey)
+        return paymentRepository.findByPaymentKeyAndUserId(paymentKey, user.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
     }
 

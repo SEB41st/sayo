@@ -97,13 +97,13 @@ public class PaymentService {
     }
 
     @Transactional
-    public PaymentDto.paymentSuccessDto paymentSuccess(/*String paymentKey, String orderId, Long amount*/PaymentSuccessDto request) {
+    public PaymentSuccessDto paymentSuccess(/*String paymentKey, String orderId, Long amount*/PaymentSuccessDto request) {
         String orderId = request.getOrderId();
         long amount = request.getAmount();
         String paymentKey = request.getPaymentKey();
 
         Payment payment = verifyPayment(orderId, amount);
-        PaymentDto.paymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
+        PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
         payment.setPaymentKey(paymentKey);
         payment.setPaymentStatus(PAID);
 

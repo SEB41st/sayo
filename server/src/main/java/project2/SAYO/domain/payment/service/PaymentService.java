@@ -111,16 +111,14 @@ public class PaymentService {
     }
 
     @Transactional
-    public PaymentDto.paymentSuccessDto requestPaymentAccept(String paymentKey, String orderId, Long amount) {
+    public PaymentSuccessDto requestPaymentAccept(String paymentKey, String orderId, Long amount) {
 //        PagelessMultiResponseDto response = new PagelessMultiResponseDto<>();
 
-        PaymentDto.paymentSuccessDto paymentSuccessDto = null;
+        PaymentSuccessDto paymentSuccessDto = null;
 
         try {
             paymentSuccessDto = paymentSuccessAccept(paymentKey, orderId, amount);
 
-//            response.getData().add(paymentSuccessDto);
-//            response.getData().add(responseEntity.getBody());
         } catch (Exception e) {
             throw new BusinessLogicException(ExceptionCode.PAYMENT_AUTHORIZATION_FAILED);
         }
@@ -128,7 +126,7 @@ public class PaymentService {
         return paymentSuccessDto;
     }
 
-    private PaymentDto.paymentSuccessDto paymentSuccessAccept(String paymentKey, String orderId, Long amount) {
+    private PaymentSuccessDto paymentSuccessAccept(String paymentKey, String orderId, Long amount) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = getHeadersForPaymentService();
         JSONObject params = new JSONObject();
@@ -136,8 +134,8 @@ public class PaymentService {
         params.put("orderId", orderId);
         params.put("amount", amount);
 
-        PaymentDto.paymentSuccessDto response = restTemplate.postForObject(
-                "https://api.tosspayments.com/v1/payments/confirm", new HttpEntity<>(params, headers), PaymentDto.paymentSuccessDto.class);
+        PaymentSuccessDto response = restTemplate.postForObject(
+                "https://api.tosspayments.com/v1/payments/confirm", new HttpEntity<>(params, headers), PaymentSuccessDto.class);
 
         return response;
     }

@@ -2,13 +2,15 @@ package project2.SAYO.domain.payment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class PaymentResHandleFailDto{
+@NoArgsConstructor
+public class PaymentFailDto {
     private String errorCode;
-    private String errorMsg;
     private String orderId;
+    private String errorMsg;
 }

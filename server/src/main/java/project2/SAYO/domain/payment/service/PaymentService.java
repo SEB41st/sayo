@@ -104,6 +104,7 @@ public class PaymentService {
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
         payment.setPaymentKey(paymentKey);
         payment.setPaymentStatus(PAID);
+        paymentRepository.save(payment);
 
         return result;
     }
@@ -145,13 +146,15 @@ public class PaymentService {
 
         findPayment.setPaymentStatus(FAILED);
         findPayment.setFailDescription(errorMsg);
+        paymentRepository.save(findPayment);
 
     }
 
     @Transactional
     public Map cancelPayment(Long memberId, String paymentKey, String cancelReason) {
         User verifiedUser = userService.findVerifiedUser(memberId);
-        Payment verifiedPayment = verifyPaymentByMemberIdAndPaymentKey(paymentKey, verifiedUser);
+        log.info("paymentKey = {}", paymentKey);
+        Payment verifiedPayment = verifyPaymentByUserIdAndPaymentKey(paymentKey, verifiedUser);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = getHeadersForPaymentService();
@@ -159,6 +162,7 @@ public class PaymentService {
         params.put("cancelReason", cancelReason);
         Map result = restTemplate.postForObject("https://api.tosspayments.com/v1/payments" + paymentKey + "/cancel", new HttpEntity<>(params, headers), Map.class);
         verifiedPayment.setPaymentStatus(CANCELLED);
+        paymentRepository.save(verifiedPayment);
 
         return result;
     }
@@ -200,7 +204,7 @@ public class PaymentService {
         return headers;
     }
 
-    private Payment verifyPaymentByMemberIdAndPaymentKey(String paymentKey, User user) {
+    private Payment verifyPaymentByUserIdAndPaymentKey(String paymentKey, User user) {
         return paymentRepository.findByPaymentKeyAndUserId(paymentKey, user.getId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
     }

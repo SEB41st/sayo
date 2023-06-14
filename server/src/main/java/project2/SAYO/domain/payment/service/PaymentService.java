@@ -99,6 +99,9 @@ public class PaymentService {
         String orderId = request.getOrderId();
         long amount = request.getAmount();
         String paymentKey = request.getPaymentKey();
+        log.info("amountTest1 = {}", request.getAmount());
+        log.info("paymentKeyTest1 = {}", request.getPaymentKey());
+        log.info("orderIdTest1 = {}", request.getOrderId());
 
         Payment payment = verifyPayment(orderId, amount);
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
@@ -112,7 +115,9 @@ public class PaymentService {
     @Transactional
     public PaymentSuccessDto requestPaymentAccept(String paymentKey, String orderId, Long amount) {
 //        PagelessMultiResponseDto response = new PagelessMultiResponseDto<>();
-
+        log.info("amountTest2 = {}",amount);
+        log.info("paymentKeyTest2 = {}", paymentKey);
+        log.info("orderIdTest2 = {}", orderId);
         PaymentSuccessDto paymentSuccessDto = null;
 
         try {
@@ -129,6 +134,7 @@ public class PaymentService {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = getHeadersForPaymentService();
         JSONObject params = new JSONObject();
+        log.info("paymentKey1 = {}", paymentKey);
         params.put("paymentKey", paymentKey);
         params.put("orderId", orderId);
         params.put("amount", amount);

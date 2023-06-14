@@ -138,10 +138,11 @@ public class PaymentService {
         params.put("paymentKey", paymentKey);
         params.put("orderId", orderId);
         params.put("amount", amount);
+        log.info("paymentKey3 = {}", paymentKey);
 
         PaymentSuccessDto response = restTemplate.postForObject(
                 "https://api.tosspayments.com/v1/payments/confirm", new HttpEntity<>(params, headers), PaymentSuccessDto.class);
-
+        log.info("paymentKey44 = {}", paymentKey);
         return response;
     }
 

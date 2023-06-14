@@ -39,6 +39,9 @@ public class PaymentController {
     public ResponseEntity paymentSuccess(/*@RequestParam String paymentKey,
                                          @RequestParam String orderId,
                                          @RequestParam Long amount*/ @RequestBody PaymentSuccessDto request) {
+        log.info("amountTest = {}", request.getAmount());
+        log.info("paymentKeyTest = {}", request.getPaymentKey());
+        log.info("orderIdTest = {}", request.getOrderId());
 
         //return new ResponseEntity<>(paymentService.paymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
         return new ResponseEntity<>(paymentService.paymentSuccess(request), HttpStatus.OK);
@@ -56,12 +59,12 @@ public class PaymentController {
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity cancelPayment(@LoginUserId Long memberId,
+    public ResponseEntity cancelPayment(@LoginUserId Long userId,
                                         /*@RequestParam String paymentKey,
                                         @RequestParam String cancelReason*/ @RequestBody PaymentCancelDto request) {
 
         return new ResponseEntity<>(new SingleResponseDto<>(
-                paymentService.cancelPayment(memberId, request.getPaymentKey(), request.getCancelReason())), HttpStatus.OK);
+                paymentService.cancelPayment(userId, request.getPaymentKey(), request.getCancelReason())), HttpStatus.OK);
     }
 }
 

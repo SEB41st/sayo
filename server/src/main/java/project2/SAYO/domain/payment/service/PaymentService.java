@@ -138,14 +138,16 @@ public class PaymentService {
         params.put("orderId", orderId);
         params.put("amount", amount);
 
-        PaymentSuccessDto response = null;
+        /*PaymentSuccessDto response = null;
         try {
             response = restTemplate.postForObject(
                     "https://api.tosspayments.com/v1/payments/confirm", new HttpEntity<>(params, headers), PaymentSuccessDto.class);
         } catch (Exception e){
             e.printStackTrace();
-        }
-        log.info("paymentKey44 = {}", paymentKey);
+        }*/
+        PaymentSuccessDto  response = restTemplate.postForObject(
+                    "https://api.tosspayments.com/v1/payments/confirm", new HttpEntity<>(params, headers), PaymentSuccessDto.class);
+
         return response;
     }
 

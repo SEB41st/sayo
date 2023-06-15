@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import project2.SAYO.domain.payment.dto.PaymentReq;
@@ -171,10 +172,10 @@ public class PaymentService {
         Payment verifiedPayment = verifyPaymentByUserIdAndPaymentKey(paymentKey, verifiedUser);
 
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         HttpHeaders headers = getHeadersForPaymentService();
         JSONObject params = new JSONObject();
         params.put("cancelReason", cancelReason);
-
 
         Map result = restTemplate.postForObject("https://api.tosspayments.com/v1/payments/" + paymentKey + "/cancel", new HttpEntity<>(params, headers), Map.class);
         verifiedPayment.setPaymentStatus(CANCELLED);

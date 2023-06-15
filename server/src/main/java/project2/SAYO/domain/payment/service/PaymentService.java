@@ -14,6 +14,7 @@ import project2.SAYO.domain.payment.dto.PaymentRes;
 import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
 import project2.SAYO.domain.payment.entity.Payment;
 import project2.SAYO.domain.payment.enums.PayType;
+import project2.SAYO.domain.payment.enums.PaymentStatus;
 import project2.SAYO.domain.payment.repository.PaymentRepository;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
@@ -173,15 +174,12 @@ public class PaymentService {
         HttpHeaders headers = getHeadersForPaymentService();
         JSONObject params = new JSONObject();
         params.put("cancelReason", cancelReason);
-        Map result = null;
-        try{
-            result = restTemplate.postForObject("https://api.tosspayments.com/v1/payments" + paymentKey + "/cancel", new HttpEntity<>(params, headers), Map.class);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+
+
+        Map result = restTemplate.postForObject("https://api.tosspayments.com/v1/payments/" + paymentKey + "/cancel", new HttpEntity<>(params, headers), Map.class);
         verifiedPayment.setPaymentStatus(CANCELLED);
         paymentRepository.save(verifiedPayment);
-
+        log.info("cancelResult = {}", result);
         return result;
     }
 

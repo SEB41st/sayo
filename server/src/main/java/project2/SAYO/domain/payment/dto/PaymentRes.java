@@ -24,6 +24,7 @@ public class PaymentRes{
     private boolean cancel;
     private LocalDateTime createdAt;
     private User user;
+    private String paymentKey;
 
 
 }

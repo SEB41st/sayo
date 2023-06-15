@@ -54,6 +54,7 @@ public class PaymentService {
         Payment payment = request.toEntity();
         payment.setUser(finduser);
         payment.setCancel(false);
+        payment.setPaymentStatus(READY);
 
         return paymentRepository.save(payment).toDto();
     }
@@ -89,7 +90,7 @@ public class PaymentService {
             }
         }
 
-        log.debug("BusinessLogicException in verifyPamentType() : paymentType={}", paymentType.getType());
+        log.debug("BusinessLogicException in verifyPaymentType() : paymentType={}", paymentType.getType());
         throw new BusinessLogicException(ExceptionCode.PAYTYPE_NOT_EQUALS);
 
     }

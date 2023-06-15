@@ -1,6 +1,7 @@
 package project2.SAYO.domain.shoppingCart.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.domain.item.entity.Item;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShoppingCartItemService {
@@ -138,9 +140,12 @@ public class ShoppingCartItemService {
         if(loginUserId != userId) {
             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
         }
+        log.info("loginUserId1 = {}", loginUserId);
+        log.info("userId1 = {}", userId);
+
         //shoppingCart에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
         return shoppingCartItemRepository.findAll().stream()
-                .filter(shoppingCartItem -> shoppingCartItem.getUser().getId() == loginUserId)
+                .filter(shoppingCartItem -> shoppingCartItem.getUser().getId() == userId)
                 .filter(a -> a.getShoppingCartSelected() == Boolean.TRUE)
                 .collect(Collectors.toList());
     }

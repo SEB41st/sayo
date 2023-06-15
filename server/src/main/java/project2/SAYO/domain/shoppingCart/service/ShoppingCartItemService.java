@@ -140,7 +140,7 @@ public class ShoppingCartItemService {
         }
         //shoppingCart에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성
         return shoppingCartItemRepository.findAll().stream()
-                .filter(shoppingCartItem -> shoppingCartItem.getUser().getId() == userId)
+                .filter(shoppingCartItem -> shoppingCartItem.getUser().getId() == loginUserId)
                 .filter(a -> a.getShoppingCartSelected() == Boolean.TRUE)
                 .collect(Collectors.toList());
     }

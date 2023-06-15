@@ -173,7 +173,12 @@ public class PaymentService {
         HttpHeaders headers = getHeadersForPaymentService();
         JSONObject params = new JSONObject();
         params.put("cancelReason", cancelReason);
-        Map result = restTemplate.postForObject("https://api.tosspayments.com/v1/payments" + paymentKey + "/cancel", new HttpEntity<>(params, headers), Map.class);
+        Map result = null;
+        try{
+            result = restTemplate.postForObject("https://api.tosspayments.com/v1/payments" + paymentKey + "/cancel", new HttpEntity<>(params, headers), Map.class);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         verifiedPayment.setPaymentStatus(CANCELLED);
         paymentRepository.save(verifiedPayment);
 

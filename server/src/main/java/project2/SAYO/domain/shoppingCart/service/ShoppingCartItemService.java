@@ -36,7 +36,7 @@ public class ShoppingCartItemService {
         // ShoppingCart에 User와 Item을 set
         createShoppingCartItem.addUser(findUser);
         createShoppingCartItem.addItem(findItem);
-        Optional<ShoppingCartItem> shoppingCartTotal = this.shoppingCartItemRepository.findByUser(findUser);
+        //Optional<ShoppingCartItem> shoppingCartTotal = this.shoppingCartItemRepository.findByUser(findUser);
         //ShoppingCartItem totalCount = shoppingCartTotal.get();
 
         // 기본 주문 선택은 False로 설정

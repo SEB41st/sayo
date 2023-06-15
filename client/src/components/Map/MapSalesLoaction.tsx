@@ -5,9 +5,6 @@ import { salesLocation } from "../../recoil/atom";
 import { MapMarker } from "react-kakao-maps-sdk";
 
 const MapSalesLoaction = () => {
-  // const location = SalesLocation;
-
-  // console.log(SalesLocation)
 
   // 현재 마커 저장할 state
   const [position, setPosition] = useState();

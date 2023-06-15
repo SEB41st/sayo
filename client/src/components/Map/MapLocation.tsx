@@ -59,7 +59,6 @@ const MapLocation = () => {
     {location && (
 				<Maps 
                   center={{ lat: location.latitude, lng: location.longitude }} 
-                  // style={{ width: '800px', height: '600px' }} 
                   level={3}
                   onClick={(_t: any, mouseEvent: any) => setMarkLocation({
                     latitude: mouseEvent.latLng.getLat(),

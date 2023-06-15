@@ -5,9 +5,6 @@ import { BsHeartFill } from "react-icons/bs";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-// import MapMain from "../../components/Map/MapMain";
-// import MapSalesLoaction from "../../components/Map/MapSalesLoaction";
-// import MapLocation from "../../components/Map/MapLocation";
 import Modal from "../../components/Modal/Modal";
 import DataCalendar from "../../components/Calendar/Calendar";
 import { Maps } from "../../components/Map/styled";
@@ -38,51 +35,12 @@ export interface WishItem {
   Id: number;
 }
 
-const apiCall = async (url: any) => {
-  return await axios
-    .get(`http://sayo.n-e.kr:8080${url}`, {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        Accept: "application/json",
-        AutHorization: localStorage.getItem("accessToken"),
-      },
-    })
-    .then((res) => res.data.data)
-    .catch((error) => {
-      if (error) return false;
-    });
-};
-
 const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
-  // const [like, setLike] = useRecoilState(likeState);
   const [addCart, setAddCart] = useState<boolean>(false);
   const navigate = useNavigate()
-  // const [wish, setwishId] = useState<number>(0)
-  // // const userId = localStorage.getItem("userId")
 
-  // const { itemId } = useParams();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://sayo.n-e.kr:8080/wishes/${wish}`,
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json;charset=UTF-8",
-  //         Accept: "application/json",
-  //         "AutHorization" : localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   }, [wish]);
   const [like, setLike] = useState<boolean>(false);
-  // const [like, setLike] = useRecoilState(likeState);
-  // const [item, setItem] = useState<WishItem[]>([]);
   const [wish, setWish] = useState<WishItem[]>([]);
 
   console.log(like)
@@ -109,8 +67,7 @@ const Detail = () => {
       });
   }, []);
 
-  // const hasItemId = wish.some(item => item.itemId === Number(Id));
-  const hasItemId = wish.some(item => console.log(item.itemId));
+  const hasItemId = wish.some(item => item.itemId === Number(Id));
   console.log("hasItemId", hasItemId)
   console.log("Id", Number(Id))
   console.log("wish", wish)
@@ -122,79 +79,36 @@ const Detail = () => {
   );
 
   
-  const { mutate:mutateLike } = useCustomMutation(
+  const { mutate:mutateLike} = useCustomMutation(
     `/wishes/${Id}`,
-    `/wishes/${Id}`,
+    `/wishes/=${Id}`,
     "POST",
       (res:any) => {
         setLike(!res.data.data.wishSelected);
-        console.log(res.data.data.itemId); // 성공한 뒤의 결과 값 출력
+        console.log(res.data.data.wishSelected);// 성공한 뒤의 결과 값 출력
         // 추가적인 로직 수행
       }
-  
-    // {
-    //   onSuccess: (res:any) => {
-    //     setLike(!res.data.wishSelected);
-    //     console.log(res); // 성공한 뒤의 결과 값 출력
-    //     // 추가적인 로직 수행
-    //   }
-    // }
+
   );
-  // const { mutate } = useCustomMutation(`/shoppingCarts/items/${itemId}`, `/shoppingCarts/items/${itemId}`, "POST");
+  const { mutate:cartPost } = useCustomMutation(
+    `/shoppingCarts/items/${Id}`,
+    `/shoppingCarts/items/=${Id}`,
+     "POST",
+     (res:any) => {
+      console.log(res)
+      toast.success("성공")
+      setAddCart(!addCart)
+      openModal()
+     });
 
-  const PostCart = async () => {
-    await axios
-      (`http://sayo.n-e.kr:8080/shoppingCarts/items/${Id}`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          AutHorization: localStorage.getItem("accessToken"),
-        }
-      })
-      .then((res) => {
-        console.log(res);
-        SetModalOpen(true);
-        setAddCart(!addCart)
-        // toast.success("선택하신 내용이 삭제되었습니다");
-        // refetch();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  // const handleLikeBtn = () => {
-  //   // if (!isLogin) return navigate("/login");
-  //   axios
-  //     (`http://sayo.n-e.kr:8080/wishes/${Id}`, {
-  //       method: "post",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setLike(!res.data.data.wishSelected);
-  //       toast.success("성공")
-  //       // window.location.reload();
-  //       refetch();
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       toast.info("로그인을 해주세요")
-  //     });
-  // };
+  const PostCart = () => {
+    cartPost({})
+};
 
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
   const Items = data.data;
-
-  // const location: any = Items.location;
-  // console.log(location);
-
-  // setSalesLocation(location)
-  // const longitude: any = Items.location.Ma;
 
   const openModal = () => {
     SetModalOpen(true);
@@ -203,21 +117,12 @@ const Detail = () => {
     SetModalOpen(false);
   };
 
-  // const handleLikeBtn = () => {
-  //   setLike(!like);
-  //   mutate(like);
-  //   // window.location.reload();
-  //   refetch();
-  // };
-
-
   const handleLikeBtn = () => {
     mutateLike({})
-    console.log()
-      // setLike(!res.data.data.wishSelected);
       toast.success("성공")
       refetch();
 };
+
 
   const CommaFormat = (x:any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -236,7 +141,7 @@ const Detail = () => {
           
             <div className="ProductName">{Items.itemName}</div>
             
-            { hasItemId ? (
+            { hasItemId || like ? (
               <BsHeartFill
                 onClick={handleLikeBtn}
                 size="20"

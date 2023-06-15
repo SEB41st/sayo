@@ -31,6 +31,9 @@ declare global {
 
 const Cart = () => {
   const [user, setUser] = useState()
+  const [orderId, setOrderId] = useState('');
+
+  console.log(orderId)
   console.log(user)
   // console.log(items)
   const userId = localStorage.getItem("userId")
@@ -85,28 +88,29 @@ const Cart = () => {
           AutHorization: localStorage.getItem("accessToken"),
         },
         data:{
-          amount:totalPrice,
+          amount:totalPrice+totalDeliverPrice,
           payType:"CARD",
           orderName:`${Items[0].itemName} 외 ${Items.length}건`,
         }
       })
       .then((res) => {
+        setOrderId(res.data.data.orderId)
         handleTossPay();
-        console.log(res)
+        console.log(res.data.data)
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-    var clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 테스트용 클라이언트 공개 키
+    var clientKey = 'test_ck_d26DlbXAaV0YJWbOjvdrqY50Q9RB' // 테스트용 클라이언트 공개 키
         // 2. 결제창 SDK 초기화
         var tossPayments = window.TossPayments(clientKey)
 
         const handleTossPay  = () => {
           tossPayments.requestPayment('카드', {
-            amount: totalPrice,
-            orderId: 'KJET8EkEK-hnqlZW6hUIQ',
+            amount: totalPrice+totalDeliverPrice,
+            orderId: orderId,
             orderName: `${Items[0].itemName} 외 ${Items.length}건`,
             customerName: '박토스',
             // successUrl: 'http://localhost:3000/success',

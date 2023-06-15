@@ -39,6 +39,7 @@ const Write = () => {
   });
 
   const submitKeyPress = () => {
+    console.log(uploadedFile)
     mutate({
       itemName: goodsName,
       itemPicture: uploadedFile,
@@ -88,12 +89,8 @@ const Write = () => {
         })
         .then((res) => {
           const presignedUrl = res.data.data;
-              console.log(presignedUrl);
-          // console.log(res.data.data);
           setImgFile(res.data.data);
           uploadImageToS3(presignedUrl, uploadFile)
-          console.log(res.data.data);
-          // refetch();
         })
         .catch((err) => {
           console.log(err);
@@ -124,7 +121,7 @@ const Write = () => {
       <S.WriteContainer>
         <img
           src={imageUrl === null ? <S.Image /> : imageUrl}
-          alt="프로필 이미지"
+          alt="이미지를 선택해 주세요"
           style={{ width: "40%", borderRadius: "20px" }}
         />
         <input
@@ -134,8 +131,6 @@ const Write = () => {
           id="productImg"
           onChange={submitImage}
           ref={imgRef}
-          // ref={inputRef}
-          // onChange={onUploadImage}
         />
         <label htmlFor="productImg">
           {/* <div className="upLoad">이미지 업로드</div> */}
@@ -156,11 +151,13 @@ const Write = () => {
                 setGoodsName(e.target.value);
               }}
             />
+            
           </S.InputDiv>
           <S.InputDiv>
             <S.InputLabel> 가격</S.InputLabel>
             <S.WriteInput
               type="text"
+              placeholder="숫자로만 입력해주세요 (ex.1000)"
               onChange={(e) => {
                 setGoodsPrice(Number(e.target.value));
               }}
@@ -170,6 +167,7 @@ const Write = () => {
             <S.InputLabel> 배송비</S.InputLabel>
             <S.WriteInput
               type="text"
+              placeholder="숫자로만 입력해주세요 (ex.1000)"
               onChange={(e) => {
                 setDeliveryCharge(Number(e.target.value));
               }}

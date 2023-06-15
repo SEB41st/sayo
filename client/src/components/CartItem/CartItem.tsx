@@ -10,6 +10,7 @@ import { ItemType } from "../../pages/Cart/Cart";
 import axios from "axios";
 import { useCustomMutation } from "../util/useMutation";
 import { useParams } from "react-router-dom";
+import { useCartCustomMutation } from "../util/useCartMutation";
 
 type ItemProps = {
   item: ItemType; // 부모컴포넌트에서 import 해온 타입을 재사용 해 줍시다.
@@ -19,11 +20,13 @@ const CartItem = (Items:any) => {
   //{ item }:ItemProps
 
   const [products, setProducts] = useRecoilState(CartItemList);
+  // const [shoppingCartId, setShoppingCart] = useState(localStorage.getItem("shoppingCartId"))
+  // console.log(shoppingCartId)
 
   function CommaFormat(x:any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-  // const { addCountMutation, deleteCountMutation } = useCustomMutation();
+
   // const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
   // const { mutate } = useCustomMutation(
@@ -99,8 +102,17 @@ const CartItem = (Items:any) => {
   //   `/minus/${ItemId}`,
   //   "POST"
   // );
-
+  // const { mutate:CheckCartMutation } = useCustomMutation(
+  //   `/shoppingCarts/${shoppingCartId}`,
+  //   `/shoppingCarts=${shoppingCartId}`,
+  //    "POST",
+  //    (res:any) => {
+  //     console.log(res)
+  //    });
   const handleCheckbox = (shoppingCartId:any) => {
+    
+    // setShoppingCart(shoppingCartId)
+    // CheckCartMutation(shoppingCartId)
     axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
      method:'post',
      headers:{
@@ -114,8 +126,19 @@ const CartItem = (Items:any) => {
     console.log(err);
   });
   }
- 
+  // const { mutate:deleteCartMutation } = useCartCustomMutation(
+  //   `/shoppingCarts`,
+  //   `/shoppingCarts`,
+  //   `${shoppingCartId}`,
+  //    "DELETE",
+  //    (res:any) => {
+  //     console.log(res)
+  //    });
   const deleteCart = (shoppingCartId:any) => {
+    localStorage.setItem("shoppingCartId", shoppingCartId);
+    console.log(shoppingCartId)
+    // deleteCartMutation(shoppingCartId)
+    
     axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
      method:'delete',
      headers:{

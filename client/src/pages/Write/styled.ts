@@ -86,12 +86,13 @@ export const InputLabel = styled.div`
 `;
 
 export const WriteInput = styled.input`
-  min-width: 80%;
+  width: 200px;
+  font-size: 5px;
   border-bottom: 0.0625rem solid #999999;
 
   @media screen and (min-width: ${"700px"}) {
-    min-width: 100%;
-    font-size: 10px;
+    width: 400px;
+    font-size: 13px;
   }
 `;
 

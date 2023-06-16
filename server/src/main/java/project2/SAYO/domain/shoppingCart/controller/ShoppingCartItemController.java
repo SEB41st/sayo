@@ -11,6 +11,7 @@ import project2.SAYO.domain.shoppingCart.mapper.ShoppingCartMapper;
 import project2.SAYO.domain.shoppingCart.service.ShoppingCartItemService;
 import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
+import retrofit2.http.Path;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -98,5 +99,12 @@ public class ShoppingCartItemController {
         shoppingCartItemService.deleteShoppingCart(userId, shoppingCartId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // TODO DELETE ALL
+    @DeleteMapping("/user")
+    public ResponseEntity deleteShoppingCarts(@LoginUserId Long userId){
+        shoppingCartItemService.deleteShoppingCarts(userId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

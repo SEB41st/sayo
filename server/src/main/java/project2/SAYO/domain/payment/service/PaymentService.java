@@ -51,12 +51,13 @@ public class PaymentService {
 
         Payment payment = request.toEntity();
         payment.setUser(findUser);
+        payment.setUserName(findUser.getProfile().getNickname());
 
-        if(findUser.getAddressList().size() >= 1){
+        /*if(findUser.getAddressList().size() >= 1){
             payment.setUserName(findUser.getAddressList().get(4).toString());
         }else{
             payment.setUserName(findUser.getProfile().getNickname());
-        }
+        }*/
 
         payment.setCancel(false);
         payment.setPaymentStatus(READY);

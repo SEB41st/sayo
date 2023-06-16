@@ -29,12 +29,13 @@ public class PaymentController {
     }
 
     @PostMapping("/success")
-    public ResponseEntity paymentSuccess( @RequestBody PaymentSuccessDto request) {
+    public ResponseEntity paymentSuccess( @RequestBody PaymentSuccessDto request,
+                                          @LoginUserId Long userId) {
         log.info("amountTest = {}", request.getAmount());
         log.info("paymentKeyTest = {}", request.getPaymentKey());
         log.info("orderIdTest = {}", request.getOrderId());
 
-        return new ResponseEntity<>(paymentService.paymentSuccess(request), HttpStatus.OK);
+        return new ResponseEntity<>(paymentService.paymentSuccess(request, userId), HttpStatus.OK);
     }
 
     @PostMapping("/fail")

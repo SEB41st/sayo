@@ -179,6 +179,20 @@ public class ShoppingCartItemService {
         shoppingCartItemRepository.delete(findShoppingCartItem);
     }
 
+    @Transactional
+    public void deleteShoppingCarts(long userId){
+        List<ShoppingCartItem> findShoppingCartList = shoppingCartItemRepository.findAll().stream()
+                .filter(a -> a.getUser().getId() == userId)
+                .filter(b -> b.getOrderCheck() == Boolean.TRUE)
+                .filter(c -> c.getShoppingCartSelected() == Boolean.TRUE)
+                        .collect(Collectors.toList());
+        log.info("findShoppingCartList Size = {}", findShoppingCartList.size());
+
+        for(ShoppingCartItem s : findShoppingCartList){
+            shoppingCartItemRepository.delete(s);
+        }
+    }
+
     // TODO VERIFIED
     public ShoppingCartItem findVerifiedShoppingCart(long shoppingCartId) {
         Optional<ShoppingCartItem> optionalShoppingCart = shoppingCartItemRepository.findById(shoppingCartId);

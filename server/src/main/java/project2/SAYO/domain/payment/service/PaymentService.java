@@ -3,6 +3,7 @@ package project2.SAYO.domain.payment.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpEntity;
@@ -16,6 +17,8 @@ import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
 import project2.SAYO.domain.payment.entity.Payment;
 import project2.SAYO.domain.payment.enums.PayType;
 import project2.SAYO.domain.payment.repository.PaymentRepository;
+import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
+import project2.SAYO.domain.shoppingCart.service.ShoppingCartItemService;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.exception.BusinessLogicException;
@@ -35,6 +38,8 @@ import static project2.SAYO.domain.payment.enums.PaymentStatus.*;
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final UserService userService;
+    @Autowired
+    private final ShoppingCartItemService  shoppingCartItemService;
 
     @Value("${payments.toss.test_secret_api_key}")
     private String testSecretApiKey;
@@ -79,7 +84,7 @@ public class PaymentService {
     }
 
     @Transactional
-    public PaymentSuccessDto paymentSuccess(PaymentSuccessDto request) {
+    public PaymentSuccessDto paymentSuccess(PaymentSuccessDto request, Long userId) {
         String orderId = request.getOrderId();
         long amount = request.getAmount();
         String paymentKey = request.getPaymentKey();
@@ -92,6 +97,9 @@ public class PaymentService {
         payment.setPaymentKey(paymentKey);
         payment.setPaymentStatus(PAID);
         paymentRepository.save(payment);
+
+        // 결제 성공 시 선택된 쇼핑카트 삭제
+        shoppingCartItemService.deleteShoppingCarts(userId);
 
         return result;
     }

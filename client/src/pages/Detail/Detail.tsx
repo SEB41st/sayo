@@ -49,23 +49,6 @@ const Detail = () => {
   console.log(Id)
   const userId = localStorage.getItem("userId")
 
-  //   useEffect(() => {
-  //     axios
-  //     (`http://sayo.n-e.kr:8080/wishes/user/${userId}/wish`, {
-  //       method: "get",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((res: any) => {
-  //       setWish(res.data.data);
-  //       refetch();
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
   const { data:wish, isLoading:wishLoadig, error, refetch } = useCustomQuery(
     `/wishes/user/${userId}/wish`,
     `/wishes/user=${userId}`

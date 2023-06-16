@@ -9,7 +9,6 @@ import project2.SAYO.domain.payment.entity.Payment;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PaymentMapper {
-    Payment paymentReqToPayment(PaymentReq paymentReq);
     default Payment paymentResToPayment(PaymentRes paymentRes){
         return Payment.builder()
                 .paymentId(paymentRes.getPaymentId())

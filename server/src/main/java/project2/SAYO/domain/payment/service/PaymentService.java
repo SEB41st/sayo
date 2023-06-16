@@ -42,7 +42,7 @@ public class PaymentService {
 
     @Transactional
     public PaymentRes requestPayments(Long userId, PaymentReq request){
-        User finduser = userService.findVerifiedUser(userId);
+        User findUser = userService.findVerifiedUser(userId);
         Long amount = request.getAmount();
 
         if(amount == null){
@@ -50,7 +50,14 @@ public class PaymentService {
         }
 
         Payment payment = request.toEntity();
-        payment.setUser(finduser);
+        payment.setUser(findUser);
+
+        if(findUser.getAddressList().size() >= 1){
+            payment.setUserName(findUser.getAddressList().get(4).toString());
+        }else{
+            payment.setUserName(findUser.getProfile().getNickname());
+        }
+
         payment.setCancel(false);
         payment.setPaymentStatus(READY);
 

@@ -227,3 +227,25 @@ export const FailText = styled.div`
     font-size: large;
   }
 `
+
+export const UserDiv = styled.div`
+  width: 90%;
+  padding: 2%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f9bb00;
+  border-radius: 10px;
+  margin-top: 10px;
+  h4{
+    font-size: large;
+    margin-bottom: 2%;
+    font-weight: 700;
+  }
+  span{
+    margin: 1%;
+  }
+  strong{
+    font-weight: 700;
+  }
+`;

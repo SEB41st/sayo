@@ -28,18 +28,7 @@ const Payment = () => {
   }
   const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
-  const { mutate } = useCustomMutation(
-    `/shoppingCarts/user/${userId}/shoppingCart`,
-    `/cart`,
-    "POST",
-    {
-      onSuccess: (result:any) => {
-        console.log(result); // 성공한 뒤의 결과 값 출력
-        // 추가적인 로직 수행
-      }
-    }
-  );
-
+  refetch();
   if (isLoading ) return <Loading/>;
   if (error) return <Error/>;
   const Items = data.data;

@@ -17,10 +17,10 @@ const MyInfo = () => {
   const [change, setChange] = useState<boolean>(false)
   const [isOpenPost, setIsOpenPost] = useState<boolean>(false);
   const [addressCode, setAddressCode] = useState(''); // 주소
-  const [address, setAddress] = useState(''); // 주소
-  const [addressDetail, setAddressDetail] = useState(''); // 상세주소
-  const [phoneNum, setPhoneNumber] = useState('')
-  const [getName, setName] = useState('')
+  const [address, setAddress] = useState<string>(''); // 주소
+  const [addressDetail, setAddressDetail] = useState<string>(''); // 상세주소
+  const [phoneNum, setPhoneNumber] = useState<string>('')
+  const [getName, setName] = useState<string>('')
   const navigate = useNavigate()
 
   const {data, isLoading, error} = useCustomQuery(
@@ -103,7 +103,7 @@ const MyInfo = () => {
         detailAddress:address})
       console.log(phoneNum,addressCode,addressDetail,address)
       toast.success("수정이 완료되었습니다")
-      // refetch();
+      window.location.reload()
   };
 
 

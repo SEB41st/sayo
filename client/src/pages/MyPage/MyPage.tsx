@@ -56,7 +56,7 @@ const Mypage = () => {
         console.log(err);
       });
   }, []);
-
+  refetch();
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
@@ -150,7 +150,8 @@ const Mypage = () => {
         )}
       </S.Lists>
       <S.Line />
-      <S.ProductListName>참여 중인 공동구매</S.ProductListName>
+      <S.ProductListName>참여 중인 공동구매
+      <div>결제 취소를 원하시면 관리자에게 문의하세요 !</div></S.ProductListName>
       <S.Lists>
         <S.ChoiceList>
           <Link to="/detail">
@@ -162,8 +163,8 @@ const Mypage = () => {
               <span> 목포 쫀드기</span>
               <span>구매일</span>
               <span> 2023.02.03</span>
-              <span>송장번호</span>
-              <span> 3827498379238</span>
+              {/* <span>송장번호</span>
+              <span> 3827498379238</span> */}
             </S.ItemName>
             {/* <Modal
                 open={openModal}

@@ -41,7 +41,7 @@ const Detail = () => {
   const navigate = useNavigate()
 
   const [like, setLike] = useState<boolean>(false);
-  const [wish, setWish] = useState<WishItem[]>([]);
+  // const [wish, setWish] = useState<WishItem[]>([]);
 
   console.log(like)
 
@@ -49,42 +49,22 @@ const Detail = () => {
   console.log(Id)
   const userId = localStorage.getItem("userId")
 
-    useEffect(() => {
-      axios
-      (`http://sayo.n-e.kr:8080/wishes/user/${userId}/wish`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res: any) => {
-        setWish(res.data.data);
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const { data:wish, isLoading:wishLoadig, error, refetch } = useCustomQuery(
+    `/wishes/user/${userId}/wish`,
+    `/wishes/user=${userId}`
+  );
 
-  const hasItemId = wish.some(item => item.itemId === Number(Id));
-  console.log("hasItemId", hasItemId)
-  console.log("Id", Number(Id))
-  console.log("wish", wish)
-  
-
-  const { data, isLoading, error, refetch } = useCustomQuery(
+  const { data, isLoading } = useCustomQuery(
     `/items/get/${Id}`,
     `/items/get/=${Id}`
   );
 
-  
   const { mutate:mutateLike} = useCustomMutation(
     `/wishes/${Id}`,
     `/wishes/=${Id}`,
     "POST",
       (res:any) => {
-        setLike(!res.data.data.wishSelected);
+        setLike(res.data.data.wishSelected);
         console.log(res.data.data.wishSelected);// 성공한 뒤의 결과 값 출력
         // 추가적인 로직 수행
       }
@@ -105,11 +85,26 @@ const Detail = () => {
     cartPost({})
 };
 
+  if (wishLoadig) return <Loading></Loading>;
   if (isLoading) return <Loading></Loading>;
   if (error) return <Error></Error>;
 
   const Items = data.data;
-
+  
+  //wish에 해당 item이 포함되어 있는지 확인하는 함수
+  const hasItemId = findItemById(wish.data);
+  function findItemById(items:any) {
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].itemId === Number(Id)) {
+        return items[i];
+      }
+    }
+    return null;
+  }
+  console.log("hasItemId", hasItemId)
+  console.log("Id", Number(Id))
+  console.log("wish", wish.data)
+  
   const openModal = () => {
     SetModalOpen(true);
   };
@@ -141,7 +136,7 @@ const Detail = () => {
           
             <div className="ProductName">{Items.itemName}</div>
             
-            { hasItemId || like ? (
+            { hasItemId !== null ? (
               <BsHeartFill
                 onClick={handleLikeBtn}
                 size="20"
@@ -164,9 +159,9 @@ const Detail = () => {
           </S.goodsDetail>
           <S.ButtonDiv>
             <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>
-            <S.BuyBtn>
+            {/* <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
-            </S.BuyBtn>
+            </S.BuyBtn> */}
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>

@@ -19,6 +19,7 @@ const Main = () => {
   
   const Items = data.data;
   console.log(Items)
+  let userId = localStorage.getItem("userId")
 
   let sortItems = [...Items]
   sortItems.sort((a:any,b:any)=> {
@@ -69,9 +70,11 @@ const Main = () => {
         </S.Menus>
           <S.Title style={{ marginLeft: 30 }}>
             찾으시는 제품이 없다면?
-            <Link to="/write">
+            {userId? <Link to="/write">
               <S.WriteButton>공동구매 제안하기</S.WriteButton>
-            </Link>
+            </Link> : <Link to="/login">
+              <S.WriteButton>로그인 하고<br/> 공동구매 제안하기</S.WriteButton>
+            </Link>}
           </S.Title>
       </S.MainList>
     </S.Main>

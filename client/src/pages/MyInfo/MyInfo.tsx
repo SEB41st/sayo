@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 
 const MyInfo = () => {
 
-  // const {userId} = useParams()
   const userId = localStorage.getItem("userId");
   const [change, setChange] = useState<boolean>(false)
   const [isOpenPost, setIsOpenPost] = useState<boolean>(false);
@@ -61,7 +60,7 @@ const MyInfo = () => {
         localStorage.clear();
         navigate("/");
         window.location.reload()
-        // toast.info("로그아웃 되었습니다")
+        toast.info("로그아웃 되었습니다")
       })
       .catch((err) => {
         console.log(err);
@@ -82,14 +81,12 @@ const MyInfo = () => {
       }
     )
     .then((res) => {
-      // navigate("/");
-      // window.location.reload()
+
       console.log("성공")
     })
     .catch((err) => {
       console.log(err);
-      // navigate("/");
-      // window.location.reload()
+
     });
 };
 
@@ -109,7 +106,6 @@ const MyInfo = () => {
 
   const changeAddress = () => {
     setChange(!change);
-    // console.log(phoneNum)
   }
 
   const onChangeOpenPost = () => {
@@ -205,7 +201,6 @@ const MyInfo = () => {
               />
             </S.MypageDiv>
             <S.MypageDiv>
-              {/* <span >주소</span> */}
               <button className="Name" onClick={onChangeOpenPost}>우편번호</button>
               {isOpenPost  ? (
             <S.PostCode><DaumPostcode className="PostCodeStyle" autoClose onComplete={onCompletePost} /></S.PostCode>

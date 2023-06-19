@@ -1,6 +1,6 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as S from "./styled";
-import React, { useEffect, useState } from "react";
+import  {  useState } from "react";
 import { BsHeartFill } from "react-icons/bs";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
@@ -9,11 +9,7 @@ import Modal from "../../components/Modal/Modal";
 import DataCalendar from "../../components/Calendar/Calendar";
 import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
-import { likeState } from "../../recoil/atom";
-import { useRecoilState } from "recoil";
-import axios from "axios";
 import { useCustomMutation } from "../../components/util/useMutation";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
@@ -38,10 +34,8 @@ export interface WishItem {
 const Detail = () => {
   const [modalOpen, SetModalOpen] = useState<boolean>(false);
   const [addCart, setAddCart] = useState<boolean>(false);
-  const navigate = useNavigate()
 
   const [like, setLike] = useState<boolean>(false);
-  // const [wish, setWish] = useState<WishItem[]>([]);
 
   console.log(like)
 

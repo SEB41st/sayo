@@ -103,7 +103,6 @@ const Login = () => {
               password:e.target.value,
             })
           }}
-          // onChange={(e) => console.log(e.target.value)}
           onKeyPress={handleKeypress}>
           </input>
         <S.JwtLoginBtn

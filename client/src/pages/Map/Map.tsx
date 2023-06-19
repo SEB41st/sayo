@@ -66,34 +66,11 @@ const MapContainer = () => {
 
   console.log("location", location);
 
-  interface Marker {
-    position: {
-      lat: any;
-      lng: any;
-    };
-    content: string;
-  }
-
-  interface Map {
-    setBounds: (bounds: any) => void;
-  }
-
   const [info, setInfo] = useState([]);
-  const [markers, setMarkers] = useState<Array<Marker>>([]);
-  const [map, setMap] = useState<Map | undefined>();
 
   useEffect(() => {
     console.log(1);
-    // if (!map) return;
-    // const mapContainer = document.getElementById("map"), // 지도를 표시할 div
-    //   mapOption = {
-    //     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-    //     level: 3, // 지도의 확대 레벨
-    //   };
-    //   console.log(2);  
 
-    //   const map = new kakao.maps.Map(mapContainer, mapOption);
-    // console.log(mapContainer);  
     const geocoder = new kakao.maps.services.Geocoder();
     
 
@@ -106,9 +83,6 @@ const MapContainer = () => {
           Number(result[0].y),
           Number(result[0].x)
         );
-      
-
-        // map.setCenter(coords);
         setInfo(result);
       }
     });

@@ -63,9 +63,7 @@ const App = () => {
         <Route path="/myList" element={<MyItemList />} />
         <Route path="/fail" element={<Fail />} />
         <Route path="/success" element={<Success />} />
-        {/* <Route path="/kakaoLogin" element={<KakaoSignUp/>}/> */}
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/googlelogin" element={<GoogleAuthLogin/>}/> */}
       </Routes>
       {!["/sidebar"].includes(location.pathname) && <Footer />}
     </Domain>

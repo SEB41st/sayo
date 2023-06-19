@@ -1,15 +1,10 @@
 import { Link } from "react-router-dom";
 import * as S from "./styled";
-import { BsPlusCircle, BsSearch } from "react-icons/bs";
+import { BsPlusCircle } from "react-icons/bs";
 import ItemsSlider  from "../../components/ItemsSlider/ItemsSlider";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-
-// Type {
-//   Items: Array;
-// }
-
 const Main = () => {
 
   const { data, isLoading, error, refetch } = useCustomQuery(`/items/get?page=1&size=10`, `items`);

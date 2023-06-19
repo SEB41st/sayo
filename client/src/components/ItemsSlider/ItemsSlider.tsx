@@ -18,15 +18,11 @@ const ItemsSlider = (Items:any) => {
     }
   }, [windowSize]);
 
-  
     const settings = {
       dots: true,
-      // fade: true,
       infinite: true,
       speed: 500,
-      // autoplay: true,
       pauseOnHover: true,
-      // dotsClass: "dots_custom"
     };
 
     return (
@@ -62,7 +58,6 @@ const ItemsSlider = (Items:any) => {
                       alt="상품 이미지"
                       className='itempicture'
                     ></img>
-                    {/* <div>{item.itemName}</div> */}
                   </S.Item>
                 </Link>
                 )})}

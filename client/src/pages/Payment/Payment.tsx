@@ -4,23 +4,6 @@ import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
-// interface item {
-//   createdAt : string;
-//   itemCount: number;
-// itemDeliveryPrice:number;
-// itemId:number;
-// itemName:string;
-// itemPicture:string;
-// itemPrice:number;
-// itemTotalCount:number;
-// modifiedAt: string;
-// orderCheck: boolean;
-// shoppingCartId: number;
-// shoppingCartSelected: boolean;
-// userId: number;
-// }
 
 declare global {
   interface Window {
@@ -101,7 +84,6 @@ const Cart = () => {
             failUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/fail'
           })
         }
-
 
   return (
     <S.CartWrap>

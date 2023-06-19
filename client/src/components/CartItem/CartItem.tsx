@@ -8,9 +8,6 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { CartItemList, countState, countSelector, totalPriceState } from "../../recoil/atom";
 import { ItemType } from "../../pages/Cart/Cart";
 import axios from "axios";
-import { useCustomMutation } from "../util/useMutation";
-import { useParams } from "react-router-dom";
-import { useCartCustomMutation } from "../util/useCartMutation";
 
 type ItemProps = {
   item: ItemType; // 부모컴포넌트에서 import 해온 타입을 재사용 해 줍시다.
@@ -41,13 +38,6 @@ const CartItem = (Items:any) => {
   // const Items = data.data;
 
   console.log(Items.Items);
-  // useEffect(() => { 
-  //   axios.get(`http://sayo.n-e.kr:8080/shoppingCarts`)
-  //   .then(res => {
-  //     setProducts(res.data)
-  //   })
-  // },[])
-
   // const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);
 
   // if (isLoading) return <Loading></Loading>;
@@ -55,6 +45,7 @@ const CartItem = (Items:any) => {
 
   // 상품 개수 추가
   const handleAddCount = (ItemId : any) => {
+    
    axios(`http://sayo.n-e.kr:8080/shoppingCarts/items/add/${ItemId}`, {
      method:'post',
      headers:{
@@ -62,6 +53,7 @@ const CartItem = (Items:any) => {
      },   
    })
    .then((res: any) => {
+     window.location.reload()
     console.log(res);
   })
   .catch((err) => {
@@ -85,6 +77,8 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
+    window.location.reload()
+
   })
   .catch((err) => {
     console.log(err);
@@ -121,6 +115,7 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
+    window.location.reload()
   })
   .catch((err) => {
     console.log(err);
@@ -147,6 +142,7 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
+    window.location.reload()
     // setCount(count+1)
   })
   .catch((err) => {

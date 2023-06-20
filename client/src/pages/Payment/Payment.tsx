@@ -12,7 +12,7 @@ declare global {
 }
 
 
-const Cart = () => {
+const Paymant = () => {
 
   const userId = localStorage.getItem("userId")
 
@@ -200,4 +200,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Paymant;

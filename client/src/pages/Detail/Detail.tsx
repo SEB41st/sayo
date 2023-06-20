@@ -42,10 +42,11 @@ const Detail = () => {
   const { Id } = useParams();
   console.log(Id)
   const userId = localStorage.getItem("userId")
+  // console.log(userId)
 
-  const { data:wish, isLoading:wishLoadig, error, refetch } = useCustomQuery(
-    `/wishes/user/${userId}/wish`,
-    `/wishes/user=${userId}`
+  const { data:getWish, isLoading:wishLoadig, error, refetch } = useCustomQuery(
+    userId === null ? '' : `/wishes/user/${userId}/wish`,
+    userId === null ? '' : `/wishes/user=${userId}`
   );
 
   const { data, isLoading } = useCustomQuery(
@@ -70,7 +71,6 @@ const Detail = () => {
      "POST",
      (res:any) => {
       console.log(res)
-      toast.success("성공")
       setAddCart(!addCart)
       openModal()
      });
@@ -85,8 +85,9 @@ const Detail = () => {
 
   const Items = data.data;
   
-  //wish에 해당 item이 포함되어 있는지 확인하는 함수
-  const hasItemId = findItemById(wish.data);
+  // wish에 해당 item이 포함되어 있는지 확인하는 함수
+  // userId === null ? null : getWish() 
+  const hasItemId = userId === null ? null : findItemById(getWish.data);
   function findItemById(items:any) {
     for (let i = 0; i < items.length; i++) {
       if (items[i].itemId === Number(Id)) {
@@ -97,7 +98,7 @@ const Detail = () => {
   }
   console.log("hasItemId", hasItemId)
   console.log("Id", Number(Id))
-  console.log("wish", wish.data)
+  // console.log("wish", wish.data)
   
   const openModal = () => {
     SetModalOpen(true);
@@ -108,10 +109,12 @@ const Detail = () => {
 
   const handleLikeBtn = () => {
     mutateLike({})
-      toast.success("성공")
       refetch();
 };
 
+const haveToLogin = () => {
+    toast.info("로그인 후 눌러주세요")
+};
 
   const CommaFormat = (x:any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -127,10 +130,15 @@ const Detail = () => {
         </S.ImageDiv>
         <S.ProductInfoDiv>
           <div className="Product">
-          
             <div className="ProductName">{Items.itemName}</div>
-            
-            { hasItemId !== null ? (
+            {userId === null ? (
+              <BsHeartFill
+                onClick={haveToLogin}
+                size="20"
+                style={{ marginLeft: "10px", color: "#d3d3d3" }}
+              />
+            ) : (
+            hasItemId !== null ? (
               <BsHeartFill
                 onClick={handleLikeBtn}
                 size="20"
@@ -142,6 +150,7 @@ const Detail = () => {
                 onClick={handleLikeBtn}
                 style={{ marginLeft: "10px", color: "#d3d3d3" }}
               />
+            )
             )}
           </div>
           <S.goodsDetail>
@@ -152,7 +161,7 @@ const Detail = () => {
               <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
           </S.goodsDetail>
           <S.ButtonDiv>
-            <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>
+            {userId === null ? <S.CartBtn onClick={haveToLogin}>장바구니</S.CartBtn> : <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>}
             {/* <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
             </S.BuyBtn> */}

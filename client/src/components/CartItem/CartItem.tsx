@@ -1,47 +1,31 @@
 import * as S from "./styled";
-import { useEffect, useState } from "react";
 import { TfiMinus, TfiPlus } from "react-icons/tfi";
 import { useCustomQuery } from "../util/useCustomQuery";
 import Loading from "../Loading/Loading";
 import Error from "../Error/Error";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { CartItemList, countState, countSelector, totalPriceState } from "../../recoil/atom";
-import { ItemType } from "../../pages/Cart/Cart";
 import axios from "axios";
+import { useCustomMutation } from "../util/useMutation";
 
-type ItemProps = {
-  item: ItemType; // 부모컴포넌트에서 import 해온 타입을 재사용 해 줍시다.
-};
 
-const CartItem = (Items:any) => {
-  //{ item }:ItemProps
-
+const CartItem = () => {
+  
+  let userId = localStorage.getItem("userId")
   const [products, setProducts] = useRecoilState(CartItemList);
-  // const [shoppingCartId, setShoppingCart] = useState(localStorage.getItem("shoppingCartId"))
-  // console.log(shoppingCartId)
 
   function CommaFormat(x:any) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  // const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
-
-  // const { mutate } = useCustomMutation(
-  //   `/shoppingCarts/user/${userId}/shoppingCart`,
-  //   `/cart`,
-  //   "POST"
-  // );
-
-  // if (isLoading ) return <Loading/>;
-  // if (error) return <Error/>;
-
-  // const Items = data.data;
-
-  console.log(Items.Items);
-  // const { data, isLoading, error, refetch } = useCustomQuery(`/cart`, `cart`);
-
-  // if (isLoading) return <Loading></Loading>;
-  // if (error) return <Error></Error>;
+  
+  const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
+  
+  if (isLoading ) return <Loading/>;
+  if (error) return <Error/>;
+  refetch();
+  
+  console.log(data.data);
 
   // 상품 개수 추가
   const handleAddCount = (ItemId : any) => {
@@ -53,18 +37,12 @@ const CartItem = (Items:any) => {
      },   
    })
    .then((res: any) => {
-     window.location.reload()
     console.log(res);
+    refetch();
   })
   .catch((err) => {
     console.log(err);
   });
-    // const addQty = products.map((item: any) => {
-    //   if(ItemId === item.id && item.amount < 10 ){
-    //     return {...item, amount: item.amount + 1};
-    //    } else return item;
-    // });
-    // setProducts(addQty)
   };
 
   // 상품 개수 삭제
@@ -77,7 +55,7 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
-    window.location.reload()
+    refetch()
 
   })
   .catch((err) => {
@@ -91,22 +69,8 @@ const CartItem = (Items:any) => {
     });
     setProducts(addQty)
   };
-  // const query1 = useCustomMutation(
-  //   `/shoppingCarts/items/minus/${ItemId}`,
-  //   `/minus/${ItemId}`,
-  //   "POST"
-  // );
-  // const { mutate:CheckCartMutation } = useCustomMutation(
-  //   `/shoppingCarts/${shoppingCartId}`,
-  //   `/shoppingCarts=${shoppingCartId}`,
-  //    "POST",
-  //    (res:any) => {
-  //     console.log(res)
-  //    });
+
   const handleCheckbox = (shoppingCartId:any) => {
-    
-    // setShoppingCart(shoppingCartId)
-    // CheckCartMutation(shoppingCartId)
     axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
      method:'post',
      headers:{
@@ -115,24 +79,16 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
-    window.location.reload()
+    refetch()
   })
   .catch((err) => {
     console.log(err);
   });
   }
-  // const { mutate:deleteCartMutation } = useCartCustomMutation(
-  //   `/shoppingCarts`,
-  //   `/shoppingCarts`,
-  //   `${shoppingCartId}`,
-  //    "DELETE",
-  //    (res:any) => {
-  //     console.log(res)
-  //    });
+
   const deleteCart = (shoppingCartId:any) => {
     localStorage.setItem("shoppingCartId", shoppingCartId);
     console.log(shoppingCartId)
-    // deleteCartMutation(shoppingCartId)
     
     axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
      method:'delete',
@@ -142,8 +98,8 @@ const CartItem = (Items:any) => {
    })
    .then((res: any) => {
     console.log(res);
-    window.location.reload()
-    // setCount(count+1)
+    refetch()
+
   })
   .catch((err) => {
     console.log(err);
@@ -153,8 +109,8 @@ const CartItem = (Items:any) => {
 
   return (
     <S.PaymentDiv>
-      {Items.Items &&
-        Items.Items.map((item: any) => (
+      {data.data &&
+        data.data.map((item: any) => (
           <S.ProductDiv key={item.id} >
             <S.ProductInfoDiv>
               <S.CheckboxDiv>

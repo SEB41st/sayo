@@ -6,8 +6,6 @@ import { useCustomQuery } from "../../components/util/useCustomQuery";
 import CartItem from "../../components/CartItem/CartItem";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-import { useCustomMutation } from "../../components/util/useMutation";
-import { Item } from "../Main/styled";
 
 export type ItemType = {
   id : number;
@@ -19,7 +17,7 @@ export type ItemType = {
   itmePrice: number;
 };
 
-const Payment = () => {
+const Cart = () => {
 
   let userId = localStorage.getItem("userId")
   let totalPrice = 0;
@@ -28,18 +26,18 @@ const Payment = () => {
   }
   const { data, isLoading, error, refetch } = useCustomQuery(`/shoppingCarts/user/${userId}/shoppingCart`, `shoppingCarts`);
 
-  refetch();
   if (isLoading ) return <Loading/>;
   if (error) return <Error/>;
+  refetch();
   const Items = data.data;
-
+  
   
   console.log(Items);
   return (
     <S.PaymentWrap>
       <S.PaymentContainer>
         <div className="Cart">장바구니</div>
-        <CartItem Items={Items}/>
+        <CartItem />
         <S.PaymentDiv>
           <S.TotalPriceDiv>
             <div>상품금액</div>
@@ -60,4 +58,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default Cart;

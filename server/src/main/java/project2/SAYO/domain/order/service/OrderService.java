@@ -29,7 +29,7 @@ public class OrderService {
         Order order = Order.createOrder(user, shoppingCartItemList);
         order.setOrderName(payment.getOrderName());
         order.setAmount(payment.getAmount());
-        order.setOrderId(payment.getOrderId());
+        order.setOrderCode(payment.getOrderCode());
         orderRepository.save(order);
     }
 

@@ -17,7 +17,7 @@ public class PaymentReq{
     public Payment toEntity(){
         return Payment.builder()
                 .payType(PayType.CARD)
-                .orderId(UUID.randomUUID().toString())
+                .orderCode(UUID.randomUUID().toString())
                 .amount(amount)
                 .orderName(orderName)
                 .paymentStatus(PaymentStatus.READY)

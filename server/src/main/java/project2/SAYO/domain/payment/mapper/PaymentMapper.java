@@ -15,7 +15,7 @@ public interface PaymentMapper {
                 .payType(paymentRes.getPayType())
                 .paymentStatus(paymentRes.getPaymentStatus())
                 .amount(paymentRes.getAmount())
-                .orderId(paymentRes.getOrderId())
+                .orderCode(paymentRes.getOrderCode())
                 .orderName(paymentRes.getOrderName())
                 .userName(paymentRes.getUserName())
                 .createdAt(paymentRes.getCreatedAt())
@@ -23,11 +23,11 @@ public interface PaymentMapper {
                 .build();
     };
 
-    default PaymentFailDto createPaymentFailDto(String code, String errorMsg, String orderId) {
+    default PaymentFailDto createPaymentFailDto(String code, String errorMsg, String orderCode) {
         return PaymentFailDto.builder()
                 .errorCode(code)
                 .errorMsg(errorMsg)
-                .orderId(orderId)
+                .orderCode(orderCode)
                 .build();
     }
 }

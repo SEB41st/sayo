@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentSuccessDto {
     private long amount;
-    private String orderId;
+    private String orderCode;
     private String paymentKey;
 
 }

@@ -26,7 +26,7 @@ public class Payment extends Auditable {
     private PaymentStatus paymentStatus;
 
     private Long amount;
-    private String orderId;
+    private String orderCode;
     private String orderName;
     private String userName;
     private String paymentKey;
@@ -43,7 +43,7 @@ public class Payment extends Auditable {
                 .paymentStatus(paymentStatus)
                 .paymentKey(paymentKey)
                 .payType(PayType.CARD)
-                .orderId(orderId)
+                .orderCode(orderCode)
                 .orderName(orderName)
                 .userName(userName)
                 .createdAt(getCreatedAt())

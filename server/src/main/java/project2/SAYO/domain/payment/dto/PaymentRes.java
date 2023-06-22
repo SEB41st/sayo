@@ -17,7 +17,7 @@ public class PaymentRes{
     private PayType payType;
     private PaymentStatus paymentStatus;
     private Long amount;
-    private String orderId;
+    private String orderCode;
     private String orderName;
     private String userName;
     private String failDescription;

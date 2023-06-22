@@ -34,8 +34,8 @@ public class OrderController {
 
     // TODO : 주문 완료한 상품 조회
     @GetMapping("/{id}")
-    public ResponseEntity orderGet(@PathVariable Long id){
-        Order order = orderService.getOrder(id);
+    public ResponseEntity orderGet(@PathVariable Long orderId){
+        Order order = orderService.getOrder(orderId);
         OrderResponseDto response = mapper.orderToOrderResponseDto(order);
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
     }

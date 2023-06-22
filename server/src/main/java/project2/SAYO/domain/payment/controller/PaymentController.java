@@ -33,7 +33,7 @@ public class PaymentController {
                                           @LoginUserId Long userId) {
         log.info("amountTest = {}", request.getAmount());
         log.info("paymentKeyTest = {}", request.getPaymentKey());
-        log.info("orderIdTest = {}", request.getOrderId());
+        log.info("orderCodeTest = {}", request.getOrderCode());
 
         return new ResponseEntity<>(paymentService.paymentSuccess(request, userId), HttpStatus.OK);
     }
@@ -41,10 +41,10 @@ public class PaymentController {
     @PostMapping("/fail")
     public ResponseEntity paymentFail(@RequestBody PaymentFailDto request) {
 
-        paymentService.paymentFail(request.getErrorMsg(), request.getOrderId());
+        paymentService.paymentFail(request.getErrorMsg(), request.getOrderCode());
 
         return new ResponseEntity<>(new SingleResponseDto<>(
-                mapper.createPaymentFailDto(request.getErrorCode(), request.getErrorMsg(), request.getOrderId())), HttpStatus.OK);
+                mapper.createPaymentFailDto(request.getErrorCode(), request.getErrorMsg(), request.getOrderCode())), HttpStatus.OK);
     }
 
     @PostMapping("/cancel")

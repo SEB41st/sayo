@@ -71,15 +71,15 @@ public class PaymentService {
 
     @Transactional
     public PaymentSuccessDto paymentSuccess(PaymentSuccessDto request, Long userId) {
-        String orderId = request.getOrderId();
+        String orderCode = request.getOrderCode();
         long amount = request.getAmount();
         String paymentKey = request.getPaymentKey();
         log.info("amountTest1 = {}", request.getAmount());
         log.info("paymentKeyTest1 = {}", request.getPaymentKey());
-        log.info("orderIdTest1 = {}", request.getOrderId());
+        log.info("orderCodeTest1 = {}", request.getOrderCode());
 
-        Payment payment = verifyPayment(orderId, amount);
-        PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
+        Payment payment = verifyPayment(orderCode, amount);
+        PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderCode, amount);
         payment.setPaymentKey(paymentKey);
         payment.setPaymentStatus(PAID);
         paymentRepository.save(payment);
@@ -99,14 +99,14 @@ public class PaymentService {
     }
 
     @Transactional
-    public PaymentSuccessDto requestPaymentAccept(String paymentKey, String orderId, Long amount) {
+    public PaymentSuccessDto requestPaymentAccept(String paymentKey, String orderCode, Long amount) {
         log.info("amountTest2 = {}",amount);
         log.info("paymentKeyTest2 = {}", paymentKey);
-        log.info("orderIdTest2 = {}", orderId);
+        log.info("orderCodeTest2 = {}", orderCode);
         PaymentSuccessDto paymentSuccessDto = null;
 
         try {
-            paymentSuccessDto = paymentSuccessAccept(paymentKey, orderId, amount);
+            paymentSuccessDto = paymentSuccessAccept(paymentKey, orderCode, amount);
 
         } catch (Exception e) {
             throw new BusinessLogicException(ExceptionCode.PAYMENT_AUTHORIZATION_FAILED);
@@ -115,12 +115,12 @@ public class PaymentService {
         return paymentSuccessDto;
     }
 
-    private PaymentSuccessDto paymentSuccessAccept(String paymentKey, String orderId, Long amount) {
+    private PaymentSuccessDto paymentSuccessAccept(String paymentKey, String orderCode, Long amount) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = getHeadersForPaymentService();
         JSONObject params = new JSONObject();
         params.put("paymentKey", paymentKey);
-        params.put("orderId", orderId);
+        params.put("orderCode", orderCode);
         params.put("amount", amount);
 
         PaymentSuccessDto response = null;
@@ -135,7 +135,7 @@ public class PaymentService {
 
     @Transactional
     public void paymentFail(String errorMsg, String orderId) {
-        Payment findPayment = paymentRepository.findByOrderId(orderId).orElseThrow(
+        Payment findPayment = paymentRepository.findByOrderCode(orderId).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
 
         findPayment.setPaymentStatus(FAILED);
@@ -163,8 +163,8 @@ public class PaymentService {
         return result;
     }
 
-    public Payment verifyPayment(String orderId, Long amount) {
-        Payment verifiedPayment = paymentRepository.findByOrderId(orderId).orElseThrow(
+    public Payment verifyPayment(String orderCode, Long amount) {
+        Payment verifiedPayment = paymentRepository.findByOrderCode(orderCode).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
 
         if (!Objects.equals(verifiedPayment.getAmount(), amount)) {

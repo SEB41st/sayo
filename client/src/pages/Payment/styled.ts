@@ -192,8 +192,9 @@ export const ButtonDiv2 = styled(ButtonDiv)`
 `;
 export const Fail = styled.div`
   /* background: #f9bb00; */
+  
   position: fixed;
-  left: 0px;
+  left: 0;
   top: 0;
   width: 100%;
   height: 100%;
@@ -202,6 +203,7 @@ export const Fail = styled.div`
   background-color: #f9f9f9;
 `;
 export const FailText = styled.div`
+  margin: 5%;
   font-size: 30px;
   display: flex;
   flex-direction: column;
@@ -219,12 +221,42 @@ export const FailText = styled.div`
     color: black;
   }
   a{
-    padding: 20px 0;
-    margin-top: 20%;
+    padding: 20px;
+    margin-top: 5%;
     background-color: #f9bb00;
     color: white;
     border-radius: 10px;
     font-size: large;
+  }
+  h2{
+    color: black;
+    margin: 3%;
+  }
+  img{
+    width: 50%;
+  }
+`
+
+export const payInfo = styled.div`
+  color: black;
+  font-size: medium;
+  margin: 10%;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 80%;
+  height: 80%;
+  span{
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+    width: 80%;
+  }
+  div{
+    width: 100%;
+    margin: 3%;
+  }
+  .title{
+    text-align: left;
   }
 `
 

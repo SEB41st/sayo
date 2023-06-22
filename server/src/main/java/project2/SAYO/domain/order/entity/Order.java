@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "orders")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order extends Auditable {

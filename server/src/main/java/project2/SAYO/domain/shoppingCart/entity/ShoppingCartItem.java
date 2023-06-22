@@ -3,7 +3,9 @@ package project2.SAYO.domain.shoppingCart.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.order.entity.Order;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
@@ -12,6 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShoppingCartItem extends Auditable {
@@ -36,6 +39,10 @@ public class ShoppingCartItem extends Auditable {
     private int itemCount; // 담긴 상품의 수량
     private int itemTotalCount; // 장바구니에 담긴 상품의 총 수량
     private Boolean orderCheck; // 장바구니의 주문을 위한 체크 현황
+
+    @ManyToOne
+    @JoinColumn(name="ORDER_ID")
+    private Order order;
 
     public void addUser(User user) {
         this.user = user;

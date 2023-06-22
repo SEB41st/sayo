@@ -134,8 +134,8 @@ public class PaymentService {
     }
 
     @Transactional
-    public void paymentFail(String errorMsg, String orderId) {
-        Payment findPayment = paymentRepository.findByOrderCode(orderId).orElseThrow(
+    public void paymentFail(String errorMsg, String orderCode) {
+        Payment findPayment = paymentRepository.findByOrderCode(orderCode).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
 
         findPayment.setPaymentStatus(FAILED);

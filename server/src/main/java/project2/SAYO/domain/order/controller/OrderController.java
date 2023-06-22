@@ -33,7 +33,7 @@ public class OrderController {
     private final OrderService orderService;
 
     // TODO : 주문 완료한 상품 조회
-    @GetMapping("/{id}")
+    @GetMapping("/{order-id}")
     public ResponseEntity orderGet(@PathVariable Long orderId){
         Order order = orderService.getOrder(orderId);
         OrderResponseDto response = mapper.orderToOrderResponseDto(order);

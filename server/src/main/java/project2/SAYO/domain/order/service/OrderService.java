@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class OrderService {
-    private static OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     public void createOrder(User user){
         Order order = new Order();
@@ -25,7 +25,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public static void addOrder(User user, List<ShoppingCartItem> shoppingCartItemList, Payment payment){
+    public void addOrder(User user, List<ShoppingCartItem> shoppingCartItemList, Payment payment){
         Order order = Order.createOrder(user, shoppingCartItemList);
         order.setOrderName(payment.getOrderName());
         order.setAmount(payment.getAmount());

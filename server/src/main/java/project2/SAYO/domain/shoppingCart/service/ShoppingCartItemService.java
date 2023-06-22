@@ -179,6 +179,7 @@ public class ShoppingCartItemService {
         shoppingCartItemRepository.delete(findShoppingCartItem);
     }
 
+    // 주문 완료한 상품 삭제
     @Transactional
     public void deleteShoppingCarts(long userId){
         List<ShoppingCartItem> findShoppingCartList = shoppingCartItemRepository.findAll().stream()

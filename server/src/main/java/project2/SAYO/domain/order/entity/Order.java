@@ -1,60 +1,58 @@
 package project2.SAYO.domain.order.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project2.SAYO.domain.item.entity.Item;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "orders")
 public class Order extends Auditable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime createDate; // 날짜
 
-    @Column(nullable = false)
-    private Long orderPrice;
+    // payment에서 저장해야 하는 것
+    private String OrderName;
+    private Long amount;
+    private String orderId;
+    private Long paymentId;
 
-    @Column
-    private OrderStatus orderStatus;
-
-    @Column
-    private Long waybillNumber;
+    // shoppingCart에서 저장해야 하는 것
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<ShoppingCartItem> shoppingCartItemList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name = "ORDER_ID")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name="ITEM_ID")
-    private Item item;
+    public void addShoppingCartItem(ShoppingCartItem shoppingCartItem){
+        shoppingCartItemList.add(shoppingCartItem);
+        shoppingCartItem.setOrder(this);
+    }
 
-    public enum OrderStatus {
-        PAYMENT_COMPLETED("결제 완료"),
-        PRODUCT_PREPARED("상품 준비 중"),
-        DELIVERY_PROGRESS("배송 중"),
-        DELIVERY_COMPLETED("배송 완료"),
-        PURCHASE_CONFIRMATION("구매 확정"),
-        ORDER_CANCELLATION("주문 취소");
-
-        @Getter
-        private String status;
-        OrderStatus(String status) {
-            this.status = status;
+    public static Order createOrder(User user, List<ShoppingCartItem> shoppingCartItems){
+        Order order = new Order();
+        order.setUser(user);
+        for(ShoppingCartItem shoppingCartItem : shoppingCartItems){
+            order.addShoppingCartItem(shoppingCartItem);
         }
+        order.setCreateDate(LocalDateTime.now());
+        return order;
     }
-    public void addUser(User user) {this.user = user;}
-    public void addItem(Item item) {this.item = item;}
-    public void ChangeOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-    public void addOrderId(long orderId) { this.orderId = orderId;}
+
 }

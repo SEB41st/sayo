@@ -11,13 +11,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import project2.SAYO.domain.order.service.OrderService;
 import project2.SAYO.domain.payment.dto.PaymentReq;
 import project2.SAYO.domain.payment.dto.PaymentRes;
 import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
 import project2.SAYO.domain.payment.entity.Payment;
-import project2.SAYO.domain.payment.enums.PayType;
 import project2.SAYO.domain.payment.repository.PaymentRepository;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
+import project2.SAYO.domain.shoppingCart.repository.ShoppingCartItemRepository;
 import project2.SAYO.domain.shoppingCart.service.ShoppingCartItemService;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
@@ -27,6 +28,7 @@ import project2.SAYO.global.exception.ExceptionCode;
 
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static project2.SAYO.domain.payment.enums.PaymentStatus.*;
 
@@ -40,6 +42,8 @@ public class PaymentService {
     private final UserService userService;
     @Autowired
     private final ShoppingCartItemService  shoppingCartItemService;
+    private final ShoppingCartItemRepository shoppingCartItemRepository;
+    private final OrderService orderService;
 
     @Value("${payments.toss.test_secret_api_key}")
     private String testSecretApiKey;
@@ -58,30 +62,12 @@ public class PaymentService {
         payment.setUser(findUser);
         payment.setUserName(findUser.getProfile().getNickname());
 
-        /*if(findUser.getAddressList().size() >= 1){
-            payment.setUserName(findUser.getAddressList().get(4).toString());
-        }else{
-            payment.setUserName(findUser.getProfile().getNickname());
-        }*/
-
         payment.setCancel(false);
         payment.setPaymentStatus(READY);
 
         return paymentRepository.save(payment).toDto();
     }
 
-    private void verifyPayType(PayType paymentType) {
-
-        for (PayType type : PayType.values()) {
-            if (type.getType().equals(paymentType.getType())) {
-                return;
-            }
-        }
-
-        log.debug("BusinessLogicException in verifyPaymentType() : paymentType={}", paymentType.getType());
-        throw new BusinessLogicException(ExceptionCode.PAYTYPE_NOT_EQUALS);
-
-    }
 
     @Transactional
     public PaymentSuccessDto paymentSuccess(PaymentSuccessDto request, Long userId) {
@@ -97,6 +83,14 @@ public class PaymentService {
         payment.setPaymentKey(paymentKey);
         payment.setPaymentStatus(PAID);
         paymentRepository.save(payment);
+
+        List<ShoppingCartItem> findShoppingCartList = shoppingCartItemRepository.findAll().stream()
+                .filter(a -> a.getUser().getId() == userId)
+                .filter(b -> b.getOrderCheck() == Boolean.TRUE)
+                .filter(c -> c.getShoppingCartSelected() == Boolean.TRUE)
+                .collect(Collectors.toList());
+
+        orderService.addOrder(userService.findVerifiedUser(userId), findShoppingCartList, payment);
 
         // 결제 성공 시 선택된 쇼핑카트 삭제
         shoppingCartItemService.deleteShoppingCarts(userId);

@@ -3,8 +3,8 @@ package project2.SAYO.domain.order.dto;
 import java.time.LocalDateTime;
 
 public class OrderResponseDto {
-    private Long id;
-    private String orderId;
+    private Long orderId;
+    private String orderCode;
     private Long amount;
     private Long paymentId;
     private String OrderName;

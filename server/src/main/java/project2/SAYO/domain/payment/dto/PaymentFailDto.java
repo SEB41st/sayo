@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentFailDto {
     private String errorCode;
-    private String orderId;
+    private String orderCode;
     private String errorMsg;
 }

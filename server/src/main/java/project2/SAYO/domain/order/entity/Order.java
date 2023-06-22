@@ -22,14 +22,14 @@ import java.util.List;
 public class Order extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long orderId;
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime createDate; // 날짜
 
     // payment에서 저장해야 하는 것
     private String OrderName;
     private Long amount;
-    private String orderId;
+    private String orderCode;
     private Long paymentId;
 
     // shoppingCart에서 저장해야 하는 것

@@ -61,7 +61,7 @@ const Paymant = () => {
         }
       })
       .then((res) => {
-        handleTossPay(res.data.data.orderId);
+        handleTossPay(res.data.data.orderCode);
       })
       .catch((err) => {
         console.log(err);
@@ -72,10 +72,10 @@ const Paymant = () => {
         // 2. 결제창 SDK 초기화
         var tossPayments = window.TossPayments(clientKey)
 
-        const handleTossPay  = (orderId:String) => {
+        const handleTossPay  = (orderCode:String) => {
           tossPayments.requestPayment('카드', {
             amount: totalPrice+totalDeliverPrice,
-            orderId: orderId,
+            orderId: orderCode,
             orderName: `${Items[0].itemName} 외 ${Items.length}건`,
             customerName: '박토스',
             // successUrl: 'http://localhost:3000/success',

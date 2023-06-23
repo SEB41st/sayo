@@ -1,5 +1,6 @@
 package project2.SAYO.domain.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Order extends Auditable {
     private String orderCode;
     private Long paymentId;
 
+    @JsonBackReference
     // shoppingCart에서 저장해야 하는 것
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<ShoppingCartItem> shoppingCartItemList = new ArrayList<>();

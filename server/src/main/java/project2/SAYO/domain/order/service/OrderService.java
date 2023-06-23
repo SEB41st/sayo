@@ -8,9 +8,12 @@ import project2.SAYO.domain.order.repository.OrderRepository;
 import project2.SAYO.domain.payment.entity.Payment;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
 import project2.SAYO.domain.user.entity.User;
+import project2.SAYO.global.exception.BusinessLogicException;
+import project2.SAYO.global.exception.ExceptionCode;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -38,6 +41,13 @@ public class OrderService {
     }
 
     public Order getOrder(long id){
-        return orderRepository.findById(id).get();
+       Order order = findVerifiedOrder(id);
+       return order;
+    }
+
+    public Order findVerifiedOrder(long id){
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+        return optionalOrder.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
+
     }
 }

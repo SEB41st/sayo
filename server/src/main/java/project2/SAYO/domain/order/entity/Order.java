@@ -31,7 +31,7 @@ public class Order extends Auditable {
     private LocalDateTime createDate; // 날짜
 
     // payment에서 저장해야 하는 것
-    private String OrderName;
+    private String orderName;
     private Long amount;
     private String orderCode;
     private Long paymentId;

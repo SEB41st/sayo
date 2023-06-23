@@ -42,11 +42,13 @@ public class OrderService {
 
     public Order getOrder(long id){
        Order order = findVerifiedOrder(id);
+       log.info("## OrderService order ={}", order);
        return order;
     }
 
     public Order findVerifiedOrder(long id){
         Optional<Order> optionalOrder = orderRepository.findById(id);
+        log.info("## OrderService optionalOrder ={}", optionalOrder);
         return optionalOrder.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
 
     }

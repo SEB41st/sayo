@@ -36,6 +36,7 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity orderGet(@PathVariable("id") Long id){
         Order order = orderService.getOrder(id);
+        log.info("## order is created!! ={}",order);
         OrderResponseDto response = mapper.orderToOrderResponseDto(order);
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
     }

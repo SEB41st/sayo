@@ -1,9 +1,8 @@
 package project2.SAYO.domain.order.dto;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -14,7 +13,7 @@ public class OrderResponseDto {
     private String orderCode;
     private Long amount;
     private Long paymentId;
-    private String OrderName;
-    private Date createdAt;
-    private Date modifiedAt;
+    private String orderName;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }

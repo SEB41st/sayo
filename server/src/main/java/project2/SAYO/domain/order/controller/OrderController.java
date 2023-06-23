@@ -44,7 +44,7 @@ public class OrderController {
     public ResponseEntity orderGetList() {
         List<Order> orderList = orderService.getOrderList();
         List<OrderResponseDto> response = mapper.orderListToOrderResponseList(orderList);
-        return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
 

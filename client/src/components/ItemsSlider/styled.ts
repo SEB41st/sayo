@@ -35,9 +35,9 @@ export const Item = styled.div`
       border-radius: 20px;
       width: 100%;
       height: 100%;
-    }
-    :hover{
-        transform: scale(1.1);
+      :hover{
+          transform: scale(1.1);
+      }
     }
     .itempicture{
         max-height: 100%;

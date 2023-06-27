@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import * as S from "./styled";
 import { LogoImg, Line } from "../Main/styled";
-import { useCustomQuery } from "../../components/util/useCustomQuery";
-import Loading from "../../components/Loading/Loading";
-import Error from "../../components/Error/Error";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import EachItem from "../../components/EachItem/EachItem";
@@ -13,7 +10,6 @@ const ItemList = () => {
   const [state, setState] = useState<string>("전체");
   const [category, setCategory] = useState<string[]>([]);
   const [item, setItem] = useState<any[]>([]);
-  const [pageinfo, setPageinfo] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [totalElements, setTotalElements] = useState(100);
@@ -59,11 +55,6 @@ const ItemList = () => {
   const handlePageChange = (pageNumber:any) => {
     setActivePage(pageNumber); // 페이지 변경 시 현재 페이지 업데이트
   };
-  console.log(filteredItems)
-  console.log(progressItem)
-  console.log(combinedItems)
-  console.log(pagedItems)
-  console.log(state)
 
   const ChangeCategory = (e:any) => {
     setState(String(e.target.id))
@@ -120,4 +111,3 @@ const ItemList = () => {
 };
 
 export default ItemList;
-// 

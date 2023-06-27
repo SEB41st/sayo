@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
@@ -41,9 +40,6 @@ public class Order extends Auditable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ShoppingCartItem> shoppingCartItemList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Item> itemList = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -53,18 +49,12 @@ public class Order extends Auditable {
         shoppingCartItem.setOrder(this);
     }
 
-    public void addItem(Item item){
-        itemList.add(item);
-        item.setOrder(this);
-    }
-
     public static Order createOrder(User user, List<ShoppingCartItem> shoppingCartItems){
         Order order = new Order();
         order.setUser(user);
         for(ShoppingCartItem shoppingCartItem : shoppingCartItems){
-            order.addItem(shoppingCartItem.getItem());
+            order.addShoppingCartItem(shoppingCartItem);
         }
-
         order.setCreateDate(LocalDateTime.now());
         return order;
     }

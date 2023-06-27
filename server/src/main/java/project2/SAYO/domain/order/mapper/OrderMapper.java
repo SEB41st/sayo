@@ -16,7 +16,7 @@ public interface OrderMapper {
                 .amount(order.getAmount())
                 .paymentId(order.getPaymentId())
                 .id(order.getId())
-                .itemList(order.getShoppingCartItemList())
+                .itemList(order.getItemList())
                 .modifiedAt(order.getModifiedAt())
                 .createdAt(order.getCreatedAt())
                 .build();

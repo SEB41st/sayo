@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styled";
 import { BsSearch } from "react-icons/bs";
-import MapLocation from "../../components/Map/MapLocation";
 import { Position } from "../../components/Map/MapLocation";
 import { Maps } from "../../components/Map/styled";
 import { MapMarker } from "react-kakao-maps-sdk";
@@ -23,7 +22,6 @@ const MapContainer = () => {
   const [location, setLocation] = useState<Position | null>();
 
   const searchResult = (e: any) => {
-    // console.log(e.target.value)
     setValue(e.target.value);
   };
 
@@ -69,8 +67,6 @@ const MapContainer = () => {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
-    console.log(1);
-
     const geocoder = new kakao.maps.services.Geocoder();
     
 
@@ -98,8 +94,6 @@ const MapContainer = () => {
   if (error) return <Error></Error>;
 
   const Items = data.data;
-  console.log(Items);
-  console.log(info);
 
   return (
     <div>

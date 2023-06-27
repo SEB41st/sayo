@@ -42,7 +42,6 @@ const Detail = () => {
   const { Id } = useParams();
   console.log(Id)
   const userId = localStorage.getItem("userId")
-  // console.log(userId)
 
   const { data:getWish, isLoading:wishLoadig, error, refetch } = useCustomQuery(
     userId === null ? '' : `/wishes/user/${userId}/wish`,

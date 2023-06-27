@@ -10,14 +10,10 @@ export const Container = styled.div`
     width: 80vw;
     height: 13vh;
     @media screen and (min-width: ${"600px"}) {
-        /* margin-left: 45%; */
     }
     .slick-dots {
-    /* position: absolute; */
     bottom: -50px;
     width: 100%;
-    /* padding: 0; */
-    /* margin-top: 100px; */
     list-style: none;
     } 
     }
@@ -30,20 +26,18 @@ export const Container = styled.div`
 `
 
 export const Item = styled.div`
-   /* border: 1px solid gray; */
     height: 4rem;
     max-width: 50%;
     border-radius: 10px;
     margin: -10px 10px 10px 10px;
     gap: 20px;
-    /* margin-bottom: 30px; */
     img{
       border-radius: 20px;
       width: 100%;
       height: 100%;
-    }
-    :hover{
-        transform: scale(1.1);
+      :hover{
+          transform: scale(1.1);
+      }
     }
     .itempicture{
         max-height: 100%;
@@ -51,11 +45,13 @@ export const Item = styled.div`
         margin: 20px;
     }
     div{
-      font-size: 15px;
+      font-size: 13px;
       width: 100%;
       display: flex;
       justify-content: center;
-      /* margin-left: 50%; */
+      margin-left: 15%;
+      font-weight: 700;
+      color: #706868;
     }
     @media screen and (min-width: ${"1280px"}) {
       height: 6rem;

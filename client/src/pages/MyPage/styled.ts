@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {EndImg} from "../../components/EachItem/Styled"
+
 
 export const MypageWrap = styled.div`
   width: 100%;
@@ -98,7 +100,7 @@ export const Lists = styled.div`
 
 export const ChoiceList = styled.div`
   width: 20%;
-  height: 90%;
+  height: 20%;
   margin: 10px;
 `;
 export const Line = styled.div`
@@ -109,13 +111,15 @@ export const Line = styled.div`
 `;
 
 export const ItemImg = styled.div`
-  /* width: 50%; */
+  width: 100%;
+  height: 100%;
   margin: 10px;
   display: flex;
   justify-content: center;
   img {
     border-radius: 30px;
     width: 80%;
+    height: 80%;
     @media screen and (max-width: ${"500px"}) {
     width: 140%;
     border-radius: 10px;
@@ -140,6 +144,28 @@ export const ItemName = styled.div`
   flex-direction: row;
   }
 `;
+
+export const finItemImage = styled(ItemImg)`
+    background-color: rgba(0,0,0,20%);
+`
+export const EndItemImg = styled.div`
+background-color: 	rgba(0,0,0,20%);
+margin-top: 3%;
+    border-radius: 20px;
+    min-width: 10rem;
+    min-height: 10rem;
+    position: absolute;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(0, 0);
+    @media screen and (max-width: ${"1080px"}) {
+      min-width: 5rem;
+      min-height: 5rem;
+  }
+`
 
 export const Item = styled.div`
   display: grid;

@@ -3,6 +3,7 @@ package project2.SAYO.domain.item.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import project2.SAYO.domain.category.entity.Category;
+import project2.SAYO.domain.order.entity.Order;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.global.audit.Auditable;
 
@@ -81,6 +82,10 @@ public class Item extends Auditable {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="ORDER_ID")
+    private Order order;
 
     @JsonBackReference
     @ManyToOne

@@ -189,7 +189,6 @@ public class ShoppingCartItemService {
                 .filter(b -> b.getOrderCheck() == Boolean.TRUE)
                 .filter(c -> c.getShoppingCartSelected() == Boolean.TRUE)
                         .collect(Collectors.toList());
-        log.info("findShoppingCartList Size = {}", findShoppingCartList.size());
 
         for(ShoppingCartItem s : findShoppingCartList){
             shoppingCartItemRepository.delete(s);

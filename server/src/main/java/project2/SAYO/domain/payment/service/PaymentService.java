@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.order.service.OrderService;
 import project2.SAYO.domain.payment.dto.PaymentReq;
 import project2.SAYO.domain.payment.dto.PaymentRes;
@@ -83,13 +84,14 @@ public class PaymentService {
         payment.setPaymentStatus(PAID);
         paymentRepository.save(payment);
 
-        List<ShoppingCartItem> findShoppingCartList = shoppingCartItemRepository.findAll().stream()
+        List<Item> findShoppingCartItemList = shoppingCartItemRepository.findAll().stream()
                 .filter(a -> a.getUser().getId() == userId)
                 .filter(b -> b.getOrderCheck() == Boolean.TRUE)
                 .filter(c -> c.getShoppingCartSelected() == Boolean.TRUE)
+                .map(ShoppingCartItem::getItem)
                 .collect(Collectors.toList());
 
-        orderService.addOrder(userService.findVerifiedUser(userId), findShoppingCartList, payment);
+        orderService.addOrder(userService.findVerifiedUser(userId), findShoppingCartItemList, payment);
 
         // 결제 성공 시 선택된 쇼핑카트 삭제
         shoppingCartItemService.deleteShoppingCarts(userId);

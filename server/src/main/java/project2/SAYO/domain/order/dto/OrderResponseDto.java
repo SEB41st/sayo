@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponseDto {
-    private List<ShoppingCartItem> itemList;
+    private List<Item> itemList;
     private Long id;
     private String orderCode;
     private Long amount;

@@ -2,6 +2,7 @@ package project2.SAYO.domain.order.dto;
 
 import lombok.*;
 import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponseDto {
-    private List<Item> itemList;
+    private List<ShoppingCartItem> itemList;
     private Long id;
     private String orderCode;
     private Long amount;

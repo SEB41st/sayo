@@ -45,7 +45,7 @@ public class Order extends Auditable {
     private List<Item> itemList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "ORDER_ID")
     private User user;
 
     public void addShoppingCartItem(ShoppingCartItem shoppingCartItem){

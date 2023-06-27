@@ -13,8 +13,6 @@ public interface OrderMapper {
         return OrderResponseDto.builder()
                 .orderCode(order.getOrderCode())
                 .orderName(order.getOrderName())
-                .amount(order.getAmount())
-                .paymentId(order.getPaymentId())
                 .id(order.getId())
                 .modifiedAt(order.getModifiedAt())
                 .createdAt(order.getCreatedAt())

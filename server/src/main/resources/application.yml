@@ -93,7 +93,10 @@ mail:
         join: email-registration-user
 #  address:
 #    admin: admin@gmail.com, test@gmail.com
-
+payments:
+  toss:
+    test_secret_api_key: ${TOSS_SECRET_KEY}
+    test_client_api_key: ${TOSS_CLIENT_KEY}
 cloud:
   aws:
     credentials:

@@ -92,7 +92,7 @@ public class PaymentService {
         orderService.addOrder(userService.findVerifiedUser(userId), findShoppingCartList, payment);
 
         // 결제 성공 시 선택된 쇼핑카트 삭제
-        shoppingCartItemService.deleteShoppingCarts(userId);
+        //shoppingCartItemService.deleteShoppingCarts(userId);
 
         return result;
     }

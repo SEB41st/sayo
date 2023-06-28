@@ -44,8 +44,8 @@ public class OrderController {
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity orderGetList(@LoginUserId long userId) {
+    @GetMapping("/user/{user-id}")
+    public ResponseEntity orderGetList(@LoginUserId @PathVariable("user-id") long userId) {
         List<Order> orderList = orderService.getOrderList(userId);
         List<OrderResponseDto> response = mapper.orderListToOrderResponseList(orderList);
         return new ResponseEntity(response, HttpStatus.OK);

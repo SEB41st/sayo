@@ -49,5 +49,11 @@ public class OrderController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @DeleteMapping
+    public ResponseEntity orderDelete(){
+        orderService.deleteAll();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
 
 }

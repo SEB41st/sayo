@@ -53,4 +53,8 @@ public class OrderService {
         return optionalOrder.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
 
     }
+
+    public void deleteAll(){
+       orderRepository.deleteAll();
+    }
 }

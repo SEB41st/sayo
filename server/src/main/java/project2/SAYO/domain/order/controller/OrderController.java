@@ -1,6 +1,7 @@
 package project2.SAYO.domain.order.controller;
 
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @Validated
+@Builder
 @RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
@@ -43,8 +45,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity orderGetList() {
-        List<Order> orderList = orderService.getOrderList();
+    public ResponseEntity orderGetList(@LoginUserId long userId) {
+        List<Order> orderList = orderService.getOrderList(userId);
         List<OrderResponseDto> response = mapper.orderListToOrderResponseList(orderList);
         return new ResponseEntity(response, HttpStatus.OK);
     }

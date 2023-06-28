@@ -15,6 +15,7 @@ import project2.SAYO.global.exception.ExceptionCode;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -37,8 +38,10 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public List<Order> getOrderList(){
-        return orderRepository.findAll();
+    public List<Order> getOrderList(long userId){
+        return orderRepository.findAll().stream()
+                .filter(a -> a.getUser().getId() == userId)
+                .collect(Collectors.toList());
     }
 
     public Order getOrder(long id){

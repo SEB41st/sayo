@@ -21,11 +21,16 @@ const Mypage = () => {
     `/wishes/user/${userId}/wish`,
     `wishes/user/${userId}/wish`
   );
+
   const { data:myItemList, isLoading, error, refetch } = useCustomQuery(
     `/items/get?page=1&size=100`,
     `items/get?page=1&size=100`
   );
-  // console.log(myItemList.data)
+
+  const { data:orderData, isLoading:orderLoading, error:orderError, refetch:orderRefetch } = useCustomQuery(
+    `/orders/user/${userId}`,
+    `orders/user/${userId}`
+  );
 
   useEffect(() => {
     axios(`http://sayo.n-e.kr:8080/users/${userId}/mypage`, {
@@ -48,13 +53,17 @@ const Mypage = () => {
   if (error) return <Error></Error>;
   if (userLoading) return <Loading></Loading>;
   if (userError) return <Error></Error>;
+  if (orderLoading) return <Loading></Loading>;
+  if (orderError) return <Error></Error>;
   refetch();
+  orderRefetch();
 
   const wishItems = wish.data;
   console.log(wishItems)
   const myItem = myItemList.data;
   console.log(myItem)
 
+  
 
   const hasMyId = myItem.filter((item:any) => item.userId === Number(userId));
 
@@ -123,13 +132,17 @@ const Mypage = () => {
         <S.ChoiceList>
           <Link to="/detail">
             <S.ItemImg>
-              <img src="/assets/goods.png" alt="goods"></img>
+              <img src={orderData[2].itemList[0].itemPicture} alt="goods"></img>
             </S.ItemImg>
             <S.ItemName>
-              <span>상품명</span>
+              {/* <span>상품명</span>
               <span> 목포 쫀드기</span>
               <span>구매일</span>
-              <span> 2023.02.03</span>
+              <span> 2023.02.03</span> */}
+              <span>상품명</span>
+              <span> {orderData[2].itemList[0].itemName}</span>
+              <span>구매일</span>
+              <span>{orderData[2].itemList[0].order.createdAt}</span>
               {/* <span>송장번호</span>
               <span> 3827498379238</span> */}
             </S.ItemName>

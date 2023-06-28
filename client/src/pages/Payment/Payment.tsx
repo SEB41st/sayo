@@ -78,10 +78,10 @@ const Paymant = () => {
             orderId: orderCode,
             orderName: `${Items[0].itemName} 외 ${Items.length}건`,
             customerName: '박토스',
-            // successUrl: 'http://localhost:3000/success',
-            // failUrl: 'http://localhost:3000/fail',
-            successUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/success',
-            failUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/fail'
+            successUrl: 'http://localhost:3000/success',
+            failUrl: 'http://localhost:3000/fail',
+            // successUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/success',
+            // failUrl: 'http://sayo.s3-website.ap-northeast-2.amazonaws.com/fail'
           })
         }
 

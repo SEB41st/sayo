@@ -27,7 +27,7 @@ const urlParams = url.searchParams;
             data:{
               paymentKey:urlParams.get('paymentKey'),
               amount:urlParams.get('amount'),
-              orderId:urlParams.get('orderId'),
+              orderCode:urlParams.get('orderId'),
             }
           })
           .then((res) => {

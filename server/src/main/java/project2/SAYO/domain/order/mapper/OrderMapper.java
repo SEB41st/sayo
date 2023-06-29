@@ -14,7 +14,7 @@ public interface OrderMapper {
                 .orderCode(order.getOrderCode())
                 .orderName(order.getOrderName())
                 .amount(order.getAmount())
-                .paymentId(order.getPaymentId())
+                .userId(order.getUser().getId())
                 .id(order.getId())
                 .itemList(order.getItemList())
                 .modifiedAt(order.getModifiedAt())

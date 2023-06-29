@@ -8,6 +8,7 @@ import { useCustomMutation } from "../../components/util/useMutation";
 import axios from "axios";
 import { BsPlusCircle, BsSearch } from "react-icons/bs";
 import {EndImg} from "../../components/EachItem/Styled"
+import OrderList from "./OrderList";
 
 const Mypage = () => {
   const [nickName, setNickName] = useState("");
@@ -62,7 +63,7 @@ const Mypage = () => {
   console.log(wishItems)
   const myItem = myItemList.data;
   console.log(myItem)
-
+console.log(orderData[0].itemList[0].itemName)
   
 
   const hasMyId = myItem.filter((item:any) => item.userId === Number(userId));
@@ -128,31 +129,9 @@ const Mypage = () => {
       <S.Line />
       <S.ProductListName>참여 중인 공동구매
       <div>결제 취소를 원하시면 관리자에게 문의하세요 !</div></S.ProductListName>
-      <S.Lists>
-        <S.ChoiceList>
-          <Link to="/detail">
-            <S.ItemImg>
-              <img src={orderData[2].itemList[0].itemPicture} alt="goods"></img>
-            </S.ItemImg>
-            <S.ItemName>
-              {/* <span>상품명</span>
-              <span> 목포 쫀드기</span>
-              <span>구매일</span>
-              <span> 2023.02.03</span> */}
-              <span>상품명</span>
-              <span> {orderData[2].itemList[0].itemName}</span>
-              <span>구매일</span>
-              <span>{orderData[2].itemList[0].order.createdAt}</span>
-              {/* <span>송장번호</span>
-              <span> 3827498379238</span> */}
-            </S.ItemName>
-
-          </Link>
-          <Link to="/detail">
-
-          </Link>
-        </S.ChoiceList>
-      </S.Lists>
+      {orderData.map((item:any) => (
+        <OrderList item={item}/>
+      ))}
       <S.Line />
       <S.ProductListName>내가 작성한 공동구매
       <div>'x'버튼을 누르면 판매 종료 처리가 됩니다. 상품 완전 삭제는 관리자에게 문의하세요!</div></S.ProductListName>

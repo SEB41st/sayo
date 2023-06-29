@@ -40,9 +40,16 @@ public class OrderService {
 
     public List<Order> getOrderList(long userId){
         log.info("userId2 = {}", userId);
+       /* List<Order> list = orderRepository.findByUserId(userId);
+        return list;*/
+
         return orderRepository.findAll().stream()
-                .filter(a->a.getUser().getId()==userId)
+                .filter(a -> a.getUser() != null && a.getUser().getId() == userId)
                 .collect(Collectors.toList());
+
+        /*return orderRepository.findAll().stream()
+                .filter(a->a.getUser().getId()==userId)
+                .collect(Collectors.toList());*/
     }
 
     public Order getOrder(long id){

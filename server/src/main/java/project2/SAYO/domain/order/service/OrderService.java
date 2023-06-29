@@ -39,9 +39,9 @@ public class OrderService {
     }
 
     public List<Order> getOrderList(long userId){
-        return orderRepository.findAll().stream()
-                .filter(a -> a.getUser().getId() == userId)
-                .collect(Collectors.toList());
+        return orderRepository.findAll()/*.stream()
+                .filter(a->a.getUser().getId()==userId)
+                .collect(Collectors.toList())*/;
     }
 
     public Order getOrder(long id){

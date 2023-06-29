@@ -46,6 +46,7 @@ public class OrderController {
 
     @GetMapping("/user/{user-id}")
     public ResponseEntity orderGetList(@PathVariable("user-id") long userId) {
+        log.info("userId1 = {}", userId);
         List<Order> orderList = orderService.getOrderList(userId);
         List<OrderResponseDto> response = mapper.orderListToOrderResponseList(orderList);
         return new ResponseEntity(response, HttpStatus.OK);

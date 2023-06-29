@@ -16,7 +16,7 @@ public class OrderResponseDto {
     private Long id;
     private String orderCode;
     private Long amount;
-    private Long paymentId;
+    private Long userId;
     private String orderName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

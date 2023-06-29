@@ -95,7 +95,7 @@ mail:
 #    admin: admin@gmail.com, test@gmail.com
 payments:
   toss:
-    test_secret_api_key: ${TOSS_SECRET_KEY}
+    test_secret_api_key: test_ck_d26DlbXAaV0YJWbOjvdrqY50Q9RB #${TOSS_SECRET_KEY}
     test_client_api_key: ${TOSS_CLIENT_KEY}
 cloud:
   aws:

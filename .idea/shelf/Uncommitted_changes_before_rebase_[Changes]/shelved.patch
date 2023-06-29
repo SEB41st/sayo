@@ -1,0 +1,139 @@
+Index: server/src/main/java/project2/SAYO/domain/order/dto/OrderResponseDto.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.order.dto;\n\nimport lombok.*;\n\nimport java.time.LocalDateTime;\n\n@Data\n@Builder\n@AllArgsConstructor\n@NoArgsConstructor\npublic class OrderResponseDto {\n    private Long id;\n    private String orderCode;\n    private Long amount;\n    private Long paymentId;\n    private String OrderName;\n    private LocalDateTime createdAt;\n    private LocalDateTime modifiedAt;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/order/dto/OrderResponseDto.java b/server/src/main/java/project2/SAYO/domain/order/dto/OrderResponseDto.java
+--- a/server/src/main/java/project2/SAYO/domain/order/dto/OrderResponseDto.java	(revision 8aff32bf42b03258de436237cae1e0f5fbbd7605)
++++ b/server/src/main/java/project2/SAYO/domain/order/dto/OrderResponseDto.java	(date 1687523365550)
+@@ -1,5 +1,6 @@
+ package project2.SAYO.domain.order.dto;
+ 
++import com.fasterxml.jackson.annotation.JsonAutoDetect;
+ import lombok.*;
+ 
+ import java.time.LocalDateTime;
+Index: server/src/main/java/project2/SAYO/domain/item/entity/Item.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.item.entity;\n\nimport com.fasterxml.jackson.annotation.JsonBackReference;\nimport lombok.*;\nimport project2.SAYO.domain.category.entity.Category;\nimport project2.SAYO.domain.user.entity.User;\nimport project2.SAYO.global.audit.Auditable;\n\nimport javax.persistence.*;\n\n@Entity\n@Getter\n@Setter\n@Builder\n@NoArgsConstructor\n@AllArgsConstructor\npublic class Item extends Auditable {\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\n    private Long itemId;\n\n    @Column(nullable = false, length = 50)\n    private String itemName; // 상품 이름\n\n    @Column(columnDefinition = \"LONGTEXT\")\n    private String itemPicture; // 상품 이미지\n\n/*    @Column(nullable = false)\n    private boolean itemDelivery; // 무료배송 여부*/\n\n    @Column(nullable = false)\n    private int itemDeliveryPrice; // 배송비 가격\n\n    @Column(nullable = false)\n    private int itemPrice; // 상품 가격\n\n    @Column(nullable = false, length = 2000)\n    private String itemBody; // 상품 설명\n\n    @Column(nullable = false)\n    private String itemDateStart; // 참여 시작 일정\n\n    @Column(nullable = false)\n    private String itemDateEnd; // 참여 종료 일정\n\n   /* @Column(length = 50)\n    private String itemTag; // 상품 태그 (카테고리랑 연관관계 매핑)*/\n   private int wishCount; // 찜하기 count\n\n\n    // 위도, 경도 추후 수정 필요\n    @Column(nullable = false)\n    private double latitude; // 경도\n    private double longitude; // 위도\n\n\n    @Enumerated(value = EnumType.STRING)\n    @Column(length = 20)\n    private ItemStatus itemStatus = ItemStatus.ITEM_PROGRESS; // 공동구매 진행 상황\n\n    public void addItemId(Long itemId) {\n        this.itemId = itemId;\n    }\n\n    public void changeItemStatus(ItemStatus itemStatus){\n        this.itemStatus = itemStatus;\n    }\n\n    public enum ItemStatus{\n        ITEM_PROGRESS(\"공동구매 진행중\"),\n        ITEM_END(\"공동 구매 종료\");\n\n        @Getter\n        private String status;\n\n        ItemStatus(String status){\n            this.status = status;\n        }\n    }\n\n    @ManyToOne\n    @JoinColumn(name = \"USER_ID\")\n    private User user;\n\n    @JsonBackReference\n    @ManyToOne\n    @JoinColumn(name = \"CATEGORY_ID\")\n    private Category category;\n\n    public void addCategory(Category category) {\n        this.category = category;\n    }\n\n    public void addUser(User user) {\n        this.user = user;\n    }\n\n    public void addWishCount(int wishCount){\n        this.wishCount = wishCount;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/item/entity/Item.java b/server/src/main/java/project2/SAYO/domain/item/entity/Item.java
+--- a/server/src/main/java/project2/SAYO/domain/item/entity/Item.java	(revision 8aff32bf42b03258de436237cae1e0f5fbbd7605)
++++ b/server/src/main/java/project2/SAYO/domain/item/entity/Item.java	(date 1687523068012)
+@@ -4,9 +4,12 @@
+ import lombok.*;
+ import project2.SAYO.domain.category.entity.Category;
+ import project2.SAYO.domain.user.entity.User;
++import project2.SAYO.domain.wish.entity.Wish;
+ import project2.SAYO.global.audit.Auditable;
+ 
+ import javax.persistence.*;
++import java.util.ArrayList;
++import java.util.List;
+ 
+ @Entity
+ @Getter
+@@ -47,13 +50,11 @@
+     private String itemTag; // 상품 태그 (카테고리랑 연관관계 매핑)*/
+    private int wishCount; // 찜하기 count
+ 
+-
+     // 위도, 경도 추후 수정 필요
+     @Column(nullable = false)
+     private double latitude; // 경도
+     private double longitude; // 위도
+ 
+-
+     @Enumerated(value = EnumType.STRING)
+     @Column(length = 20)
+     private ItemStatus itemStatus = ItemStatus.ITEM_PROGRESS; // 공동구매 진행 상황
+@@ -87,6 +88,9 @@
+     @JoinColumn(name = "CATEGORY_ID")
+     private Category category;
+ 
++    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
++    private List<Wish> wishList = new ArrayList<>();
++
+     public void addCategory(Category category) {
+         this.category = category;
+     }
+Index: server/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring:\n  main:\n    allow-bean-definition-overriding: true\n  h2:\n    console:\n      enabled: true\n      path: /h2\n  redis:\n    host: localhost\n    port: 6379\n  datasource:\n    url: jdbc:h2:mem:test\n    driver-class-name: org.h2.Driver\n    username: sa\n    password:\n  servlet:\n    multipart:\n      max-file-size: 500MB\n  jpa:\n    show-sql: true\n    hibernate:\n      ddl-auto: create\n    properties:\n      hibernate:\n        format_sql: true\n  security:\n    oauth2:\n      client:\n        registration:\n          google:\n            clientId: 825192285646-l2lgiu4ao2epb4igom55rp3puiuthont.apps.googleusercontent.com\n            clientSecret: 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\n            #clientId: ${G_CLIENT_ID}\n            #clientSecret: ${G_CLIENT_SECRET}\n            scope:\n              - email\n              - profile\n          naver:\n            clientId: Kk3cnANrPyL8axgOzGJc\n            clientSecret: MI1kih3MPS\n            clientAuthenticationMethod: post\n            authorizationGrantType: authorization_code\n            redirectUri: http://localhost:8080/login/oauth2/code/naver\n            scope:\n              - nickname\n              - email\n              - profile_image\n            clientName: Naver\n          kakao:\n            clientId: b59c7d76059de1cb660fbbb767659254\n            clientSecret: GkVauCHtjTPgwlluuUqk3pbNw148yo1t\n            clientAuthenticationMethod: post\n            authorizationGrantType: authorization_code\n            redirectUri: http://localhost:8080/login/oauth2/code/kakao\n            scope:\n              - profile_nickname\n              - profile_image\n              - account_email\n            clientName: Kakao\n        provider:\n          kakao:\n            authorization-uri: https://kauth.kakao.com/oauth/authorize\n            token-uri: https://kauth.kakao.com/oauth/token\n            user-info-uri: https://kapi.kakao.com/v2/user/me\n            user-name-attribute: id\n          naver:\n            authorization_uri: https://nid.naver.com/oauth2.0/authorize\n            token_uri: https://nid.naver.com/oauth2.0/token\n            user-info-uri: https://openapi.naver.com/v1/nid/me\n            user_name_attribute: response\n\njwt:\n  secret-key: ${JWT_SECRET_KEY}       # 민감한 정보는 시스템 환경 변수에서 로드한다.\n  access-token-expiration-minutes: 420\n  refresh-token-expiration-minutes: 420\naes:\n  secret-key: 970d8c1e726c39839da31a52a4968cf6 #dusqhdtkacjsdhqoraksqkewk3500\nmail:\n  smtp:\n    host: smtp.gmail.com\n    port: 587\n    username: sayoproject2023@gmail.com\n    password: msxbvigqkpyphigg\n    auth: true\n    starttls:\n      enable: true\n  subject:\n    user:\n      registration: 공동구매플랫폼 SAYO서비스에 성공적으로 가입하셨습니다.\n  template:\n    name:\n      user:\n        join: email-registration-user\n#  address:\n#    admin: admin@gmail.com, test@gmail.com\n\ncloud:\n  aws:\n    credentials:\n      access-key: ${S3_ACCESS_KEY}\n      secret-key: ${S3_SECRET_KEY}\n    s3: #버킷이름\n      bucket: ${S3_BUCKET}\n    region: #S3 지역\n      static: ${S3_REGION}\n    stack:\n      auto: false\n\n#logging:\n#  level:\n#    org.hibernate.SQL: debug\n#    org.hibernate.type: trace\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/resources/application.yml b/server/src/main/resources/application.yml
+--- a/server/src/main/resources/application.yml	(revision 8aff32bf42b03258de436237cae1e0f5fbbd7605)
++++ b/server/src/main/resources/application.yml	(date 1687523068032)
+@@ -93,6 +93,10 @@
+         join: email-registration-user
+ #  address:
+ #    admin: admin@gmail.com, test@gmail.com
++payments:
++  toss:
++    test_secret_api_key: test_sk_7DLJOpm5QrlmJGMGw9L8PNdxbWnY
++    test_client_api_key: test_ck_d26DlbXAaV0YJWbOjvdrqY50Q9RB
+ 
+ cloud:
+   aws:
+Index: server/src/main/java/project2/SAYO/domain/wish/service/WishService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.wish.service;\n\nimport lombok.RequiredArgsConstructor;\nimport org.springframework.stereotype.Service;\nimport org.springframework.transaction.annotation.Transactional;\nimport project2.SAYO.domain.item.entity.Item;\nimport project2.SAYO.domain.item.repository.ItemRepository;\nimport project2.SAYO.domain.item.service.ItemService;\nimport project2.SAYO.domain.user.entity.User;\nimport project2.SAYO.domain.user.service.UserService;\nimport project2.SAYO.domain.wish.entity.Wish;\nimport project2.SAYO.domain.wish.repository.WishRepository;\nimport project2.SAYO.global.exception.BusinessLogicException;\nimport project2.SAYO.global.exception.ExceptionCode;\n\nimport java.util.List;\nimport java.util.Optional;\nimport java.util.stream.Collectors;\n\n@Service\n@RequiredArgsConstructor\npublic class WishService {\n    private final WishRepository wishRepository;\n    private final UserService userService;\n    private final ItemService itemService;\n    private final ItemRepository itemRepository;\n\n    // TODO POST\n    @Transactional\n    public Wish createWish(Long userId, Long itemId) {\n        User findUser = userService.findVerifiedUser(userId);\n        Item findItem = itemService.findVerifiedItem(itemId);\n\n        Wish createWish = findByUserAndItem(findUser, findItem);\n        createWish.addUser(findUser);\n        createWish.addItem(findItem);\n        if (createWish.getWishSelected() != Boolean.TRUE) {\n            createWish.changeWishSelected(Boolean.TRUE);\n            findItem.addWishCount(findItem.getWishCount()+1);\n        } else {\n            createWish.changeWishSelected(Boolean.FALSE);\n            findItem.addWishCount(findItem.getWishCount()-1);\n        }\n        itemRepository.save(findItem);\n        return wishRepository.save(createWish);\n    }\n\n    // TODO GET\n    @Transactional\n    public Wish findWish(Long userId, long wishId) {\n        Wish findWish = findVerifiedWish(wishId);\n        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인\n        if(!findWish.getUser().getId().equals(userId)) {\n            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);\n        }\n\n        //wish가 false라면 exception 발생\n        if(findWish.getWishSelected() != Boolean.TRUE){\n            throw new BusinessLogicException(ExceptionCode.WISH_NOT_FOUND);\n        }\n\n        return findWish;\n    }\n\n    // TODO GET ALL\n    @Transactional\n    public List<Wish> findWishes(long userId) {\n        //wish에서 선택한 것(true 값)만 Get으로 받아올 수 있도록 작성\n        return wishRepository.findAll().stream()\n                .filter(wish -> wish.getUser().getId() == userId)\n                .filter(a -> a.getWishSelected() == Boolean.TRUE)\n                .collect(Collectors.toList());\n    }\n\n    // TODO DELETE ONE\n    @Transactional\n    public void deleteWish(Long userId, long wishId) {\n        Wish findWish = findVerifiedWish(wishId);\n        // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인\n        if(!findWish.getUser().getId().equals(userId)) {\n            throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);\n        }\n        wishRepository.delete(findWish);\n    }\n\n    // TODO VERIFIED\n    public Wish findVerifiedWish(long wishId) {\n        Optional<Wish> optionalWish = wishRepository.findById(wishId);\n\n        return optionalWish.orElseThrow(()->new BusinessLogicException(ExceptionCode.WISH_NOT_FOUND));\n    }\n\n    public Wish findByUserAndItem(User user, Item item){\n        Optional<Wish> optionalWish = this.wishRepository.findByUserAndItem(user, item);\n\n        if(optionalWish.isPresent()){\n            return optionalWish.get();\n        }else{\n            return new Wish();\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/wish/service/WishService.java b/server/src/main/java/project2/SAYO/domain/wish/service/WishService.java
+--- a/server/src/main/java/project2/SAYO/domain/wish/service/WishService.java	(revision 8aff32bf42b03258de436237cae1e0f5fbbd7605)
++++ b/server/src/main/java/project2/SAYO/domain/wish/service/WishService.java	(date 1687523068050)
+@@ -1,6 +1,7 @@
+ package project2.SAYO.domain.wish.service;
+ 
+ import lombok.RequiredArgsConstructor;
++import lombok.extern.slf4j.Slf4j;
+ import org.springframework.stereotype.Service;
+ import org.springframework.transaction.annotation.Transactional;
+ import project2.SAYO.domain.item.entity.Item;
+@@ -17,6 +18,7 @@
+ import java.util.Optional;
+ import java.util.stream.Collectors;
+ 
++@Slf4j
+ @Service
+ @RequiredArgsConstructor
+ public class WishService {
+@@ -49,6 +51,9 @@
+     @Transactional
+     public Wish findWish(Long userId, long wishId) {
+         Wish findWish = findVerifiedWish(wishId);
++        /*log.info("Wish userId = {}", userId);
++        if(userId == null) throw new BusinessLogicException(ExceptionCode.USER_NOT_FOUND);*/
++
+         // 현재 로그인한 유저가 주문을 작성한 유저와 같은지 확인
+         if(!findWish.getUser().getId().equals(userId)) {
+             throw new BusinessLogicException(ExceptionCode.USER_UNAUTHORIZED);
+Index: server/src/main/java/project2/SAYO/domain/wish/controller/WishController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.wish.controller;\n\nimport lombok.RequiredArgsConstructor;\nimport org.springframework.http.HttpStatus;\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.validation.annotation.Validated;\nimport org.springframework.web.bind.annotation.*;\nimport project2.SAYO.domain.wish.dto.WishDto;\nimport project2.SAYO.domain.wish.entity.Wish;\nimport project2.SAYO.domain.wish.mapper.WishMapper;\nimport project2.SAYO.domain.wish.service.WishService;\nimport project2.SAYO.global.Response.SingleResponseDto;\nimport project2.SAYO.global.loginresolver.LoginUserId;\n\nimport javax.validation.Valid;\nimport javax.validation.constraints.Positive;\nimport java.util.List;\n\n@RestController\n@RequiredArgsConstructor\n@RequestMapping(\"/wishes\")\n@Validated\npublic class WishController {\n    private final WishService wishService;\n    private final WishMapper mapper;\n\n    // TODO POST\n    @PostMapping(\"/{item-id}\")\n    public ResponseEntity postWish(@Valid @PathVariable(\"item-id\") @Positive long itemId,\n                                   @LoginUserId Long userId) {\n        Wish wishForResponse = wishService.createWish(userId, itemId);\n        WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);\n\n        return new ResponseEntity(new SingleResponseDto<>(wishResponse), HttpStatus.CREATED);\n    }\n\n    // TODO GET ONE\n    @GetMapping(\"/{wish-id}\")\n    public ResponseEntity getWish(@Valid @PathVariable(\"wish-id\") @Positive long wishId,\n                                  @LoginUserId Long userId) {\n        Wish wishForResponse = wishService.findWish(userId, wishId);\n        WishDto.Response wishResponse = mapper.wishToWishResponse(wishForResponse);\n\n        return new ResponseEntity(new SingleResponseDto<>(wishResponse), HttpStatus.OK);\n    }\n\n    // TODO GET ALL\n    @GetMapping(\"/user/{user-id}/wish\")\n    public ResponseEntity getWishes(@Valid @PathVariable(\"user-id\") @LoginUserId Long userId) {\n        List<Wish> wishList = wishService.findWishes(userId);\n        List<WishDto.Response> shoppingCartResponseList = mapper.WishListToWishResponseList(wishList);\n        return new ResponseEntity(new SingleResponseDto<>(shoppingCartResponseList),HttpStatus.OK);\n    }\n\n    // TODO DELETE ONE\n    @DeleteMapping(\"/{wish-id}\")\n    public ResponseEntity deleteWish(@Valid @PathVariable(\"wish-id\") @Positive long wishId,\n                                     @LoginUserId Long userId){\n        wishService.deleteWish(userId, wishId);\n\n        return new ResponseEntity<>(HttpStatus.NO_CONTENT);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/wish/controller/WishController.java b/server/src/main/java/project2/SAYO/domain/wish/controller/WishController.java
+--- a/server/src/main/java/project2/SAYO/domain/wish/controller/WishController.java	(revision 8aff32bf42b03258de436237cae1e0f5fbbd7605)
++++ b/server/src/main/java/project2/SAYO/domain/wish/controller/WishController.java	(date 1687523068072)
+@@ -35,6 +35,7 @@
+     }
+ 
+     // TODO GET ONE
++    //@GetMapping("/{wish-id}/user/{user-id}")
+     @GetMapping("/{wish-id}")
+     public ResponseEntity getWish(@Valid @PathVariable("wish-id") @Positive long wishId,
+                                   @LoginUserId Long userId) {

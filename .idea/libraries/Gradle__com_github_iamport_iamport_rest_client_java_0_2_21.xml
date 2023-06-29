@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.iamport:iamport-rest-client-java:0.2.21">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.iamport/iamport-rest-client-java/0.2.21/1e77090406ae4623225425e7fae3f38142614294/iamport-rest-client-java-0.2.21.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.iamport/iamport-rest-client-java/0.2.21/69fdf6afc41fa3595909af3bbe90ecb875345907/iamport-rest-client-java-0.2.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

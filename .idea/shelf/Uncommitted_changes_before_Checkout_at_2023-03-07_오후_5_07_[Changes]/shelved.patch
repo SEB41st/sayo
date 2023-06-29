@@ -1,0 +1,299 @@
+Index: server/src/main/java/project2/SAYO/domain/category/dto/CategoryDto.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.category.dto;\n\nimport lombok.AllArgsConstructor;\nimport lombok.Builder;\nimport lombok.Getter;\nimport lombok.NoArgsConstructor;\n\nimport javax.validation.constraints.NotBlank;\nimport java.time.LocalDateTime;\n\npublic class CategoryDto {\n    @Getter\n    @Builder\n    @AllArgsConstructor\n    public static class CategoryRequest {\n        @NotBlank(message=\"카테고리 이름을 입력해주세요.\")\n        private String categoryName; // 카테고리 명\n    }\n\n\n    @Getter\n    @Builder\n    @AllArgsConstructor\n    @NoArgsConstructor\n    public static class CategoryResponse {\n        private Long categoryId;\n        private String categoryName; // 카테고리 명\n        private LocalDateTime createdAt;\n        private LocalDateTime modifiedAt;\n    }\n\n}\n
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/category/dto/CategoryDto.java b/server/src/main/java/project2/SAYO/domain/category/dto/CategoryDto.java
+--- a/server/src/main/java/project2/SAYO/domain/category/dto/CategoryDto.java	
++++ b/server/src/main/java/project2/SAYO/domain/category/dto/CategoryDto.java	
+@@ -1,22 +1,69 @@
+ package project2.SAYO.domain.category.dto;
+ 
+ import lombok.AllArgsConstructor;
+-import lombok.Builder;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
++import project2.SAYO.domain.category.entity.Category;
+ 
+-import javax.validation.constraints.NotBlank;
+-import java.time.LocalDateTime;
+ 
++import java.util.Map;
++import java.util.stream.Collectors;
++
++@Getter
++@AllArgsConstructor
++@NoArgsConstructor
+ public class CategoryDto {
++    private Long categoryId;
++    private String branch;
++    private String code;
++    private String categoryName;
++    private String parentCategoryName;
++    private Integer level;
++    private Map<String, CategoryDto> children;
++
++    public CategoryDto (Category category) {
++
++        this.categoryId = category.getCategoryId();
++        this.branch = category.getBranch();
++        this.code = category.getCode();
++        this.categoryName = category.getCategoryName();
++        this.level = category.getLevel();
++        if(category.getParentCategory() == null) {
++
++            this.parentCategoryName = "대분류";
++
++        } else {
++
++            this.parentCategoryName = category.getParentCategory().getCategoryName();
++
++        }
++
++        this.children = category.getSubCategory() == null ? null :
++                category.getSubCategory().stream().collect(Collectors.toMap(
++                        Category::getCategoryName, CategoryDto::new
++
++        ));
++    }
++
++    public Category toEntity () {
++        return Category.builder()
++                .branch(branch)
++                .code(code)
++                .level(level)
++                .categoryName(categoryName)
++                .build();
++    }
++
++    /*
+     @Getter
+     @Builder
+     @AllArgsConstructor
+-    public static class CategoryRequest {
++    public static class CategoryPost {
+         @NotBlank(message="카테고리 이름을 입력해주세요.")
+         private String categoryName; // 카테고리 명
+-    }
+ 
++        private long parentId; // 부모 카테고리 id
++    }
+ 
+     @Getter
+     @Builder
+@@ -27,6 +74,6 @@
+         private String categoryName; // 카테고리 명
+         private LocalDateTime createdAt;
+         private LocalDateTime modifiedAt;
+-    }
++    }*/
+ 
+ }
+Index: server/src/main/java/project2/SAYO/domain/category/service/CategoryService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.category.service;\n\nimport lombok.RequiredArgsConstructor;\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.PageRequest;\nimport org.springframework.data.domain.Sort;\nimport org.springframework.stereotype.Service;\nimport project2.SAYO.domain.category.entity.Category;\nimport project2.SAYO.domain.category.repository.CategoryRepository;\nimport project2.SAYO.global.exception.BusinessLogicException;\nimport project2.SAYO.global.exception.ExceptionCode;\nimport project2.SAYO.global.util.CustomBeanUtils;\n\nimport java.util.Optional;\n\n@Service\n@RequiredArgsConstructor\npublic class CategoryService {\n    private final CategoryRepository categoryRepository;\n    private final CustomBeanUtils<Category> beanUtils;\n\n    /* Category 생성, 수정, 삭제의 권한을 관리자만 할 것인가?\n    >> 관리자만 할 것이라면 인증 인가 부분을 넣지 않고 권한 설정만 하면 될 것 같아서 일단 보류 진행*/\n\n    // category 생성\n    public Category createCategory(Category category) {\n        return categoryRepository.save(category);\n    }\n\n    // category 수정\n    public Category updateCategory(Category category) {\n        Category findCategory = findVerifiedCategory(category.getCategoryId()); // category 존재 여부 확인\n\n        Category updateCategory = beanUtils.copyNonNullProperties(category, findCategory);\n\n        return categoryRepository.save(updateCategory);\n    }\n\n    // categoryId 1개 조회는 findVerifiedCategory로 처리\n\n    // 전체 category 조회\n    public Page<Category> findCategories(int page, int size) {\n        return categoryRepository.findAll(PageRequest.of(page, size, Sort.by(\"categoryId\").ascending()));\n    }\n\n    // category 삭제\n    public void deleteCategory(Long categoryId) {\n        categoryRepository.deleteById(categoryId);\n    }\n\n    // 충돌 방지를 위해 추후 ExceptionCode에 추가 후 주석 해지 필요\n    public Category findVerifiedCategory(Long categoryId) {\n        Optional<Category> category = categoryRepository.findById(categoryId);\n        Category findCategory = category.orElseThrow(/*() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND)*/);\n        return findCategory;\n    }\n}\n
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/category/service/CategoryService.java b/server/src/main/java/project2/SAYO/domain/category/service/CategoryService.java
+--- a/server/src/main/java/project2/SAYO/domain/category/service/CategoryService.java	
++++ b/server/src/main/java/project2/SAYO/domain/category/service/CategoryService.java	
+@@ -1,30 +1,112 @@
+ package project2.SAYO.domain.category.service;
+ 
+ import lombok.RequiredArgsConstructor;
+-import org.springframework.data.domain.Page;
+-import org.springframework.data.domain.PageRequest;
+-import org.springframework.data.domain.Sort;
++
+ import org.springframework.stereotype.Service;
++import project2.SAYO.domain.category.dto.CategoryDto;
+ import project2.SAYO.domain.category.entity.Category;
+ import project2.SAYO.domain.category.repository.CategoryRepository;
+-import project2.SAYO.global.exception.BusinessLogicException;
+-import project2.SAYO.global.exception.ExceptionCode;
+-import project2.SAYO.global.util.CustomBeanUtils;
+ 
+-import java.util.Optional;
++import java.util.HashMap;
++import java.util.Map;
++
+ 
+ @Service
+ @RequiredArgsConstructor
+ public class CategoryService {
+     private final CategoryRepository categoryRepository;
++
++    public Long saveCategory (CategoryDto categoryDto) {
++
++        Category category = categoryDto.toEntity();
++//대분류 등록
++        if (categoryDto.getParentCategoryName() == null) {
++
++            //JPA 사용하여 DB에서 branch와 name의 중복값을 검사. (대분류에서만 가능)
++            if (categoryRepository.existsByBranchAndCategoryName(categoryDto.getBranch(), categoryDto.getCategoryName())) {
++                throw new RuntimeException("branch와 name이 같을 수 없습니다. ");
++            }
++//orElse로 refactor
++            Category rootCategory = categoryRepository.findByBranchAndCategoryName(categoryDto.getBranch(),"ROOT")
++                    .orElseGet( () ->
++                            Category.builder()
++                                    .categoryName("ROOT")
++                                    .code("ROOT")
++                                    .branch(categoryDto.getBranch())
++                                    .level(0)
++                                    .build()
++                    );
++            if (!categoryRepository.existsByBranchAndCategoryName(categoryDto.getBranch(), "ROOT")) {
++                categoryRepository.save(rootCategory);
++            }
++            category.setParentCategory(rootCategory);
++            category.setLevel(1);
++            //중, 소분류 등록
++        } else {
++            String parentCategoryName = categoryDto.getParentCategoryName();
++            Category parentCategory = categoryRepository.findByBranchAndCategoryName(categoryDto.getBranch(), parentCategoryName)
++                    .orElseThrow(() -> new IllegalArgumentException("부모 카테고리 없음 예외"));
++            category.setLevel(parentCategory.getLevel() + 1);
++            category.setParentCategory(parentCategory);
++            parentCategory.getSubCategory().add(category);
++        }
++
++        //category.setLive(true);
++        return categoryRepository.save(category).getCategoryId();
++    }
++
++    public Map<String, CategoryDto> getCategoryByBranch (String branch) {
++        Category category = categoryRepository.findByBranchAndCode(branch, "ROOT")
++                .orElseThrow(() -> new IllegalArgumentException("찾는 대분류가 없습니다"));
++
++        CategoryDto categoryDTO = new CategoryDto(category);
++
++        Map <String, CategoryDto> data = new HashMap<>();
++        data.put(categoryDTO.getCategoryName(), categoryDTO);
++
++        return data;
++    }
++
++    public void deleteCategory (Long categoryId) {
++        Category category = findCategory(categoryId);
++
++        if (category.getSubCategory().size() == 0) { //하위 카테고리 없을 경우
++            Category parentCategory = findCategory(category.getParentCategory().getId());
++            if (!parentCategory.getName().equals("ROOT")) { // ROOT가 아닌 다른 부모가 있을 경우
++                parentCategory.getSubCategory().remove(category);
++            }
++            categoryRepository.deleteById(category.getId());
++        } else { //하위 카테고리 있을 경우
++            Category parentCategory = findCategory(category.getParentCategory().getId());
++            //ROOT아닌 부모가 있을 경우
++            if (!parentCategory.getName().equals("ROOT")) {
++                parentCategory.getSubCategory().remove(category);
++            }
++            category.setCategoryName("Deleted category");
++        }
++    }
++
++    public Long updateCategory (Long categoryId, CategoryDto categoryDto) {
++        Category category = findCategory(categoryId);
++
++        category.setCategoryName(categoryDto.getCategoryName());
++
++        return category.getCategoryId();
++    }
++
++    /*
+     private final CustomBeanUtils<Category> beanUtils;
+ 
+     /* Category 생성, 수정, 삭제의 권한을 관리자만 할 것인가?
+-    >> 관리자만 할 것이라면 인증 인가 부분을 넣지 않고 권한 설정만 하면 될 것 같아서 일단 보류 진행*/
++    카테고리 기능 구현 (하나의 아이템은 하나의 태그만 가질 수 있으며, 하나의 태그는 여러개의 아이템을 가질 수 있는 다대일 구조인지)
++
+ 
+     // category 생성
+     public Category createCategory(Category category) {
+-        return categoryRepository.save(category);
++        Category parent = Optional.ofNullable(category.getParentId())
++                .map(id -> categoryRepository.findById(category.getCategoryId()).orElseThrow(CategoryNotFound))
++                .orElse(null);
++        return categoryRepository.save(new Category(category.getCategoryName(), parent));
+     }
+ 
+     // category 수정
+@@ -39,8 +121,9 @@
+     // categoryId 1개 조회는 findVerifiedCategory로 처리
+ 
+     // 전체 category 조회
+-    public Page<Category> findCategories(int page, int size) {
+-        return categoryRepository.findAll(PageRequest.of(page, size, Sort.by("categoryId").ascending()));
++    public List<CategoryDto.CategoryRequest> findCategories(int page, int size) {
++        List<Category> categories = categoryRepository.findAllOrderByParentIdAscNullsFirstCategoryIdAsc();
++        return CategoryDto.CategoryResponse(categories);
+     }
+ 
+     // category 삭제
+@@ -51,7 +134,7 @@
+     // 충돌 방지를 위해 추후 ExceptionCode에 추가 후 주석 해지 필요
+     public Category findVerifiedCategory(Long categoryId) {
+         Optional<Category> category = categoryRepository.findById(categoryId);
+-        Category findCategory = category.orElseThrow(/*() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND)*/);
++        Category findCategory = category.orElseThrow(/*() -> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
+         return findCategory;
+-    }
++    }*/
+ }
+Index: server/src/main/java/project2/SAYO/domain/category/repository/CategoryRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.category.repository;\n\nimport org.springframework.data.jpa.repository.JpaRepository;\nimport project2.SAYO.domain.category.entity.Category;\n\npublic interface CategoryRepository extends JpaRepository<Category, Long> {\n}\n
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/category/repository/CategoryRepository.java b/server/src/main/java/project2/SAYO/domain/category/repository/CategoryRepository.java
+--- a/server/src/main/java/project2/SAYO/domain/category/repository/CategoryRepository.java	
++++ b/server/src/main/java/project2/SAYO/domain/category/repository/CategoryRepository.java	
+@@ -3,5 +3,12 @@
+ import org.springframework.data.jpa.repository.JpaRepository;
+ import project2.SAYO.domain.category.entity.Category;
+ 
++import java.util.List;
++import java.util.Optional;
++
+ public interface CategoryRepository extends JpaRepository<Category, Long> {
++    Optional<Category> findByCategoryName (String categoryName);
++    Optional<Category> findByBranchAndCategoryName (String branch, String categoryName);
++
++    Boolean existsByBranchAndCategoryName(String branch, String categoryName);
+ }
+Index: server/src/main/java/project2/SAYO/domain/category/controller/CategoryController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package project2.SAYO.domain.category.controller;\n\nimport lombok.RequiredArgsConstructor;\nimport org.springframework.data.domain.Page;\nimport org.springframework.http.HttpStatus;\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.validation.annotation.Validated;\nimport org.springframework.web.bind.annotation.*;\nimport project2.SAYO.domain.category.dto.CategoryDto;\nimport project2.SAYO.domain.category.entity.Category;\nimport project2.SAYO.domain.category.mapper.CategoryMapper;\nimport project2.SAYO.domain.category.service.CategoryService;\nimport project2.SAYO.global.Response.MultiResponseDto;\nimport project2.SAYO.global.Response.SingleResponseDto;\n\nimport javax.validation.Valid;\nimport javax.validation.constraints.Positive;\nimport java.util.List;\n\n@RestController\n@Validated\n@RequiredArgsConstructor\n@RequestMapping(\"/categorys\")\npublic class CategoryController {\n    private final CategoryService categoryService;\n    private final CategoryMapper mapper;\n\n    // Category 생성\n    @PostMapping\n    public ResponseEntity postCategory(@Valid @RequestBody CategoryDto.CategoryRequest postRequest){\n\n        Category category = mapper.categoryDtoToCategory(postRequest);\n        Category categoryResponse = categoryService.createCategory(category);\n        CategoryDto.CategoryResponse response = mapper.categoryToCategoryResponseDto(categoryResponse);\n\n        return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);\n    }\n\n    // Category 수정\n    @PatchMapping(\"/{category-id}\")\n    public ResponseEntity patchCategory(@Valid @PathVariable(\"category-id\") @Positive Long categoryId,\n                                        @RequestBody CategoryDto.CategoryRequest patchRequest){\n        Category categoryForService = mapper.categoryDtoToCategory(patchRequest);\n        categoryForService.addCategoryId(categoryId);\n        Category categoryResponse = categoryService.updateCategory(categoryForService);\n        CategoryDto.CategoryResponse response = mapper.categoryToCategoryResponseDto(categoryResponse);\n\n        return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);\n    }\n\n    // Category 조회\n    @GetMapping(\"/{category-id}\")\n    public ResponseEntity getCategory(@Valid @PathVariable(\"category-id\") @Positive Long categoryId){\n        Category findCategory = categoryService.findVerifiedCategory(categoryId);\n\n        return new ResponseEntity(new SingleResponseDto<>(findCategory), HttpStatus.OK);\n    }\n\n    @GetMapping()\n    public ResponseEntity getCategories(@Positive @RequestParam int page,\n                                       @Positive @RequestParam int size){\n        Page<Category> categoryPage = categoryService.findCategories(page-1, size);\n        List<Category> categoryList = categoryPage.getContent();\n        List<CategoryDto.CategoryResponse> response = mapper.categoryListToCategoryResponseList(categoryList);\n\n        return new ResponseEntity(new MultiResponseDto<>(response, categoryPage), HttpStatus.OK);\n    }\n    @DeleteMapping(\"/{category-id}\")\n    public void deleteCategory(@Valid @PathVariable(\"category-id\") @Positive Long categoryId){\n        categoryService.deleteCategory(categoryId);\n    }\n}\n
+===================================================================
+diff --git a/server/src/main/java/project2/SAYO/domain/category/controller/CategoryController.java b/server/src/main/java/project2/SAYO/domain/category/controller/CategoryController.java
+--- a/server/src/main/java/project2/SAYO/domain/category/controller/CategoryController.java	
++++ b/server/src/main/java/project2/SAYO/domain/category/controller/CategoryController.java	
+@@ -48,15 +48,15 @@
+         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
+     }
+ 
+-    // Category 조회
++    /*// Category 조회
+     @GetMapping("/{category-id}")
+     public ResponseEntity getCategory(@Valid @PathVariable("category-id") @Positive Long categoryId){
+         Category findCategory = categoryService.findVerifiedCategory(categoryId);
+ 
+         return new ResponseEntity(new SingleResponseDto<>(findCategory), HttpStatus.OK);
+-    }
++    }*/
+ 
+-    @GetMapping()
++    @GetMapping
+     public ResponseEntity getCategories(@Positive @RequestParam int page,
+                                        @Positive @RequestParam int size){
+         Page<Category> categoryPage = categoryService.findCategories(page-1, size);
+@@ -65,6 +65,7 @@
+ 
+         return new ResponseEntity(new MultiResponseDto<>(response, categoryPage), HttpStatus.OK);
+     }
++
+     @DeleteMapping("/{category-id}")
+     public void deleteCategory(@Valid @PathVariable("category-id") @Positive Long categoryId){
+         categoryService.deleteCategory(categoryId);

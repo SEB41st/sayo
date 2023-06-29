@@ -18,7 +18,7 @@ const Mypage = () => {
   const params = useLocation();
   const userId = localStorage.getItem("userId");
 
-  const { data:wish, isLoading:userLoading, error:userError } = useCustomQuery(
+  const { data:wish, isLoading:userLoading, error:userError, refetch:wishRefetch } = useCustomQuery(
     `/wishes/user/${userId}/wish`,
     `wishes/user/${userId}/wish`
   );
@@ -56,6 +56,7 @@ const Mypage = () => {
   if (userError) return <Error></Error>;
   if (orderLoading) return <Loading></Loading>;
   if (orderError) return <Error></Error>;
+  wishRefetch();
   refetch();
   orderRefetch();
 
@@ -63,7 +64,6 @@ const Mypage = () => {
   console.log(wishItems)
   const myItem = myItemList.data;
   console.log(myItem)
-console.log(orderData[0].itemList[0].itemName)
   
 
   const hasMyId = myItem.filter((item:any) => item.userId === Number(userId));
@@ -129,9 +129,11 @@ console.log(orderData[0].itemList[0].itemName)
       <S.Line />
       <S.ProductListName>참여 중인 공동구매
       <div>결제 취소를 원하시면 관리자에게 문의하세요 !</div></S.ProductListName>
-      {orderData.map((item:any) => (
+      {orderData.length === 0 ? 
+      orderData.map((item:any) => (
         <OrderList item={item}/>
-      ))}
+      )): null
+      }
       <S.Line />
       <S.ProductListName>내가 작성한 공동구매
       <div>'x'버튼을 누르면 판매 종료 처리가 됩니다. 상품 완전 삭제는 관리자에게 문의하세요!</div></S.ProductListName>

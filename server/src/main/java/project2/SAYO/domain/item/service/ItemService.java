@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import project2.SAYO.domain.category.entity.Category;
 import project2.SAYO.domain.category.service.CategoryService;
@@ -17,7 +18,11 @@ import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.exception.BusinessLogicException;
 import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.util.CustomBeanUtils;
+import java.time.LocalDateTime;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_END;
@@ -121,5 +126,19 @@ public class ItemService {
         Item findItem = item.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ITEM_NOT_FOUND));
 
         return findItem;
+    }
+
+    @Scheduled(fixedDelay = 14400000)
+    public void change(){
+        List<Item> findItemList = itemRepository.findAll();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
+        LocalDateTime now = LocalDateTime.now();
+
+        for(Item item : findItemList){
+            LocalDateTime date = LocalDate.parse(item.getItemDateEnd(), format).atStartOfDay();
+            if(date.isAfter(now)){
+                item.setItemStatus(ITEM_END);
+            }
+        }
     }
 }

@@ -32,6 +32,11 @@ public class ShoppingCartItemService {
         User findUser = userService.findVerifiedUser(userId);
         Item findItem = itemService.findVerifiedItem(itemId);
 
+        //Item이 판매 종료된 상품일 경우 장바구니에 담을 수 없음
+        if(findItem.getItemStatus().equals(Item.ItemStatus.ITEM_END)){
+            throw new BusinessLogicException(ExceptionCode.SHOPPINGCART_CANNOT_CREATE);
+        }
+
         // ShoppingCart를 찾고, 없으면 새로운 쇼핑카트를 생성
         ShoppingCartItem createShoppingCartItem = findByUserAndItem(findUser,findItem);
 

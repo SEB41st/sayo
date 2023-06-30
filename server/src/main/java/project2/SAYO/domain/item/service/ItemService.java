@@ -22,6 +22,7 @@ import project2.SAYO.global.util.CustomBeanUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,14 +132,20 @@ public class ItemService {
     @Scheduled(fixedDelay = 14400000)
     public void change(){
         List<Item> findItemList = itemRepository.findAll();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-ss");
         LocalDateTime now = LocalDateTime.now();
 
         for(Item item : findItemList){
-            LocalDateTime date = LocalDate.parse(item.getItemDateEnd(), format).atStartOfDay();
-            if(date.compareTo(now) < 0){
-                item.setItemStatus(ITEM_END);
+            try{
+                LocalDateTime date = LocalDate.parse(item.getItemDateEnd(), format).atStartOfDay();
+                if(date.compareTo(now) < 0){
+                    item.setItemStatus(ITEM_END);
+                    itemRepository.save(item);
+                }
+            } catch (DateTimeParseException e) {
+                e.printStackTrace();
             }
+
         }
     }
 }

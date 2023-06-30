@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as S from "./styled";
 import  {  useState } from "react";
 import { BsHeartFill } from "react-icons/bs";
@@ -154,9 +154,11 @@ const haveToLogin = () => {
           </S.goodsDetail>
           <S.ButtonDiv>
             {Items.itemStatus === "ITEM_END" ? <div>판매가 종료된 상품입니다.</div> : userId === null? <S.CartBtn onClick={haveToLogin}>장바구니</S.CartBtn> : <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>}
-            {/* <S.BuyBtn>
+            {/* {Items.itemStatus === "ITEM_END" ? null : (
+            <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
-            </S.BuyBtn> */}
+            </S.BuyBtn>
+            )} */}
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>

@@ -160,7 +160,7 @@ const haveToLogin = () => {
               <DataCalendar itemDateStart={Items.itemDateStart} itemDateEnd = {Items.itemDateEnd}/>
           </S.goodsDetail>
           <S.ButtonDiv>
-            {userId === null ? <S.CartBtn onClick={haveToLogin}>장바구니</S.CartBtn> : <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>}
+            {Items.itemStatus === "ITEM_END" ? <div>판매가 종료된 상품입니다.</div> : userId === null? <S.CartBtn onClick={haveToLogin}>장바구니</S.CartBtn> : <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>}
             {/* <S.BuyBtn>
               <Link to="/payment">바로 구매</Link>
             </S.BuyBtn> */}

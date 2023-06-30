@@ -5,7 +5,7 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - dev_fe
+      - refec
  
 jobs:
   deploy:

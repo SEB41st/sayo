@@ -131,7 +131,7 @@ public class ItemService {
         return findItem;
     }
 
-    @Scheduled(fixedDelay = 10000/*14400000*/)
+    @Scheduled(fixedDelay = 14400000)
     public void change(){
         List<Item> findItemList = itemRepository.findAll().stream()
                 .filter(a -> a.getItemStatus() == ITEM_PROGRESS)

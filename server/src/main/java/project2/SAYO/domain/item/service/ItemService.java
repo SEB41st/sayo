@@ -137,7 +137,7 @@ public class ItemService {
                 .filter(a -> a.getItemStatus() == ITEM_PROGRESS)
                 .collect(Collectors.toList());
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         LocalDateTime now = LocalDateTime.now();
         log.info("### now = {}", now);
 

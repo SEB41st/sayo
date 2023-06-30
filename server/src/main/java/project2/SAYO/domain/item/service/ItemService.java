@@ -25,8 +25,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_END;
+import static project2.SAYO.domain.item.entity.Item.ItemStatus.ITEM_PROGRESS;
 
 @Service
 @Slf4j
@@ -129,15 +131,20 @@ public class ItemService {
         return findItem;
     }
 
-    @Scheduled(fixedDelay = 14400000)
+    @Scheduled(fixedDelay = 10000/*14400000*/)
     public void change(){
-        List<Item> findItemList = itemRepository.findAll();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-ss");
+        List<Item> findItemList = itemRepository.findAll().stream()
+                .filter(a -> a.getItemStatus() == ITEM_PROGRESS)
+                .collect(Collectors.toList());
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
         LocalDateTime now = LocalDateTime.now();
+        log.info("### now = {}", now);
 
         for(Item item : findItemList){
             try{
                 LocalDateTime date = LocalDate.parse(item.getItemDateEnd(), format).atStartOfDay();
+                log.info("### date = {}", date);
                 if(date.compareTo(now) < 0){
                     item.setItemStatus(ITEM_END);
                     itemRepository.save(item);

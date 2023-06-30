@@ -47,8 +47,6 @@ const MapMain = () => {
     }
   };
 
-   console.log("location", location);
-
 
   return (
     <>

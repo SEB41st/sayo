@@ -9,7 +9,7 @@ import { salesLocation } from "../../recoil/atom";
 import Loading from "../../components/Loading/Loading";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const Write = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -20,7 +20,6 @@ const Write = () => {
   const [goodsDetail, setGoodsDetail] = useState<string>("");
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
   const [goodsCategoryId, setGoodsCategoryId] = useState<number>(3);
-  // const [image, setImage] = useState(null);
 
   const navigate = useNavigate()
 
@@ -28,7 +27,6 @@ const Write = () => {
   //카테고리 id 값을 보냄
   const selectChange = (e: any) => {
     setGoodsCategoryId(Number(e.target.value));
-    // console.log(Number(e.target.value));
   };
 
   const { mutate, isLoading } = useCustomMutation(`/items`, `items`, "POST", {
@@ -60,7 +58,6 @@ const Write = () => {
   const imgRef = useRef<HTMLInputElement | null>(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
-  console.log(imgFile);
 
   // 이미지 업로드 api
   const submitImage = (e: any) => {
@@ -75,7 +72,6 @@ const Write = () => {
     reader.readAsDataURL(file);
     if (e.target.files) {
       const uploadFile = e.target.files[0];
-      // console.log(uploadFile);
       const formData = new FormData();
       formData.append("itemPicture", uploadFile);
       console.log(formData.getAll("itemPicture"));
@@ -99,7 +95,6 @@ const Write = () => {
   };
 
   function uploadImageToS3(presignedUrl: string, uploadFile: File) {
-    console.log(uploadFile);
     setUploadedFile(uploadFile.name)
     console.log(uploadedFile) // 업로드할 파일 확인
   
@@ -114,7 +109,6 @@ const Write = () => {
   }
 
   if (isLoading) return <Loading />;
-  // if (error) return <Error/>;
 
   return (
     <S.WriteWrap>

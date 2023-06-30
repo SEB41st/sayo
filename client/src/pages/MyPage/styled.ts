@@ -89,6 +89,7 @@ export const Lists = styled.div`
   width: 90%;
   height: 100%;
   margin: 20px;
+  align-items: flex-end;
   .nullItem{
     font-size: 20px;
     width: 100%;
@@ -170,3 +171,8 @@ margin-top: 3%;
 export const Item = styled.div`
   display: grid;
 `;
+
+export const OrderDateStyled = styled.div`
+  font-size: large;
+  font-weight: 800;
+`

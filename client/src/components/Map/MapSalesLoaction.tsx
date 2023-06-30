@@ -11,8 +11,6 @@ const MapSalesLoaction = () => {
   // 판매위치
   const [markLocation, setMarkLocation] = useRecoilState(salesLocation);
 
-  console.log("markLocation", markLocation);
-
   return (
     <>
       <Maps

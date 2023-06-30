@@ -13,6 +13,9 @@ const Success = () => {
     let payMonth = moment().format('MM')
     let payDay = moment().format('DD')
 
+    const CommaFormat = (x:any) => {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 const urlParams = url.searchParams;
     useEffect(() => {
@@ -43,7 +46,7 @@ return (
     <S.Fail>
         <S.FailText>
         <span>결제 완료</span>
-        <h2>{urlParams.get('amount')}원</h2>
+        <h2>{CommaFormat(urlParams.get('amount'))}원</h2>
         <S.payInfo>
           <span className="title">
             <div>주문 금액</div>
@@ -51,7 +54,7 @@ return (
             <div>결제 일시</div>
           </span>
           <span>
-            <div>{urlParams.get('amount')}원</div>
+            <div>{CommaFormat(urlParams.get('amount'))}원</div>
             <div>토스페이/카드</div>
             <div>{payYear}년 {payMonth}월 {payDay}일</div>
           </span>

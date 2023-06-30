@@ -103,6 +103,9 @@ export const ChoiceList = styled.div`
   width: 20%;
   height: 20%;
   margin: 10px;
+  @media screen and (max-width: ${"500px"}) {
+    margin: 7%;
+    }
 `;
 export const Line = styled.div`
   background-color: #d9d9d9;

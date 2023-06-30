@@ -37,10 +37,8 @@ const Detail = () => {
 
   const [like, setLike] = useState<boolean>(false);
 
-  console.log(like)
 
   const { Id } = useParams();
-  console.log(Id)
   const userId = localStorage.getItem("userId")
 
   const { data:getWish, isLoading:wishLoadig, error, refetch } = useCustomQuery(
@@ -59,7 +57,6 @@ const Detail = () => {
     "POST",
       (res:any) => {
         setLike(res.data.data.wishSelected);
-        console.log(res.data.data.wishSelected);// 성공한 뒤의 결과 값 출력
         // 추가적인 로직 수행
       }
 
@@ -85,7 +82,6 @@ const Detail = () => {
   const Items = data.data;
   
   // wish에 해당 item이 포함되어 있는지 확인하는 함수
-  // userId === null ? null : getWish() 
   const hasItemId = userId === null ? null : findItemById(getWish.data);
   function findItemById(items:any) {
     for (let i = 0; i < items.length; i++) {
@@ -95,9 +91,6 @@ const Detail = () => {
     }
     return null;
   }
-  console.log("hasItemId", hasItemId)
-  console.log("Id", Number(Id))
-  // console.log("wish", wish.data)
   
   const openModal = () => {
     SetModalOpen(true);

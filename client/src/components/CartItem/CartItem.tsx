@@ -6,7 +6,6 @@ import Error from "../Error/Error";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { CartItemList, countState, countSelector, totalPriceState } from "../../recoil/atom";
 import axios from "axios";
-import { useCustomMutation } from "../util/useMutation";
 
 
 const CartItem = () => {
@@ -25,7 +24,6 @@ const CartItem = () => {
   if (error) return <Error/>;
   refetch();
   
-  console.log(data.data);
 
   // 상품 개수 추가
   const handleAddCount = (ItemId : any) => {
@@ -37,7 +35,6 @@ const CartItem = () => {
      },   
    })
    .then((res: any) => {
-    console.log(res);
     refetch();
   })
   .catch((err) => {
@@ -88,7 +85,6 @@ const CartItem = () => {
 
   const deleteCart = (shoppingCartId:any) => {
     localStorage.setItem("shoppingCartId", shoppingCartId);
-    console.log(shoppingCartId)
     
     axios(`http://sayo.n-e.kr:8080/shoppingCarts/${shoppingCartId}`, {
      method:'delete',

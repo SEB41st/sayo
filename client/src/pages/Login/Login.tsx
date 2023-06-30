@@ -15,8 +15,6 @@ const Login = () => {
   const refreshToken = searchParams.get("refresh_token") || null;
   const userId = searchParams.get("id") || null;
 
-  console.log(searchParams.get("refresh_token"))
-
   useEffect(() => {
     if (accessToken && userId) {
       localStorage.setItem("accessToken", accessToken);

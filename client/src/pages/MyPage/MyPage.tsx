@@ -1,13 +1,11 @@
 import * as S from "./styled";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCustomQuery } from "../../components/util/useCustomQuery";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import { useState, useEffect } from "react";
-import { useCustomMutation } from "../../components/util/useMutation";
 import axios from "axios";
-import { BsPlusCircle, BsSearch } from "react-icons/bs";
-import {EndImg} from "../../components/EachItem/Styled"
+import { BsPlusCircle } from "react-icons/bs";
 import OrderList from "./OrderList";
 
 const Mypage = () => {
@@ -15,7 +13,6 @@ const Mypage = () => {
   const [imgae, setImgae] = useState("");
   // const [myItem, setMyItem] = useState([]);
 
-  const params = useLocation();
   const userId = localStorage.getItem("userId");
 
   const { data:wish, isLoading:userLoading, error:userError, refetch:wishRefetch } = useCustomQuery(

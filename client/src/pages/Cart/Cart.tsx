@@ -31,8 +31,6 @@ const Cart = () => {
   refetch();
   const Items = data.data;
   
-  
-  console.log(Items);
   return (
     <S.PaymentWrap>
       <S.PaymentContainer>

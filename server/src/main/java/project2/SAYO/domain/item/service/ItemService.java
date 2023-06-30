@@ -136,7 +136,7 @@ public class ItemService {
 
         for(Item item : findItemList){
             LocalDateTime date = LocalDate.parse(item.getItemDateEnd(), format).atStartOfDay();
-            if(date.isAfter(now)){
+            if(date.compareTo(now) < 0){
                 item.setItemStatus(ITEM_END);
             }
         }

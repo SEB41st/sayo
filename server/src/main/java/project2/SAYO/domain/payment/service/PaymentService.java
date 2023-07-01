@@ -12,11 +12,14 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import project2.SAYO.domain.item.entity.Item;
+import project2.SAYO.domain.item.service.ItemService;
 import project2.SAYO.domain.order.service.OrderService;
 import project2.SAYO.domain.payment.dto.PaymentReq;
 import project2.SAYO.domain.payment.dto.PaymentRes;
 import project2.SAYO.domain.payment.dto.PaymentSuccessDto;
 import project2.SAYO.domain.payment.entity.Payment;
+import project2.SAYO.domain.payment.enums.PayType;
+import project2.SAYO.domain.payment.enums.PaymentStatus;
 import project2.SAYO.domain.payment.repository.PaymentRepository;
 import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
 import project2.SAYO.domain.shoppingCart.repository.ShoppingCartItemRepository;
@@ -45,6 +48,7 @@ public class PaymentService {
     private final ShoppingCartItemService  shoppingCartItemService;
     private final ShoppingCartItemRepository shoppingCartItemRepository;
     private final OrderService orderService;
+    private final ItemService itemService;
 
     @Value("${payments.toss.test_secret_api_key}")
     private String testSecretApiKey;
@@ -60,6 +64,33 @@ public class PaymentService {
         }
 
         Payment payment = request.toEntity();
+        payment.setUser(findUser);
+        payment.setUserName(findUser.getProfile().getNickname());
+
+        payment.setCancel(false);
+        payment.setPaymentStatus(READY);
+
+        return paymentRepository.save(payment).toDto();
+    }
+
+    @Transactional
+    public PaymentRes requestOnePayment(long userId, long itemId){
+        User findUser = userService.findVerifiedUser(userId);
+        Item findItem = itemService.findVerifiedItem(itemId);
+
+        Long amount = Long.valueOf(findItem.getItemPrice());
+
+        if(amount == null){
+            throw new BusinessLogicException(ExceptionCode.PAYMENT_ERROR_ORDER_PRICE);
+        }
+
+        Payment payment = Payment.builder()
+                .payType(PayType.CARD)
+                .orderCode(UUID.randomUUID().toString())
+                .amount(amount)
+                .orderName(findItem.getItemName())
+                .paymentStatus(PaymentStatus.READY)
+                .build();
         payment.setUser(findUser);
         payment.setUserName(findUser.getProfile().getNickname());
 

@@ -12,6 +12,8 @@ import project2.SAYO.domain.payment.service.PaymentService;
 import project2.SAYO.global.Response.SingleResponseDto;
 import project2.SAYO.global.loginresolver.LoginUserId;
 
+import javax.validation.constraints.Positive;
+
 @Slf4j
 @RestController
 @Validated
@@ -25,6 +27,13 @@ public class PaymentController {
     public ResponseEntity requestPayments(@RequestBody PaymentReq request,
                                           @LoginUserId Long userId){
         PaymentRes response = paymentService.requestPayments(userId, request);
+        return new ResponseEntity(new SingleResponseDto<>(mapper.paymentResToPayment(response)), HttpStatus.OK);
+    }
+
+    @PostMapping("/item/{item-id}")
+    public ResponseEntity requestOnePayment(@LoginUserId Long userId,
+                                            @PathVariable("item-id") @Positive Long itemId){
+        PaymentRes response = paymentService.requestOnePayment(userId, itemId);
         return new ResponseEntity(new SingleResponseDto<>(mapper.paymentResToPayment(response)), HttpStatus.OK);
     }
 

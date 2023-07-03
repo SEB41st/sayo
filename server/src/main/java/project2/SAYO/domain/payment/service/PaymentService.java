@@ -131,6 +131,33 @@ public class PaymentService {
     }
 
     @Transactional
+    public PaymentSuccessDto paymentOneSuccess(PaymentSuccessDto request, Long userId) {
+        String orderCode = request.getOrderCode();
+        long amount = request.getAmount();
+        String paymentKey = request.getPaymentKey();
+        log.info("amountTest1 = {}", request.getAmount());
+        log.info("paymentKeyTest1 = {}", request.getPaymentKey());
+        log.info("orderCodeTest1 = {}", request.getOrderCode());
+
+        Payment payment = verifyPayment(orderCode, amount);
+        PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderCode, amount);
+        payment.setPaymentKey(paymentKey);
+        payment.setPaymentStatus(PAID);
+        paymentRepository.save(payment);
+
+        List<Item> findShoppingCartItemList = shoppingCartItemRepository.findAll().stream()
+                .filter(a -> a.getUser().getId() == userId)
+                .filter(b -> b.getOrderCheck() == Boolean.TRUE)
+                .filter(c -> c.getShoppingCartSelected() == Boolean.TRUE)
+                .map(ShoppingCartItem::getItem)
+                .collect(Collectors.toList());
+
+        orderService.addOrder(userService.findVerifiedUser(userId), findShoppingCartItemList, payment);
+
+        return result;
+    }
+
+    @Transactional
     public PaymentSuccessDto requestPaymentAccept(String paymentKey, String orderCode, Long amount) {
         log.info("amountTest2 = {}",amount);
         log.info("paymentKeyTest2 = {}", paymentKey);

@@ -47,16 +47,6 @@ public class PaymentController {
         return new ResponseEntity<>(paymentService.paymentSuccess(request, userId), HttpStatus.OK);
     }
 
-    @PostMapping("/successOne")
-    public ResponseEntity paymentOneSuccess( @RequestBody PaymentSuccessDto request,
-                                          @LoginUserId Long userId) {
-        log.info("amountTest = {}", request.getAmount());
-        log.info("paymentKeyTest = {}", request.getPaymentKey());
-        log.info("orderCodeTest = {}", request.getOrderCode());
-
-        return new ResponseEntity<>(paymentService.paymentOneSuccess(request, userId), HttpStatus.OK);
-    }
-
     @PostMapping("/fail")
     public ResponseEntity paymentFail(@RequestBody PaymentFailDto request) {
 

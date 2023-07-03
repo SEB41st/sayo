@@ -22,6 +22,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fail from "./pages/Payment/fail";
 import Success from "./pages/Payment/success";
+import SuccessOne from "./pages/Payment/successOne";
+import PaymantEachItem from "./pages/Payment/PaymentEachItem";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -58,11 +60,13 @@ const App = () => {
         <Route path="/detail/:Id" element={<Detail />} />
         <Route path="/itemList" element={<ItemList />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/paymentEachItem" element={<PaymantEachItem />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/mywishList" element={<MyWishItemList />} />
         <Route path="/myList" element={<MyItemList />} />
         <Route path="/fail" element={<Fail />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/successOne" element={<SuccessOne />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       {!["/sidebar"].includes(location.pathname) && <Footer />}

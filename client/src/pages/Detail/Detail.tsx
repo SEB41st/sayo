@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as S from "./styled";
 import  {  useState } from "react";
 import { BsHeartFill } from "react-icons/bs";
@@ -36,7 +36,7 @@ const Detail = () => {
   const [addCart, setAddCart] = useState<boolean>(false);
 
   const [like, setLike] = useState<boolean>(false);
-
+  const navigate = useNavigate();
 
   const { Id } = useParams();
   const userId = localStorage.getItem("userId")
@@ -73,6 +73,19 @@ const Detail = () => {
 
   const PostCart = () => {
     cartPost({})
+};
+
+const { mutate:paymentPost } = useCustomMutation(
+  `/payments/item/${Id}`,
+  `/payments/item/=${Id}`,
+   "POST",
+   (res:any) => {
+    console.log(res)
+    navigate("/paymentEachItem", { state:Id });
+   });
+
+const buyItem = () => {
+  paymentPost({})
 };
 
   if (wishLoadig) return <Loading></Loading>;
@@ -154,9 +167,9 @@ const haveToLogin = () => {
           </S.goodsDetail>
           <S.ButtonDiv>
             {Items.itemStatus === "ITEM_END" ? <div>판매가 종료된 상품입니다.</div> : userId === null? <S.CartBtn onClick={haveToLogin}>장바구니</S.CartBtn> : <S.CartBtn onClick={PostCart}>장바구니</S.CartBtn>}
-            {/* <S.BuyBtn>
-              <Link to="/payment">바로 구매</Link>
-            </S.BuyBtn> */}
+            {Items.itemStatus === "ITEM_END" ? null : userId === null? <S.CartBtn onClick={haveToLogin}>바로 구매</S.CartBtn> :(
+            <S.BuyBtn onClick={buyItem}>바로 구매</S.BuyBtn>
+            )}
           </S.ButtonDiv>
         </S.ProductInfoDiv>
       </S.DetailContainer>

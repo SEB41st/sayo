@@ -61,6 +61,8 @@ const Mypage = () => {
   console.log(wishItems)
   const myItem = myItemList.data;
   console.log(myItem)
+  const orderData1 = orderData.data;
+  console.log(orderData1)
   
 
   const hasMyId = myItem.filter((item:any) => item.userId === Number(userId));
@@ -126,7 +128,7 @@ const Mypage = () => {
       <S.Line />
       <S.ProductListName>참여 중인 공동구매
       <div>결제 취소를 원하시면 관리자에게 문의하세요 !</div></S.ProductListName>
-      {orderData.length === 0 ? 
+      {orderData.length !== 0 ? 
       orderData.map((item:any) => (
         <OrderList item={item}/>
       )): null

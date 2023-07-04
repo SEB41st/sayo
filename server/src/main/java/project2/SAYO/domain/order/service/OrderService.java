@@ -62,7 +62,6 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         log.info("## OrderService optionalOrder ={}", optionalOrder);
         return optionalOrder.orElseThrow(() -> new BusinessLogicException(ExceptionCode.SHOPPINGCART_NOT_FOUND));
-
     }
 
     public void deleteAll(){

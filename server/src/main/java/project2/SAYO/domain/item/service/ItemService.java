@@ -13,6 +13,8 @@ import project2.SAYO.domain.category.entity.Category;
 import project2.SAYO.domain.category.service.CategoryService;
 import project2.SAYO.domain.item.entity.Item;
 import project2.SAYO.domain.item.repository.ItemRepository;
+import project2.SAYO.domain.shoppingCart.entity.ShoppingCartItem;
+import project2.SAYO.domain.shoppingCart.repository.ShoppingCartItemRepository;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.exception.BusinessLogicException;
@@ -39,6 +41,7 @@ public class ItemService {
     private final UserService userService;
     private final CategoryService categoryService;
     private final AmazonS3Client amazonS3Client;
+    private final ShoppingCartItemRepository shoppingCartItemRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -131,7 +134,8 @@ public class ItemService {
         return findItem;
     }
 
-    @Scheduled(fixedDelay = 14400000)
+    //@Scheduled(fixedDelay = 14400000)
+    @Scheduled(fixedDelay = 10000)
     public void change(){
         List<Item> findItemList = itemRepository.findAll().stream()
                 .filter(a -> a.getItemStatus() == ITEM_PROGRESS)
@@ -152,7 +156,14 @@ public class ItemService {
             } catch (DateTimeParseException e) {
                 e.printStackTrace();
             }
+        }
 
+        List<ShoppingCartItem> shoppingCartItemList = shoppingCartItemRepository.findAll().stream()
+                .filter(a -> a.getItem().getItemStatus().equals(ITEM_END))
+                .collect(Collectors.toList());
+
+        for(ShoppingCartItem shoppingCartItem : shoppingCartItemList){
+            shoppingCartItemRepository.delete(shoppingCartItem);
         }
     }
 }

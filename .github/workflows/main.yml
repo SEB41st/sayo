@@ -17,6 +17,15 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@master
  
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Working Directory
+        run: cd path/to/your/directory
+
+      - name: Perform Actions in Working Directory
+        run: |
+        
       - name: Cache node modules
         uses: actions/cache@v1
         with:

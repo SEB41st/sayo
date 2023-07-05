@@ -35,13 +35,6 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
 
-      - name: Check if package.json exists
-        run: |
-          if [ ! -f "package.json" ]; then
-            echo "package.json does not exist"
-            exit 1
-          fi
-
       - name: Install Dependencies
         run: npm install
  

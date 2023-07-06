@@ -14,6 +14,7 @@ public enum ExceptionCode {
     TOKEN_NOT_ALLOW(404, "Token not allow"),
     REFRESH_TOKEN_NOT_EQUAL(404, "Refresh token doesn't equal"),
     REFRESH_TOKEN_NOT_ALLOW(404, "Token not allow"),
+    USER_IS_QUIT_USER(404, "탈퇴한 회원입니다. 재가입을 해주세요."),
 
     // JWT, 인증관련
     ACCESS_TOKEN_NOT_FOUND(404,"Access Token을 찾을 수 없습니다."),

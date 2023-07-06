@@ -3,6 +3,7 @@ package project2.SAYO.global.auth.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -59,16 +60,32 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         ObjectMapper objectMapper = new ObjectMapper();
         // ServletInputSteam을 LoginDto 클래스 객체로 역직렬화 (즉, JSON 객체꺼냄)
-        LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
-        log.info("# attemptAuthentication : loginDto.getEmail={}, login.getPassword={}",
-                loginDto.getEmail(),loginDto.getPassword());
 
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
+        try{
+            LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+            log.info("# attemptAuthentication : loginDto.getEmail={}, login.getPassword={}",
+                    loginDto.getEmail(),loginDto.getPassword());
+            User user =userService.findVerifiedUser(loginDto.getEmail());
 
-        return authenticationManager.authenticate(authenticationToken);
+            log.info("## longinUser Status = {}", user.getUserStatus());
+            log.info("## equalsStatus = {}", user.getUserStatus().equals(User.UserStatus.USER_QUIT));
+
+
+            if(user.getUserStatus().equals(User.UserStatus.USER_QUIT)) {
+                throw new BusinessLogicException(ExceptionCode.USER_NOT_ACTIVE);
+            } // 회원의 상태가 휴면중이거나 삭제했다면 로그인 실패
+
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
+
+            return authenticationManager.authenticate(authenticationToken);
+        }catch(Exception e){
+            response.setStatus(HttpStatus.UNAUTHORIZED.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
+            response.getWriter().write("탈퇴한 회원입니다. 재가입을 원하실 경우 관리자에게 문의해 주세요."); // 예시로 사용자 정의 에러 메시지 반환
+            response.getWriter().flush();
+            return null; // 예외 처리 후 Authentication 객체를 반환하지 않음
+        }
     }
-
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
@@ -79,7 +96,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         TokenDto tokenDto = tokenProvider.generateTokenDto(authUser);
         String accessToken = tokenDto.getAccessToken(); // accessToken 만들기
 
-/*        if(authUser.getUserStatus() == User.UserStatus.USER_QUIT || authUser.getUserStatus() == User.UserStatus.USER_SLEEP) {
+        /*if(authUser.getUserStatus() == User.UserStatus.USER_QUIT || authUser.getUserStatus() == User.UserStatus.USER_SLEEP) {
             throw new BusinessLogicException(ExceptionCode.USER_NOT_ACTIVE);
         } // 회원의 상태가 휴면중이거나 삭제했다면 로그인 실패*/
 

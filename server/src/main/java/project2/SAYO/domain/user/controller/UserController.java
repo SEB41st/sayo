@@ -56,6 +56,12 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(url), HttpStatus.CREATED);
     }
 
+    @PostMapping("/{user-id}")
+    public ResponseEntity reCreate(@PathVariable("user-id") Long userId){
+        userService.recreateuser(userId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @PostMapping("/reissue")
     public ResponseEntity reissue(HttpServletRequest request,
                                   HttpServletResponse response) {

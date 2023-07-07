@@ -70,7 +70,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             log.info("## longinUser Status = {}", user.getUserStatus());
             log.info("## equalsStatus = {}", user.getUserStatus().equals(User.UserStatus.USER_QUIT));
 
-
             if(user.getUserStatus().equals(User.UserStatus.USER_QUIT)) {
                 throw new BusinessLogicException(ExceptionCode.USER_NOT_ACTIVE);
             } // 회원의 상태가 휴면중이거나 삭제했다면 로그인 실패
@@ -80,7 +79,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             return authenticationManager.authenticate(authenticationToken);
         }catch(Exception e){
-            response.setStatus(HttpStatus.UNAUTHORIZED.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
+            response.setStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
             response.getWriter().write("탈퇴한 회원입니다. 재가입을 원하실 경우 관리자에게 문의해 주세요."); // 예시로 사용자 정의 에러 메시지 반환
             response.getWriter().flush();
             return null; // 예외 처리 후 Authentication 객체를 반환하지 않음

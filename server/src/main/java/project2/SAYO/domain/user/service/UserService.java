@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.config.AES128Config;
+import project2.SAYO.domain.refreshToken.entity.RefreshToken;
+import project2.SAYO.domain.refreshToken.repository.RefreshTokenRepository;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.enums.ProfileImage;
 import project2.SAYO.domain.user.repository.UserRepository;
@@ -48,6 +50,7 @@ public class UserService {
     private final RedisDao redisDao;
     private final ApplicationEventPublisher publisher;
     private final AES128Config aes128Config;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());
@@ -73,7 +76,11 @@ public class UserService {
     // OAuth2 인증 완료후 회원가입 및 업데이트
     public User createOauth2User(OAuthUserProfile userProfile, List<String> roles) {
         Optional<User> user = userRepository.findByEmail(userProfile.getEmail());
+
         if(user.isPresent()) {
+            if(user.get().getUserStatus().equals(User.UserStatus.USER_QUIT)){
+                throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+            }
             if(user.get().getOAuthStatus().equals(OAUTH)) {
                 return user
                         .map(u -> u.oauthUpdate(userProfile.getName(), userProfile.getEmail(), userProfile.getImage(), roles,OAUTH))
@@ -85,6 +92,15 @@ public class UserService {
             User oauth2User = userProfile.createOauth2User(userProfile.getName(), userProfile.getEmail(), userProfile.getImage(), roles,OAUTH);
             return userRepository.save(oauth2User);
         }
+    }
+
+    // 회원 탈퇴 후 재가입
+    public User recreateuser(Long userId){
+        User user = findVerifiedUser(userId);
+        if(user.getUserStatus().equals(User.UserStatus.USER_QUIT)){
+            user.changeUserStatus(User.UserStatus.USER_ACTIVE);
+        }
+        return userRepository.save(user);
     }
 
     public User updateUser(User user, Long userId) {
@@ -159,6 +175,7 @@ public class UserService {
             redisDao.deleteValues(refreshToken);
         }
         deleteValuesCheck(refreshToken);
+
         log.info("로그아웃 서비스로직 수행 완료!");
     }
 
@@ -198,7 +215,14 @@ public class UserService {
 
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
-        if (user.isPresent()) throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+
+        if (user.isPresent()){
+            if(user.get().getUserStatus().equals(User.UserStatus.USER_QUIT)){
+                throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+            }else{
+                throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+            }
+        }
     }
 
     public void validatedRefreshToken(String refreshToken){

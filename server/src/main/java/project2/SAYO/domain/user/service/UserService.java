@@ -10,8 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.SAYO.config.AES128Config;
-import project2.SAYO.domain.refreshToken.entity.RefreshToken;
-import project2.SAYO.domain.refreshToken.repository.RefreshTokenRepository;
 import project2.SAYO.domain.user.entity.User;
 import project2.SAYO.domain.user.enums.ProfileImage;
 import project2.SAYO.domain.user.repository.UserRepository;
@@ -50,7 +48,6 @@ public class UserService {
     private final RedisDao redisDao;
     private final ApplicationEventPublisher publisher;
     private final AES128Config aes128Config;
-    private final RefreshTokenRepository refreshTokenRepository;
 
     public User createUser(User user){
         verifyExistsEmail(user.getEmail());

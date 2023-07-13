@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Working Directory
-        run: cd client
+        run: cd sayo/client
         
       - name: Cache node modules
         uses: actions/cache@v2

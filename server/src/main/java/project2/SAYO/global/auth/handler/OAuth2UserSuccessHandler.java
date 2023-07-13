@@ -61,15 +61,9 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         OAuthUserProfile oAuthUserProfile = OAuthAttributes.extract(registrationId, attributes); // OAuth2Profile 생성
         User user = userService.createOauth2User(oAuthUserProfile, roles); // DB에 권한과 정보 저장 (권한은 1:N 테이블로 설계)
 
-        /*catch(BusinessLogicException e){
-            response.setStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
-            response.getWriter().write("탈퇴한 회원입니다. 재가입을 원하실 경우 관리자에게 문의해 주세요."); // 예시로 사용자 정의 에러 메시지 반환
-            response.getWriter().flush();
-           throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
-        }*/
-
         AuthUser authUser = AuthUser.of(user);
         Long userId = authUser.getId();
+        log.info("## AuthUser userId = {}", authUser.getId());
 
         try{
             if(user.getUserStatus().equals(User.UserStatus.USER_QUIT)) {
@@ -86,12 +80,14 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
                 // 리다이렉트를 하기위한 정보들을 보내줌
                 redirect(request, response, accessToken, refreshToken, userId);
             }
-        } catch(BusinessLogicException e){
-           // response.sendRedirect("http://sayo.s3-website.ap-northeast-2.amazonaws.com");
+        }catch(BusinessLogicException e){
+            response.sendRedirect("http://sayo.s3-website.ap-northeast-2.amazonaws.com/login");
             response.setStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
             response.getWriter().write("탈퇴한 회원입니다. 재가입을 원하실 경우 관리자에게 문의해 주세요."); // 예시로 사용자 정의 에러 메시지 반환
             response.getWriter().flush();
-            throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+
+            //콘솔에 아무것도 찍히지 않음.
+
             //throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
         }
 

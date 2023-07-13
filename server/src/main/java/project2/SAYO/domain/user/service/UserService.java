@@ -75,9 +75,9 @@ public class UserService {
         Optional<User> user = userRepository.findByEmail(userProfile.getEmail());
 
         if(user.isPresent()) {
-            if(user.get().getUserStatus().equals(User.UserStatus.USER_QUIT)){
-                throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
-            }
+            /*if(user.get().getUserStatus().equals(User.UserStatus.USER_QUIT)){
+                return findVerifiedUser(user.get().getId());
+            }*/
             if(user.get().getOAuthStatus().equals(OAUTH)) {
                 return user
                         .map(u -> u.oauthUpdate(userProfile.getName(), userProfile.getEmail(), userProfile.getImage(), roles,OAUTH))

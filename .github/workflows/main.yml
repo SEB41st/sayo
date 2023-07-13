@@ -36,7 +36,7 @@ jobs:
         run: npm install --prefix client
  
       - name: Build
-        run: npm run build --prefix client
+        run: unset CI && npm run build
  
       - name: Deploy
         env:

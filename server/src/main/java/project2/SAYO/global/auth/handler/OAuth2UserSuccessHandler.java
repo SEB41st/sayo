@@ -2,6 +2,8 @@ package project2.SAYO.global.auth.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.buf.ByteChunk;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -14,6 +16,8 @@ import project2.SAYO.domain.user.service.UserService;
 import project2.SAYO.global.auth.dto.TokenDto;
 import project2.SAYO.global.auth.jwt.TokenProvider;
 import project2.SAYO.global.auth.userDetails.AuthUser;
+import project2.SAYO.global.exception.BusinessLogicException;
+import project2.SAYO.global.exception.ExceptionCode;
 import project2.SAYO.global.oauth.OAuthAttributes;
 import project2.SAYO.global.oauth.OAuthCustomUser;
 import project2.SAYO.global.oauth.OAuthUserProfile;
@@ -48,7 +52,6 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
         String registrationId = oAuthCustomUser.getName();
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) oAuthCustomUser.getAuthorities();
 
-
         List<String> roles = authorities.stream()
                 .map(authority -> {
                     return authority.getAuthority().substring(5);
@@ -57,19 +60,41 @@ public class OAuth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHand
 
         OAuthUserProfile oAuthUserProfile = OAuthAttributes.extract(registrationId, attributes); // OAuth2Profile 생성
         User user = userService.createOauth2User(oAuthUserProfile, roles); // DB에 권한과 정보 저장 (권한은 1:N 테이블로 설계)
+
+        /*catch(BusinessLogicException e){
+            response.setStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
+            response.getWriter().write("탈퇴한 회원입니다. 재가입을 원하실 경우 관리자에게 문의해 주세요."); // 예시로 사용자 정의 에러 메시지 반환
+            response.getWriter().flush();
+           throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+        }*/
+
         AuthUser authUser = AuthUser.of(user);
         Long userId = authUser.getId();
 
-        log.info("# OAuth2.0 AuthenticationSuccess !");
+        try{
+            if(user.getUserStatus().equals(User.UserStatus.USER_QUIT)) {
+                throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+            }else{
+                log.info("# OAuth2.0 AuthenticationSuccess !");
 
-        TokenDto tokenDto = tokenProvider.generateTokenDto(authUser);
-        String accessToken = tokenDto.getAccessToken(); // accessToken 만들기
-        String refreshToken = tokenDto.getRefreshToken(); // refreshToken 만들기
+                TokenDto tokenDto = tokenProvider.generateTokenDto(authUser);
+                String accessToken = tokenDto.getAccessToken(); // accessToken 만들기
+                String refreshToken = tokenDto.getRefreshToken(); // refreshToken 만들기
 
-        log.info("# OAuth2.0 Token generated complete!");
+                log.info("# OAuth2.0 Token generated complete!");
 
-        // 리다이렉트를 하기위한 정보들을 보내줌
-        redirect(request,response,accessToken,refreshToken, userId);
+                // 리다이렉트를 하기위한 정보들을 보내줌
+                redirect(request, response, accessToken, refreshToken, userId);
+            }
+        } catch(BusinessLogicException e){
+           // response.sendRedirect("http://sayo.s3-website.ap-northeast-2.amazonaws.com");
+            response.setStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value()); // 예시로 UNAUTHORIZED 상태 코드 반환
+            response.getWriter().write("탈퇴한 회원입니다. 재가입을 원하실 경우 관리자에게 문의해 주세요."); // 예시로 사용자 정의 에러 메시지 반환
+            response.getWriter().flush();
+            throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+            //throw new BusinessLogicException(ExceptionCode.USER_IS_QUIT_USER);
+        }
+
     }
 
     private void redirect(HttpServletRequest request,

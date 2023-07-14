@@ -81,10 +81,13 @@ const MyInfo = () => {
       }
     )
     .then((res) => {
-
       console.log("성공")
     })
     .catch((err) => {
+      if (err.status === 500) {
+        toast.success("회원 탈퇴된 아이디입니다")
+        // navigate("/");
+      }
       console.log(err);
 
     });

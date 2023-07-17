@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import GlobalStyle from "./Style/globalStyle";
@@ -24,6 +23,7 @@ import Fail from "./pages/Payment/fail";
 import Success from "./pages/Payment/success";
 import SuccessOne from "./pages/Payment/successOne";
 import PaymantEachItem from "./pages/Payment/PaymentEachItem";
+import Rejoin from "./components/Rejoin/Rejoin";
 
 const Domain = styled.div`
   min-width: 22.5rem;
@@ -68,6 +68,7 @@ const App = () => {
         <Route path="/success" element={<Success />} />
         <Route path="/successOne" element={<SuccessOne />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/rejoin" element={<Rejoin />} />
       </Routes>
       {!["/sidebar"].includes(location.pathname) && <Footer />}
     </Domain>

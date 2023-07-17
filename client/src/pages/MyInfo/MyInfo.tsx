@@ -81,7 +81,9 @@ const MyInfo = () => {
       }
     )
     .then((res) => {
-      console.log("성공")
+      localStorage.clear();
+      toast.info('아쉽지만 회원탈퇴 되었습니다.. 다시 만나요!')
+      navigate('/')
     })
     .catch((err) => {
       if (err.status === 500) {

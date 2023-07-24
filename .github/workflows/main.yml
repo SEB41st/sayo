@@ -37,6 +37,8 @@ jobs:
  
       - name: Build
         run: cd client && npm run build
+        env:
+          CI: ''
  
       - name: Deploy
         env:

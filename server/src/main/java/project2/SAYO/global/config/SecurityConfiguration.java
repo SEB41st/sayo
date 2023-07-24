@@ -57,14 +57,42 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        // user
                         .antMatchers(HttpMethod.POST, "/users/login").permitAll()
                         .antMatchers(HttpMethod.POST, "/users").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/users/*").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .antMatchers(HttpMethod.GET, "/users/*").hasAnyRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/users/*").hasRole("USER")
+                        // address
+                        .antMatchers(HttpMethod.POST, "/address").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/address").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/address").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/address").hasRole("USER")
+                        // category
                         .antMatchers(HttpMethod.POST, "/categories").hasRole("ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/categories").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET,  "/categories").hasRole("USER")
+                        // item
+                        .antMatchers(HttpMethod.POST, "/items").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/items").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/items").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/items").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/items/delete").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/items/delete/*").hasRole("USER")
+                        // order
+                        .antMatchers(HttpMethod.GET, "/orders").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/orders").hasRole("USER")
+                        // shoppingCart
+                        .antMatchers(HttpMethod.POST, "/shoppingCarts").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/shoppingCarts").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/shoppingCarts").hasRole("USER")
+                        // wish
+                        .antMatchers(HttpMethod.POST, "/wishes").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/wishes").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/wishes").hasRole("USER")
+                        // payment
+                        .antMatchers(HttpMethod.POST, "/payments").hasRole("USER")
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2

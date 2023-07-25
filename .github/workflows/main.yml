@@ -1,0 +1,50 @@
+# main-deploy.yml
+ 
+name: Deploy to Production
+ 
+on:
+  push:
+    branches:
+      - refec
+  pull_request:
+    branches:
+      - refec
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@master
+ 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Working Directory
+        run: cd client
+        
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: client/node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('client/**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: npm install --prefix client
+ 
+      - name: Build
+        run: cd client && npm run build
+        env:
+          CI: ''
+ 
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+        run: |
+          aws s3 sync \
+            --region ap-northeast-2 \
+            build s3://sayo

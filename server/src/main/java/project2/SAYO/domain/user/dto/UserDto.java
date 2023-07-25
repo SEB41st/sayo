@@ -48,7 +48,7 @@ public class UserDto {
 
         private User.UserStatus userStatus;
 
-        private List<Address> addressList;
+        private Address addressList;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
       /*  private Double latitude;
@@ -56,7 +56,7 @@ public class UserDto {
 */
         @Builder
         public GetResponse(Long id, String email, List<String> role, Profile profile, LocalDateTime createdAt, LocalDateTime modifiedAt,
-                           List<Address> addressList,
+                           Address addressList,
                            User.UserStatus userStatus/*,
                            Double latitude, Double longitude*/){
             this.id = id;

@@ -28,7 +28,8 @@ public class AddressService {
 
     public Address createAddress(Address address, Long userId) {
         User currentUser = userService.findVerifiedUser(userId);
-        currentUser.addAddressList(address);
+        if(addressRepository.findByUserId(userId).isPresent()) throw new BusinessLogicException(ExceptionCode.ADDRESS_IS_PRESENT);
+        currentUser.addAddress(address);
         address.addUser(currentUser);
 
         return addressRepository.save(address);

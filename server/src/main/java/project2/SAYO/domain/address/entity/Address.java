@@ -32,7 +32,7 @@ public class Address extends Auditable {
     private String detailAddress; // 상세 주소
 
     @JsonBackReference
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     @Setter
     private User user;

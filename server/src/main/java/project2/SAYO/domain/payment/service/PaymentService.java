@@ -65,7 +65,7 @@ public class PaymentService {
 
         Payment payment = request.toEntity();
         payment.setUser(findUser);
-        payment.setUserName(findUser.getAddress().getAddressUserName());
+        payment.setUserName(findUser.getProfile().getNickname());
 
         payment.setCancel(false);
         payment.setPaymentStatus(READY);

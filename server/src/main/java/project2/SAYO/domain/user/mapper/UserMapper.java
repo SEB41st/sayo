@@ -43,7 +43,7 @@ public interface UserMapper {
                 .email(user.getEmail())
                 .profile(user.getProfile())
                 .role(user.getRoles())
-                .addressList(user.getAddress())
+                .addressList(user.getAddressList())
                 .createdAt(user.getCreatedAt())
                 .modifiedAt(user.getModifiedAt())
                 .userStatus(user.getUserStatus())

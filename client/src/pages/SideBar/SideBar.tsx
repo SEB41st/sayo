@@ -1,12 +1,29 @@
 import * as S from "./styled";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
-const SideBar = () => {
+const SideBar = ({ isOpen, setIsOpen }:any) => {
     const [ItemToggleMenu, setItemToggleMenu] = useState(false);
     const [MypageToggleMenu, setMypageToggleMenu] = useState(false);
     let userId = localStorage.getItem("userId")
+    const outside = useRef<any>();
+ 
+    useEffect(() => {
+        document.addEventListener('mousedown', handlerOutsie);
+        return () => {
+        document.removeEventListener('mousedown', handlerOutsie);
+        };
+    });
+    
+    const handlerOutsie = (e: any) => {
+        if (!outside.current.contains(e.target)) {
+          toggleSide();
+        }
+      };
+      const toggleSide = () => {
+        setIsOpen(false);
+      };
 
     const ItemToggleChange = () => {
         setItemToggleMenu(!ItemToggleMenu)
@@ -19,12 +36,13 @@ const SideBar = () => {
     }
 
     return (
-        <S.SidebarWrap>
+        <S.SidebarWrap id="sidebar" ref={outside} className={isOpen ? 'open' : ''}>
             <S.HeaderMain>
                 <Link to ="/">
                     <S.LogoImg src="/assets/WhiteLogo.png" alt ="" ></S.LogoImg>
                 </Link>
-                <S.NavBack to="/">x</S.NavBack>
+                {/* <S.NavBack to="/">x</S.NavBack> */}
+                <S.NavBack onClick={() => setIsOpen(false)}>x</S.NavBack>
             </S.HeaderMain>
             <S.Main>
                 <S.MenuTitle>

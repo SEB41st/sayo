@@ -2,18 +2,29 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 export const SidebarWrap = styled.div`
-    width: 100vw;
-    height: 100%;
-    display: grid;
-    /* @media screen and (min-width: ${"700px"}) {
-    width: 25%;
-    height: 100%;
-  } */
+ z-index: 5;
+  padding: 12px;
+  border-radius: 15px 0 0 15px;
+  background-color: #ffffff;
+  height: 100%;
+  width: 55%;
+  right: -55%;
+  top: 0;
+  position: fixed;
+  transition: 0.5s ease;
+  &.open {
+    right: 0;
+    transition: 0.5s ease;
+  } 
+  @media screen and (max-width: ${"500px"}) {
+    width: 80%;
+    right: -80%;
+  }
 `
 
 export const Main = styled.div`
-    width: 100vw;
-    height: 100%;
+    width: 95%;
+    height: 90%;
     display: grid;
     `
 
@@ -40,7 +51,7 @@ export const HeaderMain = styled.div`
   } */
     `
 
-export const NavBack = styled(NavLink)`
+export const NavBack = styled.button`
     margin-right: 10%;
     align-items: center;
     font-size: 1.5rem;

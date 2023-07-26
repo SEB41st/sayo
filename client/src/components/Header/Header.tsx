@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { RxHamburgerMenu,RxPerson } from 'react-icons/rx';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SideBar from "../../pages/SideBar/SideBar";
 
 const Header = () => {
     let userId = localStorage.getItem("userId")
     const [img, setImg] = useState()
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
+    const handleToggleOpen = () => {
+      setIsOpen(!isOpen);
+    }
     useEffect(()=> {
         axios
         .get(`http://sayo.n-e.kr:8080/users/${userId}/mypage`,
@@ -39,9 +44,10 @@ const Header = () => {
                     <RxPerson className="personIcon"/>
                 </S.Login>
             }
-            <Link to="/sidebar">
-                <RxHamburgerMenu className="hambergerbar"/>
-            </Link>
+            {/* <Link to="/sidebar"> */}
+                <RxHamburgerMenu onClick={handleToggleOpen} className="hambergerbar"/>
+                <SideBar isOpen={isOpen} setIsOpen={setIsOpen}/>
+            {/* </Link> */}
         </S.HeaderLogo>
     </S.HeaderMain>
     )

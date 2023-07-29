@@ -39,8 +39,9 @@ public class User extends Auditable {
     private OAuthStatus oAuthStatus;
 
     @JsonManagedReference
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID")
+    @Setter
     private Address address;
 
     public void addAddress(Address address) {

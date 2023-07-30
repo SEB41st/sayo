@@ -44,8 +44,8 @@ public class User extends Auditable {
     @Setter
     private Address address;
 
-    public void addAddress(Address address) {
-        this.address = address;
+    public void addAddressList(Address address) {
+        addressList.add(address);
     }
 
     public enum OAuthStatus {

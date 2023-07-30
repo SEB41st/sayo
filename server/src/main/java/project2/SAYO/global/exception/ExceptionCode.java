@@ -51,6 +51,7 @@ public enum ExceptionCode {
 
     // Address
     ADDRESS_NOT_FOUND(404, "Address not found"),
+    ADDRESS_IS_PRESENT(404, "Address is present"),
 
     //Category
     CATEGORY_NOT_FOUND(404, "Category not found"),

@@ -39,8 +39,10 @@ public class User extends Auditable {
     private OAuthStatus oAuthStatus;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Address> addressList;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ADDRESS_ID")
+    @Setter
+    private Address address;
 
     public void addAddressList(Address address) {
         addressList.add(address);

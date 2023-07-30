@@ -32,6 +32,7 @@ public class AddressController {
     @PostMapping
     public ResponseEntity postAddress(@LoginUserId Long userId,
                                       @RequestBody AddressDto.Post postRequest) {
+        log.info("####1 로그인 회원 = {}", userId);
         Address addressForService = addressMapper.addressPostToAddress(postRequest);
         Address addressForResponse = addressService.createAddress(addressForService, userId);
         AddressDto.Response response = addressMapper.addressToAddressResponse(addressForResponse);

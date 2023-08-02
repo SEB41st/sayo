@@ -3,7 +3,6 @@ import { Lists, ChoiceList, ItemImg, ItemName, OrderDateStyled } from "./styled"
 
 
 const OrderList = (item: any) => {
-  console.log(item);
   const CommaFormat = (x:any) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }

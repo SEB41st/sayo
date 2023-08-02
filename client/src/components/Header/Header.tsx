@@ -22,7 +22,6 @@ const Header = () => {
           },
         })
         .then((res) => {
-          console.log(res.data.data.profile[0].image)
           setImg(res.data.data.profile[0].image)
         })
         .catch((error) => {

@@ -27,12 +27,10 @@ const SideBar = ({ isOpen, setIsOpen }:any) => {
 
     const ItemToggleChange = () => {
         setItemToggleMenu(!ItemToggleMenu)
-        console.log("toggleMenu1 " + ItemToggleMenu)
     }
 
     const MypageToggleChange = () => {
         setMypageToggleMenu(!MypageToggleMenu)
-        console.log("toggleMenu2 "+MypageToggleMenu)
     }
 
     return (

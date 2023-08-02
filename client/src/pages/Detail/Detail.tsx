@@ -172,17 +172,12 @@ const haveToLogin = () => {
             )}
           </S.ButtonDiv>
         </S.ProductInfoDiv>
-      </S.DetailContainer>
-      {addCart ? 
+      </S.DetailContainer> 
       <Modal
         open={modalOpen}
         close={closeModal}
         header="장바구니에 상품이 성공적으로 담겼습니다."
-      ><div>장바구니로 이동하시겠습니까?</div></Modal>:<Modal
-        open={modalOpen}
-        close={closeModal}
-        header="장바구니에 상품이 정상적으로 삭제되었습니다."
-      ><div>장바구니에 담으시려면 장바구니 버튼을 한번 더 눌러주세요</div></Modal>}
+      ><div>장바구니로 이동하시겠습니까?</div></Modal>
       <S.DetailDiv>
         <div className="DetailInfo">상세정보</div>
         <div className="DetailInfoTxt">{Items.itemBody}</div>

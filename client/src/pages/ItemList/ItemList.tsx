@@ -15,13 +15,11 @@ const ItemList = () => {
   const [totalElements, setTotalElements] = useState(100);
   const [clicked, setclick] = useState<boolean>(false)
 
-  console.log(page)
   useEffect(() => {
     axios
       .get(`http://sayo.n-e.kr:8080/categories`)
       .then((res) => {
         setCategory(res.data.data);
-        console.log(category);
       })
       .catch((error) => {
         console.log(error);
@@ -98,12 +96,12 @@ const ItemList = () => {
             
           </S.GoodsList>
           <Pagination
-        activePage={activePage}
-        itemsCountPerPage={9}
-        totalItemsCount={totalItemCount}
-        pageRangeDisplayed={5}
-        onChange={handlePageChange}
-      />
+            activePage={activePage}
+            itemsCountPerPage={9}
+            totalItemsCount={totalItemCount}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+          />
 
       </S.MainList>
     </S.Main>

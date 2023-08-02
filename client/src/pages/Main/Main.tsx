@@ -39,7 +39,7 @@ const Main = () => {
         <S.Title>최신 공동구매 상품</S.Title>
         <S.Menus>
           <h4 className="font">
-        <div>더 많은 상품을 보고 싶다면 ?</div>
+        {/* <div>더 많은 상품을 보고 싶다면 ?</div> */}
             전체 상품 보기
             <Link to="/itemList">
               <BsPlusCircle className="plusIcon" />

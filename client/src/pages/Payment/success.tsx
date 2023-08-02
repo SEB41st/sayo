@@ -7,8 +7,6 @@ const Success = () => {
     const Url:any = window.location.href;
     const url = new URL(Url);
 
-    let today = new Date();
-    console.log(today)
     let payYear = moment().format('YYYY')
     let payMonth = moment().format('MM')
     let payDay = moment().format('DD')

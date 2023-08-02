@@ -32,7 +32,6 @@ const MapContainer = () => {
     }
   };
   const search = () => {
-    console.log(value);
     setSearchValue(value);
   };
 

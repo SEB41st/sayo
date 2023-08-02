@@ -37,7 +37,6 @@ const Write = () => {
   });
 
   const submitKeyPress = () => {
-    console.log(uploadedFile)
     mutate({
       itemName: goodsName,
       itemPicture: uploadedFile,
@@ -74,7 +73,6 @@ const Write = () => {
       const uploadFile = e.target.files[0];
       const formData = new FormData();
       formData.append("itemPicture", uploadFile);
-      console.log(formData.getAll("itemPicture"));
 
       axios
         .post(`http://sayo.n-e.kr:8080/items/upload`, formData, {
